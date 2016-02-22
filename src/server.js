@@ -141,6 +141,7 @@ var app = express();
 
 app.set('views', __dirname + '/public/views');
 app.set('view engine', 'html');
+app.set('port', (proccess.env.PORT || 3000))
 app.engine('html', require('ejs').renderFile);
 app.use(morgan('combined'));
 app.use(express.static(__dirname + '/public'));
@@ -245,8 +246,8 @@ app.get('/logout', function(req, res){
   res.redirect('/');
 });
 
-app.listen(3000, function() {
-  console.log('Express server listening on port 3000');
+app.listen(app.get('port'), function() {
+  console.log('Express server listening on port', app.get('port'));
 });
 
 
