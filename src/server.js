@@ -141,7 +141,7 @@ var app = express();
 
 app.set('views', __dirname + '/public/views');
 app.set('view engine', 'html');
-app.set('port', (proccess.env.PORT || 3000))
+app.set('port', (process.env.PORT || 3000))
 app.engine('html', require('ejs').renderFile);
 app.use(morgan('combined'));
 app.use(express.static(__dirname + '/public'));
