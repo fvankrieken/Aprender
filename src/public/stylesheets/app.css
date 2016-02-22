@@ -2,6 +2,165 @@ body {
    font-family: Avenir-Roman;
 }
 
+.mainTitle{
+	text-align: center;
+	font-size: 48px;
+	font-face: Avenir-Roman;
+	letter-spacing: 1.1px;
+	color: #f25d53;
+	padding: 80px;
+}
+
+#pages li {
+display:inline-block;
+font-size: 14px;
+	font-face: Avenir-Medium;
+	letter-spacing: 0.8px;
+	line-height: 20px;
+	color: #4a4a4a;
+}
+
+.indexMain {
+	margin: auto;
+	margin-top: 1px;
+	width: 100%;
+	height: auto;
+	background-color: #f2f2f2;
+	
+}
+
+.mainIcon {
+	height: 130px;
+	width: 130px;
+}
+
+
+.kid {
+	margin: auto;
+	margin-top: 2px;
+	width: 1024px;
+	height: 1px;
+}
+
+.bluetext {
+	margin: 30px;
+	padding: 8px 33px;
+	width: 534px;
+	height: 174px;
+	opacity: 0.9;
+	background-color: #3a9ad9;
+	box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.5);
+	text-align: center;
+
+
+	font-size: 20px;
+	font-face: Avenir-Light;
+	color: #ffffff;
+}
+
+.RTHead {
+	color: #2977c2;
+	font-face: Avenir-Roman;
+	font-size: 18px;
+}
+
+.greytext {
+	padding: 35px;
+	width: 100%;
+	height: auto;
+	border-style: solid;
+	border-color: #ccc;
+	border-width: 0 0 1.5px 1.5px;
+
+	opacity: 0.999999;
+	background-color: #f2f2f2;
+	box-shadow: inner 0 0 3px 0 rgba(0, 0, 0, 0.5);
+	font-size: 16px;
+	font-face: Avenir-Book;
+	color: #000;
+}
+
+.icon1 {
+	float:right;
+	width: 159px;
+	height:147px;
+	margin-top: 23px;
+}
+
+.icon2 {
+	float:left;
+	width: 172px;
+	height:169px;
+	margin-top: 14px;
+	margin-right: 30px;
+}
+
+.icon3 {
+	float:right;
+	width: 218px;
+	height:131px;
+	margin-top: 42px;
+}
+
+.icon4 {
+	float:left;
+	width: 190px;
+	height:139px;
+	margin-top: 57px;
+	margin-right: 30px;
+}
+
+.icon5 {
+	float:right;
+	width: 423px;
+	height:63px;
+	margin-top: 72px;
+}
+
+.whitetext {
+	padding: 30px 25px 5px 35px;
+	width: 100%;
+	height: auto;
+	background-color: #ffffff;
+	box-shadow: inner 0 0 3px 0 rgba(0, 0, 0, 0.5);
+	font-size: 16px;
+	font-face: Avenir-Book;
+	color: #000;
+}
+
+.whitetext2 {
+	padding: 30px 15px 5px 35px;
+	width: 100%;
+	height: auto;
+	background-color: #ffffff;
+	box-shadow: inner 0 0 3px 0 rgba(0, 0, 0, 0.5);
+	font-size: 16px;
+	font-face: Avenir-Book;
+	color: #000;
+}
+
+.bbluetext {
+	padding: 13px 20px 5px 20px;
+	width: 100%;
+	height: auto;
+	background-color: #3a9ad9;
+	box-shadow: inner 0 0 3px 0 rgba(0, 0, 0, 0.5);
+	font-size: 16px;
+	font-face: Avenir-Book;
+	color: #ffffff;
+}
+
+.redtext {
+	padding: 13px 20px 5px 20px;
+	width: 100%;
+	height: auto;
+	background-color: #f25d53;
+	box-shadow: inner 0 0 3px 0 rgba(0, 0, 0, 0.5);
+	font-size: 16px;
+	font-face: Avenir-Book;
+	color: #ffffff;
+}
+
 .top-bar {
 	padding: 0px;
 }
@@ -11,6 +170,12 @@ li a {
 	font-family: Avenir-Medium;
 	letter-spacing: 0.3px;
 	color: #9b9b9b;
+}
+
+.Apr {
+	height: 60px;
+	width: 60px;
+	padding-top: 0px;
 }
 
 .main {

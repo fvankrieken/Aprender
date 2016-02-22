@@ -1,11 +1,24 @@
 <form action="/upload" method="POST" enctype="multipart/form-data">
-    info:
-    <input type="text" name="funcName">
-    <input type="text" name="title">
-    <input type="text" name="descript">
-    <input type="text" name="competencias">
+    <p>Title:
+        <input type="text" name="title">
+    </p>
+    <p>Description (1-2 sentences):
+   		<input type="text" name="descript">
+   	</p>
+   	<p>
+    Competencias (not implemented, don't bother):
+    	<input type="text" name="competencias">
+    </p>
+    <p> Temas (not implemented):
 	<input type="text" name="temas">
-    Select an pdf to upload:
+	</p>
+	<p> Which section in catalogo (only Español right now):
+	<select name="whichCat">
+ 		<option value="Esp">Español</option>
+	</select>
+	</p>
+    <p> Select an pdf to upload:
     <input type="file" name="pdf"> 
     <input type="submit" value="Upload pdf">
+	</p>
 </form>

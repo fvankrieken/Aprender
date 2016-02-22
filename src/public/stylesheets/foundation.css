@@ -2342,7 +2342,7 @@ select {
       outline: 0; }
   .menu > li > a {
     display: block;
-    padding: 0.7rem 1rem;
+    padding: 0.7rem;
     line-height: 1; }
   .menu input,
   .menu a,
