@@ -193,13 +193,14 @@ li a {
 }
 
 .grids {
-	height: 300px;
-	width: 800px;
+	height: 100%;
+	width: 100%;
 }
 
 .topOfGrid {
 	width: 250px;
 	height: 50px;
+	padding: 12px;
 	background-color: #f25d53;
 	font-size: 18;
 	text-align: center;
@@ -245,7 +246,7 @@ li a {
   display: none;
   left: 160px;
   min-width: 300px;
-  padding: 0 0 0 21px;
+  padding: 0 0 0 10px;
   position: absolute;  
   top: 0;
 }

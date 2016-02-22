@@ -39,7 +39,7 @@
         </ul>
       </section>
     </nav>
-  <div class="main">
+  <div class="main" style="height:100%">
     <div class="tabordion">
       <section id="section1">
         <input type="radio" name="sections" id="option1" checked>
@@ -50,12 +50,13 @@
           </div>
           
           <div class="grids" ng-controller="EspController">
-
-            <div ng-repeat="oferta in ofertas">
+            <ul>
+            <li ng-repeat="oferta in ofertas" style="float: left; margin-right: 28px; margin-bottom: 30px">
 
               <app-info info="oferta"></app-info>
    <!--           <a class="btn" ng-click="remove(oferta)">Delete</a> -->
-            </div>
+            </li>
+            </ul>
 
           </div>
 
