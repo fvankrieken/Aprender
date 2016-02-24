@@ -169,6 +169,8 @@ font-size: 14px;
 .top-bar {
 	padding: 0px;
 	box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.5);
+	position: relative;
+	z-index:1;
 }
 
 li a {
@@ -189,9 +191,6 @@ li a {
 	width: 1024px;
 	height: auto;
 	background-color: #f2f2f2;
-	z-index: -1;
-
-    position:relative;
 }
 
 .main2 {
