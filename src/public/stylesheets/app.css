@@ -23,7 +23,7 @@ font-size: 14px;
 .indexMain {
 	margin: auto;
 	margin-top: 1px;
-	width: 100%;
+	width: 1024px;
 	height: auto;
 	background-color: #f2f2f2;
 	
@@ -253,19 +253,18 @@ li a {
   cursor: pointer;
   display: block;
   color: #fff;
-  padding: 15px 15px;
-  margin-bottom: 15px;
+  padding: 10px 15px;
+  margin-bottom: 20px;
   position: relative;
   width: 150px;
   z-index:100;
   font-size: 18px;
 }
 
-.bluebar {
-	height: 65%;
-	width: 140px;
+.blueBar {
+	width: 150px;
 	background-color: #3a9ad9;
-	margin-left: 10px;
+	margin-left: 8px;
 }
 
 .tabordion section article {
@@ -273,9 +272,10 @@ li a {
   display: none;
   left: 160px;
   min-width: 300px;
-  padding: 0 0 0 10px;
+  padding: 0 0 0 0px;
   position: absolute;  
   top: 0;
+  z-index: 2;
 }
 
 .tabordion section article:after {
@@ -299,4 +299,26 @@ li a {
 
 .tabordion input[name="sections"]:checked ~ article {
   display: block;
+}
+
+.footer {
+	margin: auto;
+	margin-top: 20px;
+	width: 975px;
+	text-align: center;
+	border-top: solid 1px #d1d1d1;
+	padding: 15px;
+
+}
+
+@media (max-height: 500px) {                  
+   .temp {
+      display: none;
+   }
+}
+
+@media (max-height: 230px) {                  
+   .CEfoot {
+      display: none;
+   }
 }

@@ -196,12 +196,13 @@ app.get('/upload', function(req, res){
 app.post('/upload', upload.single('pdf'), function(req, res){
   var uploadInfo = req.body;
   //TODO: DIFFERENT CONTROLLERS
-  var stream = fs.openSync(__dirname + '/public/app/Controllers/EspController.js', 'r+')
-  var stats = fs.statSync(__dirname + '/public/app/Controllers/EspController.js');
+  var Cont = uploadInfo.Cont;
+  var stream = fs.openSync(__dirname + '/public/app/Controllers/'+Cont+'Controller.js', 'r+')
+  var stats = fs.statSync(__dirname + '/public/app/Controllers/'+Cont+'Controller.js');
   var length = stats['size'];
   //TODO: Make strings with ""
-  var toAppend = '{ title: "'+ uploadInfo.title + '", descript: "' + uploadInfo.descript + '", filename: "' + req.file.filename  + '"},\n]\n}]);';
-  fs.writeSync(stream, toAppend, length - 6);
+  var toAppend = '{ title: "'+ uploadInfo.title + '", descript: "' + uploadInfo.descript + '", filename: "' + req.file.filename  + '"},\n];\n$scope.gridlength=Math.ceil($scope.ofertas.length/3.)-2;\n$scope.blueheight=$scope.gridlength*224+197;\nif ($scope.gridlength<0) {$scope.blueheight=40};\n}]);';
+  fs.writeSync(stream, toAppend, length - 158);
   fs.close(stream);
   var newFileName = req.file.filename.split('.')[0] + '.html'
   //TODO: template plus is writeFILE async?

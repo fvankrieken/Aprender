@@ -1,4 +1,12 @@
 app.controller('CieController', ['$scope', function($scope) {
-	$scope.ofertas = [{ title: 'Teorema de Pitagoras', descript: 'This is the description', competencias: ['this','that'], temas: ['this','that','and this'], filename: 'CV.pdf'},
-	]
+//	$scope.remove = function(item) { 
+// 	 var index = $scope.ofertas.indexOf(item);
+// 	 $scope.ofertas.splice(index, 1);     
+//	}
+	$scope.ofertas = [
+
+];
+$scope.gridlength=Math.ceil($scope.ofertas.length/3.)-2;
+$scope.blueheight=$scope.gridlength*224+197;
+if ($scope.gridlength<0) {$scope.blueheight=40};
 }]);
