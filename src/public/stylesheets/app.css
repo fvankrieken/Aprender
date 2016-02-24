@@ -20,7 +20,7 @@ font-size: 14px;
 	color: #4a4a4a;
 }
 
-a p {
+.MainLink {
 	padding-top: 15px;
 	color: #4a4a4a;
 }
@@ -218,6 +218,7 @@ li a {
 	width: 100%;
 	position: relative;
 	z-index: -1;
+	padding-left: 20px;
 }
 
 .topOfGrid {
