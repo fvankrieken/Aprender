@@ -189,11 +189,11 @@ app.get('/CompartirExperiencias', function(req, res){
   res.render('CE', { isAdmin: (req.isAuthenticated), currentPage: "CE" });
 });
 
-app.get('/upload', function(req, res){
+app.get('/upload', ensureAuthenticated, function(req, res){
   res.render('upload')
 });
 
-app.post('/upload', upload.single('pdf'), function(req, res){
+app.post('/upload', ensureAuthenticated, upload.single('pdf'), function(req, res){
   var uploadInfo = req.body;
   //TODO: DIFFERENT CONTROLLERS
   var Cont = uploadInfo.Cont;
@@ -231,7 +231,10 @@ app.post('/admin',
     if (!req.body.remember_me) { return next(); }
     
     issueToken(req.user, function(err, token) {
-      if (err) { return next(err); }
+      if (err) { 
+        console.log(err);
+        return next(err); 
+      }
       res.cookie('remember_me', token, { path: '/', httpOnly: true, maxAge: 604800000 });
       return next();
     });
