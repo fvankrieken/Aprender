@@ -20,6 +20,11 @@ font-size: 14px;
 	color: #4a4a4a;
 }
 
+a p {
+	padding-top: 15px;
+	color: #4a4a4a;
+}
+
 .indexMain {
 	margin: auto;
 	margin-top: 1px;
