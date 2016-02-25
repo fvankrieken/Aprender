@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="/stylesheets/navbar.css" />
     <link rel="stylesheet" href="/stylesheets/app.css" />
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+
   </head>
 
   <body ng-app = "myApp" style="background-color: #f2f2f2;">
@@ -56,25 +58,25 @@
               <form action="javascript: postContactToGoogle()" id="add" target="_self" onsubmit="" style="width: 300px;">
                   <div class="row column log-in-form" style="margin-top: 10px">
                     <label>Nombre
-                        <input type="text" name="name">
+                        <input type="text" name="name" id="name">
                     </label>
                     <label>Correo Electrónico
-                        <input type="text" name="email">
+                        <input type="text" name="email" id="email">
                     </label>
                     <label>Puesto
-                        <input type="text" name="position">
+                        <input type="text" name="position" id="position">
                     </label>
                     <label>Nombre de la escuela
-                        <input type="text" name="schoolName">
+                        <input type="text" name="schoolName" id="schoolName">
                     </label>
                     <label>Dirección de la escuela
-                        <input type="text" name="address">
+                        <input type="text" name="address" id="address">
                     </label>
                     <label>C.C.T.
-                        <input type="text" name="CCT">
+                        <input type="text" name="CCT" id="CCT">
                     </label>
                     <label>Cuántos años llevan con la tutoría
-                        <input type="text" name="years">
+                        <input type="text" name="years" id="years">
                     </label>
                     <p><input type="submit" class="button expanded" value="Añadirse" style="width: 100px"></input></p> 
                   </div>
@@ -109,7 +111,7 @@
 
       // Close the dropdown menu if the user clicks outside of it
       window.onclick = function(event) {
-        if (!event.target.matches('.dropbtn')) {
+        if (!event.target.matches('.dropbtn') && !event.target.matches('input')) {
 
           var dropdowns = document.getElementsByClassName("dropdown-content");
           var i;
@@ -122,51 +124,45 @@
         }
       }
 
-    $('input').click(function(e) {
-      e.stopPropagation(); //This will prevent the event from bubbling up and close the dropdown when you type/click on text boxes.
-    });
+    
 
     </script>
 
     <script type="text/javascript">
-      function validateEmail(email) {
-          var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-          return re.test(email);
-      }"
       function postContactToGoogle(){
-          var name = $j('#name').val();
-          var email = $j('#email').val();
-          var position = $j('#position').val();
-          var schoolName = $j('#schoolName').val();
-          var address = $j('#address').val();
-          var CCT = $j('#CCT').val();
-          var years = $j('#years').val();
-          if ((name !== "") && (email !== "") && ((feed !== "") && (validateEmail(email)))) {
-              $j.ajax({
-                  url: "https://docs.google.com/1QfeyHiYV9ok-tl92GImsoGASU1dlqG2lhsw_plRCZcE/formResponse",
-                  data: {"entry.1" : name, "entry.2" : email, "entry.3": position, "entry.4": schoolName, "entry.5": address, "entry.6": CCT, "entry.7": years},
+          var name = $('#name').val();
+          var email = $('#email').val();
+          var position = $('#position').val();
+          var schoolName = $('#schoolName').val();
+          var address = $('#address').val();
+          var CCT = $('#CCT').val();
+          var years = $('#years').val();
+          if ((name !== "") && (email !== "") && (position !== "")) {
+              $.ajax({
+                  url: "https://docs.google.com/forms/d/1QfeyHiYV9ok-tl92GImsoGASU1dlqG2lhsw_plRCZcE/formResponse",
+                  data: {"entry.1194689800" : name, "entry.1776167168" : email, "entry.2018236782": position, "entry.1726408884": schoolName, "entry.718549540": address, "entry.859306530": CCT, "entry.500026241": years},
                   type: "POST",
                   dataType: "xml",
                   statusCode: {
                       0: function (){
    
-                          $j('#name').val("");
-                          $j('#email').val("");
-                          $j('#position').val();
-                          $j('#schoolName').val();
-                          $j('#address').val();
-                          $j('#CCT').val();
-                          $j('#years').val();
+                          $('#name').val("");
+                          $('#email').val("");
+                          $('#position').val("");
+                          $('#schoolName').val("");
+                          $('#address').val("");
+                          $('#CCT').val("");
+                          $('#years').val("");
                           //Success message
                       },
                       200: function (){
-                          $j('#name').val("");
-                          $j('#email').val("");
-                          $j('#position').val();
-                          $j('#schoolName').val();
-                          $j('#address').val();
-                          $j('#CCT').val();
-                          $j('#years').val();
+                          $('#name').val("");
+                          $('#email').val("");
+                          $('#position').val("");
+                          $('#schoolName').val("");
+                          $('#address').val("");
+                          $('#CCT').val("");
+                          $('#years').val("");
                           //Success Message
                       }
                   }
@@ -177,16 +173,6 @@
           }
       }
     </script>
-   
-
-    <!-- Modules -->
-    <script src="app/app.js"></script>
-
-    <!-- Controllers -->
-    <script src="app/MainController.js"></script>
-
-    <!-- Directives -->
-    <script src="app/navbar/navbar.js"></script>
 
   </body>
 </html>
