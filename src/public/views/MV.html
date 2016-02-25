@@ -121,6 +121,7 @@
           }
         }
       }
+
     </script>
 
     <script type="text/javascript">
@@ -138,8 +139,8 @@
           var years = $j('#years').val();
           if ((name !== "") && (email !== "") && ((feed !== "") && (validateEmail(email)))) {
               $j.ajax({
-                  url: "https://docs.google.com/yourFormURL/formResponse",
-                  data: {"entry.1" : name, "entry.3" : email, "entry.4": feed},
+                  url: "https://docs.google.com/1QfeyHiYV9ok-tl92GImsoGASU1dlqG2lhsw_plRCZcE/formResponse",
+                  data: {"entry.1" : name, "entry.2" : email, "entry.3": position, "entry.4": schoolName, "entry.5": address, "entry.6": CCT, "entry.7": years},
                   type: "POST",
                   dataType: "xml",
                   statusCode: {
@@ -147,13 +148,21 @@
    
                           $j('#name').val("");
                           $j('#email').val("");
-                          $j('#feed').val("");
+                          $j('#position').val();
+                          $j('#schoolName').val();
+                          $j('#address').val();
+                          $j('#CCT').val();
+                          $j('#years').val();
                           //Success message
                       },
                       200: function (){
                           $j('#name').val("");
                           $j('#email').val("");
-                          $j('#feed').val("");
+                          $j('#position').val();
+                          $j('#schoolName').val();
+                          $j('#address').val();
+                          $j('#CCT').val();
+                          $j('#years').val();
                           //Success Message
                       }
                   }

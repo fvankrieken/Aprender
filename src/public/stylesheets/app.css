@@ -357,9 +357,10 @@ li a {
 	margin-left: 50px;
     display: none;
     position: absolute;
-    background-color: #D7D7D7;
+    background-color: #727272;
     min-width: 370px;
-    box-shadow: 2px 2px 4px 2px rgba(0,0,0,0.2);
+    opacity: 0.97;
+    box-shadow: 4px 4px 8px 4px rgba(0,0,0,0.2);
     height: 640px;
     z-index:1;
 }
