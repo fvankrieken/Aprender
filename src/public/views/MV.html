@@ -43,27 +43,55 @@
 
     <div class="main">
 
-      <div class="header">
+      <div class="header" style="padding-bottom:0">
         Mapeo Virtual
       </div>
 
-      <a href="#googleform" style="font-size: 14px; font-face: Avenir-Medium;color: #0187e0; position: relative; margin-left: 30px; top: -15px">Join our map</a>
+      <div class="dropdown">
+        <button onclick="myFunction()" class="dropbtn">Añadirse al Mapa</button>
+        <div id="myDropdown" class="dropdown-content">
+          <div class="row">
+            <div class="medium-6 medium-centered large-4 large-centered columns" style="margin: 15px; width:300px">
+
+              <form action="/MapeoVirtual" method="post" style="width: 300px;">
+                  <div class="row column log-in-form" style="margin-top: 10px">
+                    <label>Nombre
+                        <input type="text" name="name">
+                    </label>
+                    <label>Correo Electrónico
+                        <input type="text" name="email">
+                    </label>
+                    <label>Puesto
+                        <input type="text" name="position">
+                    </label>
+                    <label>Nombre de la escuela
+                        <input type="text" name="schoolName">
+                    </label>
+                    <label>Dirección de la escuela
+                        <input type="text" name="address">
+                    </label>
+                    <label>C.C.T.
+                        <input type="text" name="C.C.T.">
+                    </label>
+                    <label>Cuántos años llevan con la tutoría
+                        <input type="text" name="years">
+                    </label>
+                    <p><input type="submit" class="button expanded" value="Añadirse" style="width: 100px"></input></p> 
+                  </div>
+              </form>
+
+            </div>
+        </div>
+        </div>
+      </div>
+
 
       <div style="text-align:center;">
-        <iframe src="https://www.google.com/maps/d/u/0/embed?mid=zeqaYhvsiN2c.kIGvkBMiGkDs" width="964" height="600"></iframe>
+        <iframe src="https://www.google.com/maps/d/u/0/embed?mid=zeqaYhvsiN2c.kIGvkBMiGkDs" width="924" height="600"></iframe>
       </div>
-
-      <a name="googleform">
-
-      <div class="header">
-        Añadirse al Mapa
-      </div>
-
-
-
+<!--
       <iframe src="https://docs.google.com/forms/d/1QfeyHiYV9ok-tl92GImsoGASU1dlqG2lhsw_plRCZcE/viewform?embedded=true" width="964" height="1200" style="margin:30px">Loading...</iframe>
-
-
+-->
 
     <div class="footer">
       <p style="font-face: Avenir-Roman; color: #f25d53; margin-bottom:0px;"> <img src="/img/logo2.png" style="width: 50px; height: 16px; margin-bottom: 5px; margin-right: 5px;"/>Aprender Con Interés A.C. </p>
@@ -72,6 +100,28 @@
 
     </div>
 
+    <script>
+      /* When the user clicks on the button, 
+      toggle between hiding and showing the dropdown content */
+      function myFunction() {
+          document.getElementById("myDropdown").classList.toggle("show");
+      }
+
+      // Close the dropdown menu if the user clicks outside of it
+      window.onclick = function(event) {
+        if (!event.target.matches('.dropbtn')) {
+
+          var dropdowns = document.getElementsByClassName("dropdown-content");
+          var i;
+          for (i = 0; i < dropdowns.length; i++) {
+            var openDropdown = dropdowns[i];
+            if (openDropdown.classList.contains('show')) {
+              openDropdown.classList.remove('show');
+            }
+          }
+        }
+      }
+    </script>
    
 
     <!-- Modules -->
