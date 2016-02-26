@@ -4,7 +4,7 @@ app.controller('EspController', ['$scope', function($scope) {
 // 	 $scope.ofertas.splice(index, 1);     
 //	}
 	$scope.ofertas = [
-
+	
 ];
 $scope.gridlength=Math.ceil($scope.ofertas.length/3.)-2;
 $scope.blueheight=$scope.gridlength*224+197;

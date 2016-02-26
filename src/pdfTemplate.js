@@ -1,6 +1,0 @@
-var template1 = '<html><head><meta charset="utf-8" /><meta http-equiv="x-ua-compatible" content="ie=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>Aprender</title><link rel="stylesheet" href="/stylesheets/foundation.css" /><link rel="stylesheet" href="/stylesheets/app.css" /><link rel="stylesheet" href="/stylesheets/navbar.css" /></head><body><script type="text/javascript">var isAdmin = "{{ isAdmin }}";</script><nav class="top-bar" data-topbar><section class="top-bar-section"><ul class="vertical medium-horizontal menu"><li class="divider"></li><li class="Apr"><a href="/"><img src="/img/logo_less.png" /></a></li>  <li class="divider"></li><li><a href="RelacionTutoria">RELACIÓN TUTORIA</a><li class="divider"></li><li><a href="/MapeoVirtual">MAPEO VIRTUAL</a><li class="divider"></li><li><a href="/CatalogoDeOfertas">CATÁLOGO DE OFERTAS</a><li class="divider"></li><li><a href="/CompartirTemas">COMPARTIR TEMAS</a><li class="divider"></li><li><a href="/CompartirExperiencias">COMPARTIR EXPERIENCIAS</a><li class="divider"></li></ul></section></nav><div class="main">';
-
-var template2 = '</div></body>'
-
-exports.template1 = template1;
-exports.template2 = template2;

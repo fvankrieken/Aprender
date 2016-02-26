@@ -1,4 +1,4 @@
-app.directive('slickTab', function() { 
+app.directive('slickInfo', function() { 
   return { 
     restrict: 'E', 
     scope: { 

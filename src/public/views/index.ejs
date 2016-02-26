@@ -9,8 +9,8 @@
     <link rel="stylesheet" href="/stylesheets/app.css" />
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.5.9/slick.css"/>
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.5.9/slick-theme.css"/>
-
-
+    
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
 
@@ -53,18 +53,26 @@
         </li>
       </ul>
 
-      <div class="single-item" style="height: 280px; width: 780px; margin: auto; margin-top: 35px; margin-bottom: 80px">
+      <div class="single-item" style="height: 314px; width: 830px; margin: auto; margin-top: 35px; margin-bottom: 80px">
         <div ng-controller="EspController">
-          <div class="slicktab"></div>
+          <div class="slicktab">
+            <slick-info info="ofertas[ofertas.length - 1]"></slick-info>
+          </div>
         </div>
         <div ng-controller="MatController">
-          <div class="slicktab"></div>
+          <div class="slicktab">
+            <slick-info info="ofertas[ofertas.length - 1]"></slick-info>
+          </div>
         </div>
         <div ng-controller="CieController">
-          <div class="slicktab"></div>
+          <div class="slicktab">
+            <slick-info info="ofertas[ofertas.length - 1]"></slick-info>
+          </div>
         </div>
         <div ng-controller="HisController">
-          <div class="slicktab"></div>
+          <div class="slicktab">
+            <slick-info info="ofertas[ofertas.length - 1]"></slick-info>
+          </div>
         </div>
       </div>
 
@@ -83,8 +91,8 @@
       $(document).ready(function(){
         $('.single-item').slick({
           dots: true,
-          prevArrow:"<button type='button' class='slickprevnext' style='left:-35px;'>&#9001</button>",
-          nextArrow:"<button type='button' class='slickprevnext' style='right:-33px;'>&#9002</button>",
+          prevArrow:"<button type='button' class='slickprevnext' style='left:-25px;'>&#9001</button>",
+          nextArrow:"<button type='button' class='slickprevnext' style='right:-23px;'>&#9002</button>",
           autoplay:true,
           autoplaySpeed:10000,
         });

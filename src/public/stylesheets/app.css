@@ -39,6 +39,8 @@ font-size: 14px;
 	width: 130px;
 }
 
+a p { text-decoration: none; color:#0187e0; }
+
 
 .kid {
 	margin: auto;
@@ -386,11 +388,12 @@ li a {
 
 .slicktab {
 	background-color: #ffffff;
-	width: 760px;
+	width: 770px;
 	margin: auto;
 	margin-top: 10px;
 	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
-	height: 250px;
+	height: 284px;
+	display: flex;
 }
 
 .slickprevnext {
@@ -401,4 +404,45 @@ li a {
 	display: block; 
 	position:absolute; 
 	top: 122px;
+}
+
+.cote {
+	list-style-type: none;
+	overflow: hidden;
+	margin-bottom: 25px;
+
+}
+
+.cote li {
+	float: left;
+	color: #ffffff;
+	display: inline;
+	border-radius: 3px;
+	font-size: 14px;
+	font-family: Avenir-Roman;
+	padding: 8px;
+	padding-bottom: 6px;
+	margin-right: 10px;
+	margin-bottom: 10px;
+}
+
+.cote2 {
+	list-style-type: none;
+	overflow: hidden;
+	margin-bottom: 10px;
+
+}
+
+.cote2 li {
+	float: left;
+	color: #ffffff;
+	display: inline;
+	border-radius: 3px;
+	font-size: 14px;
+	font-family: Avenir-Roman;
+	padding: 8px;
+	padding-bottom: 6px;
+	margin-right: 10px;
+	margin-bottom: 10px;
+	width: auto;
 }

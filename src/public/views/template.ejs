@@ -1,0 +1,97 @@
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="x-ua-compatible" content="ie=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title><%= title %></title>
+		<link rel="stylesheet" href="/stylesheets/foundation.css" />
+		<link rel="stylesheet" href="/stylesheets/app.css" />
+		<link rel="stylesheet" href="/stylesheets/navbar.css" />
+    	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+    	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
+	</head>
+		<body style="background-color: #f2f2f2;">
+
+			<nav class="top-bar" data-topbar>
+				<section class="top-bar-section">
+					<ul class="vertical medium-horizontal menu">
+					<li class="divider"></li>
+					<li class="Apr">
+						<a href="/"><img src="/img/logo_less.png" /></a>
+					</li>
+					<li class="divider"></li>
+					<li>
+						<a href="RelacionTutoria">RELACIÓN TUTORIA</a>
+					</li>
+					<li class="divider"></li>
+					<li>
+						<a href="/MapeoVirtual">MAPEO VIRTUAL</a>
+					</li>
+					<li class="divider"></li>
+					<li>
+						<a href="/CatalogoDeOfertas" class="inactiveLink">CATÁLOGO DE OFERTAS</a>
+					</li>
+					<li class="divider"></li>
+					<li>
+						<a href="/CompartirTemas">COMPARTIR TEMAS</a>
+					</li>
+					<li class="divider"></li>
+					<li><a href="/CompartirExperiencias">COMPARTIR EXPERIENCIAS</a>
+					</li>
+					<li class="divider"></li>
+				</ul>
+			</section>
+		</nav>
+		<div class="main">
+
+			<div class="header" style="padding-bottom:0">
+        		<%= title %>
+      		</div>
+
+      		<a href="/CatalogoDeOfertas" style="position: relative; top: -28px; left: 36px;"><p style="margin-bottom:0px;">&#9001 &nbsp Volver al Catálogo de Ofertas</p></a>
+
+			<div style="width: 950px; display:flex; padding: 25px; padding-top: 0px; margin: auto">
+				<div>
+				
+
+				<a href="/app/pdfs/<%= filename %>" style="position: relative; left: 2px;" download><p style="margin-bottom:5px;">Descargar</p></a>
+
+				<div style="width: 600px; height: 775px; overflow: hidden; box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.5);">
+
+					<object data="/app/pdfs/<%= filename %>" type="application/pdf" width="600" height="830" style="position: relative; top: -55px;">
+						<p>Alternative text - include a link <a href="/app/pdfs/test.pdf">to the PDF!</a></p>
+					</object>
+
+				</div>
+
+				</div>
+
+				<div style="flex: 1; padding-left: 25px; padding-top: 35px; padding-bottom: 20px;">
+
+					<p style="font-family: Avenir-Medium; font-size:18px;">Competencias</p>
+					<ul class="cote">
+						<% comps.forEach(function(comp, index) { %>
+   	 						<li style="background-color: #3a9ad9"><%= comp %></li>
+						<% }); %>
+					</ul>
+					
+					<p style="font-family: Avenir-Medium; font-size:18px;">Temas relacionados</p>
+					<ul class="cote">
+						<% temas.forEach(function(tema, index) { %>
+   	 						<li style="background-color: #f25d53"><%= tema %></li>
+						<% }); %>
+					</ul>
+					
+				</div>
+
+			</div>
+
+			<div class="footer">
+	    		<p style="font-face: Avenir-Roman; color: #f25d53; margin-bottom:0px;"> <img src="/img/logo2.png" style="width: 50px; height: 16px; margin-bottom: 5px; margin-right: 5px;"/>Aprender Con Interés A.C. </p>
+	    		<p style="font-size: 10px;font-face: Helvetica-Light;">© 2016 Aprender Con Interes. All rights reserved.</p>
+	    	</div>
+
+		</div>
+		
+	</body>
+</html>

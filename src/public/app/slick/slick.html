@@ -1,0 +1,19 @@
+<div style="display: flex; width: 770px; margin: 0px; height: 284;">
+	<div style="padding: 30px; max-width: 350px; min-width: 300px; text-align: left; position: relative;">
+		<p style="font-size: 20px; font-face: Avenir-Medium; color: #4a4a4a; margin-bottom: 30px">Nuevo tema: {{ info.title }}</p>
+		<p style="font-size: 15px; font-face: Avenir-Light; color: #000000;">{{ info.descript }}</p>
+		<div  style="position: absolute; bottom: 30px">
+			<a href="/CatalogoDeOfertas/{{info.pathName}}"><p>Ver este tema</p></a>
+		</div>
+	</div>
+	<div style="height: 224px; flex: 1; margin-top: 30px; border-left: solid 1px #d1d1d1; padding-top: 0px; padding-left: 35px; padding-right: 25px;">
+		<p style="margin-bottom: 5px;">Competencias</p>
+		<ul class="cote2">
+			<li ng-repeat="comp in info.comps" style="background-color: #3a9ad9">{{comp}}</li> 
+		</ul>
+		<p style="margin-bottom: 5px;">Temas relacionados</p>
+		<ul class="cote2">
+			<li ng-repeat="tema in info.temas" style="background-color: #f25d53">{{tema}}</li> 
+		</ul>
+	</div>
+</div>

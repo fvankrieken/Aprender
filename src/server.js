@@ -11,7 +11,7 @@ var express = require('express')
   , session = require('express-session')
   , multer = require('multer')
   , fs = require('fs')
-  , templates = require('./pdfTemplate');
+  , pdfData = require('./pdfData');
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -136,20 +136,20 @@ function issueToken(user, done) {
 
 
 
+
 var app = express();
 
 
 app.set('views', __dirname + '/public/views');
-app.set('view engine', 'html');
+app.set('view engine', 'ejs');
 app.set('port', (process.env.PORT || 3000))
-app.engine('html', require('ejs').renderFile);
 app.use(morgan('combined'));
 app.use(express.static(__dirname + '/public'));
 app.use(CookieParser());
 app.use(BodyParser.urlencoded({ extended: false }));
 app.use(MethodOverride());
 app.use(session({
-  secret: 'keyboard cat'
+  secret: 'laser horse'
 }))
 app.use(flash());
 // Initialize Passport!  Also use passport.session() middleware, to support
@@ -175,10 +175,10 @@ app.get('/CatalogoDeOfertas', function(req, res){
   res.render('CdO', { isAdmin: (req.isAuthenticated), currentPage: "CdO" });
 });
 
-app.get('/CatalogoDeOfertas/*.pdf', function(req, res){
-  var pdfName = req.path.split('/')[2]
-  var routeName = pdfName.split('.')[0]
-  res.render('pdfViews/'+routeName+'.html', { isAdmin: (req.isAuthenticated), currentPage: "CdO" });
+app.get('/CatalogoDeOfertas/*', function(req, res){
+  var pathName = req.path.split('/')[2]
+  console.log(pdfData.pdfData[pathName])
+  res.render('template', pdfData.pdfData[pathName]);
 });
 
 app.get('/CompartirTemas', function(req, res){
@@ -189,25 +189,57 @@ app.get('/CompartirExperiencias', function(req, res){
   res.render('CE', { isAdmin: (req.isAuthenticated), currentPage: "CE" });
 });
 
-app.get('/upload', ensureAuthenticated, function(req, res){
-  res.render('upload')
+app.get('/upload', function(req, res){
+  res.render('upload', { problem: false })
 });
 
-app.post('/upload', ensureAuthenticated, upload.single('pdf'), function(req, res){
+app.post('/upload', upload.single('pdf'), function(req, res){
+  
   var uploadInfo = req.body;
-  //TODO: DIFFERENT CONTROLLERS
+  var filename = req.file.filename;
+  if (pdfData.pdfData[filename]) {
+    res.render('upload', { problem: true });
+    return;
+  }
+  var title = uploadInfo.title;
+  var pathName = title.replace(/\s/g, '');
+  var descript = uploadInfo.descript;
+  var comps = uploadInfo.comps.split(', ');
+  var compsString = '["' + comps[0] + '"';
+    for (i = 1; i < comps.length; i++) {
+      compsString += ', "' + comps[i] + '"';
+    }
+  compsString += ']'
+  var temas = uploadInfo.temas.split(', ');
+  var temasString = '["' + temas[0] + '"';
+    for (i = 1; i < temas.length; i++) {
+      temasString += ', "' + temas[i] + '"';
+    }
+  temasString += ']'
   var Cont = uploadInfo.Cont;
+  var newData = { filename: filename, title: title, descript: descript, comps: comps, temas: temas, pathName: pathName}
+  pdfData.pdfData[pathName] = newData
+
+  var pdfPre = '"' + pathName + '": '
+  var toAppend = '{ filename: "' + filename + '", title: "' + title + '", descript: "' + descript + '", comps: ' + compsString + ', temas: ' + temasString + ', pathName: "' + pathName + '"},';
+  var contAppend = '\n];\n$scope.gridlength=Math.ceil($scope.ofertas.length/3.)-2;\n$scope.blueheight=$scope.gridlength*224+197;\nif ($scope.gridlength<0) {$scope.blueheight=40};\n}]);';
+  var pdfAppend = '\n};\nexports.pdfData = pdfData;'
+
   var stream = fs.openSync(__dirname + '/public/app/Controllers/'+Cont+'Controller.js', 'r+')
   var stats = fs.statSync(__dirname + '/public/app/Controllers/'+Cont+'Controller.js');
   var length = stats['size'];
-  //TODO: Make strings with ""
-  var toAppend = '{ title: "'+ uploadInfo.title + '", descript: "' + uploadInfo.descript + '", filename: "' + req.file.filename  + '"},\n];\n$scope.gridlength=Math.ceil($scope.ofertas.length/3.)-2;\n$scope.blueheight=$scope.gridlength*224+197;\nif ($scope.gridlength<0) {$scope.blueheight=40};\n}]);';
-  fs.writeSync(stream, toAppend, length - 158);
+ 
+  fs.writeSync(stream, toAppend + contAppend, length - 158);
   fs.close(stream);
-  var newFileName = req.file.filename.split('.')[0] + '.html'
-  //TODO: template plus is writeFILE async?
-  var toWrite = templates.template1 + '<object data="/app/pdfs/' + req.file.filename + '" type="application/pdf" width="90%" height="100%"><p>Alternative text - include a link <a href="/app/pdfs/' +req.file.filename + '">to the PDF!</a></p></object>' + templates.template2
-  fs.writeFile(__dirname + '/public/views/pdfViews/' + newFileName, toWrite, res.render('upload'));
+
+  var stream2 = fs.openSync(__dirname + '/pdfData.js', 'r+')
+  var stats2 = fs.statSync(__dirname + '/pdfData.js');
+  var length2 = stats2['size'];
+ 
+  fs.writeSync(stream2, pdfPre + toAppend + pdfAppend, length2 - 29);
+  fs.close(stream2);
+
+  res.render('upload', { problem: false });
   
 });
 
