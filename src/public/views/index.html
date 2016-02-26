@@ -4,17 +4,24 @@
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Aron el Cabrón</title>
+    <title>Aprender Con Interés</title>
     <link rel="stylesheet" href="/stylesheets/foundation.css" />
     <link rel="stylesheet" href="/stylesheets/app.css" />
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.5.9/slick.css"/>
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.5.9/slick-theme.css"/>
+
+
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+
   </head>
 
-  <body style="background-color: #f2f2f2">
+  <body style="background-color: #f2f2f2" ng-app="myApp">
 
     <div class="indexMain">
 
       <div class="mainTitle">
-        <img src="/img/logo2.png" style="width:133px; height: 46px;margin-bottom:10px;"/>
+        <img src="/img/logo2.png" style="width:130px; height: 42px;margin-bottom:15px; margin-right: 4px"/>
         Aprender Con Interés A.C.
       </div>
 
@@ -46,14 +53,55 @@
         </li>
       </ul>
 
-      <div class="footer temp"  style="position: absolute; bottom: 0; margin: 25px; margin-bottom: 0">
+      <div class="single-item" style="height: 280px; width: 780px; margin: auto; margin-top: 35px; margin-bottom: 80px">
+        <div ng-controller="EspController">
+          <div class="slicktab"></div>
+        </div>
+        <div ng-controller="MatController">
+          <div class="slicktab"></div>
+        </div>
+        <div ng-controller="CieController">
+          <div class="slicktab"></div>
+        </div>
+        <div ng-controller="HisController">
+          <div class="slicktab"></div>
+        </div>
+      </div>
+
+      <div class="footer"  style="margin: 25px; margin-bottom: 0">
       <p style="font-face: Avenir-Roman; color: #f25d53; margin-bottom:0px;"> <img src="/img/logo2.png" style="width: 50px; height: 16px; margin-bottom: 5px; margin-right: 5px;"/>Aprender Con Interés A.C. </p>
       <p style="font-size: 10px;font-face: Helvetica-Light;">© 2016 Aprender Con Interes. All rights reserved.</p>
     </div>
 
     </div>
 
+    
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.slick/1.5.9/slick.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function(){
+        $('.single-item').slick({
+          dots: true,
+          prevArrow:"<button type='button' class='slickprevnext' style='left:-35px;'>&#9001</button>",
+          nextArrow:"<button type='button' class='slickprevnext' style='right:-33px;'>&#9002</button>",
+          autoplay:true,
+          autoplaySpeed:10000,
+        });
+      });
+    </script>
 
+       <!-- Modules -->
+    <script src="app/app.js"></script>
+
+    <!-- Controllers -->
+    <script src="app/Controllers/EspController.js"></script>
+    <script src="app/Controllers/MatController.js"></script>
+    <script src="app/Controllers/CieController.js"></script>
+    <script src="app/Controllers/HisController.js"></script>
+
+    <!-- Directives -->
+    <script src="app/slick/slick.js"></script>
 
   </body>
 </html>

@@ -70,6 +70,7 @@ font-size: 14px;
 	color: #2977c2;
 	font-face: Avenir-Roman;
 	font-size: 18px;
+	margin-bottom: 10px;
 }
 
 .greytext {
@@ -109,7 +110,7 @@ font-size: 14px;
 	float:right;
 	width: 218px;
 	height:131px;
-	margin-top: 42px;
+	margin-top: 36px;
 }
 
 .icon4 {
@@ -128,7 +129,7 @@ font-size: 14px;
 }
 
 .whitetext {
-	padding: 30px 25px 5px 35px;
+	padding: 20px 25px 5px 35px;
 	width: 100%;
 	height: auto;
 	background-color: #ffffff;
@@ -139,7 +140,7 @@ font-size: 14px;
 }
 
 .whitetext2 {
-	padding: 30px 15px 5px 35px;
+	padding: 20px 15px 5px 35px;
 	width: 100%;
 	height: auto;
 	background-color: #ffffff;
@@ -382,3 +383,22 @@ li a {
 
 /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
 .show {display:block;}
+
+.slicktab {
+	background-color: #ffffff;
+	width: 760px;
+	margin: auto;
+	margin-top: 10px;
+	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+	height: 250px;
+}
+
+.slickprevnext {
+	color: #f25d53; 
+	font-size: 32px;
+	font-weight: bold;
+	margin: auto; 
+	display: block; 
+	position:absolute; 
+	top: 122px;
+}
