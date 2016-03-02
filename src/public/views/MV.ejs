@@ -44,11 +44,11 @@
       </div>
 
       <div class="dropdown">
-        <button onclick="myFunction()" class="dropbtn">Añadirse al Mapa</button>
+        <button onclick="myFunction()" class="dropbtn" id="add">Añadirse al Mapa</button>
+        <button onclick="" class="dropbtn" id="formSent" style="display:none">Form sent!</button>
         <div id="myDropdown" class="dropdown-content">
           <div class="row">
             <div class="medium-6 medium-centered large-4 large-centered columns" style="margin: 15px; width:300px">
-
               <form action="javascript: postContactToGoogle()" id="add" target="_self" onsubmit="" style="width: 300px;">
                   <div class="row column log-in-form" style="margin-top: 10px">
                     <label>Nombre
@@ -72,6 +72,7 @@
                     <label>Cuántos años llevan con la tutoría
                         <input type="text" name="years" id="years">
                     </label>
+                    <p id="emptyData" style="display:none; color:white; font-weight: bold"> Please fill out all fields </p>
                     <p><input type="submit" class="button expanded" value="Añadirse" style="width: 100px"></input></p> 
                   </div>
               </form>
@@ -123,6 +124,7 @@
     </script>
 
     <script type="text/javascript">
+    $(document).ready(function () {
       function postContactToGoogle(){
           var name = $('#name').val();
           var email = $('#email').val();
@@ -131,41 +133,39 @@
           var address = $('#address').val();
           var CCT = $('#CCT').val();
           var years = $('#years').val();
-          if ((name !== "") && (email !== "") && (position !== "")) {
-              $.ajax({
-                  url: "https://docs.google.com/forms/d/1QfeyHiYV9ok-tl92GImsoGASU1dlqG2lhsw_plRCZcE/formResponse",
-                  data: {"entry.1194689800" : name, "entry.1776167168" : email, "entry.2018236782": position, "entry.1726408884": schoolName, "entry.718549540": address, "entry.859306530": CCT, "entry.500026241": years},
-                  type: "POST",
-                  dataType: "xml",
-                  statusCode: {
-                      0: function (){
-   
-                          $('#name').val("");
-                          $('#email').val("");
-                          $('#position').val("");
-                          $('#schoolName').val("");
-                          $('#address').val("");
-                          $('#CCT').val("");
-                          $('#years').val("");
-                          //Success message
-                      },
-                      200: function (){
-                          $('#name').val("");
-                          $('#email').val("");
-                          $('#position').val("");
-                          $('#schoolName').val("");
-                          $('#address').val("");
-                          $('#CCT').val("");
-                          $('#years').val("");
-                          //Success Message
-                      }
+          if ((name == '') || (email == '') || (position == '') || (schoolName == '') || (address == '') || (CCT == '') || (years == '')) {
+            document.getElementById('emptyData').style.display='initial'
+            document.getElementById('myDropdown').style.height='670px'
+            return false;
+          }
+          $.ajax({
+              url: "https://docs.google.com/forms/d/1QfeyHiYV9ok-tl92GImsoGASU1dlqG2lhsw_plRCZcE/formResponse",
+              data: {"entry.1194689800" : name, "entry.1776167168" : email, "entry.2018236782": position, "entry.1726408884": schoolName, "entry.718549540": address, "entry.859306530": CCT, "entry.500026241": years},
+              type: "POST",
+              dataType: "xml",
+              crossDomain: true,
+              statusCode: {
+                  0: function (){
+
+                      document.getElementById('add').style.display='none'
+                      document.getElementById('formSent').style.display='initial'
+                      document.getElementById('myDropdown').style.display='none'
+                      //Success message
+                  },
+                  200: function (){
+                      document.getElementById('add').style.display='none'
+                      document.getElementById('formSent').style.display='initial'
+                      document.getElementById('myDropdown').style.display='none'
+                      //Success Message
                   }
-              });
-          }
-          else {
-              //Error message
-          }
+              }
+          });
+
+          return false;
+          
+          
       }
+    });
     </script>
 
   </body>

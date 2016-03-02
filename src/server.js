@@ -200,7 +200,7 @@ app.post('/CatalogoDeOfertas/*', function(req, res){
   var expEmail = req.body.expEmail;
   var email = req.body.email;
   var question = req.body.question;
-  var subject = req.body.subject;
+  var subject = req.body.subject + ', from: ' + email;
   var page = req.path.split('/')[2];
 
   var emailExchange = {};
@@ -209,7 +209,7 @@ app.post('/CatalogoDeOfertas/*', function(req, res){
   emailExchange['subject'] = subject;
   emailDB[id] = emailExchange;
 
-  var toAppend = '"' + id + '": { "' + email + '": "' + expEmail + '", "' + expEmail + '": "' + email + '"},\n};\n\nmodule.exports = emailDB;';
+  var toAppend = '"' + id + '": { "' + email + '": "' + expEmail + '", "' + expEmail + '": "' + email + '", "subject": "' + subject + '" },\n};\n\nmodule.exports = emailDB;';
 
   var stream = fs.openSync(__dirname + '/emailDB.js', 'r+')
   var stats = fs.statSync(__dirname + '/emailDB.js');
@@ -220,7 +220,7 @@ app.post('/CatalogoDeOfertas/*', function(req, res){
 
   app.mailer.send('email', {
     to: expEmail,
-    subject: subject + ' id: ' + id,
+    subject: subject,
     id: id,
     content: question
   }, function (err) {
@@ -236,21 +236,21 @@ app.post('/CatalogoDeOfertas/*', function(req, res){
 
 });
 
-app.post('/email/*', function(req, res) {
+app.post('/email/*', function(req, res, err) {
+  if (err) {
+    res.send('Esta conversación ha expirado')
+    return
+  }
   var patharray = req.path.split('/')
-  console.log(req.body)
   var id = patharray[patharray.length-1]
-  console.log(id)
   var email = req.body.email;
-  console.log(email);
-  console.log(emailDB[id])
-  var subject = emailDB[id][subject];
+  var subject = emailDB[id]['subject'];
   var response = req.body.response;
   var reply = emailDB[id][email]
 
   app.mailer.send('email', {
     to: reply,
-    subject: subject + ' id: ' + id,
+    subject: subject,
     id: id,
     content: response
   }, function (err) {
