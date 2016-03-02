@@ -5,8 +5,8 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Upload</title>
-    <link rel="stylesheet" href="/stylesheets/foundation.css" />
-    <link rel="stylesheet" href="/stylesheets/app.css" />
+    <link rel="stylesheet" href="stylesheets/foundation.css" />
+    <link rel="stylesheet" href="stylesheets/app.css" />
   </head>
 
   <body style="background-color: #f2f2f2">
@@ -15,8 +15,25 @@
     <div class="row">
         <div class="medium-5 medium-centered large-5 large-centered columns">
 
+            <% if (status == 'noPDF') { %>
+                <p class='header' style="color: red; margin: auto;">Please select a file to upload.</p>
+            <% } %>
+
+            <% if (status == 'title') { %>
+                <p class='header' style="color: red; margin: auto;">That tema title is already in use. Please give this tema a different title.</p>
+            <% } %>
+
+            <% if (status == 'field') { %>
+                <p class='header' style="color: red; margin: auto;">Please fill out all of the fields.</p>
+            <% } %>
+
+            <% if (status == 'success') { %>
+                <p class='header' style="font-size: 30px; margin: auto;">Tema uploaded!</p>
+                <a href="/CatalogoDeOfertas"><p style="margin: auto">Go to Catálogo de Ofertas</p></a>
+            <% } %>
+
             <form id="upload" action="/upload" method="POST" enctype="multipart/form-data">
-                <div class="row column log-in-form" style="margin: 25px">
+                <div class="row column log-in-form" style="margin-top: 25px">
                     <h4 class="text-center">Upload a PDF!</h4>
                     <label>Title
                         <input type="text" name="title" placeholder="Teorema de Pitágoras">
@@ -30,6 +47,9 @@
                     <label>Temas Relacionados
                         <textarea name="temas" rows="2" placeholder="Los Carritos, El bikini, ¿Quién inventó la montaña rusa?"></textarea>
                     </label>
+                    <label>Email for contatct
+                        <input type="text" name="email">
+                    </label>
                     <label> Category
                         <select name="Cont" form="upload">
                             <option value="Esp">Español</option>
@@ -42,9 +62,10 @@
                         <input type="file" name="pdf"> 
                     </label>
                     <p><input type="submit" class="button expanded" value="Submit"></input></p> 
+                    <a href="/"><p>Home</p></a>
+                    <a href="/CatalogoDeOfertas"><p>Catálogo de Ofertas</p></a>
                 </div>
             </form>
-
         </div>
     </div>
 

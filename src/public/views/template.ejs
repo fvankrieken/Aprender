@@ -21,7 +21,7 @@
 					</li>
 					<li class="divider"></li>
 					<li>
-						<a href="RelacionTutoria">RELACIÓN TUTORIA</a>
+						<a href="/RelacionTutoria">RELACIÓN TUTORIA</a>
 					</li>
 					<li class="divider"></li>
 					<li>
@@ -81,6 +81,27 @@
    	 						<li style="background-color: #f25d53"><%= tema %></li>
 						<% }); %>
 					</ul>
+
+
+
+					<form action="" id="ask" name='<%= pathName %>' method="POST" enctype="application/x-www-form-urlencoded">
+                		
+	                    	<p style="font-family: Avenir-Medium; font-size:18px;">Ask an Expert</p>
+	                    	<p style="font-family: Avenir-Medium; font-size:18px; display: none; color: red" id="error">Please enter valid information</p>
+
+	                    	<label>Correo Electrónico	
+	                        	<input type="text" name="email" id="email">
+	                  		</label>
+	                    	<label>Pregunta
+	                        	<textarea name="question" rows="4" id="question"></textarea>
+	                    	</label>
+	                    	<input value="<%= email %>" name="expEmail" style="display:none">
+	                    	<input value="<%= title %>" name="subject" style="display:none">
+	                    	<input type="submit" class="button" value="Send" style="border-radius: 3px; background-color: #0187e0; border: solid 1px #979797; font-size: 14px; font-face: Avenir-Light;	width: 72px;
+	height: 32px; padding: 5px;" />
+            		</form>
+
+            		<p style="font-family: Avenir-Medium; font-size:18px; display: none" id="emailSent">Email sent!</p>
 					
 				</div>
 
@@ -93,5 +114,41 @@
 
 		</div>
 		
+		<script>
+		
+			$("#ask").on('submit',function(e) {
+
+				function validateEmail(email) {
+					var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+					return re.test(email);
+				}
+
+				if (validateEmail($('#email').val()) && ($('#question').val() !== '')) {
+					document.getElementById('ask').style.display='none'
+					document.getElementById('emailSent').style.display='initial'
+				} else {
+					document.getElementById('error').style.display='initial'
+					return false;
+				}
+
+			    e.preventDefault();
+			    e.stopImmediatePropagation();
+
+			    var path = 'http://localhost:3000/CatalogoDeOfertas/' + $('#ask').attr('name');
+
+			    $.ajax({
+			        type: "POST",
+			        url: path,
+			        data: $("#ask").serialize(),
+			        success: function (data) {
+			        	
+			   		}
+			    });
+
+			    return false;
+
+			});
+		</script>
+
 	</body>
 </html>

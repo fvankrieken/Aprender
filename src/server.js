@@ -1,4 +1,5 @@
 var express = require('express')
+  , mailer = require('express-mailer')
   , passport = require('passport')
   , flash = require('connect-flash')
   , utils = require('./utils')
@@ -11,6 +12,7 @@ var express = require('express')
   , session = require('express-session')
   , multer = require('multer')
   , fs = require('fs')
+  , emailDB = require('./emailDB')
   , pdfData = require('./pdfData');
 
 var storage = multer.diskStorage({
@@ -133,12 +135,19 @@ function issueToken(user, done) {
   });
 }
 
-
-
-
-
 var app = express();
 
+mailer.extend(app, {
+  from: 'noreplyaprenderconinteres@gmail.com',
+  host: 'smtp.gmail.com', // hostname
+  secureConnection: true, // use SSL
+  port: 465, // port for secure SMTP
+  transportMethod: 'SMTP', // default is SMTP. Accepts anything that nodemailer accepts
+  auth: {
+    user: 'noreplyaprenderconinteres@gmail.com',
+    pass: 'redesdetutoria'
+  }
+});
 
 app.set('views', __dirname + '/public/views');
 app.set('view engine', 'ejs');
@@ -146,7 +155,7 @@ app.set('port', (process.env.PORT || 3000))
 app.use(morgan('combined'));
 app.use(express.static(__dirname + '/public'));
 app.use(CookieParser());
-app.use(BodyParser.urlencoded({ extended: false }));
+app.use(BodyParser.urlencoded({ extended: true }));
 app.use(MethodOverride());
 app.use(session({
   secret: 'laser horse'
@@ -163,22 +172,96 @@ app.get('/', function(req, res){
 });
 
 app.get('/RelacionTutoria', function(req, res){
-  res.render('RT', { isAdmin: (req.isAuthenticated), currentPage: "RT" });
+  res.render('RT', { isAdmin: (req.isAuthenticated)});
 });
 
 app.get('/MapeoVirtual', function(req, res){
   console.log(req.user)
-  res.render('MV', { isAdmin: (req.isAuthenticated), currentPage: "MV" });
+  res.render('MV', { isAdmin: (req.isAuthenticated)});
 });
 
 app.get('/CatalogoDeOfertas', function(req, res){
-  res.render('CdO', { isAdmin: (req.isAuthenticated), currentPage: "CdO" });
+  res.render('CdO', { isAdmin: (req.isAuthenticated)});
 });
 
 app.get('/CatalogoDeOfertas/*', function(req, res){
-  var pathName = req.path.split('/')[2]
-  console.log(pdfData.pdfData[pathName])
-  res.render('template', pdfData.pdfData[pathName]);
+  var patharray = req.path.split('/')
+  var pathName = patharray[patharray.length-1];
+  var pathData = pdfData[pathName]
+  
+  pathData['sent'] = false
+  
+  res.render('template', pathData);
+});
+
+app.post('/CatalogoDeOfertas/*', function(req, res){
+  var id = utils.randomString(4);
+  var expEmail = req.body.expEmail;
+  var email = req.body.email;
+  var question = req.body.question;
+  var subject = req.body.subject;
+  var page = req.path.split('/')[2];
+
+  var emailExchange = {};
+  emailExchange[email] = expEmail;
+  emailExchange[expEmail] = email;
+  emailExchange['subject'] = subject;
+  emailDB[id] = emailExchange;
+
+  var toAppend = '"' + id + '": { "' + email + '": "' + expEmail + '", "' + expEmail + '": "' + email + '"},\n};\n\nmodule.exports = emailDB;';
+
+  var stream = fs.openSync(__dirname + '/emailDB.js', 'r+')
+  var stats = fs.statSync(__dirname + '/emailDB.js');
+  var length = stats['size'];
+ 
+  fs.writeSync(stream, toAppend, length - 29);
+  fs.close(stream);
+
+  app.mailer.send('email', {
+    to: expEmail,
+    subject: subject + ' id: ' + id,
+    id: id,
+    content: question
+  }, function (err) {
+    if (err) {
+      // handle error
+      console.log(err);
+      res.send('There was an error sending the email');
+      return;
+    }
+    res.send('Email sent')
+    return
+  });
+
+});
+
+app.post('/email/*', function(req, res) {
+  var patharray = req.path.split('/')
+  console.log(req.body)
+  var id = patharray[patharray.length-1]
+  console.log(id)
+  var email = req.body.email;
+  console.log(email);
+  console.log(emailDB[id])
+  var subject = emailDB[id][subject];
+  var response = req.body.response;
+  var reply = emailDB[id][email]
+
+  app.mailer.send('email', {
+    to: reply,
+    subject: subject + ' id: ' + id,
+    id: id,
+    content: response
+  }, function (err) {
+    if (err) {
+      // handle error
+      console.log(err);
+      res.send('There was an error sending the email');
+      return;
+    }
+    res.send('Email Sent');
+  });
+
 });
 
 app.get('/CompartirTemas', function(req, res){
@@ -190,19 +273,26 @@ app.get('/CompartirExperiencias', function(req, res){
 });
 
 app.get('/upload', function(req, res){
-  res.render('upload', { problem: false })
+  res.render('upload', { status: '' })
 });
 
 app.post('/upload', upload.single('pdf'), function(req, res){
-  
-  var uploadInfo = req.body;
-  var filename = req.file.filename;
-  if (pdfData.pdfData[filename]) {
-    res.render('upload', { problem: true });
+  if (!req.file) {
+    res.render('upload', { status: 'noPDF' });
     return;
   }
+  var uploadInfo = req.body;
+  var filename = req.file.filename;
   var title = uploadInfo.title;
-  var pathName = title.replace(/\s/g, '');
+  var tempName = utils.toTitleCase(title)
+  var pathName = tempName.replace(/\s/g, '');
+  var email = uploadInfo.email;
+
+  if (pdfData[pathName]) {
+    res.render('upload', { status: 'title' });
+    return;
+  }
+
   var descript = uploadInfo.descript;
   var comps = uploadInfo.comps.split(', ');
   var compsString = '["' + comps[0] + '"';
@@ -216,14 +306,20 @@ app.post('/upload', upload.single('pdf'), function(req, res){
       temasString += ', "' + temas[i] + '"';
     }
   temasString += ']'
+
+  if ((title == '') || (pathName == '') || (email == '') || (descript == '') || (comps == '') || (temas == '')) {
+    res.render('upload', { status: 'field'});
+    return;
+  }
+
   var Cont = uploadInfo.Cont;
-  var newData = { filename: filename, title: title, descript: descript, comps: comps, temas: temas, pathName: pathName}
-  pdfData.pdfData[pathName] = newData
+  var newData = { filename: filename, title: title, descript: descript, comps: comps, temas: temas, pathName: pathName, email: email}
+  pdfData[pathName] = newData
 
   var pdfPre = '"' + pathName + '": '
-  var toAppend = '{ filename: "' + filename + '", title: "' + title + '", descript: "' + descript + '", comps: ' + compsString + ', temas: ' + temasString + ', pathName: "' + pathName + '"},';
+  var toAppend = '{ filename: "' + filename + '", title: "' + title + '", descript: "' + descript + '", comps: ' + compsString + ', temas: ' + temasString + ', pathName: "' + pathName + '", email: "' + email + '"},';
   var contAppend = '\n];\n$scope.gridlength=Math.ceil($scope.ofertas.length/3.)-2;\n$scope.blueheight=$scope.gridlength*224+197;\nif ($scope.gridlength<0) {$scope.blueheight=40};\n}]);';
-  var pdfAppend = '\n};\nexports.pdfData = pdfData;'
+  var pdfAppend = '\n};\nmodule.exports = pdfData;'
 
   var stream = fs.openSync(__dirname + '/public/app/Controllers/'+Cont+'Controller.js', 'r+')
   var stats = fs.statSync(__dirname + '/public/app/Controllers/'+Cont+'Controller.js');
@@ -236,18 +332,18 @@ app.post('/upload', upload.single('pdf'), function(req, res){
   var stats2 = fs.statSync(__dirname + '/pdfData.js');
   var length2 = stats2['size'];
  
-  fs.writeSync(stream2, pdfPre + toAppend + pdfAppend, length2 - 29);
+  fs.writeSync(stream2, pdfPre + toAppend + pdfAppend, length2 - 28);
   fs.close(stream2);
 
-  res.render('upload', { problem: false });
+  res.render('upload', { status: 'success' });
   
 });
 
 app.get('/admin', function(req, res){
-  res.render('admin', { user: req.user, pages: [false, false, false, false, false], message: req.flash('error') });
+  res.render('admin');
 });
 
-// POST /login
+// POST /admin
 //   Use passport.authenticate() as route middleware to authenticate the
 //   request.  If authentication fails, the user will be redirected back to the
 //   login page.  Otherwise, the primary route function function will be called,
@@ -258,7 +354,6 @@ app.get('/admin', function(req, res){
 app.post('/admin', 
   passport.authenticate('local', { failureRedirect: '/admin', failureFlash: true }),
   function(req, res, next) {
-    console.log(req.body);
     // Issue a remember me cookie if the option was checked
     if (!req.body.remember_me) { return next(); }
     
@@ -267,12 +362,12 @@ app.post('/admin',
         console.log(err);
         return next(err); 
       }
-      res.cookie('remember_me', token, { path: '/', httpOnly: true, maxAge: 604800000 });
+      res.cookie('remember_me', token, { path: '/upload', httpOnly: true, maxAge: 604800000 });
       return next();
     });
   },
   function(req, res) {
-    res.redirect('/');
+    res.redirect('/upload');
   });
 
 app.get('/logout', function(req, res){

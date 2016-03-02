@@ -1,4 +1,4 @@
 var pdfData = {
 	
 };
-exports.pdfData = pdfData;
+module.exports = pdfData;
