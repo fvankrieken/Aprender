@@ -187,6 +187,7 @@ app.get('/CatalogoDeOfertas', function(req, res){
 app.get('/CatalogoDeOfertas/*', function(req, res){
   var patharray = req.path.split('/')
   var pathName = patharray[patharray.length-1];
+  console.log(pathName)
   var pathData = pdfData[pathName]
   
   pathData['sent'] = false
@@ -285,7 +286,8 @@ app.post('/upload', upload.single('pdf'), function(req, res){
   var filename = req.file.filename;
   var title = uploadInfo.title;
   var tempName = utils.toTitleCase(title)
-  var pathName = tempName.replace(/\s/g, '');
+  var tempName2 = tempName.replace(/\s/g, '');
+  var pathName = utils.removeDiacritics(tempName2);
   var email = uploadInfo.email;
 
   if (pdfData[pathName]) {
