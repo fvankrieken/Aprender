@@ -271,11 +271,11 @@ app.get('/CompartirExperiencias', function(req, res){
   res.render('CE', { isAdmin: (req.isAuthenticated), currentPage: "CE" });
 });
 
-app.get('/upload', function(req, res){
+app.get('/upload', ensureAuthenticated, function(req, res){
   res.render('upload', { status: '' })
 });
 
-app.post('/upload', upload.single('pdf'), function(req, res){
+app.post('/upload', ensureAuthenticated, upload.single('pdf'), function(req, res){
   if (!req.file) {
     res.render('upload', { status: 'noPDF' });
     return;
