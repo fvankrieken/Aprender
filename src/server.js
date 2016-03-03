@@ -27,7 +27,7 @@ var storage = multer.diskStorage({
 var upload = multer({ storage: storage })
 
 var users = [
-    { id: 1, username: 'admin', password: 'Aprender'}
+    { id: 1, username: 'admin', password: 'sociedadcivil'}
 ];
 
 function findById(id, fn) {
@@ -138,14 +138,14 @@ function issueToken(user, done) {
 var app = express();
 
 mailer.extend(app, {
-  from: 'noreplyaprenderconinteres@gmail.com',
+  from: 'consultasaprenderconinteres@gmail.com',
   host: 'smtp.gmail.com', // hostname
   secureConnection: true, // use SSL
   port: 465, // port for secure SMTP
   transportMethod: 'SMTP', // default is SMTP. Accepts anything that nodemailer accepts
   auth: {
-    user: 'noreplyaprenderconinteres@gmail.com',
-    pass: 'redesdetutoria'
+    user: 'consultasaprenderconinteres@gmail.com',
+    pass: 'sociedadcivil'
   }
 });
 
@@ -198,7 +198,7 @@ app.post('/CatalogoDeOfertas/*', function(req, res){
   var expEmail = req.body.expEmail;
   var email = req.body.email;
   var question = req.body.question;
-  var subject = req.body.subject + ', from: ' + email;
+  var subject = req.body.subject + ', de: ' + email;
   var page = req.path.split('/')[2];
 
   var emailExchange = {};
@@ -228,7 +228,7 @@ app.post('/CatalogoDeOfertas/*', function(req, res){
       res.send('There was an error sending the email');
       return;
     }
-    res.send('Email sent')
+    res.send('Enviado')
     return
   });
 
@@ -258,7 +258,7 @@ app.post('/email/*', function(req, res, err) {
       res.send('There was an error sending the email');
       return;
     }
-    res.send('Email Sent');
+    res.send('Enviado');
   });
 
 });
@@ -271,13 +271,13 @@ app.get('/CompartirExperiencias', function(req, res){
   res.render('CE', { isAdmin: (req.isAuthenticated), currentPage: "CE" });
 });
 
-app.get('/upload', ensureAuthenticated, function(req, res){
-  res.render('upload', { status: '' })
+app.get('/admin', ensureAuthenticated, function(req, res){
+  res.render('admin', { status: '' })
 });
 
-app.post('/upload', ensureAuthenticated, upload.single('pdf'), function(req, res){
+app.post('/admin', ensureAuthenticated, upload.single('pdf'), function(req, res){
   if (!req.file) {
-    res.render('upload', { status: 'noPDF' });
+    res.render('admin', { status: 'noPDF' });
     return;
   }
   var uploadInfo = req.body;
@@ -289,7 +289,7 @@ app.post('/upload', ensureAuthenticated, upload.single('pdf'), function(req, res
   var email = uploadInfo.email;
 
   if (pdfData[pathName]) {
-    res.render('upload', { status: 'title' });
+    res.render('admin', { status: 'title' });
     return;
   }
 
@@ -308,7 +308,7 @@ app.post('/upload', ensureAuthenticated, upload.single('pdf'), function(req, res
   temasString += ']'
 
   if ((title == '') || (pathName == '') || (email == '') || (descript == '') || (comps == '') || (temas == '')) {
-    res.render('upload', { status: 'field'});
+    res.render('admin', { status: 'field'});
     return;
   }
 
@@ -335,12 +335,12 @@ app.post('/upload', ensureAuthenticated, upload.single('pdf'), function(req, res
   fs.writeSync(stream2, pdfPre + toAppend + pdfAppend, length2 - 28);
   fs.close(stream2);
 
-  res.render('upload', { status: 'success' });
+  res.render('admin', { status: 'success' });
   
 });
 
-app.get('/admin', function(req, res){
-  res.render('admin');
+app.get('/login', function(req, res){
+  res.render('login');
 });
 
 // POST /admin
@@ -351,8 +351,8 @@ app.get('/admin', function(req, res){
 //
 //   curl -v -d "username=bob&password=secret" http://127.0.0.1:3000/login
 
-app.post('/admin', 
-  passport.authenticate('local', { failureRedirect: '/admin', failureFlash: true }),
+app.post('/login', 
+  passport.authenticate('local', { failureRedirect: '/login', failureFlash: true }),
   function(req, res, next) {
     // Issue a remember me cookie if the option was checked
     if (!req.body.remember_me) { return next(); }
@@ -362,19 +362,19 @@ app.post('/admin',
         console.log(err);
         return next(err); 
       }
-      res.cookie('remember_me', token, { path: '/upload', httpOnly: true, maxAge: 604800000 });
+      res.cookie('remember_me', token, { path: '/admin', httpOnly: true, maxAge: 604800000 });
       return next();
     });
   },
   function(req, res) {
-    res.redirect('/upload');
+    res.redirect('/admin');
   });
 
 app.get('/logout', function(req, res){
   // clear the remember me cookie when logging out
   res.clearCookie('remember_me');
   req.logout();
-  res.redirect('/');
+  res.redirect('/admin');
 });
 
 app.listen(app.get('port'), function() {
@@ -389,5 +389,5 @@ app.listen(app.get('port'), function() {
 //   login page.
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) { return next(); }
-  res.redirect('/admin')
+  res.redirect('/login')
 }
