@@ -176,7 +176,6 @@ app.get('/RelacionTutoria', function(req, res){
 });
 
 app.get('/MapeoVirtual', function(req, res){
-  console.log(req.user)
   res.render('MV', { isAdmin: (req.isAuthenticated)});
 });
 
@@ -187,7 +186,6 @@ app.get('/CatalogoDeOfertas', function(req, res){
 app.get('/CatalogoDeOfertas/*', function(req, res){
   var patharray = req.path.split('/')
   var pathName = patharray[patharray.length-1];
-  console.log(pathName)
   var pathData = pdfData[pathName]
   
   pathData['sent'] = false
