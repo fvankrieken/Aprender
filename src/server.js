@@ -285,7 +285,7 @@ app.post('/upload', ensureAuthenticated, upload.single('pdf'), function(req, res
   var title = uploadInfo.title;
   var tempName = utils.toTitleCase(title)
   var tempName2 = tempName.replace(/\s/g, '');
-  var pathName = utils.removeDiacritics(tempName2);
+  var pathName = utils.removeDiacritics(tempName2).replace(/\W/g, '');
   var email = uploadInfo.email;
 
   if (pdfData[pathName]) {
