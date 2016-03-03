@@ -151,7 +151,7 @@ mailer.extend(app, {
 
 app.set('views', __dirname + '/public/views');
 app.set('view engine', 'ejs');
-app.set('port', (process.env.PORT || 3000))
+app.set('port', 80)
 app.use(morgan('combined'));
 app.use(express.static(__dirname + '/public'));
 app.use(CookieParser());
