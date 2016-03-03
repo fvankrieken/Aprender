@@ -1,4 +1,4 @@
-<html class="no-js" lang="en">
+<html class="no-js" lang="es">
 
   <head>
     <meta charset="utf-8" />
@@ -7,6 +7,9 @@
     <title>Upload</title>
     <link rel="stylesheet" href="stylesheets/foundation.css" />
     <link rel="stylesheet" href="stylesheets/app.css" />
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap-filestyle.min.js"> </script>
+
   </head>
 
   <body style="background-color: #f2f2f2">
@@ -34,11 +37,11 @@
 
             <form id="upload" action="/upload" method="POST" enctype="multipart/form-data">
                 <div class="row column log-in-form" style="margin-top: 25px">
-                    <h4 class="text-center">Upload a PDF!</h4>
-                    <label>Title
+                    <h4 class="text-center">¡Subir un Tema!</h4>
+                    <label>Nombre del tema
                         <input type="text" name="title" placeholder="Teorema de Pitágoras">
                     </label>
-                    <label>Description (2-3 Sentences)
+                    <label>Descripción (2-3 frases)
                         <textarea name="descript" rows="4" placeholder="Este tema propone estudiar la relación constante entre los lados de cualquier triángulo rectángulo a través de las culturas de China, Mesopotamia, Egipto y La India."></textarea>
                     </label>
                     <label>Competencias
@@ -47,10 +50,10 @@
                     <label>Temas Relacionados
                         <textarea name="temas" rows="2" placeholder="Los Carritos, El bikini, ¿Quién inventó la montaña rusa?"></textarea>
                     </label>
-                    <label>Email for contatct
+                    <label>Correo electrónico del experto
                         <input type="text" name="email">
                     </label>
-                    <label> Category
+                    <label> Disciplina
                         <select name="Cont" form="upload">
                             <option value="Esp">Español</option>
                             <option value="Mat">Matemáticas</option>
@@ -58,11 +61,11 @@
                             <option value="His">Historia</option>
                         </select>
                     </label>
-                    <label> Choose PDF
-                        <input type="file" name="pdf"> 
+                    <label>
+                        <input type="file" class="filestyle" data-buttonText="Elija archivo" name="pdf" data-buttonName="button" data-iconName="glyphicon glyphicon-inbox" data-placeholder="Ningún file"> 
                     </label>
-                    <p><input type="submit" class="button expanded" value="Submit"></input></p> 
-                    <a href="/"><p>Home</p></a>
+                    <p><input type="submit" class="button expanded" value="Enviar"></input></p> 
+                    <a href="/"><p>Inicio</p></a>
                     <a href="/CatalogoDeOfertas"><p>Catálogo de Ofertas</p></a>
                 </div>
             </form>
