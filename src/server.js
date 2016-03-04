@@ -188,6 +188,11 @@ app.get('/CatalogoDeOfertas/*', function(req, res){
   var pathName = patharray[patharray.length-1];
   var pathData = pdfData[pathName]
   
+  if (!pathData) {
+    res.render('error')
+    return
+  }
+
   pathData['sent'] = false
   
   res.render('template', pathData);
@@ -376,6 +381,10 @@ app.get('/logout', function(req, res){
   req.logout();
   res.redirect('/login');
 });
+
+app.get('/*', function(req, res){
+  res.render('error')
+})
 
 app.listen(app.get('port'), function() {
   console.log('Express server listening on port', app.get('port'));
