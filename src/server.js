@@ -374,7 +374,7 @@ app.get('/logout', function(req, res){
   // clear the remember me cookie when logging out
   res.clearCookie('remember_me');
   req.logout();
-  res.redirect('/admin');
+  res.redirect('/login');
 });
 
 app.listen(app.get('port'), function() {
