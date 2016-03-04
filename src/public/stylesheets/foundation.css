@@ -385,7 +385,6 @@ body {
   -moz-osx-font-smoothing: grayscale; }
 
 img {
-  max-width: 100%;
   height: auto;
   -ms-interpolation-mode: bicubic;
   display: inline-block;
@@ -2362,11 +2361,11 @@ select {
     display: table-cell; }
   .menu.vertical > li {
     display: block; }
-  @media screen and (min-width: 40em) {
+
     .menu.medium-horizontal > li {
       display: table-cell; }
     .menu.medium-vertical > li {
-      display: block; } }
+      display: block; } 
   @media screen and (min-width: 64em) {
     .menu.large-horizontal > li {
       display: table-cell; }

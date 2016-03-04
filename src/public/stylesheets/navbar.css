@@ -17,7 +17,6 @@ display: inline-block;
    color: #000000;
    cursor: default;
 }
-
 @media only screen and (min-width: 40em) {
   .top-bar {
     text-align: center; }
