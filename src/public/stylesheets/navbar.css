@@ -7,8 +7,13 @@ nav {
 nav.top-bar {
 text-align:center;
 }
-section.top-bar-section {
-display: inline-block;
+
+.top-bar-section ul {
+  display: table; margin: 0 auto;
+}
+
+.top-bar-section ul li {
+  display: table-cell;
 }
 
 .inactiveLink {
