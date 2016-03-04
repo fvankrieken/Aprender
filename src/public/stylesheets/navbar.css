@@ -22,7 +22,7 @@ text-align:center;
    color: #000000;
    cursor: default;
 }
-@media only screen and (min-width: 40em) {
+
   .top-bar {
     text-align: center; }
 
@@ -32,7 +32,7 @@ text-align:center;
   .logo {
     left: 5px;
     top: -2px;
-    position: absolute; } }
+    position: absolute; } 
 .logo {
   max-width: 2rem;
   margin-top: -3px;
