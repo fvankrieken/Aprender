@@ -44,12 +44,11 @@
       </div>
 
       <div class="dropdown">
-        <button onclick="myFunction()" class="dropbtn" id="add" style='
+        <button onclick="myFunction()" class="dropbtn" style='
   color: #ffffff; background-color: #3a9ad9;
   border-radius: 3px;
   font-size: 14px;
   font-family: Avenir-Roman; padding: 5px 15px; margin-bottom: 10px;'>Añadirse al Mapa</button>
-        <button onclick="" class="dropbtn" id="formSent" style="display:none">¡Enviado!</button>
         <div id="myDropdown" class="dropdown-content">
           <div class="row">
             <div class="medium-6 medium-centered large-4 large-centered columns" style="margin: 15px; width:300px">
@@ -76,11 +75,19 @@
                     <label>Cuántos años llevan con la tutoría
                         <input type="text" name="years" id="years">
                     </label>
-                    <p id="emptyData" style="display:none; color:white; font-weight: bold"> Please fill out all fields </p>
+                    <p id="emptyData" style="display:none; color:white; font-weight: bold"> Por favor complete el formulario </p>
                     <p><input type="submit" class="button expanded" value="Añadirse" style="width: 100px"></input></p> 
                   </div>
               </form>
+              <div id="formSent" style="display:none;">
+                <p style="color:white; font-weight: bold; padding-top: 8px;">¡Enviado! </p>
 
+                <button onclick="reset()" style='
+    color: #ffffff; background-color: #3a9ad9;
+    border-radius: 3px;
+    font-size: 14px;
+    font-family: Avenir-Roman; padding: 5px 15px; margin-bottom: 10px'>Okay</button>
+              </div>
             </div>
         </div>
         </div>
@@ -123,6 +130,20 @@
         }
       }
 
+      function reset() {
+        document.getElementById('add').style.display='initial'
+        document.getElementById('formSent').style.display='none'
+
+        $('#name').val('');
+        $('#email').val('');
+        $('#position').val('');
+        $('#schoolName').val('');
+        $('#address').val('');
+        $('#CCT').val('');
+        $('#years').val('');
+        document.getElementById('myDropdown').style.height='646.5px'
+      }
+
     
 
     </script>
@@ -152,13 +173,13 @@
 
                       document.getElementById('add').style.display='none'
                       document.getElementById('formSent').style.display='initial'
-                      document.getElementById('myDropdown').style.display='none'
+                      document.getElementById('myDropdown').style.height='120px'
                       //Success message
                   },
                   200: function (){
                       document.getElementById('add').style.display='none'
                       document.getElementById('formSent').style.display='initial'
-                      document.getElementById('myDropdown').style.display='none'
+                      document.getElementById('myDropdown').style.height='120px'
                       //Success Message
                   }
               }
