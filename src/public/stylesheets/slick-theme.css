@@ -154,6 +154,7 @@
     border: 0;
     outline: none;
     background: transparent;
+    text-align: center;
 }
 .slick-dots li button:hover,
 .slick-dots li button:focus
