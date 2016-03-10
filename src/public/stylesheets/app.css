@@ -212,9 +212,19 @@ li a {
 
 .grid {
 	width: 250px;
-	height: 200px;
+	height: 215px;
+	background-color: #ffffff;
+	box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.5);
+	transition: box-shadow 0.25s ease-out,
+} 
 
-}
+.grid:hover {
+	box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.75);
+} 
+
+.grid:hover .topOfGrid { background-color: #E3564D; color: #1f1f1f;}
+
+.grid:hover .gridMain { background-color: #f2f2f2; color: #2f2f2f;}
 
 .grids {
 	height: 100%;
@@ -230,6 +240,15 @@ li a {
 	background-color: #f25d53;
 	font-size: 18;
 	text-align: center;
+	transition: background-color 0.25s ease-out, color 0.25s ease-out;
+}
+
+.gridMain {
+	height:150px;
+	width:250px;
+	padding:10px;
+	background-color: #ffffff;
+	transition: background-color 0.25s ease-out, color 0.25s ease-out;
 }
 
 .header {

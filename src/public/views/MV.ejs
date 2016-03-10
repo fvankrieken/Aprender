@@ -49,7 +49,7 @@
           <div class="row">
             <div class="medium-6 medium-centered large-6 large-centered columns" style="margin: 15px; width:300px; padding-right: 0; margin-right: 0">
               <div style='height: 0px; width: 100%'>
-                <img src="/img/x.png"  style='width: 10px; position: relative; right: -316px; top: 0px; cursor: pointer;'/>
+                <img src="/img/x.png"  class="exit" style='width: 10px; position: relative; right: -316px; top: 0px; cursor: pointer;'/>
               </div>
               <form action="javascript: postContactToGoogle()" id="add" target="_self" onsubmit="" style="width: 300px;">
                   <div class="row column log-in-form" style="margin-top: 10px">
@@ -82,7 +82,7 @@
                   </div>
               </form>
               <div id="formSent" style="display:none;">
-                <p style="color:white; font-family: Avenir-Roman; padding-top: 8px;">¡Enviado! </p>
+                <p id="formSent" style="color:white; font-family: Avenir-Roman; padding-top: 8px;">¡Enviado! </p>
 
                 <button onclick="reset()" class="mybutton">Okay</button>
               </div>
@@ -115,7 +115,7 @@
 
       // Close the dropdown menu if the user clicks outside of it
       window.onclick = function(event) {
-        if (!event.target.matches('.dropbtn') && !event.target.matches('input')) {
+        if ((!event.target.matches('.dropbtn') && !event.target.matches('input') && !event.target.matches('label') && !event.target.matches('div.row') && !event.target.matches('ul') && !event.target.matches('div.medium-6') && !event.target.matches('li') && !event.target.matches('p#emptyData') && !event.target.matches('p#formSent')) || event.target.matches('img.exit')) {
 
           var dropdowns = document.getElementsByClassName("dropdown-content");
           var i;
