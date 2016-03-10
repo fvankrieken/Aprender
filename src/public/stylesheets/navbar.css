@@ -17,10 +17,18 @@ text-align:center;
   display: table-cell;
 }
 
+.top-bar-section li :hover {
+  color: #1D1D1D;
+}
+
+a {
+  transition: color 0.25s ease-out;
+}
+
 .inactiveLink {
    pointer-events: none;
    font-size: 15;
-   color: #000000;
+   color: #F25D53;
    cursor: default;
 }
 

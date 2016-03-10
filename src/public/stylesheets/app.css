@@ -50,7 +50,7 @@ a:hover .mi1 {
 .mi1 {
 	position: absolute;
 	opacity: 1;
-    transition: opacity 0.25s linear;
+    transition: opacity 0.25s ease-out;
 }
 
 a p { text-decoration: none; color:#0187e0; }
