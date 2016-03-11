@@ -300,6 +300,7 @@ li a {
   width: 150px;
   z-index:100;
   font-size: 18px;
+  transition: color 0.25s ease-out;
 }
 
 .tabordion section label:hover {
