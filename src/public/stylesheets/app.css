@@ -293,13 +293,17 @@ li a {
   text-align: center;
   cursor: pointer;
   display: block;
-  color: #fff;
+  color: #D7EAF7;
   padding: 10px 15px;
   margin-bottom: 20px;
   position: relative;
   width: 150px;
   z-index:100;
   font-size: 18px;
+}
+
+.tabordion section label:hover {
+	color: #ffffff !important;
 }
 
 .blueBar {
