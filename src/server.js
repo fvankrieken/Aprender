@@ -482,8 +482,13 @@ app.post('/admin', ensureAuthenticated, upload.single('pdf'), function(req, res)
     collection.insert(toInsert, function(err, count) {
       var slickCollect = db.collection('slick');
 
-      slickCollect.update({'cont': uploadInfo.Cont}, toInsert, res.render('admin', { status: 'success' }));
-      
+      slickCollect.count({'cont': uploadInfo.Cont}, function(err, count) {
+          if (count == 0) {
+            slickCollect.insert(toInsert, res.render('admin', { status: 'success' }))
+          } else {
+            slickCollect.update({'cont': uploadInfo.Cont}, toInsert, res.render('admin', { status: 'success' }));
+          }
+      });
     });
   });
  
