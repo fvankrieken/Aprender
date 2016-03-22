@@ -13,11 +13,11 @@ var express = require('express')
   , multer = require('multer')
   , fs = require('fs')
   , MongoClient = require('mongodb').MongoClient
-  , MongoURL = 'mongodb://aprenderconinteres.org:27017/data'
+  , MongoURL = 'mongodb://ec2-52-32-107-9.us-west-2.compute.amazonaws.com:27017/data'
 
 var db;
 
-// Initialize connection once
+/*Initialize connection once
 MongoClient.connect(MongoURL, function(err, database) {
   if(err) throw err;
 
@@ -28,7 +28,7 @@ MongoClient.connect(MongoURL, function(err, database) {
   console.log('Express server listening on port', app.get('port'));
   });
 });
-
+*/
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, __dirname + '/public/pdfs')
