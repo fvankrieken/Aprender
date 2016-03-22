@@ -8,8 +8,16 @@
       <a href="/CatalogoDeOfertas/<%= tema['pathName'] %>">
         <div class="grid">
           <div class="topOfGrid" style="width:250px;">
-            <div style="position: absolute; display: table; width: 250px; height: 65px;">
-            <p style="color:White; font-size: 18px; font-face: Avenir-Roman; margin:0; display: table-cell; vertical-align: middle; overflow: hidden;"><%= tema['title'] %></p>
+    <div style="position: absolute; display: -ms-flexbox;
+  display: -webkit-flex;
+
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  text-align: center;
+
+  align-items: center; width: 250px; height: 65px;">
+    <p style="color:White; font-size: 18px; font-face: Avenir-Roman; margin:0; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; padding: 0px 8px; margin: auto;"><%= tema['title'] %></p>
             </div>
           </div>
           <div class="gridMain">
