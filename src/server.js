@@ -13,7 +13,7 @@ var express = require('express')
   , multer = require('multer')
   , fs = require('fs')
   , MongoClient = require('mongodb').MongoClient
-  , MongoURL = 'mongodb://ec2-52-32-107-9.us-west-2.compute.amazonaws.com:27017/data'
+  , MongoURL = 'mongodb://finn:sociedad@ec2-52-32-107-9.us-west-2.compute.amazonaws.com:27017/data'
 
 var db;
 
