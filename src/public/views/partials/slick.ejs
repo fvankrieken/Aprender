@@ -1,5 +1,8 @@
 
 <div class="slicktab" style="display: flex; width: 770px; margin: 0px; height: 284;">
+
+	<% if ((((comps.length!=1) || (comps[0]!=" ")) && comps.length!=0) || (((temas.length!=1) || (temas[0]!=" ")) && temas.length!=0) { %>
+
 	<div style="padding: 30px; width: 350px; text-align: left; position: relative;">
 		<p style="font-size: 20px; font-face: Avenir-Medium; color: #4a4a4a; margin-bottom: 15px">Nuevo tema: <%= category['title']%></p>
 		<div style="height: 100px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical;"
@@ -23,4 +26,17 @@
 			<% }); %>
 		</ul>
 	</div>
+
+	<% } else { %>
+
+		<p style="font-size: 20px; font-face: Avenir-Medium; color: #4a4a4a; margin-bottom: 15px">Nuevo tema: <%= category['title']%></p>
+		<div style="height: 100px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical;"
+			<p style="font-size: 15px; font-face: Avenir-Light; color: #000000;"><%= category['descript']%></p>
+		</div>
+		<div  style="position: absolute; bottom: 25px">
+			<a href="/CatalogoDeOfertas/<%= category['pathName']%>"><p>Ver este tema</p></a>
+		</div>
+
+	<% } %>
+
 </div>
