@@ -90,10 +90,11 @@
 	                    <textarea rows="1" name="email"><%= email %></textarea>
 
 	                    <% var contArray = ['Esp', 'Mat', 'Cie', 'His', 'Tex'] %>
-	                    <% var selectArray = ['', '', '', '', '']%>
+	                    <% var selectArray = ['', '', '', '', ''] %>
 
 	                   	<% for (i = 0; i < 5, i++) { %>
 	                   	<% if (contArray[i] == cont) {selectArray[i]='selected'} %>
+	                   	<% } %>
 
 						<p style="font-family: Avenir-Medium; font-size:18px;">Disciplina</p>
 	                    <select name="Cont" form="update">
