@@ -532,7 +532,7 @@ app.get('/logout', function(req, res){
   // clear the remember me cookie when logging out
   res.clearCookie('remember_me');
   req.logout();
-  res.redirect('/login');
+  res.redirect('/');
 });
 
 app.get('/*', function(req, res){

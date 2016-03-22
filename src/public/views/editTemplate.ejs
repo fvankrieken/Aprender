@@ -89,9 +89,23 @@
 						<p style="font-family: Avenir-Medium; font-size:18px;">Correo electrónico del experto</p>
 	                    <textarea rows="1" name="email"><%= email %></textarea>
 
+	                    <% var contArray = ['Esp', 'Mat', 'Cie', 'His', 'Tex'] %>
+	                    <% var selectArray = ['', '', '', '', '']%>
+
+	                   	<% for (i = 0; i < 5, i++) { %>
+	                   	<% if (contArray[i] == cont) {selectArray[i]='selected'} %>
+
+						<p style="font-family: Avenir-Medium; font-size:18px;">Disciplina</p>
+	                    <select name="Cont" form="update">
+                            <option value="Esp" selected="<%=selectArray[0]%>">Español</option>
+                            <option value="Mat" selected="<%=selectArray[1]%>">Matemáticas</option>
+                            <option value="Cie" selected="<%=selectArray[2]%>">Ciencias</option>
+                            <option value="His" selected="<%=selectArray[3]%>">Historia</option>
+                            <option value="Tex" selected="<%=selectArray[4]%>">Textos</option>
+                        </select>
+
 	                    <input value="<%= pathName %>" name="OGpathName" style="display:none !important;">
 	                    <input value="<%= fileName %>" name="fileName" style="display:none !important;">
-	                    <input value="<%= cont %>" name="Cont" style="display:none !important;">
 
 	            		<p><input type="submit" class="mybutton" value="Enviar"></input></p> 
 				
