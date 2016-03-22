@@ -98,11 +98,11 @@
 
 						<p style="font-family: Avenir-Medium; font-size:18px;">Disciplina</p>
 	                    <select name="Cont" form="update">
-                            <option value="Esp" <% (cont=="Esp") ? "selected" : "" %>>Español</option>
-                            <option value="Mat" <% (cont=="Mat") ? "selected" : "" %>>Matemáticas</option>
-                            <option value="Cie" <% (cont=="Cie") ? "selected" : "" %>>Ciencias</option>
-                            <option value="His" <% (cont=="His") ? "selected" : "" %>>Historia</option>
-                            <option value="Tex" <% (cont=="Tex") ? "selected" : "" %>>Textos</option>
+                            <option value="Esp" <% if (cont == 'Esp') { %>selected<% } %>>Español</option>
+                            <option value="Mat" <% if (cont == 'Mat') { %>selected<% } %>>Matemáticas</option>
+                            <option value="Cie" <% if (cont == 'Cie') { %>selected<% } %>>Ciencias</option>
+                            <option value="His" <% if (cont == 'His') { %>selected<% } %>>Historia</option>
+                            <option value="Tex" <% if (cont == 'Tex') { %>selected<% } %>>Textos</option>
                         </select>
 
 	                    <input value="<%= pathName %>" name="OGpathName" style="display:none !important;">
