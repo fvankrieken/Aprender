@@ -479,14 +479,13 @@ app.post('/admin', ensureAuthenticated, upload.single('pdf'), function(req, res)
       res.render('admin', { status: 'title' });
       return;
     }
-    collection.insert(toInsert, res.render('admin', { status: 'success' }));
+    collection.insert(toInsert, function(err, count {
+      var slickCollect = db.collection('slick');
 
-  });
-
-  var slickCollect = db.collection('slick');
-
-  slickCollect.count({'cont': uploadInfo.Cont}, function(err, count) {
-      slickCollect.update({'cont': uploadInfo.Cont}, toInsert);
+      slickCollect.count({'cont': uploadInfo.Cont}, function(err, count) {
+          slickCollect.update({'cont': uploadInfo.Cont}, toInsert, res.render('admin', { status: 'success' })));
+      });
+    });
   });
  
 /* Add this to admin page (js with if, stopimmediatepropagation)
