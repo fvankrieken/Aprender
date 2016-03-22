@@ -197,10 +197,6 @@ app.get('/', function(req, res){
   var slickArray = []
   var toAdd
 
-  collection.find().toArray(function(err, documents) {
-    console.dir(documents);
-  });
-
   collection.find({ 'cont': 'Esp' }).toArray(function(err, documents) {
     toAdd = documents[0];
     if (toAdd) {
