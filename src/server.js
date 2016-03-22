@@ -12,12 +12,26 @@ var express = require('express')
   , session = require('express-session')
   , multer = require('multer')
   , fs = require('fs')
-  , emailDB = require('./emailDB')
-  , pdfData = require('./pdfData');
+  , MongoClient = require('mongodb').MongoClient
+  , MongoURL = 'mongodb://aprenderconinteres.org:27017/data'
+
+var db;
+
+// Initialize connection once
+MongoClient.connect(MongoURL, function(err, database) {
+  if(err) throw err;
+
+  db = database;
+
+  // Start the application after the database connection is ready
+  app.listen(app.get('port'), function() {
+  console.log('Express server listening on port', app.get('port'));
+  });
+});
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, __dirname + '/public/app/pdfs')
+    cb(null, __dirname + '/public/pdfs')
   },
   filename: function (req, file, cb) {
     cb(null, file.originalname)
@@ -167,35 +181,133 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(passport.authenticate('remember-me'));
 
+app.locals.blueHeight = function(subject) {
+  var gridLength = Math.ceil(subject.length/3.)-2;
+  var toReturn = (gridLength * 239) + 155;
+  if (gridLength < 0) {return 40};
+  return toReturn;
+}
+
+app.locals.slickBlank = {'title': '', 'pathName': '', 'comps': [], 'temas': [], 'descript': ''}
+
 app.get('/', function(req, res){
-  res.render('index', { user: req.user });
+  var collection = db.collection('slick');
+  var slickArray = []
+  var toAdd
+
+  collection.find().toArray(function(err, documents) {
+    console.dir(documents);
+  });
+
+  collection.find({ 'cont': 'Esp' }).toArray(function(err, documents) {
+    toAdd = documents[0];
+    if (toAdd) {
+      slickArray.push(toAdd)
+    }
+    collection.find({ 'cont': 'Mat' }).toArray(function(err, documents) {
+      toAdd = documents[0];
+      if (toAdd) {
+        slickArray.push(toAdd)
+      }
+      collection.find({ 'cont': 'Cie' }).toArray(function(err, documents) {
+        toAdd = documents[0];
+        if (toAdd) {
+          slickArray.push(toAdd)
+        }
+        collection.find({ 'cont': 'His' }).toArray(function(err, documents) {
+          toAdd = documents[0];
+          if (toAdd) {
+            slickArray.push(toAdd)
+          }
+          collection.find({ 'cont': 'Tex' }).toArray(function(err, documents) {
+            toAdd = documents[0];
+            if (toAdd) {
+              slickArray.push(toAdd)
+            }
+
+            res.render('index', { 'slicks': slickArray});
+            
+          });
+        });
+      });
+    });
+  });
 });
 
 app.get('/RelacionTutoria', function(req, res){
-  res.render('RT', { isAdmin: (req.isAuthenticated)});
+  res.render('RT', { isAdmin: (req.isAuthenticated())});
 });
 
 app.get('/MapeoVirtual', function(req, res){
-  res.render('MV', { isAdmin: (req.isAuthenticated)});
+  res.render('MV', { isAdmin: (req.isAuthenticated())});
 });
 
 app.get('/CatalogoDeOfertas', function(req, res){
-  res.render('CdO', { isAdmin: (req.isAuthenticated)});
+  var collection = db.collection('temas');
+  var catJSON = {};
+
+  collection.find({ 'cont': 'Esp' }).toArray(function(err, documents) {
+    if (!documents) {
+      catJSON.esp = [];
+    } else {
+      catJSON.esp = documents;
+    }
+
+    collection.find({ 'cont': 'Mat' }).toArray(function(err, documents) {
+      if (!documents) {
+        catJSON.mat = [];
+      } else {
+        catJSON.mat = documents;
+      }
+
+      collection.find({ 'cont': 'Cie' }).toArray(function(err, documents) {
+        if (!documents) {
+          catJSON.cie = [];
+        } else {
+          catJSON.cie = documents;
+        }
+
+        collection.find({ 'cont': 'His' }).toArray(function(err, documents) {
+          if (!documents) {
+            catJSON.his = [];
+          } else {
+            catJSON.his = documents;
+          }
+
+          collection.find({ 'cont': 'Tex' }).toArray(function(err, documents) {
+            if (!documents) {
+              catJSON.tex = [];
+            } else {
+              catJSON.tex = documents;
+            }
+
+            catJSON.isAdmin = req.isAuthenticated();
+
+            res.render('CdO', catJSON);
+            
+          });
+        });
+      });
+    });
+  });
 });
 
 app.get('/CatalogoDeOfertas/*', function(req, res){
   var patharray = req.path.split('/')
   var pathName = patharray[patharray.length-1];
-  var pathData = pdfData[pathName]
-  
-  if (!pathData) {
-    res.render('error')
-    return
-  }
+  collection = db.collection('temas')
 
-  pathData['sent'] = false
+  collection.find({ 'pathName': pathName }).toArray(function(err, pathDataArray) {
+    pathData = pathDataArray[0]
+    if (!pathData) {
+      res.render('error')
+      return
+    }
+    pathData['isAdmin'] = req.isAuthenticated()
+    res.render('template', pathData);
+  })
   
-  res.render('template', pathData);
+ 
 });
 
 app.post('/CatalogoDeOfertas/*', function(req, res){
@@ -203,69 +315,132 @@ app.post('/CatalogoDeOfertas/*', function(req, res){
   var expEmail = req.body.expEmail;
   var email = req.body.email;
   var question = req.body.question;
-  var subject = req.body.subject + ', de: ' + email;
+  var subject = req.body.subject;
   var page = req.path.split('/')[2];
 
-  var emailExchange = {};
-  emailExchange[email] = expEmail;
-  emailExchange[expEmail] = email;
-  emailExchange['subject'] = subject;
-  emailDB[id] = emailExchange;
 
-  var toAppend = '"' + id + '": { "' + email + '": "' + expEmail + '", "' + expEmail + '": "' + email + '", "subject": "' + subject + '" },\n};\n\nmodule.exports = emailDB;';
+  var collection = db.collection('emails');
+  
+  var toInsert = { 'id': id, 'email': email, 'expEmail': expEmail, 'subject': subject};
 
-  var stream = fs.openSync(__dirname + '/emailDB.js', 'r+')
-  var stats = fs.statSync(__dirname + '/emailDB.js');
-  var length = stats['size'];
- 
-  fs.writeSync(stream, toAppend, length - 29);
-  fs.close(stream);
-
-  app.mailer.send('email', {
-    to: expEmail,
-    subject: subject,
-    id: id,
-    content: question
-  }, function (err) {
-    if (err) {
-      // handle error
-      console.log(err);
-      res.send('There was an error sending the email');
-      return;
-    }
-    res.send('Enviado')
-    return
-  });
-
+  collection.insert(
+    toInsert, 
+    app.mailer.send('email', 
+      {
+        to: expEmail,
+        subject: subject + ', de: ' + email,
+        id: id,
+        content: question,
+        expOrNot: 'exp'
+      }, function (err) {
+        if (err) {
+          // handle error
+          console.log(err);
+          res.send('There was an error sending the email');
+          return;
+        }
+        res.send('Enviado');
+        return;
+      })
+  );
 });
 
+app.get('/edit/*', ensureAuthenticated, function(req, res){
+  var patharray = req.path.split('/')
+  var pathName = patharray[patharray.length-1];
+  collection = db.collection('temas')
+
+  collection.find({ 'pathName': pathName }).toArray(function(err, pathDataArray) {
+    pathData = pathDataArray[0]
+    if (!pathData) {
+      res.render('error')
+      return
+    }
+    res.render('editTemplate', pathData);
+  });
+});
+
+app.post('/edit/*', ensureAuthenticated, function(req, res){
+  var uploadInfo = req.body;
+  var collection = db.collection('temas');
+  var OGpathName = uploadInfo.OGpathName
+  var title = uploadInfo.title;
+  var tempName = utils.toTitleCase(title)
+  var tempName2 = tempName.replace(/\s/g, '');
+  var pathName = utils.removeDiacritics(tempName2).replace(/\W/g, '');
+
+  var comps = uploadInfo.comps.split(', ');
+  var temas = uploadInfo.temas.split(', ');
+
+  var toInsert = {'pathName': pathName, 'title': title, 'descript': uploadInfo.descript, 'cont': uploadInfo.Cont, 'comps': comps, 'temas': temas, 
+  'email': uploadInfo.email, 'fileName': req.body.fileName}
+
+  collection.findOneAndUpdate({'pathName': OGpathName}, toInsert, function(err, count) {
+    var slickCollect = db.collection('slick');
+
+    slickCollect.findOneAndUpdate({'pathName': pathName}, toInsert, function(err, count) {
+      res.redirect('/CatalogoDeOfertas/'+pathName);
+    });
+  });
+});
+
+app.get('/delete/*', ensureAuthenticated, function(req, res) {
+  var patharray = req.path.split('/');
+  var pathName = patharray[patharray.length-1];
+  collection = db.collection('temas');
+  collection.deleteOne({'pathName': pathName});
+  slickCollect = db.collection('slick');
+  slickCollect.deleteOne({'pathName': pathName})
+  res.redirect('/CatalogoDeOfertas');
+})
+
 app.post('/email/*', function(req, res, err) {
+/*
   if (err) {
     res.send('Esta conversación ha expirado')
     return
   }
-  var patharray = req.path.split('/')
-  var id = patharray[patharray.length-1]
-  var email = req.body.email;
-  var subject = emailDB[id]['subject'];
+*/
+  var patharray = req.path.split('/');
+  var id = patharray[patharray.length-1];
+  var next;
   var response = req.body.response;
-  var reply = emailDB[id][email]
+  var expornot = req.body.expOrNot
 
-  app.mailer.send('email', {
-    to: reply,
-    subject: subject,
-    id: id,
-    content: response
-  }, function (err) {
-    if (err) {
-      // handle error
-      console.log(err);
-      res.send('There was an error sending the email');
-      return;
+  var collection = db.collection('emails');
+
+  collection.find({ 'id': id }).toArray(function(err, docs) {
+    var emailData = docs[0]
+    var subject = emailData['subject']
+    if (expornot == "exp") {
+      next = emailData['email']
+      from = emailData['expEmail']
+      expornot = "not"
+    } else {
+      next = emailData['expEmail']
+      from = emaildata['email']
+      expornot = "not"
     }
-    res.send('Enviado');
-  });
 
+    app.mailer.send('email', {
+      to: next,
+      subject: subject + ', de: ' + from,
+      id: id,
+      content: response,
+      expOrNot: expornot
+    }, function (err) {
+      if (err) {
+        // handle error
+        console.log(err);
+        res.send('There was an error sending the email');
+        return;
+      }
+      res.send('Enviado');
+    });
+  
+
+  });
+  
 });
 
 app.get('/CompartirTemas', function(req, res){
@@ -286,61 +461,38 @@ app.post('/admin', ensureAuthenticated, upload.single('pdf'), function(req, res)
     return;
   }
   var uploadInfo = req.body;
-  var filename = req.file.filename;
+  var collection = db.collection('temas');
   var title = uploadInfo.title;
   var tempName = utils.toTitleCase(title)
   var tempName2 = tempName.replace(/\s/g, '');
   var pathName = utils.removeDiacritics(tempName2).replace(/\W/g, '');
-  var email = uploadInfo.email;
 
-  if (pdfData[pathName]) {
-    res.render('admin', { status: 'title' });
-    return;
-  }
-
-  var descript = uploadInfo.descript;
   var comps = uploadInfo.comps.split(', ');
-  var compsString = '["' + comps[0] + '"';
-    for (i = 1; i < comps.length; i++) {
-      compsString += ', "' + comps[i] + '"';
-    }
-  compsString += ']'
   var temas = uploadInfo.temas.split(', ');
-  var temasString = '["' + temas[0] + '"';
-    for (i = 1; i < temas.length; i++) {
-      temasString += ', "' + temas[i] + '"';
-    }
-  temasString += ']'
+  var toInsert = {'pathName': pathName, 'title': title, 'descript': uploadInfo.descript, 'cont': uploadInfo.Cont, 'comps': comps, 'temas': temas, 
+  'email': uploadInfo.email, 'fileName': req.file.filename}
 
+  collection.count({'pathName': pathName}, function(err, count) {
+    if (count != 0) {
+      res.render('admin', { status: 'title' });
+      return;
+    }
+    collection.insert(toInsert, res.render('admin', { status: 'success' }));
+
+  });
+
+  var slickCollect = db.collection('slick');
+
+  slickCollect.count({'cont': uploadInfo.Cont}, function(err, count) {
+      slickCollect.update({'cont': uploadInfo.Cont}, toInsert);
+  });
+ 
+/* Add this to admin page (js with if, stopimmediatepropagation)
   if ((title == '') || (pathName == '') || (email == '') || (descript == '') || (comps == '') || (temas == '')) {
     res.render('admin', { status: 'field'});
     return;
   }
-
-  var Cont = uploadInfo.Cont;
-  var newData = { filename: filename, title: title, descript: descript, comps: comps, temas: temas, pathName: pathName, email: email}
-  pdfData[pathName] = newData
-
-  var pdfPre = '"' + pathName + '": '
-  var toAppend = '{ filename: "' + filename + '", title: "' + title + '", descript: "' + descript + '", comps: ' + compsString + ', temas: ' + temasString + ', pathName: "' + pathName + '", email: "' + email + '"},';
-  var contAppend = '\n];\n$scope.gridlength=Math.ceil($scope.ofertas.length/3.)-2;\n$scope.blueheight=$scope.gridlength*224+197;\nif ($scope.gridlength<0) {$scope.blueheight=40};\n}]);';
-  var pdfAppend = '\n};\nmodule.exports = pdfData;'
-
-  var stream = fs.openSync(__dirname + '/public/app/Controllers/'+Cont+'Controller.js', 'r+')
-  var stats = fs.statSync(__dirname + '/public/app/Controllers/'+Cont+'Controller.js');
-  var length = stats['size'];
- 
-  fs.writeSync(stream, toAppend + contAppend, length - 158);
-  fs.close(stream);
-
-  var stream2 = fs.openSync(__dirname + '/pdfData.js', 'r+')
-  var stats2 = fs.statSync(__dirname + '/pdfData.js');
-  var length2 = stats2['size'];
- 
-  fs.writeSync(stream2, pdfPre + toAppend + pdfAppend, length2 - 28);
-  fs.close(stream2);
-
-  res.render('admin', { status: 'success' });
+*/
   
 });
 
@@ -386,9 +538,7 @@ app.get('/*', function(req, res){
   res.render('error')
 })
 
-app.listen(app.get('port'), function() {
-  console.log('Express server listening on port', app.get('port'));
-});
+
 
 
 // Simple route middleware to ensure user is authenticated.

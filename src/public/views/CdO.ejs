@@ -1,4 +1,4 @@
-<html ng-app = "myApp">
+<html>
 
   <head>
     <meta charset="utf-8" />
@@ -13,9 +13,7 @@
 
   <body style="background-color: #f2f2f2;">
 
-    <script type='text/javascript'>
-      var isAdmin = "{{ isAdmin }}";
-    </script>
+    <% var footerStyle = "position: relative; left: -145px;"%>
 
     <nav class="top-bar" data-topbar>
      
@@ -42,30 +40,21 @@
     <div class="main">
       <div class="header" style="height:40px ;padding: 0px; width:100%; margin: auto">
         <div class="blueBar" style="float: left; height:100%;"></div>
-        <p style="margin-bottom: 0px; padding-top: 25px; padding-right: 140px"> Catálogo de Ofertas </p>
-        </div>
+        <p style="margin-bottom: 0px; padding-top: 25px; padding-right: 160px"> Catálogo de Ofertas </p>
+      </div>
       <div class="tabordion">
         
         <section id="section1">
           <input type="radio" name="sections" id="option1" checked>
           <label for="option1">Español</label>
-          <article ng-controller="EspController">
+          <article>
             
-            <div class="grids">
-              <ul>
-                <li ng-repeat="oferta in ofertas" style="float: left; margin-right: 24px; margin-top: 24px;">
-                  <app-info info="oferta"></app-info>
-                  <!-- <a class="btn" ng-click="remove(oferta)">Delete</a> -->
-                </li>
-              </ul>
-            </div>
+            <% var category = esp; %>
+            <% include partials/grid.ejs %>
 
-            <div class="blueBar" style="height: {{ blueheight }}px; position: relative; top: -16px; left: -160px"></div>
+            <div class="blueBar" style="height: <%= blueHeight(category) %>px; position: relative; top: -16px; left: -160px"></div>
 
-            <div class="footer" style="position: relative; left: -145px;">
-              <p style="font-face: Avenir-Roman; color: #f25d53; margin-bottom:0px;"> <img src="/img/logo2.png" style="width: 50px; height: 16px; margin-bottom: 5px; margin-right: 5px;"/>Aprender Con Interés A.C. </p>
-              <p style="font-size: 10px;font-face: Helvetica-Light;">© 2016 Aprender Con Interes. All rights reserved.</p>
-            </div>
+            <% include partials/footer.ejs %>
 
           </article>
         </section>
@@ -73,23 +62,14 @@
         <section id="section2">
           <input type="radio" name="sections" id="option2">
           <label for="option2">Matemáticas</label>
-          <article ng-controller="MatController">
+          <article>
             
-            <div class="grids">
-              <ul>
-                <li ng-repeat="oferta in ofertas" style="float: left; margin-right: 24px; margin-top: 24px; box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.5);">
-                  <app-info info="oferta"></app-info>
-                  <!-- <a class="btn" ng-click="remove(oferta)">Delete</a> -->
-                </li>
-              </ul>
-            </div>
+            <% category = mat; %>
+            <% include partials/grid.ejs %>
 
-            <div class="blueBar" style="height: {{ blueheight }}px; position: relative; top: -16px; left: -160px"></div>
+            <div class="blueBar" style="height: <%= blueHeight(category) %>px; position: relative; top: -16px; left: -160px"></div>
 
-            <div class="footer" style="position: relative; left: -145px;">
-              <p style="font-face: Avenir-Roman; color: #f25d53; margin-bottom:0px;"> <img src="/img/logo2.png" style="width: 50px; height: 16px; margin-bottom: 5px; margin-right: 5px;"/>Aprender Con Interés A.C. </p>
-              <p style="font-size: 10px;font-face: Helvetica-Light;">© 2016 Aprender Con Interes. All rights reserved.</p>
-            </div>
+            <% include partials/footer.ejs %>
 
           </article>
         </section>
@@ -97,63 +77,50 @@
         <section id="section3">
           <input type="radio" name="sections" id="option3">
           <label for="option3">Ciencias</label>
-          <article ng-controller="CieController">
-            <div class="grids">
-              <ul>
-                <li ng-repeat="oferta in ofertas" style="float: left; margin-right: 24px; margin-top: 24px; box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.5);">
+          <article>
+            
+            <% category = cie; %>
+            <% include partials/grid.ejs %>
 
-                  <app-info info="oferta"></app-info>
-                  <!-- <a class="btn" ng-click="remove(oferta)">Delete</a> -->
-                </li>
-              </ul>
-            </div>
+            <div class="blueBar" style="height: <%= blueHeight(category) %>px; position: relative; top: -16px; left: -160px"></div>
 
-            <div class="blueBar" style="height: {{ blueheight }}px; position: relative; top: -16px; left: -160px"></div>
-
-            <div class="footer" style="position: relative; left: -145px;">
-              <p style="font-face: Avenir-Roman; color: #f25d53; margin-bottom:0px;"> <img src="/img/logo2.png" style="width: 50px; height: 16px; margin-bottom: 5px; margin-right: 5px;"/>Aprender Con Interés A.C. </p>
-              <p style="font-size: 10px;font-face: Helvetica-Light;">© 2016 Aprender Con Interes. All rights reserved.</p>
-            </div>
+            <% include partials/footer.ejs %>
 
           </article>
         </section>
+
         <section id="section4">
           <input type="radio" name="sections" id="option4">
           <label for="option4">Historia</label>
-          <article ng-controller="HisController">
-            <div class="grids">
-              <ul>
-                <li ng-repeat="oferta in ofertas" style="float: left; margin-right: 24px; margin-top: 24px; box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.5);">
-                  <app-info info="oferta"></app-info>
-                  <!-- <a class="btn" ng-click="remove(oferta)">Delete</a> -->
-                </li>
-              </ul>
-            </div>
+          <article>
 
-            <div class="blueBar" style="height: {{ blueheight }}px; position: relative; top: -16px; left: -160px"></div>
+            <% category = his; %>
+            <% include partials/grid.ejs %>
 
-            <div class="footer" style="position: relative; left: -145px;">
-              <p style="font-face: Avenir-Roman; color: #f25d53; margin-bottom:0px;"> <img src="/img/logo2.png" style="width: 50px; height: 16px; margin-bottom: 5px; margin-right: 5px;"/>Aprender Con Interés A.C. </p>
-              <p style="font-size: 10px;font-face: Helvetica-Light;">© 2016 Aprender Con Interes. All rights reserved.</p>
-            </div>
+            <div class="blueBar" style="height: <%= blueHeight(category) %>px; position: relative; top: -16px; left: -160px"></div>
+
+            <% include partials/footer.ejs %>
+
+          </article>
+        </section>
+
+        <section id="section5">
+          <input type="radio" name="sections" id="option5">
+          <label for="option5">Textos</label>
+          <article>
+
+            <% category = tex; %>
+            <% include partials/grid.ejs %>
+
+            <div class="blueBar" style="height: <%= blueHeight(category) %>px; position: relative; top: -16px; left: -160px"></div>
+
+            <% include partials/footer.ejs %>
 
           </article>
         </section>
     
       </div>
     </div>
-
-    <!-- Modules -->
-    <script src="app/app.js"></script>
-
-    <!-- Controllers -->
-    <script src="app/Controllers/EspController.js"></script>
-    <script src="app/Controllers/MatController.js"></script>
-    <script src="app/Controllers/CieController.js"></script>
-    <script src="app/Controllers/HisController.js"></script>
-
-    <!-- Directives -->
-    <script src="app/Grid/grid.js"></script>
     
   </body>
 </html>

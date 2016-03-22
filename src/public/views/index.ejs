@@ -28,68 +28,60 @@
       <ul style="text-align: center;" id="pages" style="margin-left: 0px">
         <li style="width: 200px;">
           <a href="/RelacionTutoria">
+            <p class="MainLink">
             <img class="mainIcon mi1" src="/img/thought_circle.png" />
             <img class="mainIcon mi2" src="/img/thought_circle_hover.png" />
-            <p class="MainLink">RELACIÓN TUTORIA</p>
+            RELACIÓN TUTORIA</p>
           </a>
         </li>
         <li style="width: 160px">
           <a href="/MapeoVirtual">
+            <p class="MainLink">
             <img class="mainIcon mi1" src="/img/globe_circle.png" />
             <img class="mainIcon mi2" src="/img/globe_circle_hover.png" />
-            <p class="MainLink">MAPEO VIRTUAL</p>
+            MAPEO VIRTUAL</p>
           </a>
         </li>
         <li style="width: 200px">
           <a href="/CatalogoDeOfertas">
+            <p class="MainLink">
             <img class="mainIcon mi1" src="/img/book_circle.png" />
             <img class="mainIcon mi2" src="/img/book_circle_hover.png" />
-            <p class="MainLink">CATÁLOGO DE OFERTAS</p>
+            CATÁLOGO DE OFERTAS</p>
           </a>
         </li>
         <li style="width: 160px">
           <a href="/CompartirTemas">
+            <p class="MainLink">
             <img class="mainIcon mi1" src="/img/people_circle.png" />
             <img class="mainIcon mi2" src="/img/people_circle_hover.png" />
-            <p class="MainLink">COMPARTIR TEMAS</p>
+            COMPARTIR TEMAS</p>
           </a>
         </li>
         <li style="width: 200px">
           <a href="/CompartirExperiencias">
+            <p class="MainLink">
             <img class="mainIcon mi1" src="/img/convo_circle.png" />
             <img class="mainIcon mi2" src="/img/convo_circle_hover.png" />
-            <p class="MainLink">COMPARTIR EXPERIENCIAS</p>
+            COMPARTIR EXPERIENCIAS</p>
           </a>
         </li>
       </ul>
 
+      
+      <% var category %>
+
       <div class="single-item" style="height: 314px; width: 830px; margin: auto; margin-top: 35px; margin-bottom: 80px">
-        <div ng-controller="EspController">
-          <div class="slicktab">
-            <slick-info info="ofertas[ofertas.length - 1]"></slick-info>
-          </div>
-        </div>
-        <div ng-controller="MatController">
-          <div class="slicktab">
-            <slick-info info="ofertas[ofertas.length - 1]"></slick-info>
-          </div>
-        </div>
-        <div ng-controller="CieController">
-          <div class="slicktab">
-            <slick-info info="ofertas[ofertas.length - 1]"></slick-info>
-          </div>
-        </div>
-        <div ng-controller="HisController">
-          <div class="slicktab">
-            <slick-info info="ofertas[ofertas.length - 1]"></slick-info>
-          </div>
-        </div>
+        <% slicks.forEach(function(tema, index) { %>
+        <% category = tema %>
+        <div style="padding: 10px 30px">
+        <% include partials/slick %>
+      </div>
+        <% }); %>
       </div>
 
-      <div class="footer"  style="margin: 25px; margin-bottom: 0">
-      <p style="font-face: Avenir-Roman; color: #f25d53; margin-bottom:0px;"> <img src="/img/logo2.png" style="width: 50px; height: 16px; margin-bottom: 5px; margin-right: 5px;"/>Aprender Con Interés A.C. </p>
-      <p style="font-size: 10px;font-face: Helvetica-Light;">© 2016 Aprender Con Interes. All rights reserved.</p>
-    </div>
+      <% var footerStyle = "margin: 25px; margin-bottom: 0"%>
+      <% include partials/footer %>
 
     </div>
 
@@ -101,25 +93,14 @@
       $(document).ready(function(){
         $('.single-item').slick({
           dots: true,
-          prevArrow:"<button type='button' class='slickprevnext' style='left:-25px; margin-top: 10px;'>&#9001</button>",
-          nextArrow:"<button type='button' class='slickprevnext' style='right:-23px; margin-top: 10px;'>&#9002</button>",
+          prevArrow:"<button type='button' class='slickprevnext' style='left:-7px; margin-top: 13px;'><img src='/img/left.png' style='width:13px; height: 25px;'/ ></button>",
+          nextArrow:"<button type='button' class='slickprevnext' style='right:-7px; margin-top: 13px;'><img src='/img/right.png' style='width:13px; height: 25px;'/ ></button>",
           autoplay:true,
-          autoplaySpeed:10000,
+          autoplaySpeed:8000,
         });
       });
     </script>
 
-       <!-- Modules -->
-    <script src="app/app.js"></script>
-
-    <!-- Controllers -->
-    <script src="app/Controllers/EspController.js"></script>
-    <script src="app/Controllers/MatController.js"></script>
-    <script src="app/Controllers/CieController.js"></script>
-    <script src="app/Controllers/HisController.js"></script>
-
-    <!-- Directives -->
-    <script src="app/slick/slick.js"></script>
 
   </body>
 </html>

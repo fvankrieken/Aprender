@@ -1,0 +1,26 @@
+<div class="grids">
+  <ul>
+
+    <% console.log(category) %>
+    <% category.forEach(function(tema, index) { %>
+
+    <li style="float: left; margin-right: 24px; margin-top: 24px;">
+      <a href="/CatalogoDeOfertas/<%= tema['pathName'] %>">
+        <div class="grid">
+          <div class="topOfGrid" style="width:250px;">
+            <div style="position: absolute; display: table; width: 250px; height: 65px;">
+            <p style="color:White; font-size: 18px; font-face: Avenir-Roman; margin:0; display: table-cell; vertical-align: middle; overflow: hidden;"><%= tema['title'] %></p>
+            </div>
+          </div>
+          <div class="gridMain">
+            <p style="height: 108px; font-size: 14px; font-face: Avenir-LightOblique; color: #4a4a4a; overflow: hidden; margin-bottom: 5px; display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical;"><i><%= tema['descript'] %></i></p>
+            <a href="/pdfs/<%= tema['fileName'] %>" style="font-size: 14px; font-face: Avenir-Medium; color: #0187e0;" download>Descargar</a>
+          </div>
+        </div>
+      </a>
+    </li>
+
+    <% }); %>
+    
+  </ul>
+</div>

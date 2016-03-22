@@ -1,0 +1,110 @@
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="x-ua-compatible" content="ie=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title><%= title %></title>
+		<link rel="stylesheet" href="/stylesheets/foundation.css" />
+		<link rel="stylesheet" href="/stylesheets/app.css" />
+		<link rel="stylesheet" href="/stylesheets/navbar.css" />
+    	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
+	</head>
+	<body style="background-color: #f2f2f2;">
+
+		<nav class="top-bar" data-topbar>
+			<section class="top-bar-section">
+				<ul class="vertical medium-horizontal menu">
+					<li class="divider"></li>
+					<li class="Apr">
+						<a href="/"><img src="/img/logo_less.png"  style='width: 36px'/></a>
+					</li>
+					<li class="divider"></li>
+					<li>
+						<a href="/RelacionTutoria">RELACIÓN TUTORIA</a>
+					</li>
+					<li class="divider"></li>
+					<li>
+						<a href="/MapeoVirtual">MAPEO VIRTUAL</a>
+					</li>
+					<li class="divider"></li>
+					<li>
+						<a href="/CatalogoDeOfertas" class="inactiveLink">CATÁLOGO DE OFERTAS</a>
+					</li>
+					<li class="divider"></li>
+					<li>
+						<a href="/CompartirTemas">COMPARTIR TEMAS</a>
+					</li>
+					<li class="divider"></li>
+					<li><a href="/CompartirExperiencias">COMPARTIR EXPERIENCIAS</a>
+					</li>
+					<li class="divider"></li>
+				</ul>
+			</section>
+		</nav>
+		<div class="main">
+
+			<form id="update" action="/edit/<%= pathName %>" method="POST" enctype="application/x-www-form-urlencoded">
+				
+				<textarea name="title" style="width: 400px; margin: auto; margin-top: 21px; height: 20px !important; padding: 6px; text-align: center; font-size: 24"><%= title %></textarea>
+
+	      		<a href="/CatalogoDeOfertas" style="position: relative; top: -38px; left: 36px; color: #0187e0 !important;">&#9001 &nbsp Volver al Catálogo de Ofertas</a>
+
+	      		<a href='/CatalogoDeOfertas/<%= pathName %>'><button type="button" class="mybutton" style="position: relative; right: -568px; top: -38px">VOLVER AL TEMA</button></a>
+
+				<div style="width: 950px; display:flex; padding: 25px; padding-top: 0px; margin: auto">
+					<div>
+						<a href="/pdfs/<%= fileName %>" style="position: relative; left: 2px;" download><p style="margin-bottom:5px;">Descargar</p></a>
+
+						<div style="width: 650px; height: 900px; box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.5);">
+
+							<object data="/pdfs/<%= fileName %>" type="application/pdf" width="650" height="900" style="position: relative;">
+								<p>Alternative text - include a link <a href="/app/pdfs/test.pdf">to the PDF!</a></p>
+							</object>
+						</div>
+
+					</div>
+
+					<div style="flex: 1; padding-left: 25px; padding-top: 35px; padding-bottom: 20px;">
+
+						<p style="font-family: Avenir-Medium; font-size:18px;">Descripción</p>
+						<textarea name="descript" rows="5"><%= descript %></textarea>
+
+						<p style="font-family: Avenir-Medium; font-size:18px;">Competencias</p>
+						<% var compString = '' %>
+						<% comps.forEach(function(comp, index) { %>
+		 						<% compString += (comp + ', ') %>
+						<% }); %>
+						<% compString = compString.substring(0, compString.length - 2); %>
+						<textarea name="comps" rows="2"><%= compString %></textarea>
+						
+						<p style="font-family: Avenir-Medium; font-size:18px;">Temas relacionados</p>
+						<% var temaString = '' %>
+						<% temas.forEach(function(tema, index) { %>
+		 						<% temaString += (tema + ', ') %>
+						<% }); %>
+						<% temaString = temaString.substring(0, temaString.length - 2); %>
+						<textarea name="temas" rows="2"><%= temaString %></textarea>
+
+						<p style="font-family: Avenir-Medium; font-size:18px;">Correo electrónico del experto</p>
+	                    <textarea rows="1" name="email"><%= email %></textarea>
+
+	                    <input value="<%= pathName %>" name="OGpathName" style="display:none !important;">
+	                    <input value="<%= fileName %>" name="fileName" style="display:none !important;">
+	                    <input value="<%= cont %>" name="Cont" style="display:none !important;">
+
+	            		<p><input type="submit" class="mybutton" value="Enviar"></input></p> 
+				
+					</div>
+
+				</div>
+
+			</form>
+
+		<% var footerStyle = '' %>
+		<% include partials/footer %>
+		    
+		
+		</div>
+	</body>
+</html>

@@ -7,8 +7,10 @@
 		<link rel="stylesheet" href="/stylesheets/foundation.css" />
 		<link rel="stylesheet" href="/stylesheets/app.css" />
 		<link rel="stylesheet" href="/stylesheets/navbar.css" />
-    	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+		<link rel="stylesheet" href="/stylesheets/bootstrap.css" />
+    	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
+		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 	</head>
 		<body style="background-color: #f2f2f2;">
 
@@ -48,17 +50,45 @@
         		<%= title %>
       		</div>
 
-      		<a href="/CatalogoDeOfertas" style="position: relative; top: -28px; left: 36px;"><p style="margin-bottom:0px;">&#9001 &nbsp Volver al Catálogo de Ofertas</p></a>
+      		<a href="/CatalogoDeOfertas" style="position: relative; top: -28px; left: 36px; color: #0187e0 !important;">&#9001 &nbsp Volver al Catálogo de Ofertas</a>
+      		<% if (isAdmin) { %>
+      			<button type="button" class="mybutton" data-toggle="modal" data-target="#myModal" style="position: relative; right: -545px; top: -28px; width: 170px; padding-left: 0px; padding-right: 0px;">ELIMINAR ESTE TEMA</button> 
+
+      			<div class="modal fade" id="myModal" role="dialog">
+			    	<div class="modal-dialog modal-sm">
+				    	<div class="modal-content">
+				        	<div class="modal-header">
+				        		<button type="button" class="close" data-dismiss="modal">&times;</button>
+				        		<h4 class="modal-title">¿Estás seguro?</h4>
+				        	</div>
+				        	<div class="modal-body">
+				        		<p>¿Quieres eliminar este tema?</p>
+				        	</div>
+				        	<div class="modal-footer">
+				        		<a href="/delete/<%= pathName %>"><button type="button" class="mybutton" style="background-color: #f25d53">Eliminar</button></a>
+				         		<button type="button" class="mybutton" data-dismiss="modal">Cerrar</button>
+				        	</div>
+				    	</div>
+				    </div>
+				</div>
+
+      		<% } %>
+
+      		<% if (isAdmin) { %>
+      			<a href='/edit/<%= pathName %>'><button type="button" class="mybutton" style="position: relative; right: -370px; top: 5px; width: 170px;">EDITAR ESTE TEMA</button></a>
+
+      		<% } %>
+      		
 
 			<div style="width: 950px; display:flex; padding: 25px; padding-top: 0px; margin: auto">
 				<div>
 				
 
-				<a href="/app/pdfs/<%= filename %>" style="position: relative; left: 2px;" download><p style="margin-bottom:5px;">Descargar</p></a>
+				<a href="/pdfs/<%= fileName %>" style="position: relative; left: 2px;" download><p style="margin-bottom:5px;">Descargar</p></a>
 
-				<div style="width: 650px; height: 830px; overflow: hidden; box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.5);">
+				<div style="width: 650px; height: 900px; box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.5);">
 
-					<object data="/app/pdfs/<%= filename %>" type="application/pdf" width="650" height="830" style="position: relative;">
+					<object data="/pdfs/<%= fileName %>" type="application/pdf" width="650" height="900" style="position: relative;">
 						<p>Alternative text - include a link <a href="/app/pdfs/test.pdf">to the PDF!</a></p>
 					</object>
 
@@ -67,6 +97,9 @@
 				</div>
 
 				<div style="flex: 1; padding-left: 25px; padding-top: 35px; padding-bottom: 20px;">
+
+					<p style="font-family: Avenir-Medium; font-size:18px;">Descripción</p>
+					<p><%= descript %></p>
 
 					<p style="font-family: Avenir-Medium; font-size:18px;">Competencias</p>
 					<ul class="cote">
@@ -107,10 +140,8 @@
 
 			</div>
 
-			<div class="footer">
-	    		<p style="font-face: Avenir-Roman; color: #f25d53; margin-bottom:0px;"> <img src="/img/logo2.png" style="width: 50px; height: 16px; margin-bottom: 5px; margin-right: 5px;"/>Aprender Con Interés A.C. </p>
-	    		<p style="font-size: 10px;font-face: Helvetica-Light;">© 2016 Aprender Con Interes. All rights reserved.</p>
-	    	</div>
+			<% var footerStyle = '' %>
+			<% include partials/footer %>
 
 		</div>
 		
