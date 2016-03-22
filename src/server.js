@@ -17,7 +17,7 @@ var express = require('express')
 
 var db;
 
-/*Initialize connection once
+//Initialize connection once
 MongoClient.connect(MongoURL, function(err, database) {
   if(err) throw err;
 
@@ -28,7 +28,7 @@ MongoClient.connect(MongoURL, function(err, database) {
   console.log('Express server listening on port', app.get('port'));
   });
 });
-*/
+
 
 
 var storage = multer.diskStorage({
@@ -539,11 +539,6 @@ app.get('/logout', function(req, res){
 app.get('/*', function(req, res){
   res.render('error')
 })
-
-app.listen(app.get('port'), function() {
-  console.log('Express server listening on port', app.get('port'));
-  });
-
 
 // Simple route middleware to ensure user is authenticated.
 //   Use this route middleware on any resource that needs to be protected.  If
