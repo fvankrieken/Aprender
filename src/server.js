@@ -29,6 +29,8 @@ MongoClient.connect(MongoURL, function(err, database) {
   });
 });
 */
+
+
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, __dirname + '/public/pdfs')
@@ -538,7 +540,9 @@ app.get('/*', function(req, res){
   res.render('error')
 })
 
-
+app.listen(app.get('port'), function() {
+  console.log('Express server listening on port', app.get('port'));
+  });
 
 
 // Simple route middleware to ensure user is authenticated.
