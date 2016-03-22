@@ -101,21 +101,25 @@
 					<p style="font-family: Avenir-Medium; font-size:18px;">Descripción</p>
 					<p><%= descript %></p>
 
-					<p style="font-family: Avenir-Medium; font-size:18px;">Competencias</p>
-					<ul class="cote">
-						<% comps.forEach(function(comp, index) { %>
-   	 						<li style="background-color: #3a9ad9"><%= comp %></li>
-						<% }); %>
-					</ul>
-					
-					<p style="font-family: Avenir-Medium; font-size:18px;">Temas relacionados</p>
-					<ul class="cote">
-						<% temas.forEach(function(tema, index) { %>
-   	 						<li style="background-color: #f25d53"><%= tema %></li>
-						<% }); %>
-					</ul>
+					<% if (((comps.length!=1) || (comps[0]!=" ")) && comps.length!=0) { %>
 
+						<p style="font-family: Avenir-Medium; font-size:18px;">Competencias</p>
+						<ul class="cote">
+							<% comps.forEach(function(comp, index) { %>
+	   	 						<li style="background-color: #3a9ad9"><%= comp %></li>
+							<% }); %>
+						</ul>
 
+					<% } if (((comps.length!=1) || (comps[0]!=" ")) && comps.length!=0) { %>
+						
+						<p style="font-family: Avenir-Medium; font-size:18px;">Temas relacionados</p>
+						<ul class="cote">
+							<% temas.forEach(function(tema, index) { %>
+	   	 						<li style="background-color: #f25d53"><%= tema %></li>
+							<% }); %>
+						</ul>
+
+					<% } %>
 
 					<form action="" id="ask" name='<%= pathName %>' method="POST" enctype="application/x-www-form-urlencoded">
                 		
