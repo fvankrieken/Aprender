@@ -1,6 +1,8 @@
 
 <div class="slicktab" style="display: flex; width: 770px; margin: 0px; height: 284;">
 
+	<% var comps = category['comps'] %>
+	<% var temas = category['temas'] %>
 	<% if ((((comps.length!=1) || (comps[0]!=" ")) && comps.length!=0) || (((temas.length!=1) || (temas[0]!=" ")) && temas.length!=0)) { %>
 
 	<div style="padding: 30px; width: 350px; text-align: left; position: relative;">
@@ -15,13 +17,13 @@
 	<div style="height: 234px; flex: 1; margin-top: 25px; border-left: solid 1px #d1d1d1; padding-top: 0px; padding-left: 35px; padding-right: 25px; overflow: hidden;">
 		<p style="margin-bottom: 5px;">Competencias</p>
 		<ul class="cote2" style="margin-bottom: 0px; overflow: hidden; max-height: 92px;">
-			<% category['comps'].forEach(function(comp, index) { %>
+			<% comps.forEach(function(comp, index) { %>
 			<li style="background-color: #3a9ad9"><%= comp %></li>
 			<% }); %>
 		</ul>
 		<p style="margin-bottom: 5px;">Temas relacionados</p>
 		<ul class="cote2" style="margin-bottom: 0px;">
-			<% category['temas'].forEach(function(tema, index) { %>
+			<% temas.forEach(function(tema, index) { %>
 			<li style="background-color: #f25d53"><%= tema %></li>
 			<% }); %>
 		</ul>
