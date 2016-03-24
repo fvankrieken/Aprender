@@ -1,0 +1,30 @@
+<nav class="top-bar" data-topbar>
+	<section class="top-bar-section">
+		<ul class="vertical medium-horizontal menu">
+			<li class="divider"></li>
+			<li class="Apr">
+				<a href="/"><img src="/img/logo_less.png"  style='width: 36px'/></a>
+			</li>
+			<li class="divider"></li>
+			<li>
+				<a href="/RelacionTutoria" <% if (currPage=='RT') { %>class='inactiveLink'<% } %>>RELACIÓN TUTORIA</a>
+			</li>
+			<li class="divider"></li>
+			<li>
+				<a href="/MapeoVirtual" <% if (currPage=='MV') { %>class='inactiveLink'<% } %> >MAPEO VIRTUAL</a>
+			</li>
+			<li class="divider"></li>
+			<li>
+				<a href="/CatalogoDeOfertas" <% if (currPage=='CdO') { %>class='inactiveLink'<% } %> >CATÁLOGO DE OFERTAS</a>
+			</li>
+			<li class="divider"></li>
+			<li>
+				<a href="/CompartirTemas" <% if (currPage=='CT') { %>class='inactiveLink'<% } %> >COMPARTIR TEMAS</a>
+			</li>
+			<li class="divider"></li>
+			<li><a href="/CompartirExperiencias" <% if (currPage=='CE') { %>class='inactiveLink'<% } %> >COMPARTIR EXPERIENCIAS</a>
+			</li>
+			<li class="divider"></li>
+		</ul>
+	</section>
+</nav>

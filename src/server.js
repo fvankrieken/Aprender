@@ -165,7 +165,7 @@ mailer.extend(app, {
   }
 });
 
-app.set('views', __dirname + '/public/views');
+app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 app.set('port', 80)
 app.use(morgan('combined'));
@@ -298,10 +298,10 @@ app.get('/CatalogoDeOfertas/*', function(req, res){
   collection.find({ 'pathName': pathName }).toArray(function(err, pathDataArray) {
     pathData = pathDataArray[0]
     if (!pathData) {
-      res.render('error')
-      return
+      res.render('error');
+      return;
     }
-    pathData['isAdmin'] = req.isAuthenticated()
+    pathData['isAdmin'] = req.isAuthenticated();
     res.render('template', pathData);
   })
   
@@ -309,38 +309,45 @@ app.get('/CatalogoDeOfertas/*', function(req, res){
 });
 
 app.post('/CatalogoDeOfertas/*', function(req, res){
+  var patharray = req.path.split('/')
+  var pathName = patharray[patharray.length-1]; 
   var id = utils.randomString(4);
-  var expEmail = req.body.expEmail;
   var email = req.body.email;
   var question = req.body.question;
   var subject = req.body.subject;
   var page = req.path.split('/')[2];
 
+  var findEmail = db.collection('temas');
 
-  var collection = db.collection('emails');
+  findEmail.find({ 'pathName': pathName }).toArray(function(err, pathDataArray) {
+    pathData = pathDataArray[0];
+    var expEmail = pathData['email'];
+    var collection = db.collection('emails');
   
-  var toInsert = { 'id': id, 'email': email, 'expEmail': expEmail, 'subject': subject};
+    var toInsert = { 'id': id, 'email': email, 'expEmail': expEmail, 'subject': subject};
 
-  collection.insert(
-    toInsert, 
-    app.mailer.send('email', 
-      {
-        to: expEmail,
-        subject: subject + ', de: ' + email,
-        id: id,
-        content: question,
-        expOrNot: 'exp'
-      }, function (err) {
-        if (err) {
-          // handle error
-          console.log(err);
-          res.send('There was an error sending the email');
+    collection.insert(
+      toInsert, 
+      app.mailer.send('email', 
+        {
+          to: expEmail,
+          subject: subject + ', de: ' + email,
+          id: id,
+          content: question,
+          expOrNot: 'exp'
+        }, function (err) {
+          if (err) {
+            // handle error
+            console.log(err);
+            res.send('There was an error sending the email');
+            return;
+          }
+          res.send('Enviado');
           return;
-        }
-        res.send('Enviado');
-        return;
-      })
-  );
+        })
+    );
+
+  });
 });
 
 app.get('/edit/*', ensureAuthenticated, function(req, res){
@@ -393,12 +400,12 @@ app.get('/delete/*', ensureAuthenticated, function(req, res) {
 })
 
 app.post('/email/*', function(req, res, err) {
-/*
+
   if (err) {
     res.send('Esta conversación ha expirado')
     return
   }
-*/
+
   var patharray = req.path.split('/');
   var id = patharray[patharray.length-1];
   var next;
@@ -410,6 +417,7 @@ app.post('/email/*', function(req, res, err) {
   collection.find({ 'id': id }).toArray(function(err, docs) {
     var emailData = docs[0]
     var subject = emailData['subject']
+    var addSubject = '';
     if (expornot == "exp") {
       next = emailData['email']
       from = emailData['expEmail']
@@ -417,12 +425,13 @@ app.post('/email/*', function(req, res, err) {
     } else {
       next = emailData['expEmail']
       from = emaildata['email']
-      expornot = "not"
+      addSubject = ', de: ' + from
+      expornot = "exp"
     }
 
     app.mailer.send('email', {
       to: next,
-      subject: subject + ', de: ' + from,
+      subject: subject + addSubject,
       id: id,
       content: response,
       expOrNot: expornot
