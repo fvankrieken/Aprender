@@ -18,9 +18,11 @@
     <div class="main">
 
       <div class="header">Archivos</div>
-
-      
-
+      <ul>
+        <% pdfs.forEach(function(pdf, index) {%>
+          <a href="/archivos/<%= pdf %>"><%= pdf %></a>
+        <% } %>
+      </ul>
       <% var footerStyle = ""%>
       <% include partials/footer %>
 
