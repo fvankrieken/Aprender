@@ -44,51 +44,6 @@ label.btn.button {
 	display: inline !important;
 }
 
-.search {
-	width: 200px;
-	border-radius: 18px;
-	border: solid 1px #ffffff;
-	margin: auto;
-	background-color: transparent;
-	margin-top: 30px; 
-	color: #ffffff;
-	height: 39px;
-	padding: 6px;
-	font-family: Avenir-Medium;
-	font-weight: 500;
-	font-size: 18px;
-	padding-left: 15px;
-	min-height: 0px !important;
-}
-
-.search::-webkit-input-placeholder { /* WebKit, Blink, Edge */
-	font-family: Avenir-Medium;
-    color:    #ffffff;
-}
-.search:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-	font-family: Avenir-Medium;
-   color:    #ffffff;
-   opacity:  1;
-}
-.search::-moz-placeholder { /* Mozilla Firefox 19+ */
-	font-family: Avenir-Medium;
-   color:    #ffffff;
-   opacity:  1;
-}
-.search:-ms-input-placeholder { /* Internet Explorer 10-11 */
-	font-family: Avenir-Medium;
-   color:    #ffffff;
-}
-.search:placeholder-shown { /* Standard (https://drafts.csswg.org/selectors-4/#placeholder) */
-	font-family: Avenir-Medium;
-  color:    #ffffff;
-}
-.search:focus {
-	background-color: transparent;
-	box-shadow: 0;
-	border: solid 1px #ffffff;
-}
-
 .mainTitle{
 	text-align: center;
 	font-size: 48px;
@@ -589,41 +544,12 @@ li a {
     color: #ffffff;
  }
 
-input[name="topics"] {
-  left: -9999px;
-  position: absolute;
-  top: -9999px;
+ul.pdfList li a:visited {
+	color: #0187e0
 }
 
-.forumLabel {
-	border-bottom: solid 1px #ffffff;
-	padding: 10px;
-	padding-left: 20px;
-	margin: 0px !important;
-	width: 100%;
-	color: #ffffff;
-	font-family: Avenir-Medium !important;
-	font-size: 16px;
-	cursor: pointer;
-}
-
-input[type=checkbox]:checked ~ label {
-   
-}
-
-input[name="topics"]:checked + label { 
-	background-color: rgba(255, 255, 255, 0.35);
-}
-
-.comments {
-	display: none;
-	height: 800px;
-	overflow: scroll;
-}
-
-.comment {
-	width: 718px;
-	height: 212px;
-	background-color: #ffffff;
-	box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
+ul.pdfList li p a {
+	font-size: 18px; 
+	font-family: Avenir-Medium;
+	color: #0187e0;
 }

@@ -646,6 +646,11 @@ app.post('/admin', ensureAuthenticated, upload.single('pdf'), function(req, res)
 app.get('/archivos', ensureAuthenticated, function(req, res) {
   var path = __dirname + "/public/pdfTemp"
   fs.readdir(path, function(err, list) {
+    for (var i = 0; i < list.length; i++) {
+      if (list[i] == '.DS_Store') {
+        list.splice(i, 1)
+      }
+    }
     res.render('archivos', {'pdfs': list})
   })
 })

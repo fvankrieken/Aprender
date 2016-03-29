@@ -15,16 +15,18 @@
     <% var isAdmin = true %>
     <% include partials/navbar %>
 
-    <div class="main">
+    <div class="main" style="width: 700px">
 
-      <div class="header">Archivos</div>
-      <ul class="pdfList" style="width: 600px; margin: auto;">
-        <% pdfs.forEach(function(pdf, index) {%>
-        <li>
-          <p><a href="/archivos/<%= pdf %>"><%= pdf %></a> &mdash; <a href="/pdfTemp/<%= pdf %>" download>Descargar</a></p>
-        </li>
-        <% }); %>
-      </ul>
+      <div class="header"><%= pdf %></div>
+      <div style="width: 650px; height: 900px; box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.5); margin: auto;">
+
+          <object data="/pdfTemp/<%= pdf %>" type="application/pdf" width="650" height="900">
+            <p>Alternative text - include a link <a href="/pdfTemp/<%= pdf %>">to the PDF!</a></p>
+          </object>
+
+        </div>
+      <% var footerStyle = ""%>
+      <% include partials/footer %>
 
     </div>
 
