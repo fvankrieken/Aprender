@@ -8,22 +8,273 @@
     <link rel="stylesheet" href="/stylesheets/foundation.css" />
     <link rel="stylesheet" href="/stylesheets/app.css" />
     <link rel="stylesheet" href="/stylesheets/navbar.css" />
+    <link rel="stylesheet" href="/stylesheets/forum.css" />
+    <link rel="stylesheet" href="/stylesheets/bootstrap.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
   </head>
 
   <body style="background-color: #f2f2f2;">
     <% currPage = 'CE' %>
     <% include partials/navbar %>
+    <% %>
 
     <div class="main">
 
-      <div class="header">¡Próximamente!</div>
+      <div style="display: flex;">
 
-       <div class="footer CEfoot"  style="position: absolute; bottom: 0; margin: 25px; margin-bottom: 0">
-      <p style="font-face: Avenir-Roman; color: #f25d53; margin-bottom:0px;"> <img src="/img/logo2.png" style="width: 50px; height: 16px; margin-bottom: 5px; margin-right: 5px;"/>Aprender Con Interés A.C. </p>
-      <p style="font-size: 10px;font-face: Helvetica-Light;">© 2016 Aprender Con Interes. All rights reserved.</p>
+        <!-- Side Bar -->
+
+        <div class="blueBar" style="float:left; height: 800px; padding: 0px; width: 240px; margin-left: 20px; overflow: scroll">
+          <p class="addComment white" data-toggle="modal" data-target="#addTopic">+ Añadir un tema</p> 
+
+          <div class="modal fade" id="addTopic" role="dialog">
+            <div class="modal-dialog modal-sm" style="width: 500px">
+              <div class="modal-content">
+                <form action="/CompartirExperiencias" id="addSubject" method="POST">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title" style="text-align: center">Empazar un convercación</h4>
+                  </div>
+                  <div class="modal-body" style="margin-bottom: 30px">
+                    <label>Tema
+                      <input type="text" name="topic">
+                    </label>
+                    <label>Comentario
+                        <textarea name="comment" rows="4"></textarea>
+                    </label>
+                    <label>Su nombre
+                      <input type="text" name="name">
+                    </label>
+                    <input type="hidden" name="date" id="todayDate1"/>
+                    <input type="submit" class="mybutton" value="Enviar" style="float: right"></input>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <% topics.reverse() %>
+
+          <textarea type="text" name="title" id="search" placeholder="buscar" class="search"></textarea>
+          <div style="width: 100%; border-top: solid 1px #ffffff; margin-top: 20px">
+            <% topics.forEach(function(topic, index) { %>
+              <% var i = index + 1 %>
+              <% var topicNum = "topic" + i.toString() %>
+              <% var topicNumLabel = topicNum + "label" %>
+              <input type="radio" name="topics" id="<%= topicNumLabel %>" />
+              <label for="<%= topicNumLabel %>" onclick="showOption('<%= topicNum %>')" class="forumLabel">
+                <%= topic['topic'] %>
+                <% if (isAdmin) { %>
+                <button class="close" data-toggle="modal" data-target="#deleteTopic" style="float: right; padding-top: 5px">&times;</button>
+
+                <div class="modal fade" id="deleteTopic" role="dialog" style="color: black">
+                  <div class="modal-dialog modal-sm" style="width: 250px">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">¿Estás seguro?</h4>
+                      </div>
+                      <div class="modal-body">
+                        <p>¿Quieres eliminar este tema?</p>
+                      </div>
+                      <div class="modal-footer">
+                        <a href="/CompartirExperiencias/<%= topic['pathName'] %>"><button type="button" class="mybutton" style="background-color: #f25d53">Eliminar</button></a>
+                  <!--      <button type="button" class="mybutton" data-dismiss="modal">Cerrar</button> -->
+                      </div>
+                    </div>
+                  </div>
+               </div>
+
+                <% } %>
+              </label>
+            <% }); %>
+          </div>
+        </div>
+
+
+        <!-- COMMENT SECTION -->
+
+        <div style="width: 744px; height: 800px;">
+
+          <div class="header" style="height:40px ;padding: 0px; position: relative; left: -40px">
+            <p style="margin-bottom: 0px; padding-top: 25px; padding-right: 160px"> Compartir Experiencias </p>
+          </div>
+
+          <div style="margin-left: 18px; margin-top: 40px;">
+
+            <% topics.forEach(function(topic, index) { %>
+              <% var i = index + 1 %>
+              <% var topicNum = "topic" + i.toString() %>
+
+              <div style="display: none" id="<%= topicNum %>" class="comments">
+                <p style="font-family: Avenir-Roman; font-size: 22px; margin-bottom: 8px; margin-left: 2px"><%= topic['topic'] %></p>
+                <p class="addComment blue" data-toggle="modal" data-target="#addComment">+ Añadir un comentario</p> 
+
+                <div class="modal fade" id="addComment" role="dialog">
+                  <div class="modal-dialog modal-sm" style="width: 500px">
+                    <div class="modal-content">
+                      <form action="/CompartirExperiencias/<%= topic['pathName'] %>" id="addComment" method="POST">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                          <h4 class="modal-title" style="text-align: center">Añadir a la convercación</h4>
+                        </div>
+                        <div class="modal-body" style="margin-bottom: 30px">
+                          <label>Comentario
+                              <textarea name="comment" rows="4"></textarea>
+                          </label>
+                          <label>Su nombre
+                            <input type="text" name="name">
+                          </label>
+                          <input type="hidden" name="date" id="todayDate2"/>
+                          <input type="submit" class="mybutton" value="Enviar" style="float: right"></input>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+
+                <div style="overflow: scroll; height: 677px; width: 724px; position: relative; top: -41px">
+                <% var comments = topic['comments']%>
+                  <% comments.forEach(function(comment, index) { %>
+                    <div class="comment">
+                      <div style="margin: 1px; height: 50px width: 100%; padding: 16px; padding-bottom: 12px; border-bottom: solid 1px #dbdbdb;">
+                        <p style="display: inline; font-family: Avenir-Light; font-size: 18px; line-height: 1.3;"><%= comment['name'] %></p>
+                        <p style="display: inline; float: right; font-family: Avenir-Roman; font-size: 14px; line-height: 1.7; color: #9b9b9b;"><%= comment['date'] %></p>
+                      </div>
+                      <p style="padding: 20px; font-family: Avenir-Book; font-size: 14px; line-height: 1.5; color: #4a4a4a;"><%= comment['comment'] %></p>
+
+                      <% if (isAdmin) { %>
+                      <button class="close" data-toggle="modal" data-target="#<%= comment['commentID'] %>" style="position: absolute; bottom: 10px; right: 10px; padding-top: 5px; color: black;">&times;</button>
+
+                      <div class="modal fade" id="<%= comment['commentID'] %>" role="dialog" style="color: black">
+                        <div class="modal-dialog modal-sm" style="width: 250px">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <button type="button" class="close" data-dismiss="modal">&times;</button>
+                              <h4 class="modal-title">¿Estás seguro?</h4>
+                            </div>
+                            <div class="modal-body">
+                              <p>¿Quieres eliminar este comentario?</p>
+                            </div>
+                            <div class="modal-footer">
+                              <a href="/rm/<%= topic['pathName'] %>/<%= comment['commentID'] %>"><button type="button" class="mybutton" style="background-color: #f25d53">Eliminar</button></a>
+                        <!--      <button type="button" class="mybutton" data-dismiss="modal">Cerrar</button> -->
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <% } %>
+
+                    </div>
+                  <% }); %>
+                </div>
+              </div>
+
+            <% }); %>
+
+          </div>
+
+        </div>
+
+      </div>
+    
+    <% footerStyle = "margin: 25px; margin-bottom: 0" %>
+    <% include partials/footer %>
+
     </div>
 
-    </div>
+    <script>
+    // $('#element').donetyping(callback[, timeout=1000])
+    // Fires callback when a user has finished typing. This is determined by the time elapsed
+    // since the last keystroke and timeout parameter or the blur event--whichever comes first.
+    //   @callback: function to be called when even triggers
+    //   @timeout:  (default=1000) timeout, in ms, to to wait before triggering event if not
+    //              caused by blur.
+    // Requires jQuery 1.7+
+    //
+    ;(function($){
+        $.fn.extend({
+            donetyping: function(callback,timeout){
+                timeout = timeout || 1e3; // 1 second default timeout
+                var timeoutReference,
+                    doneTyping = function(el){
+                        if (!timeoutReference) return;
+                        timeoutReference = null;
+                        callback.call(el);
+                    };
+                return this.each(function(i,el){
+                    var $el = $(el);
+                    // Chrome Fix (Use keyup over keypress to detect backspace)
+                    // thank you @palerdot
+                    $el.is('.search') && $el.on('keyup keypress paste',function(e){
+                        // This catches the backspace button in chrome, but also prevents
+                        // the event from triggering too preemptively. Without this line,
+                        // using tab/shift+tab will make the focused element fire the callback.
+                        if (e.type=='keyup' && e.keyCode!=8) return;
+                        
+                        // Check if timeout has been set. If it has, "reset" the clock and
+                        // start over again.
+                        if (timeoutReference) clearTimeout(timeoutReference);
+                        timeoutReference = setTimeout(function(){
+                            // if we made it here, our timeout has elapsed. Fire the
+                            // callback
+                            doneTyping(el);
+                        }, timeout);
+                    }).on('blur',function(){
+                        // If we can, fire the event since we're leaving the field
+                        doneTyping(el);
+                    });
+                });
+            }
+        });
+    })(jQuery);
+
+    $('.search').donetyping(function(){
+      var text = document.getElementById("search").value
+      var labels = document.getElementsByClassName('forumLabel')
+      for (var i = 0; i < labels.length; i++){
+        var labelText = labels[i].textContent
+        console.log(text)
+        console.log(labelText)
+        console.log(labelText.indexOf(text))
+        if (labelText.indexOf(text) == -1) {
+          labels[i].style.display = "none";
+        } else {
+          labels[i].style.cssText = 'display: block; border-bottom: solid 1px #ffffff; padding: 10px; padding-left: 20px; margin: 0px !important; width: 100% !important; color: #ffffff; font-family: Avenir-Medium !important; font-size: 14px; cursor: pointer;'
+        }
+      }
+    });
+
+    function showOption(topic) {
+      var elements = document.getElementsByClassName('comments')
+
+      for (var i = 0; i < elements.length; i++){
+          elements[i].style.display = "none";
+      }
+
+      document.getElementById(topic).style.display = "initial";
+    }
+
+    function getDate()
+    {
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth()+1; //January is 0!
+        var yyyy = today.getFullYear();
+        if(dd<10){dd='0'+dd} if(mm<10){mm='0'+mm}
+        today = yyyy+""+mm+""+dd;
+
+        document.getElementById("todayDate1").value = today
+        document.getElementById("todayDate2").value = today
+    }
+
+    //call getDate() when loading the page
+    getDate();
+
+    </script>
 
   </body>
 </html>

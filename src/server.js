@@ -14,10 +14,11 @@ var express = require('express')
   , fs = require('fs')
   , MongoClient = require('mongodb').MongoClient
   , MongoURL = 'mongodb://finn:sociedad@ec2-52-32-107-9.us-west-2.compute.amazonaws.com:27017/data'
+  , password = require('./password').password
 
 var db;
 
-//Initialize connection once
+// Initialize connection once
 MongoClient.connect(MongoURL, function(err, database) {
   if(err) throw err;
 
@@ -29,8 +30,7 @@ MongoClient.connect(MongoURL, function(err, database) {
   });
 });
 
-
-
+// Storage for uploaded pdfs
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, __dirname + '/public/pdfs')
@@ -39,9 +39,18 @@ var storage = multer.diskStorage({
     cb(null, file.originalname)
   }
 })
-
+var tempStorage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, __dirname + '/public/pdfTemp')
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname)
+  }
+})
 var upload = multer({ storage: storage })
+var tempUpload = multer({ storage: tempStorage })
 
+// Users for login (for administrator privileges)
 var users = [
     { id: 1, username: 'admin', password: 'sociedadcivil'}
 ];
@@ -81,8 +90,6 @@ function saveRememberMeToken(token, uid, fn) {
   return fn();
 }
 
-
-
 // Passport session setup.
 //   To support persistent login sessions, Passport needs to be able to
 //   serialize users into and deserialize users out of the session.  Typically,
@@ -97,7 +104,6 @@ passport.deserializeUser(function(id, done) {
     done(err, user);
   });
 });
-
 
 // Use the LocalStrategy within Passport.
 //   Strategies in passport require a `verify` function, which accept
@@ -151,8 +157,10 @@ function issueToken(user, done) {
   });
 }
 
+// declare app
 var app = express();
 
+// initialize mailer for "Ask an expert"
 mailer.extend(app, {
   from: 'consultasaprenderconinteres@gmail.com',
   host: 'smtp.gmail.com', // hostname
@@ -165,13 +173,14 @@ mailer.extend(app, {
   }
 });
 
+// initialize app settings
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 app.set('port', 80)
 app.use(morgan('combined'));
 app.use(express.static(__dirname + '/public'));
 app.use(CookieParser());
-app.use(BodyParser.urlencoded({ extended: true }));
+app.use(BodyParser.urlencoded({ extended: true, limit: '5mb'}));
 app.use(MethodOverride());
 app.use(session({
   secret: 'laser horse'
@@ -183,6 +192,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(passport.authenticate('remember-me'));
 
+// blueHeight: helper for CdO formatting
 app.locals.blueHeight = function(subject) {
   var gridLength = Math.ceil(subject.length/3.)-2;
   var toReturn = (gridLength * 239) + 155;
@@ -190,7 +200,12 @@ app.locals.blueHeight = function(subject) {
   return toReturn;
 }
 
+// for index when db is empty
 app.locals.slickBlank = {'title': '', 'pathName': '', 'comps': [], 'temas': [], 'descript': ''}
+
+/*
+ * Index
+ */
 
 app.get('/', function(req, res){
   var collection = db.collection('slick');
@@ -232,14 +247,27 @@ app.get('/', function(req, res){
   });
 });
 
+/*
+ * Relacion Tutoria
+ */
+
 app.get('/RelacionTutoria', function(req, res){
   res.render('RT', { isAdmin: (req.isAuthenticated())});
 });
+
+/*
+ * Mapeo Virtual
+ */
 
 app.get('/MapeoVirtual', function(req, res){
   res.render('MV', { isAdmin: (req.isAuthenticated())});
 });
 
+/*
+ * Catálogo de Ofertas
+ */
+
+// GET CdO
 app.get('/CatalogoDeOfertas', function(req, res){
   var collection = db.collection('temas');
   var catJSON = {};
@@ -290,6 +318,7 @@ app.get('/CatalogoDeOfertas', function(req, res){
   });
 });
 
+// GET CdO/tema: show individual tema
 app.get('/CatalogoDeOfertas/*', function(req, res){
   var patharray = req.path.split('/')
   var pathName = patharray[patharray.length-1];
@@ -308,6 +337,7 @@ app.get('/CatalogoDeOfertas/*', function(req, res){
  
 });
 
+// POST CdO/tema: send email to expert
 app.post('/CatalogoDeOfertas/*', function(req, res){
   var patharray = req.path.split('/')
   var pathName = patharray[patharray.length-1]; 
@@ -350,27 +380,30 @@ app.post('/CatalogoDeOfertas/*', function(req, res){
   });
 });
 
+// GET edit/tema: editable tema page. must ensure authenticated
 app.get('/edit/*', ensureAuthenticated, function(req, res){
-  var patharray = req.path.split('/')
+  var patharray = req.path.split('/');
   var pathName = patharray[patharray.length-1];
-  collection = db.collection('temas')
+  collection = db.collection('temas');
 
   collection.find({ 'pathName': pathName }).toArray(function(err, pathDataArray) {
     pathData = pathDataArray[0]
     if (!pathData) {
-      res.render('error')
-      return
+      res.render('error');
+      return;
     }
+    pathData['isAdmin'] = req.isAuthenticated();
     res.render('editTemplate', pathData);
   });
 });
 
+// POST edit/tema: make changes to existing tema
 app.post('/edit/*', ensureAuthenticated, function(req, res){
   var uploadInfo = req.body;
   var collection = db.collection('temas');
-  var OGpathName = uploadInfo.OGpathName
+  var OGpathName = uploadInfo.OGpathName;
   var title = uploadInfo.title;
-  var tempName = utils.toTitleCase(title)
+  var tempName = utils.toTitleCase(title);
   var tempName2 = tempName.replace(/\s/g, '');
   var pathName = utils.removeDiacritics(tempName2).replace(/\W/g, '');
 
@@ -389,6 +422,7 @@ app.post('/edit/*', ensureAuthenticated, function(req, res){
   });
 });
 
+// GET delete/tema: remove tema from DB
 app.get('/delete/*', ensureAuthenticated, function(req, res) {
   var patharray = req.path.split('/');
   var pathName = patharray[patharray.length-1];
@@ -399,6 +433,12 @@ app.get('/delete/*', ensureAuthenticated, function(req, res) {
   res.redirect('/CatalogoDeOfertas');
 })
 
+/*
+ * EMAIL
+ * posted to from emails sent by app.mailer
+ */
+
+// POST email
 app.post('/email/*', function(req, res, err) {
 
   if (err) {
@@ -450,18 +490,109 @@ app.post('/email/*', function(req, res, err) {
   
 });
 
+/*
+ * Compartir Experiencias
+ */
+
+// GET CT
 app.get('/CompartirTemas', function(req, res){
-  res.render('CT', { isAdmin: (req.isAuthenticated), currentPage: "CT" });
+  res.render('CT', { isAdmin: (req.isAuthenticated())});
 });
 
+app.post('/CompartirTemas', tempUpload.single('file'), function(req, res){
+  res.render('CT', { isAdmin: (req.isAuthenticated())});
+});
+
+/*
+ * Compartir Experiencias
+ */
+
+// GET CE
 app.get('/CompartirExperiencias', function(req, res){
-  res.render('CE', { isAdmin: (req.isAuthenticated), currentPage: "CE" });
+  var collection = db.collection('forum')
+  collection.find().toArray(function(err, topicArray) {
+    res.render('CE', { isAdmin: (req.isAuthenticated()), topics: topicArray});
+  });
 });
 
+// POST CE: adding a new topic
+app.post('/CompartirExperiencias', function(req, res) {
+  var collection = db.collection('forum')
+  var topic = req.body.topic
+  var tempName = utils.toTitleCase(topic)
+  var tempName2 = tempName.replace(/\s/g, '');
+  var pathName = utils.removeDiacritics(tempName2).replace(/\W/g, '');
+  var id = utils.randomString(4);
+  collection.count({'pathName': pathName}, function(err, count) {
+    if (count != 0) {
+      res.render('/CompartirExperiencias', { inUse: true, isAdmin: (req.isAuthenticated())});
+      return;
+    }
+    var toInsert = {'pathName': pathName,'topic': topic, 'comments': [{'name': req.body.name, 'comment': req.body.comment, 'date': req.body.date, 'commentID': id}]}
+    collection.insert(toInsert, function(err, count) {
+      res.redirect('/CompartirExperiencias')
+    });
+  });
+});
+
+// POST CE/topic: add a comment to a topic
+app.post('/CompartirExperiencias/*', function(req, res) {
+  var patharray = req.path.split('/');
+  var pathName = patharray[patharray.length-1];
+  var collection = db.collection('forum');
+  var id = utils.randomString(4);
+  collection.find({'pathName': pathName}).toArray(function(err, array) {
+    var topic = array[0];
+    var comments = topic['comments'];
+    var toAdd = {'name': req.body.name, 'comment': req.body.comment, 'date': req.body.date, 'commentID': id};
+    comments.unshift(toAdd);
+    var toInsert = {'pathName': pathName,'topic': topic['topic'], 'comments': comments}
+    collection.findOneAndUpdate({'pathName': pathName}, toInsert, function(err, count) {
+      res.redirect('/CompartirExperiencias')
+    });
+  });
+});
+
+// GET CE/topic: remove a topic
+app.get('/CompartirExperiencias/*', ensureAuthenticated, function(req, res) {
+  var patharray = req.path.split('/');
+  var pathName = patharray[patharray.length-1];
+  collection = db.collection('forum');
+  collection.deleteOne({'pathName': pathName})
+  res.redirect('/CompartirExperiencias');
+})
+
+// GET rm/topic/commentID: remove a comment
+app.get('/rm/*/*', ensureAuthenticated, function(req, res) {
+  var patharray = req.path.split('/');
+  var commentID = patharray[patharray.length-1];
+  var pathName = patharray[patharray.length-2];
+  collection = db.collection('forum');
+  collection.find({'pathName': pathName}).toArray(function(err, array) {
+    var topic = array[0];
+    var comments = topic['comments']
+    for (var i = 0; i < comments.length; i++) {
+      if (comments[i]['commentID'] == commentID) {
+        comments.splice(i, 1)
+      }
+    }
+    var toInsert = {'pathName': pathName, 'topic': topic['topic'], 'comments': comments}
+    collection.findOneAndUpdate({'pathName': pathName}, toInsert, function(err, count) {
+      res.redirect('/CompartirExperiencias')
+    })
+  })
+})
+
+/*
+ * ADMIN
+ */
+
+// GET admin
 app.get('/admin', ensureAuthenticated, function(req, res){
   res.render('admin', { status: '' })
 });
 
+// POST admin: upload a new tema
 app.post('/admin', ensureAuthenticated, upload.single('pdf'), function(req, res){
   if (!req.file) {
     res.render('admin', { status: 'noPDF' });
@@ -506,18 +637,37 @@ app.post('/admin', ensureAuthenticated, upload.single('pdf'), function(req, res)
   
 });
 
+/*
+ * pdfs
+ * pdfs uploaded from CT
+ */
+
+// GET archivos
+app.get('/archivos', ensureAuthenticated, function(req, res) {
+  var path = __dirname + "/public/pdfTemp"
+  fs.readdir(path, function(err, list) {
+    res.render('archivos', {'pdfs': list})
+  })
+})
+
+// GET archivos/pdf
+app.get('/archivos/*', ensureAuthenticated, function(req, res) {
+  var patharray = req.path.split('/');
+  var pdfName = patharray[patharray.length-1];
+  res.render('pdfTemplate', {'pdf': pdfName})
+})
+
+/*
+ * LOGIN
+ * login page for admin privileges
+ */
+
+// GET login
 app.get('/login', function(req, res){
-  res.render('login');
+  res.render('login', { isAdmin: (req.isAuthenticated())});
 });
 
-// POST /admin
-//   Use passport.authenticate() as route middleware to authenticate the
-//   request.  If authentication fails, the user will be redirected back to the
-//   login page.  Otherwise, the primary route function function will be called,
-//   which, in this example, will redirect the user to the home page.
-//
-//   curl -v -d "username=bob&password=secret" http://127.0.0.1:3000/login
-
+// POST login: authenticates user, redirects if not valid
 app.post('/login', 
   passport.authenticate('local', { failureRedirect: '/login', failureFlash: true }),
   function(req, res, next) {
@@ -537,6 +687,11 @@ app.post('/login',
     res.redirect('/admin');
   });
 
+/*
+ * LOGOUT
+ */
+
+// GET logout: logs administrator out
 app.get('/logout', function(req, res){
   // clear the remember me cookie when logging out
   res.clearCookie('remember_me');
@@ -544,8 +699,11 @@ app.get('/logout', function(req, res){
   res.redirect('/');
 });
 
+/*
+ * Catch all (bad url)
+ */
 app.get('/*', function(req, res){
-  res.render('error')
+  res.render('error', { isAdmin: (req.isAuthenticated())})
 })
 
 // Simple route middleware to ensure user is authenticated.

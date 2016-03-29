@@ -25,6 +25,11 @@
 			<li><a href="/CompartirExperiencias" <% if (currPage=='CE') { %>class='inactiveLink'<% } %> >COMPARTIR EXPERIENCIAS</a>
 			</li>
 			<li class="divider"></li>
+			<% if (isAdmin) { %>
+			<li><a href="/admin" <% if (currPage=='admin') { %>class='inactiveLink'<% } %> >ADMIN</a>
+			</li>
+			<li class="divider"></li>
+			<% } %>
 		</ul>
 	</section>
 </nav>

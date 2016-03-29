@@ -1,0 +1,98 @@
+input[name="topics"] {
+  left: -9999px;
+  position: absolute;
+  top: -9999px;
+}
+
+.forumLabel {
+	display: block;
+	border-bottom: solid 1px #ffffff;
+	padding: 10px;
+	padding-left: 20px;
+	margin: 0px !important;
+	width: 100%;
+	color: #ffffff;
+	font-family: Avenir-Medium !important;
+	font-size: 14px;
+	cursor: pointer;
+}
+
+input[name="topics"]:checked + label { 
+	background-color: rgba(255, 255, 255, 0.35);
+	cursor: default;
+}
+
+.comment {
+	width: 718px;
+	height: auto;
+	background-color: #ffffff;
+	box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
+	margin: 2px;
+	margin-bottom: 10px;
+	position: relative;
+}
+
+.addComment {
+	font-family: Avenir-Medium;
+	font-size: 16px;
+	cursor: pointer;
+}
+
+.white {
+	color: #ffffff;
+	text-align: center;
+	margin: 25px;
+}
+
+.blue {
+	float: right;
+	margin-right: 5px;
+	color: #0187e0;
+	position: relative;
+	top: -35px;
+}
+
+.search {
+	width: 200px;
+	border-radius: 18px;
+	border: solid 1px #ffffff;
+	margin: auto;
+	background-color: transparent; 
+	color: #ffffff;
+	height: 39px;
+	padding: 6px;
+	font-family: Avenir-Medium;
+	font-weight: 500;
+	font-size: 18px;
+	padding-left: 15px;
+	min-height: 0px !important;
+	resize: none;
+}
+
+.search::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+	font-family: Avenir-Medium;
+    color:    #ffffff;
+}
+.search:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+	font-family: Avenir-Medium;
+   color:    #ffffff;
+   opacity:  1;
+}
+.search::-moz-placeholder { /* Mozilla Firefox 19+ */
+	font-family: Avenir-Medium;
+   color:    #ffffff;
+   opacity:  1;
+}
+.search:-ms-input-placeholder { /* Internet Explorer 10-11 */
+	font-family: Avenir-Medium;
+   color:    #ffffff;
+}
+.search:placeholder-shown { /* Standard (https://drafts.csswg.org/selectors-4/#placeholder) */
+	font-family: Avenir-Medium;
+  color:    #ffffff;
+}
+.search:focus {
+	background-color: transparent;
+	box-shadow: 0;
+	border: solid 1px #ffffff;
+}

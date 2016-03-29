@@ -2,10 +2,97 @@ body {
    font-family: Avenir-Roman;
 }
 
+h2, h4, h6 {
+	font-family: Avenir-Roman;
+}
+
+input.form-control {
+	width: 100% !important;
+}
+
+.group-span-filestyle {
+	position: relative;
+	bottom: 55.5px;
+	float: right;
+	transition: background-color 0.25s ease-out, color 0.25s ease-out;
+    color: #ffffff; 
+    background-color: #3a9ad9 !important;
+    border-radius: 3px;
+    font-size: 14px;
+    font-family: Avenir-Roman;
+    border: 0;
+}
+
+.button {
+    background-color: #3a9ad9 !important;
+}
+
+.button:hover {
+	background-color: #1583cc !important;
+    color: #ffffff;
+}
+
+label.btn.button {
+	margin: 0;
+}
+
+.btn {
+	border-radius: 3px !important;
+}
+
+.input-group {
+	display: inline !important;
+}
+
+.search {
+	width: 200px;
+	border-radius: 18px;
+	border: solid 1px #ffffff;
+	margin: auto;
+	background-color: transparent;
+	margin-top: 30px; 
+	color: #ffffff;
+	height: 39px;
+	padding: 6px;
+	font-family: Avenir-Medium;
+	font-weight: 500;
+	font-size: 18px;
+	padding-left: 15px;
+	min-height: 0px !important;
+}
+
+.search::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+	font-family: Avenir-Medium;
+    color:    #ffffff;
+}
+.search:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+	font-family: Avenir-Medium;
+   color:    #ffffff;
+   opacity:  1;
+}
+.search::-moz-placeholder { /* Mozilla Firefox 19+ */
+	font-family: Avenir-Medium;
+   color:    #ffffff;
+   opacity:  1;
+}
+.search:-ms-input-placeholder { /* Internet Explorer 10-11 */
+	font-family: Avenir-Medium;
+   color:    #ffffff;
+}
+.search:placeholder-shown { /* Standard (https://drafts.csswg.org/selectors-4/#placeholder) */
+	font-family: Avenir-Medium;
+  color:    #ffffff;
+}
+.search:focus {
+	background-color: transparent;
+	box-shadow: 0;
+	border: solid 1px #ffffff;
+}
+
 .mainTitle{
 	text-align: center;
 	font-size: 48px;
-	font-face: Avenir-Roman;
+	font-family: Avenir-Roman;
 	letter-spacing: 1.1px;
 	color: #f25d53;
 	padding: 80px;
@@ -14,7 +101,7 @@ body {
 #pages li {
 display:inline-block;
 font-size: 14px;
-	font-face: Avenir-Medium;
+	font-family: Avenir-Medium;
 	letter-spacing: 0.8px;
 	line-height: 20px;
 	color: #4a4a4a;
@@ -83,13 +170,13 @@ a p { text-decoration: none; color:#0187e0; }
 
 
 	font-size: 20px;
-	font-face: Avenir-Light;
+	font-family: Avenir-Light;
 	color: #ffffff;
 }
 
 .RTHead {
 	color: #2977c2;
-	font-face: Avenir-Roman;
+	font-family: Avenir-Roman;
 	font-size: 18px;
 	margin-bottom: 10px;
 }
@@ -106,7 +193,7 @@ a p { text-decoration: none; color:#0187e0; }
 	background-color: #f2f2f2;
 	box-shadow: inner 0 0 3px 0 rgba(0, 0, 0, 0.5);
 	font-size: 16px;
-	font-face: Avenir-Book;
+	font-family: Avenir-Book;
 	color: #000;
 	position: relative;
 	z-index: 1;
@@ -156,7 +243,7 @@ a p { text-decoration: none; color:#0187e0; }
 	background-color: #ffffff;
 	box-shadow: inner 0 0 3px 0 rgba(0, 0, 0, 0.5);
 	font-size: 16px;
-	font-face: Avenir-Book;
+	font-family: Avenir-Book;
 	color: #000;
 }
 
@@ -167,7 +254,7 @@ a p { text-decoration: none; color:#0187e0; }
 	background-color: #ffffff;
 	box-shadow: inner 0 0 3px 0 rgba(0, 0, 0, 0.5);
 	font-size: 16px;
-	font-face: Avenir-Book;
+	font-family: Avenir-Book;
 	color: #000;
 }
 
@@ -178,7 +265,7 @@ a p { text-decoration: none; color:#0187e0; }
 	background-color: #3a9ad9;
 	box-shadow: inner 0 0 3px 0 rgba(0, 0, 0, 0.5);
 	font-size: 16px;
-	font-face: Avenir-Book;
+	font-family: Avenir-Book;
 	color: #ffffff;
 }
 
@@ -189,7 +276,7 @@ a p { text-decoration: none; color:#0187e0; }
 	background-color: #f25d53;
 	box-shadow: inner 0 0 3px 0 rgba(0, 0, 0, 0.5);
 	font-size: 16px;
-	font-face: Avenir-Book;
+	font-family: Avenir-Book;
 	color: #ffffff;
 }
 
@@ -274,7 +361,7 @@ li a {
 	padding: 25px;
 	font-size: 24px;
 	text-align: center;
-	font-face: Avenir-Medium;
+	font-family: Avenir-Medium;
 }
 
 .tabordion {
@@ -369,16 +456,12 @@ li a {
    }
 }
 
-@media (max-height: 230px) {                  
-   .CEfoot {
-      display: none;
-   }
-}
+
 
 /* Dropdown Button */
 .dropbtn {
 	font-size: 14px;
-	font-face: Avenir-Medium;
+	font-family: Avenir-Medium;
 	line-height: 20px;
 	color: #0187e0;
 	border: none;
@@ -505,3 +588,42 @@ li a {
     background-color: #1583cc;
     color: #ffffff;
  }
+
+input[name="topics"] {
+  left: -9999px;
+  position: absolute;
+  top: -9999px;
+}
+
+.forumLabel {
+	border-bottom: solid 1px #ffffff;
+	padding: 10px;
+	padding-left: 20px;
+	margin: 0px !important;
+	width: 100%;
+	color: #ffffff;
+	font-family: Avenir-Medium !important;
+	font-size: 16px;
+	cursor: pointer;
+}
+
+input[type=checkbox]:checked ~ label {
+   
+}
+
+input[name="topics"]:checked + label { 
+	background-color: rgba(255, 255, 255, 0.35);
+}
+
+.comments {
+	display: none;
+	height: 800px;
+	overflow: scroll;
+}
+
+.comment {
+	width: 718px;
+	height: 212px;
+	background-color: #ffffff;
+	box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
+}
