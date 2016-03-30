@@ -20,19 +20,10 @@
 
     <div class="main">
 
-        
         <div style="width: 400px; margin: auto">
 
             <% if (status == 'noPDF') { %>
                 <p class='header' style="color: red; margin: auto;">Seleccione un archivo</p>
-            <% } %>
-
-            <% if (status == 'title') { %>
-                <p class='header' style="color: red; margin: auto;">Aviso: ya existe un tema con el mismo nombre</p>
-            <% } %>
-
-            <% if (status == 'field') { %>
-                <p class='header' style="color: red; margin: auto;">Por favor complete el formulario</p>
             <% } %>
 
             <% if (status == 'success') { %>

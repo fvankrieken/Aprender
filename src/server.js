@@ -509,9 +509,13 @@ app.post('/CompartirTemas', tempUpload.single('file'), function(req, res){
 
 // GET CE
 app.get('/CompartirExperiencias', function(req, res){
-  var collection = db.collection('forum')
+  var collection = db.collection('forum');
+  var checked = req.session.checked || '';
+  req.session.checked = '';
+  var inUse = req.session.inUse || false;
+  req.session.inUse = false;
   collection.find().toArray(function(err, topicArray) {
-    res.render('CE', { isAdmin: (req.isAuthenticated()), topics: topicArray});
+    res.render('CE', { 'isAdmin': (req.isAuthenticated()), 'topics': topicArray, 'inUse': inUse, 'checked': checked});
   });
 });
 
@@ -525,12 +529,13 @@ app.post('/CompartirExperiencias', function(req, res) {
   var id = utils.randomString(4);
   collection.count({'pathName': pathName}, function(err, count) {
     if (count != 0) {
-      res.render('/CompartirExperiencias', { inUse: true, isAdmin: (req.isAuthenticated())});
+      req.session.inUse = true;
+      res.redirect('/CompartirExperiencias');
       return;
     }
     var toInsert = {'pathName': pathName,'topic': topic, 'comments': [{'name': req.body.name, 'comment': req.body.comment, 'date': req.body.date, 'commentID': id}]}
     collection.insert(toInsert, function(err, count) {
-      res.redirect('/CompartirExperiencias')
+      res.redirect('/CompartirExperiencias');
     });
   });
 });
@@ -548,7 +553,8 @@ app.post('/CompartirExperiencias/*', function(req, res) {
     comments.unshift(toAdd);
     var toInsert = {'pathName': pathName,'topic': topic['topic'], 'comments': comments}
     collection.findOneAndUpdate({'pathName': pathName}, toInsert, function(err, count) {
-      res.redirect('/CompartirExperiencias')
+      req.session.checked = pathName;
+      res.redirect('/CompartirExperiencias');
     });
   });
 });
@@ -578,6 +584,7 @@ app.get('/rm/*/*', ensureAuthenticated, function(req, res) {
     }
     var toInsert = {'pathName': pathName, 'topic': topic['topic'], 'comments': comments}
     collection.findOneAndUpdate({'pathName': pathName}, toInsert, function(err, count) {
+      req.session.checked = topic['pathName'];
       res.redirect('/CompartirExperiencias')
     })
   })

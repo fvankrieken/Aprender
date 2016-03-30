@@ -24,9 +24,11 @@
 
       <div style="display: flex;">
 
-        <!-- Side Bar -->
+<!-- Side Bar -->
 
         <div class="blueBar" style="float:left; height: 800px; padding: 0px; width: 240px; margin-left: 20px; overflow: scroll">
+
+<!-- AddTopic modal -->
           <p class="addComment white" data-toggle="modal" data-target="#addTopic">+ Añadir un tema</p> 
 
           <div class="modal fade" id="addTopic" role="dialog">
@@ -55,6 +57,7 @@
             </div>
           </div>
 
+<!-- topics -->
           <% topics.reverse() %>
 
           <textarea type="text" name="title" id="search" placeholder="buscar" class="search"></textarea>
@@ -63,8 +66,8 @@
               <% var i = index + 1 %>
               <% var topicNum = "topic" + i.toString() %>
               <% var topicNumLabel = topicNum + "label" %>
-              <input type="radio" name="topics" id="<%= topicNumLabel %>" />
-              <label for="<%= topicNumLabel %>" onclick="showOption('<%= topicNum %>')" class="forumLabel">
+              <input type="radio" name="topics" id="<%= topicNumLabel %>" <% if (checked == topic['pathName']) { %>checked<% } %>/>
+              <label for="<%= topicNumLabel %>" onclick="showOption('<%= topic['pathName'] %>')" class="forumLabel">
                 <%= topic['topic'] %>
                 <% if (isAdmin) { %>
                 <button class="close" data-toggle="modal" data-target="#deleteTopic" style="float: right; padding-top: 5px">&times;</button>
@@ -94,7 +97,7 @@
         </div>
 
 
-        <!-- COMMENT SECTION -->
+<!-- COMMENT SECTION -->
 
         <div style="width: 744px; height: 800px;">
 
@@ -108,8 +111,10 @@
               <% var i = index + 1 %>
               <% var topicNum = "topic" + i.toString() %>
 
-              <div style="display: none" id="<%= topicNum %>" class="comments">
+              <div style="display: none" id="<%= topic['pathName'] %>" class="comments">
                 <p style="font-family: Avenir-Roman; font-size: 22px; margin-bottom: 8px; margin-left: 2px"><%= topic['topic'] %></p>
+                
+<!-- Comment Modal -->
                 <p class="addComment blue" data-toggle="modal" data-target="#addComment">+ Añadir un comentario</p> 
 
                 <div class="modal fade" id="addComment" role="dialog">
@@ -134,7 +139,7 @@
                     </div>
                   </div>
                 </div>
-
+<!-- comments -->
                 <div style="overflow: scroll; height: 677px; width: 724px; position: relative; top: -41px">
                 <% var comments = topic['comments']%>
                   <% comments.forEach(function(comment, index) { %>
@@ -165,24 +170,20 @@
                           </div>
                         </div>
                       </div>
-
                       <% } %>
-
                     </div>
                   <% }); %>
                 </div>
               </div>
-
             <% }); %>
-
           </div>
-
         </div>
-
       </div>
     
-    <% footerStyle = "margin: 25px; margin-bottom: 0" %>
-    <% include partials/footer %>
+      <% footerStyle = "margin: 25px; margin-bottom: 0" %>
+      <% include partials/footer %>
+
+
 
     </div>
 
@@ -275,6 +276,12 @@
     getDate();
 
     </script>
+
+    <% if (checked != '') { %>
+      <script>
+        showOption('<%= checked %>')
+      </script>
+      <% } %>
 
   </body>
 </html>
