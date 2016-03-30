@@ -52,7 +52,7 @@ var tempUpload = multer({ storage: tempStorage })
 
 // Users for login (for administrator privileges)
 var users = [
-    { id: 1, username: 'admin', password: 'sociedadcivil'}
+    { id: 1, 'username': 'admin', 'password': password}
 ];
 
 function findById(id, fn) {
@@ -169,7 +169,7 @@ mailer.extend(app, {
   transportMethod: 'SMTP', // default is SMTP. Accepts anything that nodemailer accepts
   auth: {
     user: 'consultasaprenderconinteres@gmail.com',
-    pass: 'sociedadcivil'
+    pass: password
   }
 });
 
