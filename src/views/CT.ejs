@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="/img/logo_less.png" />
     <title>Compartir Temas</title>
     <link rel="stylesheet" href="/stylesheets/foundation.css" />
     <link rel="stylesheet" href="/stylesheets/app.css" />
@@ -73,11 +74,8 @@
                     <label><h6>Ejemplo de registro del aprendiz</h6>
                         <input type="text" name="aprendiz" id="aprendiz" placeholder="">
                     </label>
-                    <label><h6>Materiales de apoyo</h6>
-                        <input type="text" name="materiales" id="materiales" placeholder="">
-                    </label>
 
-                    <label style="display: inline;">
+                    <label style="display: inline;"><h6>Materiales de apoyo</h6>
                         <input type="file" class="filestyle" data-buttonText="Elija archivo" name="pdf" id="pdf" data-buttonName="button" data-iconName="glyphicon glyphicon-inbox" data-placeholder="Ningún file" style="display:inline;"> 
                     </label>
                     <p><input type="submit" class="mybutton" value="Enviar"></input></p> 
@@ -106,8 +104,11 @@
           var guion = $('#guion').val();
           var tutor = $('#tutor').val();
           var aprendiz = $('#aprendiz').val();
-          var materiales = $('#materiales').val();
-          var pdf = $('#pdf').val();
+          var materiales;
+          var file = $('#pdf')[0].files[0];
+          if (file) {
+            materiales = file.name
+          }
           var fields = [nombre, correo, escuelaNombre, direccion, puesto, temaNombre, disciplina, comps, intro, desafio, guion, tutor, aprendiz, materiales]
           var testing = (nombre == "Testing")
 
@@ -163,7 +164,7 @@
           }
 
           var formData = new FormData();
-          formData.append('file', $('#pdf')[0].files[0]);
+          formData.append('file', file);
 
           $.ajax({
               type: "POST",
