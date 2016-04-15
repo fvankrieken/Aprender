@@ -1,6 +1,5 @@
 *.pdf
-pdfData.js
-emailDB.js
-Controllers
+*.doc
+*.docx
 data
 password.js

@@ -25,17 +25,20 @@
 		<body style="background-color: #f2f2f2;">
 			<% currPage = 'CdO' %>
 			<% include partials/navbar %>
-		<div class="main">
+		<div class="main" style="width: 1024px">
 
 			<div class="header" style="padding-bottom:0; max-width: 500px; margin: auto;">
         		<%= title %>
       		</div>
-
-      		<a href="/CatalogoDeOfertas" style="position: relative; top: -28px; left: 36px; color: #0187e0 !important;">&#9001 &nbsp Volver al Catálogo de Ofertas</a>
-      		<% if (isAdmin) { %>
-      			<button type="button" class="mybutton" data-toggle="modal" data-target="#myModal" style="position: relative; right: -545px; top: -28px; width: 170px; padding-left: 0px; padding-right: 0px;">ELIMINAR ESTE TEMA</button> 
-
-      			<div class="modal fade" id="myModal" role="dialog">
+      		<div style="position: relative; top: -27px;">
+	      		<a href="/CatalogoDeOfertas" style="display: inline; float: left; color: #0187e0 !important; position: relative; bottom: 2px;">&#9001 &nbsp Volver al Catálogo de Ofertas</a>
+	      		<% if (isAdmin) { %>
+	      		<p style="display: inline; float: right; padding-right: 25px; margin: 0;">
+	      			<a data-toggle="modal" data-target="#myModal" style="color: #0187e0 !important">Eliminar Tema</a>
+					<span style="position: relative; bottom: 2px">|</span>
+	      			<a href='/edit/<%= pathName %>' style="color: #0187e0 !important">Editar Tema</a>
+	      		</p>
+	      		<div class="modal fade" id="myModal" role="dialog">
 			    	<div class="modal-dialog modal-sm">
 				    	<div class="modal-content">
 				        	<div class="modal-header">
@@ -52,16 +55,12 @@
 				    	</div>
 				    </div>
 				</div>
+	      		<% } %>
+      		</div>
 
-      		<% } %>
+      		<p style="float: left; padding: 0px 25px; font-family: Avenir-Light; font-size: 16px; line-height: 0.9; color: #000000;"><%= descript %></p>
 
-      		<% if (isAdmin) { %>
-      			<a href='/edit/<%= pathName %>'><button type="button" class="mybutton" style="position: relative; right: -370px; top: 5px; width: 170px;">EDITAR ESTE TEMA</button></a>
-
-      		<% } %>
-      		
-
-			<div style="width: 950px; display:flex; padding: 25px; padding-top: 0px; margin: auto">
+			<div style="width: 1024px; display:flex; padding: 25px; padding-top: 0px; margin: auto">
 				<div>
 				
 
@@ -69,7 +68,7 @@
 
 				<div style="width: 650px; height: 900px; box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.5);">
 
-					<object type="application/pdf" data="/pdfs/Test.docx" width="650" height="900">
+					<object type="application/pdf" data="/pdfs/<%= fileName %>" width="650" height="900">
 			            
 			        </object>
 
@@ -78,9 +77,6 @@
 				</div>
 
 				<div style="flex: 1; padding-left: 25px; padding-top: 35px; padding-bottom: 20px;">
-
-					<p style="font-family: Avenir-Medium; font-size:18px;">Descripción</p>
-					<p><%= descript %></p>
 
 					<% if (((comps.length!=1) || (comps[0]!=" ")) && comps.length!=0) { %>
 
