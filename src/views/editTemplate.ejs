@@ -26,7 +26,7 @@
 		<% currPage = 'CdO' %>
 		<% include partials/navbar %>
 
-		<div class="main">
+		<div class="main" style="width: 1024px">
 
 			<form id="update" action="/edit/<%= pathName %>" method="POST" enctype="application/x-www-form-urlencoded">
 				
@@ -34,9 +34,9 @@
 
 	      		<a href="/CatalogoDeOfertas" style="position: relative; top: -38px; left: 36px; color: #0187e0 !important;">&#9001 &nbsp Volver al Catálogo de Ofertas</a>
 
-	      		<a href='/CatalogoDeOfertas/<%= pathName %>'><button type="button" class="mybutton" style="position: relative; right: -568px; top: -38px">VOLVER AL TEMA</button></a>
+	      		<a href='/CatalogoDeOfertas/<%= pathName %>' style="display: inline; float: right; padding-right: 25px; margin: 0; color: #0187e0 !important">Volver al Tema</a>
 
-				<div style="width: 950px; display:flex; padding: 25px; padding-top: 0px; margin: auto">
+				<div style="width: 1024px; display:flex; padding: 25px; padding-top: 0px; margin: auto">
 					<div>
 						<a href="/pdfs/<%= fileName %>" style="position: relative; left: 2px;" download><p style="margin-bottom:5px;">Descargar</p></a>
 
