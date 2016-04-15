@@ -730,5 +730,5 @@ function ensureAuthenticated(req, res, next) {
 
 function downForMaintenance(req, res, next) {
   if (req.isAuthenticated()) { return next(); }
-  res.render('down')
+  res.render('down', {isAdmin: false})
 }
