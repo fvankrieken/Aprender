@@ -21,9 +21,9 @@
       <div class="header"><%= pdf %></div>
       <div style="width: 650px; height: 900px; box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.5); margin: auto;">
 
-          <iframe src="/pdfTemp/<%= pdf %>" width="650" height="900">
-            <p>Alternative text - include a link <a href="/pdfTemp/<%= pdf %>">to the PDF!</a></p>
-          </iframe>
+          <object src="/pdfTemp/<%= pdf %>" width="650" height="900">
+            <embed src="/pdfTemp/<%= pdf %>"></embed>
+          </object>
 
         </div>
       <% var footerStyle = ""%>

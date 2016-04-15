@@ -69,9 +69,9 @@
 
 				<div style="width: 650px; height: 900px; box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.5);">
 
-					<iframe src="/pdfs/<%= fileName %>" width="650" height="900" style="position: relative;">
-						<p>Alternative text - include a link <a href="/pdfs/<%= fileName %>">to the PDF!</a></p>
-					</iframe>
+					<object src="/pdfs/<%= pdf %>" width="650" height="900">
+			            <embed src="/pdfs/<%= pdf %>"></embed>
+			        </object>
 
 				</div>
 
