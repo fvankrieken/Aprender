@@ -440,13 +440,13 @@ app.get('/delete/*', ensureAuthenticated, function(req, res) {
 
 // POST email
 app.post('/email/*', function(req, res, err) {
-
+/*
   if (err) {
     console.log(err)
     res.send('Esta conversación ha expirado')
     return
   }
-
+*/
   var patharray = req.path.split('/');
   var id = patharray[patharray.length-1];
   var next;
