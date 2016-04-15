@@ -439,14 +439,8 @@ app.get('/delete/*', ensureAuthenticated, function(req, res) {
  */
 
 // POST email
-app.post('/email/*', function(req, res, err) {
-/*
-  if (err) {
-    console.log(err)
-    res.send('Esta conversación ha expirado')
-    return
-  }
-*/
+app.post('/email/*', function(req, res) {
+
   var patharray = req.path.split('/');
   var id = patharray[patharray.length-1];
   var next;
@@ -456,6 +450,11 @@ app.post('/email/*', function(req, res, err) {
   var collection = db.collection('emails');
 
   collection.find({ 'id': id }).toArray(function(err, docs) {
+    if (err) {
+      console.log(err)
+      res.send('Esta conversación ha expirado')
+      return
+    }
     var emailData = docs[0]
     var subject = emailData['subject']
     var addSubject = '';
