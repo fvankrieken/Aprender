@@ -10,6 +10,10 @@ input.form-control {
 	width: 100% !important;
 }
 
+.close {
+	float: right;
+}
+
 .group-span-filestyle {
 	position: relative;
 	bottom: 55.5px;
