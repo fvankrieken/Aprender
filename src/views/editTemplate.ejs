@@ -32,9 +32,13 @@
 				
 				<textarea name="title" style="width: 400px; margin: auto; margin-top: 21px; height: 20px !important; padding: 6px; text-align: center; font-size: 24"><%= title %></textarea>
 
-	      		<a href="/CatalogoDeOfertas" style="position: relative; top: -38px; left: 36px; color: #0187e0 !important;">&#9001 &nbsp Volver al Catálogo de Ofertas</a>
+				<div style="position: relative; top: -27px;">
+	      		<a href="/CatalogoDeOfertas" style="display: inline; float: left; color: #0187e0 !important; position: relative; bottom: 2px;">&#9001 &nbsp Volver al Catálogo de Ofertas</a>
+	      		<a href='/CatalogoDeOfertas/<%= pathName %>' style="display: inline; float: right; padding-right: 25px; margin: 0;color: #0187e0 !important">Volver al Tema</a>
+	      		
+      			</div>
 
-	      		<a href='/CatalogoDeOfertas/<%= pathName %>' style="display: inline; float: right; padding-right: 25px; margin: 0; color: #0187e0 !important">Volver al Tema</a>
+      			<textarea name="descript" rows="3" style="float: left; padding: 0px 25px; font-family: Avenir-Light"><%= descript %></textarea>
 
 				<div style="width: 1024px; display:flex; padding: 25px; padding-top: 0px; margin: auto">
 					<div>
@@ -51,8 +55,7 @@
 
 					<div style="flex: 1; padding-left: 25px; padding-top: 35px; padding-bottom: 20px;">
 
-						<p style="font-family: Avenir-Medium; font-size:18px;">Descripción</p>
-						<textarea name="descript" rows="5"><%= descript %></textarea>
+						
 
 						<p style="font-family: Avenir-Medium; font-size:18px;">Competencias</p>
 						<% var compString = '' %>
