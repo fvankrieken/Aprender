@@ -630,7 +630,11 @@ app.post('/admin', ensureAuthenticated, upload.single('pdf'), function(req, res)
             slickCollect.insert(toInsert, res.render('admin', { status: 'success' }))
           } else {
             slickCollect.findOneAndUpdate({'cont': uploadInfo.Cont}, toInsert, function(err, count) {
-              res.render('admin', { status: 'success' });
+              if (err) {
+                res.send(err)
+              } else {
+                res.render('admin', { status: 'success' });
+              }
             });
           }
       });
