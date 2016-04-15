@@ -207,7 +207,7 @@ app.locals.slickBlank = {'title': '', 'pathName': '', 'comps': [], 'temas': [], 
  * Index
  */
 
-app.get('/', function(req, res){
+app.get('/', downForMaintenance, function(req, res){
   var collection = db.collection('slick');
   var slickArray = []
   var toAdd
@@ -251,7 +251,7 @@ app.get('/', function(req, res){
  * Relacion Tutoria
  */
 
-app.get('/RelacionTutoria', function(req, res){
+app.get('/RelacionTutoria', downForMaintenance, function(req, res){
   res.render('RT', { isAdmin: (req.isAuthenticated())});
 });
 
@@ -259,7 +259,7 @@ app.get('/RelacionTutoria', function(req, res){
  * Mapeo Virtual
  */
 
-app.get('/MapeoVirtual', function(req, res){
+app.get('/MapeoVirtual', downForMaintenance, function(req, res){
   res.render('MV', { isAdmin: (req.isAuthenticated())});
 });
 
@@ -268,7 +268,7 @@ app.get('/MapeoVirtual', function(req, res){
  */
 
 // GET CdO
-app.get('/CatalogoDeOfertas', function(req, res){
+app.get('/CatalogoDeOfertas', downForMaintenance, function(req, res){
   var collection = db.collection('temas');
   var catJSON = {};
 
@@ -319,7 +319,7 @@ app.get('/CatalogoDeOfertas', function(req, res){
 });
 
 // GET CdO/tema: show individual tema
-app.get('/CatalogoDeOfertas/*', function(req, res){
+app.get('/CatalogoDeOfertas/*', downForMaintenance, function(req, res){
   var patharray = req.path.split('/')
   var pathName = patharray[patharray.length-1];
   collection = db.collection('temas')
@@ -338,7 +338,7 @@ app.get('/CatalogoDeOfertas/*', function(req, res){
 });
 
 // POST CdO/tema: send email to expert
-app.post('/CatalogoDeOfertas/*', function(req, res){
+app.post('/CatalogoDeOfertas/*', downForMaintenance, function(req, res){
   var patharray = req.path.split('/')
   var pathName = patharray[patharray.length-1]; 
   var id = utils.randomString(4);
@@ -495,7 +495,7 @@ app.post('/email/*', function(req, res) {
  */
 
 // GET CT
-app.get('/CompartirTemas', function(req, res){
+app.get('/CompartirTemas', downForMaintenance, function(req, res){
   res.render('CT', { isAdmin: (req.isAuthenticated())});
 });
 
@@ -508,7 +508,7 @@ app.post('/CompartirTemas', tempUpload.single('file'), function(req, res){
  */
 
 // GET CE
-app.get('/CompartirExperiencias', function(req, res){
+app.get('/CompartirExperiencias', downForMaintenance, function(req, res){
   var collection = db.collection('forum');
   var checked = req.session.checked || '';
   req.session.checked = '';
@@ -520,7 +520,7 @@ app.get('/CompartirExperiencias', function(req, res){
 });
 
 // POST CE: adding a new topic
-app.post('/CompartirExperiencias', function(req, res) {
+app.post('/CompartirExperiencias', downForMaintenance, function(req, res) {
   var collection = db.collection('forum')
   var topic = req.body.topic
   var tempName = utils.toTitleCase(topic)
@@ -541,7 +541,7 @@ app.post('/CompartirExperiencias', function(req, res) {
 });
 
 // POST CE/topic: add a comment to a topic
-app.post('/CompartirExperiencias/*', function(req, res) {
+app.post('/CompartirExperiencias/*', downForMaintenance, function(req, res) {
   var patharray = req.path.split('/');
   var pathName = patharray[patharray.length-1];
   var collection = db.collection('forum');
@@ -726,4 +726,9 @@ app.get('/*', function(req, res){
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) { return next(); }
   res.redirect('/login')
+}
+
+function downForMaintenance(req, res, next) {
+  if (req.isAuthenticated()) { return next(); }
+  res.render('/down')
 }
