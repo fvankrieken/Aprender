@@ -442,6 +442,7 @@ app.get('/delete/*', ensureAuthenticated, function(req, res) {
 app.post('/email/*', function(req, res, err) {
 
   if (err) {
+    console.log(err)
     res.send('Esta conversación ha expirado')
     return
   }
