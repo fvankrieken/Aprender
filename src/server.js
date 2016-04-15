@@ -629,6 +629,7 @@ app.post('/admin', ensureAuthenticated, upload.single('pdf'), function(req, res)
           if (count == 0) {
             slickCollect.insert(toInsert, res.render('admin', { status: 'success' }))
           } else {
+            delete toInsert._id
             slickCollect.findOneAndUpdate({'cont': uploadInfo.Cont}, toInsert, function(err, count) {
               if (err) {
                 res.send(err)
