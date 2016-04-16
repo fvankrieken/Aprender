@@ -431,7 +431,33 @@ app.get('/delete/*', ensureAuthenticated, function(req, res) {
   slickCollect = db.collection('slick');
   slickCollect.deleteOne({'pathName': pathName})
   res.redirect('/CatalogoDeOfertas');
-})
+});
+
+// GET nuevo/tema: add tema to slick
+app.get('/nuevo/*', ensureAuthenticated, function(req, res) {
+  var patharray = req.path.split('/');
+  var pathName = patharray[patharray.length-1]
+  collection = db.collection('temas');
+  collection.find({'pathName': pathName}).toArray(function(err, docs) {
+    var toAdd = docs[0];
+    var slickCollect = db.collection('slick');
+    var currCont = toAdd['cont'];
+    slickCollect.count({'cont': currCont}, function(err, count) {
+      if (count == 0) {
+        slickCollect.insert(toAdd, res.redirect('/edit/' + pathName))
+      } else {
+        delete toAdd._id
+        slickCollect.findOneAndUpdate({'cont': currCont}, toAdd, function(err, count) {
+          if (err) {
+            res.send(err)
+          } else {
+            res.redirect('/edit/' + pathName);
+          }
+        });
+      }
+    });
+  });
+});
 
 /*
  * EMAIL
@@ -626,18 +652,18 @@ app.post('/admin', ensureAuthenticated, upload.single('pdf'), function(req, res)
       var slickCollect = db.collection('slick');
 
       slickCollect.count({'cont': uploadInfo.Cont}, function(err, count) {
-          if (count == 0) {
-            slickCollect.insert(toInsert, res.render('admin', { status: 'success' }))
-          } else {
-            delete toInsert._id
-            slickCollect.findOneAndUpdate({'cont': uploadInfo.Cont}, toInsert, function(err, count) {
-              if (err) {
-                res.send(err)
-              } else {
-                res.render('admin', { status: 'success' });
-              }
-            });
-          }
+        if (count == 0) {
+          slickCollect.insert(toInsert, res.render('admin', { status: 'success' }))
+        } else {
+          delete toInsert._id
+          slickCollect.findOneAndUpdate({'cont': uploadInfo.Cont}, toInsert, function(err, count) {
+            if (err) {
+              res.send(err)
+            } else {
+              res.render('admin', { status: 'success' });
+            }
+          });
+        }
       });
     });
   });
