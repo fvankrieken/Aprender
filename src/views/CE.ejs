@@ -61,7 +61,7 @@
                       <input type="text" name="name">
                     </label>
                     <input type="hidden" name="date" id="todayDate1"/>
-                    <input type="submit" class="mybutton" value="Enviar" style="float: right"></input>
+                    <input type="submit" class="mybutton" value="Enviar" style="float: left"></input>
                   </div>
                 </form>
               </div>
@@ -83,7 +83,7 @@
                 <% if (isAdmin) { %>
                 <button class="close" data-toggle="modal" data-target="#deleteTopic<%= topic['pathName'] %>" style="float: right; padding-top: 5px">&times;</button>
 
-                <div class="modal fade" id="deleteTopic" role="dialog" style="color: black">
+                <div class="modal fade" id="deleteTopic<%= topic['pathName'] %>" role="dialog" style="color: black">
                   <div class="modal-dialog modal-sm" style="width: 250px">
                     <div class="modal-content">
                       <div class="modal-header">
@@ -91,11 +91,11 @@
                         <h4 class="modal-title">¿Estás seguro?</h4>
                       </div>
                       <div class="modal-body" style="padding-bottom: 39px">
-                    <p>¿Quieres eliminar este tema?</p>
-                  
-                    <a href="/CompartirExperiencias/<%= topic['pathName'] %>"><button type="button" class="mybutton" style="background-color: #3a9ad9; float: left;">Eliminar</button></a>
-                    <!-- <button type="button" class="mybutton" data-dismiss="modal">Cerrar</button> -->
-                  </div>
+                        <p>¿Quieres eliminar este tema?</p>
+                      
+                        <a href="/CompartirExperiencias/<%= topic['pathName'] %>"><button type="button" class="mybutton" style="background-color: #3a9ad9; float: left;">Eliminar</button></a>
+                        <!-- <button type="button" class="mybutton" data-dismiss="modal">Cerrar</button> -->
+                      </div>
                     </div>
                   </div>
                </div>
@@ -143,14 +143,14 @@
                             <input type="text" name="name">
                           </label>
                           <input type="hidden" name="date" id="todayDate2"/>
-                          <input type="submit" class="mybutton" value="Enviar" style="float: right"></input>
+                          <input type="submit" class="mybutton" value="Enviar" style="float: left"></input>
                         </div>
                       </form>
                     </div>
                   </div>
                 </div>
 <!-- comments -->
-                <div style="overflow: scroll; height: 677px; width: 724px; position: relative; top: -41px">
+                <div style="overflow-y: auto; height: 677px; width: 724px; position: relative; top: -41px">
                 <% var comments = topic['comments']%>
                   <% comments.forEach(function(comment, index) { %>
                     <div class="comment">
@@ -163,19 +163,18 @@
                       <% if (isAdmin) { %>
                       <button class="close" data-toggle="modal" data-target="#<%= comment['commentID'] %>" style="position: absolute; bottom: 10px; right: 10px; padding-top: 5px; color: black;">&times;</button>
 
-                      <div class="modal fade" id="<%= comment['commentID'] %>" role="dialog" style="color: black">
-                        <div class="modal-dialog modal-sm" style="width: 250px">
+                      <div class="modal fade" id="<%= comment['commentID'] %>" role="dialog" style="color: black;">
+                        <div class="modal-dialog modal-sm" style="width: 220px">
                           <div class="modal-content">
                             <div class="modal-header">
                               <button type="button" class="close" data-dismiss="modal">&times;</button>
                               <h4 class="modal-title">¿Estás seguro?</h4>
                             </div>
-                            <div class="modal-body">
-                              <p>¿Quieres eliminar este comentario?</p>
-                            </div>
-                            <div class="modal-footer">
-                              <a href="/rm/<%= topic['pathName'] %>/<%= comment['commentID'] %>"><button type="button" class="mybutton" style="background-color: #f25d53">Eliminar</button></a>
-                        <!--      <button type="button" class="mybutton" data-dismiss="modal">Cerrar</button> -->
+                            <div class="modal-body" style="padding-bottom: 39px">
+                              <p>¿Quieres eliminar este tema?</p>
+                            
+                              <a href="/rm/<%= topic['pathName'] %>/<%= comment['commentID'] %>"><button type="button" class="mybutton" style="background-color: #3a9ad9; float: left;">Eliminar</button></a>
+                              <!-- <button type="button" class="mybutton" data-dismiss="modal">Cerrar</button> -->
                             </div>
                           </div>
                         </div>

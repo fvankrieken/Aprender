@@ -14,6 +14,10 @@ input.form-control {
 	float: right;
 }
 
+.modal-dialog .modal-sm {
+	margin-top: 100px;
+}
+
 .group-span-filestyle {
 	position: relative;
 	bottom: 55.5px;
