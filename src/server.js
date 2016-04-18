@@ -637,7 +637,7 @@ app.post('/admin', ensureAuthenticated, upload.single('pdf'), function(req, res)
   var extension = nameArray[nameArray.length - 1];
   var downloadName = ''
   if (extension != 'pdf') {
-    unoconv.convert(req.file.path, 'pdf', {'bin': 'unoconv'} function(err, result) {
+    unoconv.convert(req.file.path, 'pdf', {'bin': 'unoconv'}, function(err, result) {
       if (err) {
         console.log(err);
         return;
