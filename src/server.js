@@ -201,6 +201,8 @@ app.locals.blueHeight = function(subject) {
   return toReturn;
 }
 
+app.locals.toTitleCase = utils.toTitleCase
+
 // for index when db is empty
 app.locals.slickBlank = {'title': '', 'pathName': '', 'comps': [], 'temas': [], 'descript': ''}
 
