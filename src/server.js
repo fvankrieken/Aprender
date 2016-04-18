@@ -560,7 +560,7 @@ app.post('/CompartirTemas', tempUpload.fields([{'name': 'tema'}, {'name': 'apoyo
       res.render('CT', { isAdmin: (req.isAuthenticated()), status: 'title' });
       return;
     }
-    collection.insert(toInsert, function(err, count {
+    collection.insert(toInsert, function(err, count) {
       res.render('CT', { isAdmin: (req.isAuthenticated()), status: ''})
     }))
   })
