@@ -18,6 +18,7 @@ h6 {
 .subheader {
 	margin: 0;
 	color: #4a4a4a;
+	font-size: 12px;
 }
 
 input.form-control {
@@ -33,9 +34,6 @@ input.form-control {
 }
 
 .group-span-filestyle {
-	position: relative;
-	bottom: 55.5px;
-	float: right;
 	transition: background-color 0.25s ease-out, color 0.25s ease-out;
     color: #ffffff; 
     background-color: #3a9ad9 !important;
