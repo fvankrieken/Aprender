@@ -651,7 +651,7 @@ app.post('/admin', ensureAuthenticated, upload.single('pdf'), function(req, res)
       newPathName += '.pdf';
       fileName = newPathName;
       downloadName = req.file.fileName
-      fs.writeFile(req.file.destination + newPathName, result);
+      fs.writeFile(req.file.destination + '/' + newPathName, result);
     });
   }
   
