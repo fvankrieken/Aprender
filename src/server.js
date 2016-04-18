@@ -536,26 +536,7 @@ app.post('/CompartirTemas', tempUpload.fields([{'name': 'tema'}, {'name': 'apoyo
   var collection = db.collection('tempPDFs');
   temaNombre = req.body.temaNombre;
   var temaPath = utils.makeLink(temaNombre);
-  var tema, tutor, aprendez, apoyo;
-  for (var i; i < 4; i++) {
-    if (files[i].fieldName == 'tema') {
-      tema = files[i]
-      break
-    }
-    if (files[i].fieldName == 'apoyo') {
-      apoyo = files[i]
-      break
-    }
-    if (files[i].fieldName == 'tutor') {
-      tutor = files[i]
-      break
-    }
-    if (files[i].fieldName == 'aprendez') {
-      aprendez = files[i]
-      break
-    }
-  }
-  var toInsert = {'temaNombre': temaNombre, 'temaPath': temaPath, 'tema': tema, 'apoyo': apoyo, 'tutor': tutor, 'aprendez': aprendez}
+  var toInsert = {'temaNombre': temaNombre, 'temaPath': temaPath, 'tema': files['tema']['filename'], 'apoyo': files['apoyo']['filename'], 'tutor': files['tutor']['filename'], 'aprendez': files['aprendez']['filename']}
   collection.count({'temaPath': temaPath}, function(err, count) {
     if (count != 0) {
       res.render('CT', { isAdmin: (req.isAuthenticated()), status: 'title' });
