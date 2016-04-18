@@ -639,7 +639,7 @@ app.post('/admin', ensureAuthenticated, upload.single('pdf'), function(req, res)
   if (extension != 'pdf') {
     unoconv.convert(req.file.path, 'pdf', function(err, result) {
       var newPathName = '';
-      for (var i = 0; i < nameArray.length - 2) {
+      for (var i = 0; i < nameArray.length - 2, i++) {
         newPathName += nameArray[i]
       }
       newPathName += '.pdf';
