@@ -92,7 +92,7 @@
 						<p style="font-family: Avenir-Medium; font-size:18px;">Temas relacionados</p>
 						<ul class="cote">
 							<% temas.forEach(function(tema, index) { %>
-								<% var link = "/CatalogoDeOfertas/" + toTitleCase(tema) %>
+								<% var link = "/CatalogoDeOfertas/" + makeLink(tema) %>
 	   	 						<a href="<%= link %>"><li style="background-color: #f25d53"><%= tema %></li></a>
 							<% }); %>
 						</ul>
