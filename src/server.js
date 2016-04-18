@@ -562,8 +562,8 @@ app.post('/CompartirTemas', tempUpload.fields([{'name': 'tema'}, {'name': 'apoyo
     }
     collection.insert(toInsert, function(err, count) {
       res.render('CT', { isAdmin: (req.isAuthenticated()), status: ''})
-    }))
-  })
+    });
+  });
 });
 
 /*
