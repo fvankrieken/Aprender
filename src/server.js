@@ -201,11 +201,7 @@ app.locals.blueHeight = function(subject) {
   return toReturn;
 }
 
-app.locals.makeLink = function(str) {
-    titlecase = str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
-    titlecase = titlecase.replace(/\s/g, '');
-    utils.removeDiacritics(titlecase).replace(/\W/g, '')
-}
+app.locals.makeLink = utils.makeLink
 
 // for index when db is empty
 app.locals.slickBlank = {'title': '', 'pathName': '', 'comps': [], 'temas': [], 'descript': ''}
@@ -334,13 +330,13 @@ app.get('/CatalogoDeOfertas/*', downForMaintenance, function(req, res){
   collection.find({ 'pathName': pathName }).toArray(function(err, pathDataArray) {
     pathData = pathDataArray[0]
     if (!pathData) {
-      res.render('error');
+      res.render('error', {'isAdmin': req.isAuthenticated});
       return;
     }
     pathData['isAdmin'] = req.isAuthenticated();
     res.render('template', pathData);
-  })
-  
+  });
+  res.render('error')
  
 });
 
