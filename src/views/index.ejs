@@ -84,6 +84,14 @@
       <% var category %>
 
       <div class="single-item" style="height: 314px; width: 830px; margin: auto; margin-top: 35px; margin-bottom: 80px">
+        
+        <% slicks.forEach(function(tema, index) { %>
+          <% category = tema %>
+          <div style="padding: 10px 30px">
+          <% include partials/slick %>
+          </div>
+        <% }); %>
+
         <div style="padding: 10px 30px">
           <div class="slicktab" style="display: flex; width: 770px; margin: 0px; height: 284;">
 
@@ -101,12 +109,7 @@
 
           </div>
         </div>
-        <% slicks.forEach(function(tema, index) { %>
-          <% category = tema %>
-          <div style="padding: 10px 30px">
-          <% include partials/slick %>
-          </div>
-        <% }); %>
+
       </div>
 
       <% var footerStyle = "margin: 25px; margin-bottom: 0"%>
