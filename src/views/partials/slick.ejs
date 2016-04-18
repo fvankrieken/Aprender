@@ -5,10 +5,12 @@
 <div class="slicktab" style="display: flex; width: 770px; margin: 0px; height: 284;">
 
 	<div style="padding: 30px; width: 350px; text-align: left; position: relative;">
-		<p class="clamp64" style="font-size: 20px; font-face: Avenir-Medium; color: #4a4a4a; margin-bottom: 15px; height: 64px; overflow: hidden;">Nuevo tema: <%= category['title']%></p>
-		
-		<p style="font-size: 15px; font-face: Avenir-Light; color: #000000; height: 100px; overflow: hidden"><%= category['descript']%></p>
-		
+		<div style="height: 64px; overflow: hidden">
+			<p class="clamp64" style="font-size: 20px; font-face: Avenir-Medium; color: #4a4a4a; margin-bottom: 15px;">Nuevo tema: <%= category['title']%></p>
+		</div>
+		<div style="height: 106px; overflow: hidden">
+			<p class="clamp106" style="font-size: 15px; font-face: Avenir-Light; color: #000000; overflow: hidden"><%= category['descript']%></p>
+		</div>
 		<div  style="position: absolute; bottom: 25px">
 			<a href="/CatalogoDeOfertas/<%= category['pathName']%>"><p>Ver este tema</p></a>
 		</div>

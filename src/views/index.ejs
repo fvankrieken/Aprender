@@ -102,6 +102,18 @@
     <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
     <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.slick/1.5.9/slick.min.js"></script>
     <script type="text/javascript">
+    function clamp(class, height){
+      var clamps = document.getElementsByClassName(class);
+      for (var i = 0; i < clamps.length; i++) {
+        var toClamp = clamps[i];
+        while (toClamp.outerHeight() > height) {
+            toClamp.text(function (index, text) {
+                return text.replace(/\W*\s(\S)*$/, '...');
+            });
+        }
+      }
+    }
+
       $(document).ready(function(){
         $('.single-item').slick({
           dots: true,
@@ -110,6 +122,10 @@
           autoplay:true,
           autoplaySpeed:8000,
         });
+
+        clamp('clamp64', 64);
+        clamp('clamp106', 106)
+        
       });
     </script>
 
