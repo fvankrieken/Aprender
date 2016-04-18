@@ -336,7 +336,6 @@ app.get('/CatalogoDeOfertas/*', downForMaintenance, function(req, res){
     pathData['isAdmin'] = req.isAuthenticated();
     res.render('template', pathData);
   });
-  res.render('error')
  
 });
 
