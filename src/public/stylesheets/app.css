@@ -33,6 +33,10 @@ input.form-control {
 	margin-top: 100px !important;
 }
 
+.filestyle {
+	margin: 0;
+}
+
 .group-span-filestyle {
 	position: relative;
 	bottom: 55.5px;
