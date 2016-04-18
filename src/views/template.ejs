@@ -62,8 +62,9 @@
 			<div style="width: 1024px; display:flex; padding: 25px; padding-top: 0px; margin: auto">
 				<div>
 				
+				<% if (downloadName == '') { downloadName = fileName } %>
 
-				<a href="/pdfs/<%= fileName %>" style="position: relative; left: 2px;" download><p style="margin-bottom:5px;">Descargar</p></a>
+				<a href="/pdfs/<%= downloadName %>" style="position: relative; left: 2px;" download><p style="margin-bottom:5px;">Descargar</p></a>
 
 				<div style="width: 650px; height: 900px; box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.5);">
 

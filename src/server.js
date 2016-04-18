@@ -12,6 +12,7 @@ var express = require('express')
   , session = require('express-session')
   , multer = require('multer')
   , fs = require('fs')
+  , unoconv = require('unoconv2')
   , MongoClient = require('mongodb').MongoClient
   , MongoURL = 'mongodb://finn:sociedad@ec2-52-32-107-9.us-west-2.compute.amazonaws.com:27017/data'
   , password = require('./password').password
@@ -631,6 +632,22 @@ app.post('/admin', ensureAuthenticated, upload.single('pdf'), function(req, res)
     res.render('admin', { status: 'noPDF' });
     return;
   }
+  var fileName = req.file.fileName;
+  var nameArray = fileName.split('.');
+  var extension = nameArray[nameArray.length - 1];
+  var downloadName = ''
+  if (extension != 'pdf') {
+    unoconv.convert(req.file.path, 'pdf', function(err, result) {
+      var newPathName = '';
+      for (var i = 0; i < nameArray.length - 2) {
+        newPathName += nameArray[i]
+      }
+      newPathName += '.pdf';
+      fileName = newPathName;
+      downloadName = req.file.fileName
+      fs.writeFile(req.file.destination + newPathName, result);
+    });
+  }
   var uploadInfo = req.body;
   var collection = db.collection('temas');
   var title = uploadInfo.title;
@@ -641,7 +658,7 @@ app.post('/admin', ensureAuthenticated, upload.single('pdf'), function(req, res)
   var comps = uploadInfo.comps.split(', ');
   var temas = uploadInfo.temas.split(', ');
   var toInsert = {'pathName': pathName, 'title': title, 'descript': uploadInfo.descript, 'cont': uploadInfo.Cont, 'comps': comps, 'temas': temas, 
-  'email': uploadInfo.email, 'fileName': req.file.filename}
+  'email': uploadInfo.email, 'fileName': fileName, 'downloadName': downloadName}
 
   collection.count({'pathName': pathName}, function(err, count) {
     if (count != 0) {
