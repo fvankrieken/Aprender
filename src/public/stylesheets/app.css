@@ -15,6 +15,10 @@ h6 {
 	font-size: 16px !important;
 }
 
+.test {
+	float: left;
+}
+
 .subheader {
 	margin: 0;
 	color: #4a4a4a;
