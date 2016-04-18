@@ -820,7 +820,7 @@ app.get('/uploadSupport', ensureAuthenticated, function(req, res){
 
 app.post('/uploadSupport', ensureAuthenticated, otherUpload.single('upload'), function(req, res){
   res.render('uS', { isAdmin: (req.isAuthenticated()), status: 'success'})
-}))
+})
 
 
 /*
