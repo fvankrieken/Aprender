@@ -34,6 +34,10 @@ input.form-control {
 	float: right;
 }
 
+.form-control {
+	margin-bottom: 0;
+}
+
 .modal-dialog, .modal-sm {
 	margin-top: 100px !important;
 }
