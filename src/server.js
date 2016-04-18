@@ -538,19 +538,19 @@ app.post('/CompartirTemas', tempUpload.fields([{'name': 'tema'}, {'name': 'apoyo
   var temaPath = utils.makeLink(temaNombre);
   var tema, apoyo, tutor, aprendez
   if (req.files['tema']) {
-    tema = req.files['tema']['filename']
+    tema = req.files['tema'][0]['filename']
   }
   console.log(req.files['apoyo'])
   if (req.files['apoyo']) {
     console.log('here')
-    apoyo = req.files['apoyo']['filename']
+    apoyo = req.files['apoyo'][0]['filename']
     console.log(apoyo)
   }
   if (req.files['tutor']) {
-    tutor = req.files['tutor']['filename']
+    tutor = req.files['tutor'][0]['filename']
   }
   if (req.files['aprendez']) {
-    aprendez = req.files['aprendez']['filename']
+    aprendez = req.files['aprendez'][0]['filename']
   }
   var toInsert = {'temaNombre': temaNombre, 'temaPath': temaPath, 'tema': tema, 'apoyo': apoyo, 'tutor': tutor, 'aprendez': aprendez}
   collection.count({'temaPath': temaPath}, function(err, count) {
