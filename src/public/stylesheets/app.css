@@ -16,6 +16,7 @@ h6 {
 }
 
 .test {
+	position: relative;
 	float: left;
 }
 
