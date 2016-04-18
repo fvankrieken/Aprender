@@ -638,6 +638,10 @@ app.post('/admin', ensureAuthenticated, upload.single('pdf'), function(req, res)
   var downloadName = ''
   if (extension != 'pdf') {
     unoconv.convert(req.file.path, 'pdf', function(err, result) {
+      if (err) {
+        console.log(err);
+        return;
+      }
       var newPathName = '';
       for (var i = 0; i < nameArray.length - 2; i++) {
         newPathName += nameArray[i]
