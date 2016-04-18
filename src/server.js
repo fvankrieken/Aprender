@@ -549,7 +549,7 @@ app.post('/CompartirTemas', tempUpload.fields([{'name': 'tema'}, {'name': 'apoyo
   if (req.files['aprendez']) {
     aprendez = req.files['aprendez']['filename']
   }
-  var toInsert = {'temaNombre': temaNombre, 'temaPath': temaPath, 'tema': files['tema']['filename'], 'apoyo': files['apoyo']['filename'], 'tutor': files['tutor']['filename'], 'aprendez': files['aprendez']['filename']}
+  var toInsert = {'temaNombre': temaNombre, 'temaPath': temaPath, 'tema': tema, 'apoyo': apoyo, 'tutor': tutor, 'aprendez': aprendez}
   collection.count({'temaPath': temaPath}, function(err, count) {
     if (count != 0) {
       res.render('CT', { isAdmin: (req.isAuthenticated()), status: 'title' });
