@@ -104,9 +104,11 @@
     <script type="text/javascript">
     function clamp(cl, height){
       var clamps = $(cl);
+      console.log(clamps)
       for (var i = 0; i < clamps.length; i++) {
         var toClamp = clamps[i];
         while (toClamp.height > height) {
+          console.log(toClamp.height)
             toClamp.text(function (index, text) {
                 return text.replace(/\W*\s(\S)*$/, '...');
             });
