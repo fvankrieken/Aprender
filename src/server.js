@@ -19,7 +19,6 @@ var express = require('express')
 
 var db;
 
-app.locals.downloadName = '';
 
 // Initialize connection once
 MongoClient.connect(MongoURL, function(err, database) {
@@ -202,6 +201,8 @@ app.locals.blueHeight = function(subject) {
   if (gridLength < 0) {return 40};
   return toReturn;
 }
+
+app.locals.downloadName = '';
 
 app.locals.makeLink = utils.makeLink
 
