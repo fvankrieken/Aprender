@@ -535,7 +535,7 @@ app.post('/CompartirTemas', tempUpload.fields([{'name': 'tema'}, {'name': 'apoyo
   var collect = db.collection('tempPDFs');
   temaNombre = req.body.temaNombre;
   var temaPath = utils.makeLink(temaNombre);
-  var tema, tutor, aprendiz, apoyo;
+  var tema, tutor, aprendez, apoyo;
   for (var i; i < 4; i++) {
     if (files[i].fieldName == 'tema') {
       tema = files[i]
