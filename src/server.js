@@ -49,8 +49,17 @@ var tempStorage = multer.diskStorage({
     cb(null, file.originalname)
   }
 })
+var otherStorage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, __dirname + '/public/ejemplos')
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname)
+  }
+})
 var upload = multer({ storage: storage })
 var tempUpload = multer({ storage: tempStorage })
+var otherUpload = multer({ storage: otherStorage})
 
 // Users for login (for administrator privileges)
 var users = [
@@ -530,13 +539,13 @@ app.get('/CompartirTemas', downForMaintenance, function(req, res){
   res.render('CT', { isAdmin: (req.isAuthenticated()), status: ''});
 });
 
-app.post('/CompartirTemas', tempUpload.fields([{'name': 'tema'}, {'name': 'apoyo'}, {'name': 'tutor'}, {'name': 'aprendez'}]), function(req, res){
+app.post('/CompartirTemas', tempUpload.fields([{'name': 'tema'}, {'name': 'apoyo'}, {'name': 'tutor'}, {'name': 'aprendiz'}]), function(req, res){
   var files = req.files;
   console.log(files)
   var collection = db.collection('tempPDFs');
   temaNombre = req.body.temaNombre;
   var temaPath = utils.makeLink(temaNombre);
-  var tema, apoyo, tutor, aprendez
+  var tema, apoyo, tutor, aprendiz
   if (req.files['tema']) {
     tema = req.files['tema'][0]['filename']
   }
@@ -549,10 +558,10 @@ app.post('/CompartirTemas', tempUpload.fields([{'name': 'tema'}, {'name': 'apoyo
   if (req.files['tutor']) {
     tutor = req.files['tutor'][0]['filename']
   }
-  if (req.files['aprendez']) {
-    aprendez = req.files['aprendez'][0]['filename']
+  if (req.files['aprendiz']) {
+    aprendiz = req.files['aprendiz'][0]['filename']
   }
-  var toInsert = {'temaNombre': temaNombre, 'temaPath': temaPath, 'tema': tema, 'apoyo': apoyo, 'tutor': tutor, 'aprendez': aprendez}
+  var toInsert = {'temaNombre': temaNombre, 'temaPath': temaPath, 'tema': tema, 'apoyo': apoyo, 'tutor': tutor, 'aprendiz': aprendiz}
   collection.count({'temaPath': temaPath}, function(err, count) {
     if (count != 0) {
       res.render('CT', { isAdmin: (req.isAuthenticated()), status: 'title' });
@@ -804,6 +813,15 @@ app.get('/logout', function(req, res){
   req.logout();
   res.redirect('/');
 });
+
+app.get('/uploadSupport', ensureAuthenticated, function(req, res){
+  res.render('uS', { isAdmin: (req.isAuthenticated()), status: ''})
+})
+
+app.post('/uploadSupport', ensureAuthenticated, otherUpload.single('upload'), function(req, res){
+  res.render('uS', { isAdmin: (req.isAuthenticated()), status: 'success'})
+}))
+
 
 /*
  * Catch all (bad url)
