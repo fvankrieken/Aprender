@@ -45,7 +45,7 @@ input.form-control {
 
 .group-span-filestyle {
 	position: relative;
-	bottom: 61.5px;
+	bottom: 60.5px;
 	float: right;
 	transition: background-color 0.25s ease-out, color 0.25s ease-out;
     color: #ffffff; 
@@ -61,6 +61,7 @@ input.form-control {
 	position: relative;
 	bottom: 15px;
 	margin-bottom: 6px;
+	height: 22px;
 }
 
 .button {
