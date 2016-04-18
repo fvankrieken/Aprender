@@ -540,8 +540,11 @@ app.post('/CompartirTemas', tempUpload.fields([{'name': 'tema'}, {'name': 'apoyo
   if (req.files['tema']) {
     tema = req.files['tema']['filename']
   }
+  console.log(req.files['apoyo'])
   if (req.files['apoyo']) {
+    console.log('here')
     apoyo = req.files['apoyo']['filename']
+    console.log(apoyo)
   }
   if (req.files['tutor']) {
     tutor = req.files['tutor']['filename']
