@@ -103,7 +103,7 @@
     <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.slick/1.5.9/slick.min.js"></script>
     <script type="text/javascript">
     function clamp(cl, height){
-      var clamps = document.getElementsByClassName(cl);
+      var clamps = $(cl);
       for (var i = 0; i < clamps.length; i++) {
         var toClamp = clamps[i];
         while (toClamp.height() > height) {
@@ -128,8 +128,8 @@
       });
 
       $(window).load(function() {
-        clamp('clamp64', 64);
-        clamp('clamp106', 106)
+        clamp('.clamp64', 64);
+        clamp('.clamp106', 106)
       })
     </script>
 
