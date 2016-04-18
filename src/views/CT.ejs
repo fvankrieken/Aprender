@@ -172,6 +172,7 @@
 
           var formData = new FormData();
           formData.append('file', file);
+          formData.append('temaNombre', temaNombre)
 
           $.ajax({
               type: "POST",

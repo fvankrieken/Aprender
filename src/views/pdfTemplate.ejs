@@ -18,13 +18,17 @@
 
     <div class="main" style="width: 700px">
 
-      <div class="header"><%= pdf %></div>
-      <div style="width: 650px; height: 900px; box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.5); margin: auto;">
+      <div class="header"><%= temaNombre %></div>
+      
+      <ul>
+        
+        <li>Tema: <% if (tema) { %><a href='/pdfTemp/<%= tema %>'><%= tema %><a><% } else { %> Ningún archivo <% } %></li>
+        <li>Materiales de apoyo: <% if (apoyo) { %><a href='/pdfTemp/<%= apoyo %>'><%= apoyo %><a><% } else { %> Ningún archivo <% } %></li>
+        <li>Ejemplo de registro del tutor: <% if (tema) { %><a href='/pdfTemp/<%= tema %>'><%= tema %><a><% } else { %> Ningún archivo <% } %></li>
+        <li>Ejemplo de registro del aprendiz: <% if (tema) { %><a href='/pdfTemp/<%= tema %>'><%= tema %><a><% } else { %> Ningún archivo <% } %></li>
 
-          <object data="/pdfTemp/<%= pdf %>" width="650" height="900">
-              </object>
+      </ul>
 
-        </div>
       <% var footerStyle = ""%>
       <% include partials/footer %>
 

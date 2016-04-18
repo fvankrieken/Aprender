@@ -530,7 +530,31 @@ app.get('/CompartirTemas', downForMaintenance, function(req, res){
   res.render('CT', { isAdmin: (req.isAuthenticated())});
 });
 
-app.post('/CompartirTemas', tempUpload.array(['tema', 'tutor', 'aprendez', 'apoyo']), function(req, res){
+app.post('/CompartirTemas', tempUpload.fields([{'name': 'tema'}, {'name': 'apoyo'}, {'name': 'tutor'}, {'name': 'aprendez'}]), function(req, res){
+  var files = req.files;
+  var collect = db.collection('tempPDFs');
+  temaNombre = req.body.temaNombre;
+  var temaPath = utils.makeLink(temaNombre);
+  var tema, tutor, aprendiz, apoyo;
+  for (var i; i < 4; i++) {
+    if (files[i].fieldName == 'tema') {
+      tema = files[i]
+      break
+    }
+    if (files[i].fieldName == 'apoyo') {
+      apoyo = files[i]
+      break
+    }
+    if (files[i].fieldName == 'tutor') {
+      tutor = files[i]
+      break
+    }
+    if (files[i].fieldName == 'aprendez') {
+      aprendez = files[i]
+      break
+    }
+  }
+  var toInsert = {'temaNombre': temaNombre, 'temaPath': temaPath, 'tema': tema, 'apoyo': apoyo, 'tutor': tutor, 'aprendez': aprendez}
   res.render('CT', { isAdmin: (req.isAuthenticated())});
 });
 
@@ -714,22 +738,21 @@ app.post('/admin', ensureAuthenticated, upload.single('pdf'), function(req, res)
 
 // GET archivos
 app.get('/archivos', ensureAuthenticated, function(req, res) {
-  var path = __dirname + "/public/pdfTemp"
-  fs.readdir(path, function(err, list) {
-    for (var i = 0; i < list.length; i++) {
-      if (list[i] == '.DS_Store') {
-        list.splice(i, 1)
-      }
-    }
-    res.render('archivos', {'pdfs': list})
+  var temas = db.collection('tempPDFs')
+  temas.find().toArray(function(err, docs) {
+    res.render('archivos', {'temaNombres': docs})
   })
 })
 
 // GET archivos/pdf
 app.get('/archivos/*', ensureAuthenticated, function(req, res) {
   var patharray = req.path.split('/');
-  var pdfName = patharray[patharray.length-1];
-  res.render('pdfTemplate', {'pdf': pdfName})
+  var pathName = patharray[patharray.length-1];
+  var temas = db.collection('tempPDFs')
+  temas.find({'temaPath': pathName}).toArray(function(err, docs) {
+    var tema = docs[0]
+    res.render('pdfTemplate', tema)
+  })
 })
 
 /*
