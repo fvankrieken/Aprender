@@ -201,7 +201,9 @@ app.locals.blueHeight = function(subject) {
   return toReturn;
 }
 
-app.locals.toTitleCase = utils.toTitleCase
+app.locals.toTitleCase = function(str) {
+    return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+}
 
 // for index when db is empty
 app.locals.slickBlank = {'title': '', 'pathName': '', 'comps': [], 'temas': [], 'descript': ''}
