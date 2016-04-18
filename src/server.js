@@ -645,7 +645,7 @@ app.post('/admin', ensureAuthenticated, upload.single('pdf'), function(req, res)
         return;
       }
       var newPathName = '';
-      for (var i = 0; i < nameArray.length - 2; i++) {
+      for (var i = 0; i <= nameArray.length - 2; i++) {
         newPathName += nameArray[i]
       }
       newPathName += '.pdf';
