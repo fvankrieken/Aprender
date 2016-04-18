@@ -19,6 +19,8 @@ var express = require('express')
 
 var db;
 
+app.locals.downloadName = '';
+
 // Initialize connection once
 MongoClient.connect(MongoURL, function(err, database) {
   if(err) throw err;
