@@ -747,7 +747,8 @@ app.post('/admin', ensureAuthenticated, upload.single('pdf'), function(req, res)
 // GET archivos
 app.get('/archivos', ensureAuthenticated, function(req, res) {
   var temas = db.collection('tempPDFs')
-  temas.find().toArray(function(err, docs) {
+  temas.find({}).toArray(function(err, docs) {
+    console.log(docs)
     res.render('archivos', {'temaNombres': docs})
   })
 })
