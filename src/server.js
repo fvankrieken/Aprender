@@ -652,45 +652,85 @@ app.post('/admin', ensureAuthenticated, upload.single('pdf'), function(req, res)
       fileName = newPathName;
       downloadName = req.file.fileName
       fs.writeFile(req.file.destination + '/' + newPathName, result);
-    });
-  }
-  
-  var uploadInfo = req.body;
-  var collection = db.collection('temas');
-  var title = uploadInfo.title;
-  var tempName = utils.toTitleCase(title)
-  var tempName2 = tempName.replace(/\s/g, '');
-  var pathName = utils.removeDiacritics(tempName2).replace(/\W/g, '');
+      var uploadInfo = req.body;
+      var collection = db.collection('temas');
+      var title = uploadInfo.title;
+      var tempName = utils.toTitleCase(title)
+      var tempName2 = tempName.replace(/\s/g, '');
+      var pathName = utils.removeDiacritics(tempName2).replace(/\W/g, '');
 
-  var comps = uploadInfo.comps.split(', ');
-  var temas = uploadInfo.temas.split(', ');
-  var toInsert = {'pathName': pathName, 'title': title, 'descript': uploadInfo.descript, 'cont': uploadInfo.Cont, 'comps': comps, 'temas': temas, 
-  'email': uploadInfo.email, 'fileName': fileName, 'downloadName': downloadName}
+      var comps = uploadInfo.comps.split(', ');
+      var temas = uploadInfo.temas.split(', ');
+      var toInsert = {'pathName': pathName, 'title': title, 'descript': uploadInfo.descript, 'cont': uploadInfo.Cont, 'comps': comps, 'temas': temas, 
+      'email': uploadInfo.email, 'fileName': fileName, 'downloadName': downloadName}
 
-  collection.count({'pathName': pathName}, function(err, count) {
-    if (count != 0) {
-      res.render('admin', { status: 'title' });
-      return;
-    }
-    collection.insert(toInsert, function(err, count) {
-      var slickCollect = db.collection('slick');
+      collection.count({'pathName': pathName}, function(err, count) {
+        if (count != 0) {
+          res.render('admin', { status: 'title' });
+          return;
+        }
+        collection.insert(toInsert, function(err, count) {
+          var slickCollect = db.collection('slick');
 
-      slickCollect.count({'cont': uploadInfo.Cont}, function(err, count) {
-        if (count == 0) {
-          slickCollect.insert(toInsert, res.render('admin', { status: 'success' }))
-        } else {
-          delete toInsert._id
-          slickCollect.findOneAndUpdate({'cont': uploadInfo.Cont}, toInsert, function(err, count) {
-            if (err) {
-              res.send(err)
+          slickCollect.count({'cont': uploadInfo.Cont}, function(err, count) {
+            if (count == 0) {
+              slickCollect.insert(toInsert, res.render('admin', { status: 'success' }))
             } else {
-              res.render('admin', { status: 'success' });
+              delete toInsert._id
+              slickCollect.findOneAndUpdate({'cont': uploadInfo.Cont}, toInsert, function(err, count) {
+                if (err) {
+                  res.send(err)
+                } else {
+                  res.render('admin', { status: 'success' });
+                }
+              });
             }
           });
-        }
+        });
       });
     });
-  });
+  } else {
+
+    var uploadInfo = req.body;
+    var collection = db.collection('temas');
+    var title = uploadInfo.title;
+    var tempName = utils.toTitleCase(title)
+    var tempName2 = tempName.replace(/\s/g, '');
+    var pathName = utils.removeDiacritics(tempName2).replace(/\W/g, '');
+
+    var comps = uploadInfo.comps.split(', ');
+    var temas = uploadInfo.temas.split(', ');
+    var toInsert = {'pathName': pathName, 'title': title, 'descript': uploadInfo.descript, 'cont': uploadInfo.Cont, 'comps': comps, 'temas': temas, 
+    'email': uploadInfo.email, 'fileName': fileName, 'downloadName': downloadName}
+
+    collection.count({'pathName': pathName}, function(err, count) {
+      if (count != 0) {
+        res.render('admin', { status: 'title' });
+        return;
+      }
+      collection.insert(toInsert, function(err, count) {
+        var slickCollect = db.collection('slick');
+
+        slickCollect.count({'cont': uploadInfo.Cont}, function(err, count) {
+          if (count == 0) {
+            slickCollect.insert(toInsert, res.render('admin', { status: 'success' }))
+          } else {
+            delete toInsert._id
+            slickCollect.findOneAndUpdate({'cont': uploadInfo.Cont}, toInsert, function(err, count) {
+              if (err) {
+                res.send(err)
+              } else {
+                res.render('admin', { status: 'success' });
+              }
+            });
+          }
+        });
+      });
+    });
+
+  }
+  
+  
  
 /* Add this to admin page (js with if, stopimmediatepropagation)
   if ((title == '') || (pathName == '') || (email == '') || (descript == '') || (comps == '') || (temas == '')) {
