@@ -526,7 +526,7 @@ app.get('/CompartirTemas', downForMaintenance, function(req, res){
   res.render('CT', { isAdmin: (req.isAuthenticated())});
 });
 
-app.post('/CompartirTemas', tempUpload.single('file'), function(req, res){
+app.post('/CompartirTemas', tempUpload.array(['tema', 'tutor', 'aprendez', 'apoyo']), function(req, res){
   res.render('CT', { isAdmin: (req.isAuthenticated())});
 });
 
@@ -626,6 +626,7 @@ app.get('/admin', ensureAuthenticated, function(req, res){
   res.render('admin', { status: '' })
 });
 
+var linstener = unoconv.listen( {port: 2002} )
 // POST admin: upload a new tema
 app.post('/admin', ensureAuthenticated, upload.single('pdf'), function(req, res){
   if (!req.file) {
@@ -636,6 +637,7 @@ app.post('/admin', ensureAuthenticated, upload.single('pdf'), function(req, res)
   var nameArray = fileName.split('.');
   var extension = nameArray[nameArray.length - 1];
   var downloadName = ''
+  
   if (extension != 'pdf') {
     unoconv.convert(req.file.path, 'pdf', {'bin': 'unoconv'}, function(err, result) {
       if (err) {
@@ -652,6 +654,7 @@ app.post('/admin', ensureAuthenticated, upload.single('pdf'), function(req, res)
       fs.writeFile(req.file.destination + newPathName, result);
     });
   }
+  
   var uploadInfo = req.body;
   var collection = db.collection('temas');
   var title = uploadInfo.title;
