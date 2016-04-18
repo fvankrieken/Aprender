@@ -532,7 +532,7 @@ app.get('/CompartirTemas', downForMaintenance, function(req, res){
 
 app.post('/CompartirTemas', tempUpload.fields([{'name': 'tema'}, {'name': 'apoyo'}, {'name': 'tutor'}, {'name': 'aprendez'}]), function(req, res){
   var files = req.files;
-  var collect = db.collection('tempPDFs');
+  var collection = db.collection('tempPDFs');
   temaNombre = req.body.temaNombre;
   var temaPath = utils.makeLink(temaNombre);
   var tema, tutor, aprendez, apoyo;
