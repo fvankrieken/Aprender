@@ -201,8 +201,10 @@ app.locals.blueHeight = function(subject) {
   return toReturn;
 }
 
-app.locals.toTitleCase = function(str) {
-    return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+app.locals.makeLink = function(str) {
+    titlecase = str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+    titlecase = titlecase.replace(/\s/g, '');
+    utils.removeDiacritics(titlecase).replace(/\W/g, '')
 }
 
 // for index when db is empty
