@@ -107,7 +107,7 @@
       for (var i = 0; i < clamps.length; i++) {
         var toClamp = clamps[i];
         while ($(toClamp).height() > height) {
-            toClamp.text(function (index, text) {
+            $(toClamp).text(function (index, text) {
                 return text.replace(/\W*\s(\S)*$/, '...');
             });
         }
