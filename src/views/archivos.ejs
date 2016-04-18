@@ -33,7 +33,7 @@
       <ul class="pdfList" style="width: 600px; margin: auto;">
         <% temaNombres.forEach(function(tema, index) {%>
         <li>
-          <p><a href="/archivos/<%= tema[temaPath] %>"><%= tema[temaNombre] %></a></p>
+          <p><a href="/archivos/<%= tema['temaPath'] %>"><%= tema['temaNombre'] %></a></p>
         </li>
         <% }); %>
       </ul>
