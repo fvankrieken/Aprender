@@ -84,11 +84,28 @@
       <% var category %>
 
       <div class="single-item" style="height: 314px; width: 830px; margin: auto; margin-top: 35px; margin-bottom: 80px">
-        <% slicks.forEach(function(tema, index) { %>
-        <% category = tema %>
         <div style="padding: 10px 30px">
-        <% include partials/slick %>
-      </div>
+          <div class="slicktab" style="display: flex; width: 770px; margin: 0px; height: 284;">
+
+            <div style="padding: 30px; width: 100%; text-align: left; position: relative;">
+
+              <p style="font-size: 20px; font-face: Avenir-Medium; color: #4a4a4a; margin-bottom: 15px">Noticia: What should I put her</p>
+              <div style="height: 100px;"
+                <p style="font-size: 15px; font-face: Avenir-Light; color: #000000;"><a href="https://www.facebook.com/l.php?u=https%3A%2F%2Fmedium.com%2F%40MakeSenseorg%2Fcomunidades-de-aprendizaje-redes-de-tutor%25C3%25ADa-66afcbf328f8%23.dh07awsat&h=2AQHPbJO7">Here's the news!</a></p>
+              </div>
+              <div  style="position: absolute; bottom: 25px">
+                <a href="/CatalogoDeOfertas/<%= category['pathName']%>"><p>Ver este tema</p></a>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+        <% slicks.forEach(function(tema, index) { %>
+          <% category = tema %>
+          <div style="padding: 10px 30px">
+          <% include partials/slick %>
+          </div>
         <% }); %>
       </div>
 

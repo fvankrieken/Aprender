@@ -78,7 +78,7 @@
                       <li>El desafío (el reto)</li>
                       <li>El guíon</li>
                     </ol>
-                      <input type="file" class="filestyle" data-buttonText="Elija archivo" name="apoyo" id="apoyo" data-buttonName="button" data-iconName="glyphicon glyphicon-inbox" data-placeholder="Ningún file" style="display:inline;"> 
+                      <input type="file" class="filestyle" data-buttonText="Elija archivo" name="tema" id="tema" data-buttonName="button" data-iconName="glyphicon glyphicon-inbox" data-placeholder="Ningún file" style="display:inline;"> 
                   </label>
 
                   <label><h6>Materiales de apoyo</h6>
@@ -114,15 +114,13 @@
           var temaNombre = $('#temaNombre').val();
           var disciplina = $('#disciplina').val();
           var comps = $('#comps').val();
-          var intro = $('#intro').val();
-          var desafio = $('#desafio').val();
-          var guion = $('#guion').val();
-          var tutor = $('#tutor').val();
-          var aprendiz = $('#aprendiz').val();
-          var materiales;
+          var descript = $('#descript').val();
           var tema = $('#tema')[0].files[0];
+          var apoyo = $('#apoyo')[0].files[0];
+          var tutor = $('#tutor')[0].files[0];
+          var aprendiz = $('#aprendiz')[0].files[0];
 
-          var fields = [nombre, correo, escuelaNombre, direccion, puesto, temaNombre, disciplina, comps, intro, desafio, guion, tutor, aprendiz, materiales]
+          var fields = [nombre, correo, escuelaNombre, direccion, puesto, temaNombre, disciplina, comps]
           var testing = (nombre == "Testing")
 
           if (!testing) {
@@ -171,7 +169,10 @@
           }
 
           var formData = new FormData();
-          formData.append('file', file);
+          formData.append('tema', tema);
+          formData.append('apoyo', apoyo);
+          formData.append('tutor', tutor;
+          formData.append('aprendiz', aprendiz;
           formData.append('temaNombre', temaNombre)
 
           $.ajax({
