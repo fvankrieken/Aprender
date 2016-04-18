@@ -486,8 +486,8 @@ app.post('/email/*', function(req, res) {
       res.send('Esta conversación ha expirado')
       return
     }
-    var emailData = docs[0]
-    var subject = emailData['subject']
+    var emailData = docs[0];
+    var subject = emailData['subject'];
     var addSubject = '';
     if (expornot == "exp") {
       next = emailData['email']
