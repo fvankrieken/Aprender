@@ -16,7 +16,8 @@ h6 {
 }
 
 a img {
-	transition: all 0.25 ease-out;
+	transition: -webkit-filter 0.25 ease-out;
+	transition: filter 0.25 ease-out;
 }
 
 a img:hover {
