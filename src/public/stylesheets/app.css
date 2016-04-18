@@ -60,6 +60,7 @@ input.form-control {
 .form-control {
 	position: relative;
 	bottom: 15px;
+	margin-bottom: 0;
 }
 
 .button {
