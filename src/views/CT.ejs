@@ -38,57 +38,52 @@
 
             <form id="CT" action="javascript: sendData()" target="_self" onsubmit="" enctype="multipart/form-data">
                 <div class="row column log-in-form" style="margin-top: 15px; text-align: left;">
-                  <p style="font-family: Avenir-Medium; font-size:18px; display: none; color: red" id="emptyData">Por favor, complete el formulario</p>
-                    <h4>Información Personal</h4>
-                    <label><h6>Nombre</h6>
-                        <input type="text" name="nombre" id="nombre" placeholder="">
-                    </label>
-                    <label><h6>Correo electrónico</h6>
-                        <input type="text" name="correo" id="correo" placeholder="">
-                    </label>
-                    <label><h6>Nombre de la escuela</h6>
-                        <input type="text" name="escuelaNombre" id="escuelaNombre" placeholder="">
-                    </label>
-                    <label><h6>Dirección de la escuela</h6>
-                        <input type="text" name="direccion" id="direccion" placeholder="">
-                    </label>
-                    <label><h6>Puesto en la escuela</h6>
-                        <input type="text" name="puesto" id="puesto" placeholder="">
-                    </label>
+                  <h4>Información Personal</h4>
+                  <label><h6>Nombre</h6>
+                      <input type="text" name="nombre" id="nombre" placeholder="">
+                  </label>
+                  <label><h6>Correo electrónico</h6>
+                      <input type="text" name="correo" id="correo" placeholder="">
+                  </label>
+                  <label><h6>Nombre de la escuela</h6>
+                      <input type="text" name="escuelaNombre" id="escuelaNombre" placeholder="">
+                  </label>
+                  <label><h6>Dirección de la escuela</h6>
+                      <input type="text" name="direccion" id="direccion" placeholder="">
+                  </label>
+                  <label><h6>Puesto en la escuela</h6>
+                      <input type="text" name="puesto" id="puesto" placeholder="">
+                  </label>
 
-                    <h4>El Tema</h4>
-                    <label><h6>Nombre del tema</h6>
-                        <input type="text" name="temaNombre" id="temaNombre" placeholder="">
-                    </label>
-                    <label><h6>Disciplina</h6>
-                      <p style="margin:0;">Español, Matemáticas, Historia, Ciencias</p>
-                        <input type="text" name="disciplina" id="disciplina" placeholder="">
-                    </label>
-                    <label><h6>Competencias</h6>
-                      <p style="margin:0;">Ej. Leer con sentido, etc.</p>
-                        <input type="text" name="comps" id="comps" placeholder="">
-                    </label>
-                    <label><h6>Introducción</h6>
-                      <p style="margin:0;">Breve introducción al tema, propósitos específicos, preguntas de orientación</p>
-                        <input type="text" name="intro" id="intro" placeholder="">
-                    </label>
-                    <label><h6>El desafió (el reto)</h6>
-                        <input type="text" name="desafio" id="desafio" placeholder="">
-                    </label>
-                    <label><h6>Guíon</h6>
-                        <input type="text" name="guion" id="guion" placeholder="">
-                    </label>
-                    <label><h6>Ejemplo de registro del tutor</h6>
-                        <input type="text" name="tutor" id="tutor" placeholder="">
-                    </label>
-                    <label><h6>Ejemplo de registro del aprendiz</h6>
-                        <input type="text" name="aprendiz" id="aprendiz" placeholder="">
-                    </label>
+                  <h4>El Tema</h4>
+                  <label><h6>Nombre del tema</h6>
+                      <input type="text" name="temaNombre" id="temaNombre" placeholder="">
+                  </label>
+                  <label><h6>Disciplina</h6>
+                    <p style="margin:0;">Español, Matemáticas, Historia, Ciencias</p>
+                      <input type="text" name="disciplina" id="disciplina" placeholder="">
+                  </label>
+                  <label><h6>Competencias</h6>
+                    <p style="margin:0;">Ej. Leer con sentido, etc.</p>
+                      <input type="text" name="comps" id="comps" placeholder="">
+                  </label>
+                  <label><h6>Descripcion</h6>
+                      <textarea rows="2" name="descript" id="descript" placeholder=""></textarea>
+                  </label>
 
-                    <label style="display: inline;"><h6>Materiales de apoyo</h6>
-                        <input type="file" class="filestyle" data-buttonText="Elija archivo" name="pdf" id="pdf" data-buttonName="button" data-iconName="glyphicon glyphicon-inbox" data-placeholder="Ningún file" style="display:inline;"> 
-                    </label>
-                    <p><input type="submit" class="mybutton" value="Enviar"></input></p> 
+                  <label style="display: inline;"><h6>Materiales de apoyo</h6>
+                      <input type="file" class="filestyle" data-buttonText="Elija archivo" name="apoyo" id="apoyo" data-buttonName="button" data-iconName="glyphicon glyphicon-inbox" data-placeholder="Ningún file" style="display:inline;"> 
+                  </label>
+                  
+                  <label style="display: inline;"><h6>Ejemplo de registro del tutor</h6>
+                      <input type="file" class="filestyle" data-buttonText="Elija archivo" name="tutor" id="tutor" data-buttonName="button" data-iconName="glyphicon glyphicon-inbox" data-placeholder="Ningún file" style="display:inline;"> 
+                  </label>
+                 
+                  <label style="display: inline;"><h6>Ejemplo de registro del aprendiz</h6>
+                      <input type="file" class="filestyle" data-buttonText="Elija archivo" name="aprendiz" id="aprendiz" data-buttonName="button" data-iconName="glyphicon glyphicon-inbox" data-placeholder="Ningún file" style="display:inline;"> 
+                  </label>
+                  
+                  <p><input type="submit" class="mybutton" value="Subir tema"></input></p> 
                 </div>
             </form>
         </div>
@@ -115,20 +110,12 @@
           var tutor = $('#tutor').val();
           var aprendiz = $('#aprendiz').val();
           var materiales;
-          var file = $('#pdf')[0].files[0];
-          if (file) {
-            materiales = file.name
-          }
+          var tema = $('#tema')[0].files[0];
+
           var fields = [nombre, correo, escuelaNombre, direccion, puesto, temaNombre, disciplina, comps, intro, desafio, guion, tutor, aprendiz, materiales]
           var testing = (nombre == "Testing")
 
           if (!testing) {
-            for (var i = 0; i < fields.length; i++) {
-              if (!/\S/.test(fields[i])) {
-                document.getElementById('emptyData').style.display='block';
-                return false;
-              }
-            }
 
             var entries = [
               '30967365',
