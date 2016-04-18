@@ -632,7 +632,7 @@ app.post('/admin', ensureAuthenticated, upload.single('pdf'), function(req, res)
     res.render('admin', { status: 'noPDF' });
     return;
   }
-  var fileName = req.file.fileName;
+  var fileName = req.file.filename;
   var nameArray = fileName.split('.');
   var extension = nameArray[nameArray.length - 1];
   var downloadName = ''
