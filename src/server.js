@@ -495,7 +495,7 @@ app.post('/email/*', function(req, res) {
       expornot = "not"
     } else {
       next = emailData['expEmail']
-      from = emaildata['email']
+      from = emailData['email']
       addSubject = ', de: ' + from
       expornot = "exp"
     }
