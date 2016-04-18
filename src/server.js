@@ -527,7 +527,7 @@ app.post('/email/*', function(req, res) {
 
 // GET CT
 app.get('/CompartirTemas', downForMaintenance, function(req, res){
-  res.render('CT', { isAdmin: (req.isAuthenticated())});
+  res.render('CT', { isAdmin: (req.isAuthenticated()), status: ''});
 });
 
 app.post('/CompartirTemas', tempUpload.fields([{'name': 'tema'}, {'name': 'apoyo'}, {'name': 'tutor'}, {'name': 'aprendez'}]), function(req, res){
@@ -555,7 +555,15 @@ app.post('/CompartirTemas', tempUpload.fields([{'name': 'tema'}, {'name': 'apoyo
     }
   }
   var toInsert = {'temaNombre': temaNombre, 'temaPath': temaPath, 'tema': tema, 'apoyo': apoyo, 'tutor': tutor, 'aprendez': aprendez}
-  res.render('CT', { isAdmin: (req.isAuthenticated())});
+  collection.count({'temaPath': temaPath}, function(err, count) {
+    if (count != 0) {
+      res.render('CT', { isAdmin: (req.isAuthenticated()), status: 'title' });
+      return;
+    }
+    collection.insert(toInsert, function(err, count {
+      res.render('CT', { isAdmin: (req.isAuthenticated()), status: ''})
+    }))
+  })
 });
 
 /*
