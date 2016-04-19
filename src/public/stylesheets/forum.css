@@ -52,11 +52,9 @@ input[name="topics"]:checked + label {
 }
 
 .blue {
-	float: right;
-	margin-right: 5px;
+	float: left;
+	margin-left: 5px;
 	color: #0187e0;
-	position: relative;
-	top: -35px;
 }
 
 .search {
