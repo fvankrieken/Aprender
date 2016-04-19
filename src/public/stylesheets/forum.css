@@ -78,7 +78,12 @@ input[name="topics"]:checked + label {
 	padding-left: 15px;
 	min-height: 0px !important;
 	resize: none;
+	background-image: url(/img/search.png);
+    background-repeat: no-repeat;
+    text-indent: 20px;
 }
+
+.search:active { background-image: none; }
 
 .search::-webkit-input-placeholder { /* WebKit, Blink, Edge */
 	font-family: Avenir-Light;
