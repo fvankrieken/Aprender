@@ -80,10 +80,6 @@
                     </ol>
                       <input type="file" class="filestyle" data-buttonText="Elija archivo" name="tema" id="tema" data-buttonName="button" data-iconName="glyphicon glyphicon-inbox" data-placeholder="Ningún file" style="display:inline;"> 
                   </label>
-
-                  <label><h6>Materiales de apoyo</h6>
-                      <input type="file" class="filestyle" data-buttonText="Elija archivo" name="apoyo" id="apoyo" data-buttonName="button" data-iconName="glyphicon glyphicon-inbox" data-placeholder="Ningún file" style="display:inline;"> 
-                  </label>
                   
                   <label><h6 class="test">Ejemplo de registro del tutor &mdash; <a href="/ejemplos/Ejemplo-registro%20del%20tutor%20(Ubicación%20Espacial).pdf" download><p style="display: inline">ver ejemplo</p></a></h6>
                       <input type="file" class="filestyle" data-buttonText="Elija archivo" name="tutor" id="tutor" data-buttonName="button" data-iconName="glyphicon glyphicon-inbox" data-placeholder="Ningún file" style="display:inline;"> 
@@ -91,6 +87,10 @@
                  
                   <label><h6 class="test">Ejemplo de registro del aprendiz &mdash; <a href="/ejemplos/Ejemplo-registro%20del%20aprendiz%20(Ubicación%20Espacial).pdf" download><p style="display: inline">ver ejemplo</p></a></h6>
                       <input type="file" class="filestyle" data-buttonText="Elija archivo" name="aprendiz" id="aprendiz" data-buttonName="button" data-iconName="glyphicon glyphicon-inbox" data-placeholder="Ningún file" style="display:inline;"> 
+                  </label>
+
+                  <label><h6>Materiales de apoyo</h6>
+                      <input type="file" class="filestyle" data-buttonText="Elija archivo" name="apoyo" id="apoyo" data-buttonName="button" data-iconName="glyphicon glyphicon-inbox" data-placeholder="Ningún file" style="display:inline;"> 
                   </label>
                   
                   <p><input type="submit" class="mybutton" value="Subir tema"></input></p> 
@@ -116,9 +116,9 @@
           var comps = $('#comps').val();
           var descript = $('#descript').val();
           var tema = $('#tema')[0].files[0];
-          var apoyo = $('#apoyo')[0].files[0];
           var tutor = $('#tutor')[0].files[0];
           var aprendiz = $('#aprendiz')[0].files[0];
+          var apoyo = $('#apoyo')[0].files[0];
 
           var fields = [nombre, correo, escuelaNombre, direccion, puesto, temaNombre, disciplina, comps, descript]
           var testing = (nombre == "Testing")
@@ -165,9 +165,9 @@
 
           var formData = new FormData();
           formData.append('tema', tema);
-          formData.append('apoyo', apoyo);
           formData.append('tutor', tutor);
           formData.append('aprendiz', aprendiz);
+          formData.append('apoyo', apoyo);
           formData.append('temaNombre', temaNombre)
 
           $.ajax({
