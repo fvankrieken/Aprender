@@ -81,7 +81,7 @@ input[name="topics"]:checked + label {
 	background-image: url(/img/search.png);
     background-repeat: no-repeat;
     text-indent: 10px;
-    background-position: 4% 50%;
+    background-position: 4% 55%;
 }
 
 .search::-webkit-input-placeholder { /* WebKit, Blink, Edge */
