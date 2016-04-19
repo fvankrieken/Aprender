@@ -14,7 +14,7 @@ h6 {
 	margin-bottom: 0;
 	font-size: 16px !important;
 }
-
+/*
 a img {
 	transition: -webkit-filter 0.25 ease-out;
 	transition: filter 0.25 ease-out;
@@ -23,7 +23,7 @@ a img {
 a img:hover {
 	 -webkit-filter: drop-shadow(1px 1px 1px rgba(0,0,0,0.5)); filter: drop-shadow(1px 1px 1px rgba(0,0,0,0.5));
 }
-
+*/
 .test {
 	position: relative;
 	float: left;
