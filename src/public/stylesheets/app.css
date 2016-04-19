@@ -152,6 +152,13 @@ a:hover .mi1 {
 
 a p { text-decoration: none; color:#0187e0; }
 
+.bluelink {
+	text-decoration: none; color: #0187e0; 
+}
+
+.bluelink:visited{
+	text-decoration: none; color: #0187e0; 
+}
 
 .kid {
 	margin: auto;
