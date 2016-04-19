@@ -765,7 +765,7 @@ app.get('/archivos/*', ensureAuthenticated, function(req, res) {
   temas.find({'temaPath': pathName}).toArray(function(err, docs) {
     var tema = docs[0]
     if (!tema) {
-      res.render('error');
+      res.render('error', {isAdmin: req.isAuthenticated});
       return
     }
     res.render('pdfTemplate', tema)
