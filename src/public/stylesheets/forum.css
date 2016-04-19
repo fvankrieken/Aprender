@@ -72,7 +72,7 @@ input[name="topics"]:checked + label {
 	color: #ffffff;
 	height: 39px;
 	padding: 6px;
-	font-family: Avenir-Medium;
+	font-family: Avenir-Medium
 	font-weight: 500;
 	font-size: 18px;
 	padding-left: 15px;
@@ -81,27 +81,27 @@ input[name="topics"]:checked + label {
 }
 
 .search::-webkit-input-placeholder { /* WebKit, Blink, Edge */
-	font-family: Avenir-Medium;
+	font-family: Avenir-Light;
     color:    #ffffff;
     opacity: .90;
 }
 .search:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-	font-family: Avenir-Medium;
+	font-family: Avenir-Light;
    color:    #ffffff;
     opacity: .90;
 }
 .search::-moz-placeholder { /* Mozilla Firefox 19+ */
-	font-family: Avenir-Medium;
+	font-family: Avenir-Light;
    color:    #ffffff;
     opacity: .90;
 }
 .search:-ms-input-placeholder { /* Internet Explorer 10-11 */
-	font-family: Avenir-Medium;
+	font-family: Avenir-Light;
    color:    #ffffff;
     opacity: .90;
 }
 .search:placeholder-shown { /* Standard (https://drafts.csswg.org/selectors-4/#placeholder) */
-	font-family: Avenir-Medium;
+	font-family: Avenir-Light;
   color:    #ffffff;
     opacity: .90;
 }
