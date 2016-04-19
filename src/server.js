@@ -255,6 +255,7 @@ app.get('/', downForMaintenance, function(req, res){
             noticiadb = db.collection('noticias')
             noticiadb.find().toArray(function(err, docs) {
               noticia = docs[0]
+              console.log(noticia)
               noticia['slicks'] = slickArray;
               noticia['isAdmin'] = req.isAuthenticated();
               res.render('index', { 'slicks': slickArray, 'isAdmin': req.isAuthenticated});
