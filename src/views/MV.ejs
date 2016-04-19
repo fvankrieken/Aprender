@@ -36,7 +36,7 @@
 
       <div class="dropdown">
         <button onclick="myFunction()" class="dropbtn mybutton">Añadirse al Mapa</button>
-        <div id="myDropdown" class="dropdown-content" style="height: 653px">
+        <div id="myDropdown" class="dropdown-content" style="height: 733px">
           <div class="row">
             <div class="medium-6 medium-centered large-6 large-centered columns" style="margin: 15px; width:300px; padding-right: 0; margin-right: 0">
               <div style='height: 0px; width: 100%'>
@@ -55,6 +55,9 @@
                     </label>
                     <label>Nombre de la escuela
                         <input type="text" name="schoolName" id="schoolName">
+                    </label>
+                    <label>Tipo de escuela
+                        <input type="text" name="tipo" id="tipo">
                     </label>
                     <label>Dirección de la escuela
                         <input type="text" name="address" id="address">
@@ -119,7 +122,7 @@
         document.getElementById('add').style.display='initial'
         document.getElementById('formSent').style.display='none';
         document.getElementById('emptyData').style.display='none';
-        document.getElementById('myDropdown').style.height='653px';
+        document.getElementById('myDropdown').style.height='733px';
       }
 
     
@@ -132,19 +135,30 @@
           var email = $('#email').val();
           var position = $('#position').val();
           var schoolName = $('#schoolName').val();
+          var tipo = $('#tipo').val();
           var address = $('#address').val();
           var CCT = $('#CCT').val();
           var years = $('#years').val();
           if (name !== 'testingtesting') {
-            if ((name == '') || (email == '') || (position == '') || (schoolName == '') || (address == '') || (CCT == '') || (years == '')) {
+            if ((name == '') || (schoolName == '') || (address == '')) {
+              var array = [name, schoolName, address];
+              var IdArray = ['name', 'schoolName', 'address']
+              for (var i = 0; i < array.length; i++) {
+                if (array[i] == '') {
+                  document.getElementById(IdArray[i]).style.border='1px solid #f00'
+                } else {
+                  document.getElementById(IdArray[i]).style.border='1px solid rgb(202, 202, 202)'
+                }
+              }
+              
               document.getElementById('emptyData').style.display='initial'
-              document.getElementById('myDropdown').style.height='679px'
+              document.getElementById('myDropdown').style.height='759px'
               return false;
             }
           
             $.ajax({
                 url: "https://docs.google.com/forms/d/1QfeyHiYV9ok-tl92GImsoGASU1dlqG2lhsw_plRCZcE/formResponse",
-                data: {"entry.1194689800" : name, "entry.1776167168" : email, "entry.2018236782": position, "entry.1726408884": schoolName, "entry.718549540": address, "entry.859306530": CCT, "entry.500026241": years},
+                data: {"entry.1194689800" : name, "entry.1776167168" : email, "entry.2018236782": position, "entry.1726408884": schoolName, "entry.1866376389": tipo, "entry.718549540": address, "entry.859306530": CCT, "entry.500026241": years},
                 type: "POST",
                 dataType: "xml",
                 crossDomain: true,
