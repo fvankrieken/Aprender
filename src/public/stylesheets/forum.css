@@ -11,16 +11,22 @@ input[name="topics"] {
 	padding-left: 20px;
 	margin: 0px !important;
 	width: 100%;
-	color: #ffffff;
+	color: #D7EAF7;
 	font-family: Avenir-Medium !important;
 	font-size: 14px;
 	cursor: pointer;
 	position: relative;
+	transition: color 0.25s ease-out;
 }
 
 input[name="topics"]:checked + label { 
 	background-color: rgba(255, 255, 255, 0.35);
 	cursor: default;
+	color: #ffffff;
+}
+
+.forumLabel:hover {
+
 }
 
 .comment {
