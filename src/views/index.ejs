@@ -99,7 +99,7 @@
 
               <p style="font-size: 18px; font-face: Avenir-Medium; color: #4a4a4a; margin-bottom: 10px">Noticia: <%= title %></p>
               <div style="height: 100px; width: 670px;">
-                <p style="font-size: 12px !important; font-face: Avenir-Light; color: #000000; margin-bottom: 8px; width: 560px;">
+                <p style="font-size: <%= fontSize %> !important; font-face: Avenir-Light; color: #000000; margin-bottom: 8px; width: 560px;">
                   <%= text %>
                 </p>
 
@@ -132,7 +132,7 @@
                           <button type="button" class="close" data-dismiss="modal">&times;</button>
                           <form id="noticia" action="/" method="POST" enctype="application/x-www-form-urlencoded">
                             <textarea name="title" id="title" rows="1" style="font-size: 16px"><%= title %></textarea>
-                            <textarea name="text" id="text" rows="5" style="font-size: 12px"><%= text %></textarea>
+                            <textarea name="text" id="text" rows="5" style="font-size: 14px"><%= text %></textarea>
                             <label> Tamaño de fuente 
                               <select name="fontSize" id="fontSize" form="noticia">
                                 <option value="12px">12px</option>
@@ -141,10 +141,10 @@
                               </select>
                             </label>
                             <label>Enlace
-                              <textarea name="link" id="link" rows="1" style="font-size: 12px"><%= link %></textarea>
+                              <textarea name="link" id="link" rows="1" style="font-size: 14px"><%= link %></textarea>
                             </label>
                             <label>Enlace (imagen)
-                              <textarea name="img" id="img" rows="1" style="font-size: 12px"><%= img %></textarea>
+                              <textarea name="img" id="img" rows="1" style="font-size: 14px"><%= img %></textarea>
                             </label>
                             <p><input type="submit" class="mybutton" value="Enviar"></input></p> 
                           </form>
