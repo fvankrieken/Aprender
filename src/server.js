@@ -764,7 +764,10 @@ app.get('/archivos/*', ensureAuthenticated, function(req, res) {
   var temas = db.collection('tempPDFs')
   temas.find({'temaPath': pathName}).toArray(function(err, docs) {
     var tema = docs[0]
-    console.log(tema)
+    if (!tema) {
+      res.render('error');
+      return
+    }
     res.render('pdfTemplate', tema)
   })
 })
