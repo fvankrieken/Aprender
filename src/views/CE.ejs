@@ -252,8 +252,10 @@
         var labelText = labels[i].textContent
         if (labelText.indexOf(text) == -1) {
           labels[i].style.visibility = 'hidden';
+          labels[i].style.position = 'absolute';
         } else {
           labels[i].style.visibility = 'visible';
+          labels[i].style.position = 'absolute';
         }
       }
     });
