@@ -50,6 +50,9 @@
                   <label><h6>Nombre de la escuela</h6>
                       <input type="text" name="escuelaNombre" id="escuelaNombre" placeholder="">
                   </label>
+                  <label><h6>Tipo de escuela</h6>
+                      <input type="text" name="tipo" id="tipo" placeholder="">
+                  </label>
                   <label><h6>Dirección de la escuela</h6>
                       <input type="text" name="direccion" id="direccion" placeholder="">
                   </label>
@@ -111,6 +114,7 @@
           var nombre = $('#nombre').val();
           var correo = $('#correo').val();
           var escuelaNombre = $('#escuelaNombre').val();
+          var tipo = $('#tipo').val();
           var direccion = $('#direccion').val();
           var puesto = $('#puesto').val();
           var temaNombre = $('#temaNombre').val();
@@ -122,7 +126,7 @@
           var aprendiz = $('#aprendiz')[0].files[0];
           var apoyo = $('#apoyo')[0].files[0];
 
-          var fields = [nombre, correo, escuelaNombre, direccion, puesto, temaNombre, disciplina, comps, descript]
+          var fields = [nombre, correo, escuelaNombre, tipo, direccion, puesto, temaNombre, disciplina, comps, descript]
           var testing = (nombre == "Testing")
 
           if (!testing) {
@@ -131,6 +135,7 @@
               '30967365',
               '1383858647',
               '1700156111',
+              '1999065118',
               '482774097',
               '1768614129',
               '809406638',
