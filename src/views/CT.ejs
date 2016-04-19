@@ -36,7 +36,7 @@
     <div class="row" style="width: 1024px">
         <div class="small-5 small-centered medium-7 medium-centered large-7 large-centered columns">
 
-            <h4 id="formSent" style="display: none;">¡Gracias! El tema se ha subido con éxito</h4>
+            <h4 id="formSent" style="display: none; margin: 10px">¡Gracias! El tema se ha subido con éxito</h4>
 
             <form id="CT" action="javascript: sendData()" target="_self" onsubmit="" enctype="multipart/form-data">
                 <div class="row column log-in-form" style="margin-top: 15px; text-align: left;">
@@ -181,6 +181,8 @@
               success: function () {
                 document.getElementById('CT').style.display='none'
                 document.getElementById('formSent').style.display='initial'
+                document.getElementById('footer').style.position='absolute'
+                document.getElementById('footer').style.bottom='0'
               }
           });
 
