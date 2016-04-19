@@ -266,7 +266,7 @@ app.get('/', downForMaintenance, function(req, res){
   });
 });
 
-app.post('/', isAuthenticated, function(req, res){
+app.post('/', ensureAuthenticated, function(req, res){
   var noticiadb = db.collection('noticias')
   toInsert = {'title': req.body.title, 'text': req.body.text, 'fontSize': req.body.fontSize, 'link': req.body.link, 'img': req.body.img }
   noticiadb.findOneAndUpdate({}, toInsert, function(err, count) {
