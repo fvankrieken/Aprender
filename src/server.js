@@ -258,7 +258,7 @@ app.get('/', downForMaintenance, function(req, res){
               console.log(noticia)
               noticia['slicks'] = slickArray;
               noticia['isAdmin'] = req.isAuthenticated();
-              res.render('index', { 'slicks': slickArray, 'isAdmin': req.isAuthenticated});
+              res.render('index', noticia);
             });
           });
         });
