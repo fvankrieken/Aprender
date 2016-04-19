@@ -122,7 +122,7 @@
               <% var topicNum = "topic" + i.toString() %>
 
               <div style="display: none" id="<%= topic['pathName'] %>" class="comments">
-                <p style="font-family: Avenir-Roman; font-size: 22px; margin-bottom: 24px; margin-left: 2px"><%= topic['topic'] %></p>
+                <p style="font-family: Avenir-Roman; font-size: 22px; margin-bottom: 8px; margin-left: 2px"><%= topic['topic'] %></p>
                 
 <!-- Comment Modal -->
                 <p class="addComment blue" data-toggle="modal" data-target="#addComment"><img src='/img/blueplus.png'>Añadir un comentario</p> 
@@ -150,7 +150,7 @@
                   </div>
                 </div>
 <!-- comments -->
-                <div style="overflow-y: auto; height: 677px; width: 724px; position: relative; top: -41px">
+                <div style="overflow-y: auto; height: 677px; width: 724px;">
                 <% var comments = topic['comments']%>
                   <% comments.forEach(function(comment, index) { %>
                     <div class="comment">
