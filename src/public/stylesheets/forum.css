@@ -26,7 +26,7 @@ input[name="topics"]:checked + label {
 }
 
 .forumLabel:hover {
-
+	color: #ffffff;
 }
 
 .comment {
