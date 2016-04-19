@@ -68,7 +68,6 @@ input[name="topics"]:checked + label {
 	padding-left: 15px;
 	min-height: 0px !important;
 	resize: none;
-	autocomplete: off;
 }
 
 .search::-webkit-input-placeholder { /* WebKit, Blink, Edge */
