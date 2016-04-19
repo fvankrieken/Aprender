@@ -81,7 +81,7 @@ input[name="topics"]:checked + label {
 	resize: none;
 	background-image: url(/img/search.png);
     background-repeat: no-repeat;
-    text-indent: 10px;
+    text-indent: 12px;
     background-position: 5% 60%;
 }
 
