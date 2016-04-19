@@ -250,9 +250,9 @@
       var labels = document.getElementsByClassName('forumLabel')
       for (var i = 0; i < labels.length; i++){
         var labelText = labels[i].textContent
-        console.log(text)
-        console.log(labelText)
-        console.log(labelText.indexOf(text))
+        if (text != '') {
+          document.getElementById('search').style.backgroundImage='none'
+        }
         if (labelText.indexOf(text) == -1) {
           labels[i].style.display = "none";
         } else {
