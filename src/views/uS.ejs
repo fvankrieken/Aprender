@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="/stylesheets/foundation.css" />
     <link rel="stylesheet" href="/stylesheets/app.css" />
     <link rel="stylesheet" href="/stylesheets/navbar.css" />
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap-filestyle.min.js"> </script>
   </head>
 
   <body style="background-color: #f2f2f2;">
@@ -22,7 +24,7 @@
       <form id="upload" action="/uploadSupport" method="POST" enctype="multipart/form-data">
           <div class="row column log-in-form" style="margin-top: 25px">
               
-              <label style="display: inline; padding-bottom: 200px">File to upload
+              <label style="display: inline; padding-bottom: 200px; z-index: 2">File to upload
                   <input type="file" class="filestyle" data-buttonText="Elija archivo" name="upload" id="upload" data-buttonName="button" data-iconName="glyphicon glyphicon-inbox" data-placeholder="Ningún file" style="display:inline;"> 
               </label>
               <div style="height: 100px">
