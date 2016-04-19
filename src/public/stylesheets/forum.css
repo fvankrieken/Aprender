@@ -80,10 +80,11 @@ input[name="topics"]:checked + label {
 	resize: none;
 	background-image: url(/img/search.png);
     background-repeat: no-repeat;
-    text-indent: 20px;
+    text-indent: 5px;
+    background-position: 10% 50%;
 }
 
-#search:active { background-image: none; }
+.search:active { background-image: none; }
 
 .search::-webkit-input-placeholder { /* WebKit, Blink, Edge */
 	font-family: Avenir-Light;
