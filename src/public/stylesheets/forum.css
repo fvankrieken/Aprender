@@ -40,8 +40,8 @@ input[name="topics"]:checked + label {
 }
 
 .plus {
-	margin-bottom: 4px;
-	margin-right: 5px;
+	margin-bottom: 3px;
+	margin-right: 7px;
 }
 
 .addComment {
