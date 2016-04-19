@@ -253,7 +253,7 @@ app.get('/', downForMaintenance, function(req, res){
               slickArray.push(toAdd)
             }
 
-            res.render('index', { 'slicks': slickArray});
+            res.render('index', { 'slicks': slickArray, 'isAdmin': req.isAuthenticated});
             
           });
         });
