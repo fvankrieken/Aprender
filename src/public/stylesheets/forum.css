@@ -84,8 +84,6 @@ input[name="topics"]:checked + label {
     background-position: 4% 50%;
 }
 
-.search:focus { background-image: none; }
-
 .search::-webkit-input-placeholder { /* WebKit, Blink, Edge */
 	font-family: Avenir-Light;
     color:    #ffffff;
