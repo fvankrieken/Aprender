@@ -36,6 +36,8 @@
     <div class="row" style="width: 1024px">
         <div class="small-5 small-centered medium-7 medium-centered large-7 large-centered columns">
 
+            <h4 id="formSent" style="display: none;">¡Gracias! El tema se ha subido con éxito</h4>
+
             <form id="CT" action="javascript: sendData()" target="_self" onsubmit="" enctype="multipart/form-data">
                 <div class="row column log-in-form" style="margin-top: 15px; text-align: left;">
                   <h4>Información Personal</h4>
@@ -177,12 +179,14 @@
               contentType: false,
               data: formData,
               success: function () {
-                
-            }
+                document.getElementById('upload').style.display='none'
+                document.getElementById('formSent').style.display='initial'
+              }
           });
 
           return false;
           
+
           
       }
     </script>
