@@ -372,8 +372,10 @@ app.post('/CatalogoDeOfertas/*', downForMaintenance, function(req, res){
   var id = utils.randomString(4);
   var email = req.body.email;
   var question = req.body.question;
+  var name = req.body.name;
   var subject = req.body.subject;
   var page = req.path.split('/')[2];
+  var content = name + ':\n\n' + question
 
   var findEmail = db.collection('temas');
 
@@ -381,7 +383,7 @@ app.post('/CatalogoDeOfertas/*', downForMaintenance, function(req, res){
     pathData = pathDataArray[0];
     var expEmail = pathData['email'];
     var collection = db.collection('emails');
-  
+
     var toInsert = { 'id': id, 'email': email, 'expEmail': expEmail, 'subject': subject};
 
     collection.insert(
@@ -391,7 +393,7 @@ app.post('/CatalogoDeOfertas/*', downForMaintenance, function(req, res){
           to: expEmail,
           subject: subject + ', de: ' + email,
           id: id,
-          content: question,
+          content: content,
           expOrNot: 'exp'
         }, function (err) {
           if (err) {
