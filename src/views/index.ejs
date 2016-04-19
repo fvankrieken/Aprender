@@ -97,21 +97,19 @@
 
             <div style="padding: 25px; padding-top: 22px; width: 100%; text-align: left; position: relative;">
 
-              <p style="font-size: 18px; font-face: Avenir-Medium; color: #4a4a4a; margin-bottom: 10px">Noticia: Taller informativo sobre “La Relación Tutora” en Villa del Carbón, Estado de México</p>
+              <p style="font-size: 18px; font-face: Avenir-Medium; color: #4a4a4a; margin-bottom: 10px">Noticia: <%= title %></p>
               <div style="height: 100px; width: 670px;">
                 <p style="font-size: 12px !important; font-face: Avenir-Light; color: #000000; margin-bottom: 8px; width: 560px;">
-                  El pasado viernes 1º de abril del 2016 se llevó a cabo un taller informativo  con el objetivo  de dar las noticias recientes de Aprender Con Interés y presenciar un ejercicio para que invitados y personas interesadas vivieran de cerca la relación tutora a cargo de alumnos tutores expertos de la Región.
-                </p><p style="font-size: 12px !important; font-face: Avenir-Light; color: #000000;margin-bottom: 8px; width:560px;">
-                  Como invitadas especiales estuvieron Lorena Luna representante de Makesense, Sara Flores Carreno (profesionista con experiencia docente en Europa) y Cristina Kunz, (profesionista Suiza que durante su periodo  sabático aprovecha su estancia en México para conocer modelos alternativos en educación).
+                  <%= text %>
                 </p>
 
               </div>
               <div style="position: absolute; top: 75px; right: 25px; height: 150px; width: 150px; overflow: hidden;border: solid 4px #FFFFFF;
     box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.2);">
-                <a class='th' href="https://medium.com/@MakeSenseorg/comunidades-de-aprendizaje-redes-de-tutor%C3%ADa-66afcbf328f8#.n6t25kprh"><img style="height: 200px; width: auto; position: absolute; left: -70px;"src="https://cdn-images-1.medium.com/max/2000/1*B_0pLUy0841UM387KG2DZg.jpeg"></a>
+                <a class='th' href="<%= link %>"><img style="height: 200px; width: auto; position: absolute; left: -70px;"src="<%= img %>"></a>
               </div>
               <div style="position: absolute; bottom: 15px">
-                <p><a class='bluelink' href="https://medium.com/@MakeSenseorg/comunidades-de-aprendizaje-redes-de-tutor%C3%ADa-66afcbf328f8#.n6t25kprh" style='display: inline'>Más información </a>
+                <p><a class='bluelink' href="<%= link %>" style='display: inline'>Más información </a>
                 <% if (isAdmin) { %>
                 &mdash; <a data-toggle="modal" data-target="#myModal" style="color: #0187e0 !important">Editar</a>
                   
@@ -128,17 +126,28 @@
 
       <% if (isAdmin) { %>
         <div class="modal fade" id="myModal" role="dialog">
-                  <div class="modal-dialog modal-sm" style="width: 250px;">
+                  <div class="modal-dialog modal-sm" style="width: 770px; height: 334px;">
                     <div class="modal-content">
                         <div class="modal-header">
                           <button type="button" class="close" data-dismiss="modal">&times;</button>
-                          <h4 class="modal-title">¿Estás seguro?</h4>
-                        </div>
-                        <div class="modal-body" style="padding-bottom: 39px">
-                          <p>¿Quieres eliminar este tema?</p>
-                        
-                          <a href="/"><button type="button" class="mybutton" style="background-color: #3a9ad9; float: left;">Eliminar</button></a>
-                          <!-- <button type="button" class="mybutton" data-dismiss="modal">Cerrar</button> -->
+                          <form id="noticia" action="/" method="POST" enctype="multipart/form-data">
+                            <textarea name="title" id="title" rows="1" style="font-size: 16px"><%= title %></textarea>
+                            <textarea name="text" id="text" rows="5" style="font-size: 12px"><%= text %></textarea>
+                            <label> Tamaño de fuente 
+                              <select name="fontSize" form="noticia">
+                                <option value="12px">12px</option>
+                                <option value="14px">14px</option>
+                                <option value="16px">16px</option>
+                              </select>
+                            </label>
+                            <label>Enlace
+                              <textarea name="link" id="link" rows="1" style="font-size: 12px"><%= link %></textarea>
+                            </label>
+                            <label>Enlace (imagen)
+                              <textarea name="img" id="img" rows="1" style="font-size: 12px"><%= img %></textarea>
+                            </label>
+                            <p><input type="submit" class="mybutton" value="Enviar"></input></p> 
+                          </form>
                         </div>
                     </div>
                   </div>

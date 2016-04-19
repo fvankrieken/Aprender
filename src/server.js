@@ -252,15 +252,27 @@ app.get('/', downForMaintenance, function(req, res){
             if (toAdd) {
               slickArray.push(toAdd)
             }
-
-            res.render('index', { 'slicks': slickArray, 'isAdmin': req.isAuthenticated});
-            
+            noticiadb = db.collection('noticias')
+            noticiadb.find().toArray(function(err, docs) {
+              noticia = docs[0]
+              noticia['slicks'] = slickArray;
+              noticia['isAdmin'] = req.isAuthenticated();
+              res.render('index', { 'slicks': slickArray, 'isAdmin': req.isAuthenticated});
+            });
           });
         });
       });
     });
   });
 });
+
+app.post('/', isAuthenticated, function(req, res){
+  var noticiadb = db.collection('noticias')
+  toInsert = {'title': req.body.title, 'text': req.body.text, 'fontSize': req.body.fontSize, 'link': req.body.link, 'img': req.body.img }
+  noticiadb.findOneAndUpdate({}, toInsert, function(err, count) {
+    res.redirect('/')
+  })
+})
 
 /*
  * Relacion Tutoria
