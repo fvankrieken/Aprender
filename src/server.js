@@ -269,7 +269,8 @@ app.get('/', downForMaintenance, function(req, res){
 
 app.post('/', ensureAuthenticated, function(req, res){
   var noticiadb = db.collection('noticias')
-  toInsert = {'title': req.body.title, 'text': req.body.text, 'fontSize': req.body.fontSize, 'link': req.body.link, 'img': req.body.img }
+  var form = req.body
+  toInsert = {'title': form.title, 'text': form.text, 'fontSize': form.fontSize, 'link': form.link, 'img': form.img }
   noticiadb.findOneAndUpdate({}, toInsert, function(err, count) {
     res.redirect('/')
   })
