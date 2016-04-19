@@ -131,8 +131,12 @@
                         <div class="modal-header">
                           <button type="button" class="close" data-dismiss="modal">&times;</button>
                           <form id="noticia" action="/" method="POST" enctype="application/x-www-form-urlencoded">
-                            <textarea name="title" id="title" rows="1" style="font-size: 16px"><%= title %></textarea>
-                            <textarea name="text" id="text" rows="5" style="font-size: 14px"><%= text %></textarea>
+                            <label>Noticia
+                              <textarea name="title" id="title" rows="1" style="font-size: 16px"><%= title %></textarea>
+                            </label>
+                            <label>Texto
+                              <textarea name="text" id="text" rows="5" style="font-size: 14px"><%= text %></textarea>
+                            </label>
                             <label> Tamaño de fuente 
                               <select name="fontSize" id="fontSize" form="noticia">
                                 <option value="12px" <% if (fontSize == '12px') { %>selected<% } %>>12px</option>
