@@ -39,6 +39,11 @@ input[name="topics"]:checked + label {
 	position: relative;
 }
 
+.plus {
+	margin-bottom: 2px;
+	margin-right: 10px;
+}
+
 .addComment {
 	font-family: Avenir-Medium;
 	font-size: 16px;
@@ -53,6 +58,7 @@ input[name="topics"]:checked + label {
 
 .blue {
 	float: left;
+	margin-bottom: 5px;
 	margin-left: 5px;
 	color: #0187e0;
 }
