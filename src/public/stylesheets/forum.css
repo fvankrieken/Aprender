@@ -83,7 +83,7 @@ input[name="topics"]:checked + label {
     text-indent: 20px;
 }
 
-.search:active { background-image: none; }
+#search:active { background-image: none; }
 
 .search::-webkit-input-placeholder { /* WebKit, Blink, Edge */
 	font-family: Avenir-Light;

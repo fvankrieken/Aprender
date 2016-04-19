@@ -70,7 +70,7 @@
 
 <!-- topics -->
           <% topics.reverse() %>
-          <input type="text" name="title" id="search" placeholder="buscar" class="search" autocomplete="off"/>
+          <input type="text" name="title" id="search" placeholder="buscar" class="search" autocomplete="off" onchange="hideIcon(this);"/>
    
           <div style="width: 100%; border-top: solid 1px #ffffff; margin-top: 20px">
             <% topics.forEach(function(topic, index) { %>
@@ -250,9 +250,6 @@
       var labels = document.getElementsByClassName('forumLabel')
       for (var i = 0; i < labels.length; i++){
         var labelText = labels[i].textContent
-        if (text != '') {
-          document.getElementById('search').style.backgroundImage='none'
-        }
         if (labelText.indexOf(text) == -1) {
           labels[i].style.display = "none";
         } else {
@@ -269,6 +266,10 @@
       }
 
       document.getElementById(topic).style.display = "initial";
+    }
+
+    function hideIcon(self) {
+      self.style.backgroundImage = 'none';
     }
 
     function getDate()
