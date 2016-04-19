@@ -72,7 +72,7 @@ input[name="topics"]:checked + label {
 	color: #ffffff;
 	height: 39px;
 	padding: 6px;
-	padding-bottom: 4px;
+	padding-bottom: 2px;
 	font-family: Avenir-Medium
 	font-weight: 500;
 	font-size: 18px;
