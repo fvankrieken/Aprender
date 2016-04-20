@@ -125,7 +125,7 @@
                 <p style="font-family: Avenir-Roman; font-size: 22px; margin-bottom: 8px; margin-left: 2px"><%= topic['topic'] %></p>
                 
 <!-- Comment Modal -->
-                <p class="addComment blue" data-toggle="modal" data-target="#addComment<%= topic['pathName']%>"><img src='/img/blueplus.png' class="plus" onclick="javascript: getDate()">Añadir un comentario</p> 
+                <p class="addComment blue" data-toggle="modal" data-target="#addComment<%= topic['pathName']%>"><img src='/img/blueplus.png' class="plus">Añadir un comentario</p> 
 
                 <div class="modal fade" id="addComment<%= topic['pathName']%>" role="dialog">
                   <div class="modal-dialog modal-sm" style="width: 500px">
@@ -140,7 +140,7 @@
                               <textarea name="comment" rows="4"></textarea>
                           </label>
                           <label>Su nombre
-                            <input type="text" name="name" onclick="getDate()">
+                            <input type="text" name="name">
                           </label>
                           <input type="hidden" name="date" class="todayDate"/>
                           <input type="submit" class="mybutton" value="Enviar" style="float: left"></input>
