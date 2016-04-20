@@ -125,9 +125,9 @@
                 <p style="font-family: Avenir-Roman; font-size: 22px; margin-bottom: 8px; margin-left: 2px"><%= topic['topic'] %></p>
                 
 <!-- Comment Modal -->
-                <p class="addComment blue" data-toggle="modal" data-target="#addComment"><img src='/img/blueplus.png' class="plus">Añadir un comentario</p> 
+                <p class="addComment blue" data-toggle="modal" data-target="#addComment<%= topic['pathName']%>"><img src='/img/blueplus.png' class="plus">Añadir un comentario</p> 
 
-                <div class="modal fade" id="addComment" role="dialog">
+                <div class="modal fade" id="addComment<% topic['pathName']%>" role="dialog">
                   <div class="modal-dialog modal-sm" style="width: 500px">
                     <div class="modal-content">
                       <form action="/CompartirExperiencias/<%= topic['pathName'] %>" id="addComment" method="POST">
