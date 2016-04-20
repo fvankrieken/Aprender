@@ -127,7 +127,7 @@
 <!-- Comment Modal -->
                 <p class="addComment blue" data-toggle="modal" data-target="#addComment<%= topic['pathName']%>"><img src='/img/blueplus.png' class="plus">Añadir un comentario</p> 
 
-                <div class="modal fade" id="addComment<% topic['pathName']%>" role="dialog">
+                <div class="modal fade" id="addComment<%= topic['pathName']%>" role="dialog">
                   <div class="modal-dialog modal-sm" style="width: 500px">
                     <div class="modal-content">
                       <form action="/CompartirExperiencias/<%= topic['pathName'] %>" id="addComment" method="POST">
