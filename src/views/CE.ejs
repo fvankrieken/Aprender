@@ -142,7 +142,7 @@
                           <label>Su nombre
                             <input type="text" name="name" onclick="getDate()">
                           </label>
-                          <input type="hidden" name="date" id="todayDate2"/>
+                          <input type="hidden" name="date" class="todayDate"/>
                           <input type="submit" class="mybutton" value="Enviar" style="float: left"></input>
                         </div>
                       </form>
@@ -285,7 +285,9 @@
         today = dd + ' de ' + month + ', ' + yyyy;
 
         document.getElementById("todayDate1").value = today
-        document.getElementById("todayDate2").value = today
+        document.getElementsByClassName("todayDate").forEach(function(object, index, array){
+          object.value = today
+        })
         console.log(today)
     }
 
