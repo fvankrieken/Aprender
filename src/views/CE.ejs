@@ -289,8 +289,8 @@
 
         var commentDates = $('.todayDate')
         for (var i = 0; i < commentDates.length; i++) {
-          var toDate = $(commentDates[i])
-          toDate.value = today
+          var toDate = commentDates[i]
+          $(toDate).value = today
         }
         console.log(today)
     }
