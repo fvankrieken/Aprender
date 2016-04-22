@@ -586,7 +586,7 @@ li a {
 }
 
 .blueCote {
-	background-color: #3a9ad9
+	background-color: #3a9ad9;
 	transition: background-color 0.25s ease-out;
 	transition: color 0.25s ease-out;
 }
@@ -596,7 +596,7 @@ li a {
 }
 */
 .redCote {
-	background-color: #f25d53
+	background-color: #f25d53;
 	transition: background-color 0.25s ease-out;
 	transition: color 0.25s ease-out;
 }
