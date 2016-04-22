@@ -88,7 +88,7 @@
 						<p style="font-family: Avenir-Medium; font-size:18px;">Competencias</p>
 						<ul class="cote">
 							<% comps.forEach(function(comp, index) { %>
-	   	 						<li style="background-color: #3a9ad9"><%= comp %></li>
+	   	 						<li class="blueCote"><%= comp %></li>
 							<% }); %>
 						</ul>
 
@@ -98,7 +98,7 @@
 						<ul class="cote">
 							<% temas.forEach(function(tema, index) { %>
 								<% var link = "/CatalogoDeOfertas/" + makeLink(tema) %>
-	   	 						<a href="<%= link %>"><li style="background-color: #f25d53"><%= tema %></li></a>
+	   	 						<a href="<%= link %>"><li class="redCote"><%= tema %></li></a>
 							<% }); %>
 						</ul>
 

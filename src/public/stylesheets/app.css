@@ -583,6 +583,24 @@ li a {
 	margin-right: 10px;
 	margin-bottom: 10px;
 	width: auto;
+	transition: background-color 0.25s ease-out;
+	transition: color 0.25s ease-out;
+}
+
+.blueCote {
+	background-color: #3a9ad9
+}
+/*
+.blueCote:hover {
+	background-color: #1583cc
+}
+*/
+.redCote {
+	background-color: #f25d53
+}
+
+.redCote:hover {
+ background-color: #E74B40; color: #1f1f1f;
 }
 
 .mybutton {
