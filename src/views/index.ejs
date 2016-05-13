@@ -98,7 +98,9 @@
             <div style="padding: 25px; padding-top: 22px; width: 100%; text-align: left; position: relative;">
 
               <p style="font-size: 18px; font-face: Avenir-Medium; color: #4a4a4a; margin-bottom: 10px">Noticia: <%= title %></p>
+              <% if (img != '') { %>
               <div style="height: 100px; width: 670px;">
+                
                 <p style="font-size: <%= fontSize %> !important; font-face: Avenir-Light; color: #000000; margin-bottom: 8px; width: 560px;">
                   <%= text %>
                 </p>
@@ -106,10 +108,22 @@
               </div>
               <div style="position: absolute; top: 75px; right: 25px; height: 150px; width: 150px; overflow: hidden;border: solid 4px #FFFFFF;
     box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.2);">
-                <% if (img != '') { %>
+                
                 <a class='th' href="<%= link %>"><img style="height: 200px; width: auto; position: absolute; left: -70px;"src="<%= img %>"></a>
-                <% } %>
+                
               </div>
+              <% } else { %>
+
+              <div style="height: 100px;">
+                
+                <p style="font-size: <%= fontSize %> !important; font-face: Avenir-Light; color: #000000; margin-bottom: 8px;">
+                  <%= text %>
+                </p>
+
+              </div>
+
+              <% } %>
+
               <div style="position: absolute; bottom: 10px">
                 <p><a class='bluelink' href="<%= link %>" style='display: inline'>Más información </a>
                 <% if (isAdmin) { %>
