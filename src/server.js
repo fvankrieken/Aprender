@@ -277,10 +277,10 @@ app.post('/', ensureAuthenticated, function(req, res){
 })
 
 /*
- * Relacion Tutoria
+ * Relacion Tutora
  */
 
-app.get('/RelacionTutoria', downForMaintenance, function(req, res){
+app.get('/RelacionTutora', downForMaintenance, function(req, res){
   res.render('RT', { isAdmin: (req.isAuthenticated())});
 });
 
