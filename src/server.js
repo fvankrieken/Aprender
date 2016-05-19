@@ -292,7 +292,7 @@ app.get('/RelacionTutora', function(req, res, next) { downForMaintenance('/Relac
  */
 
 app.get('/MapeoVirtual', function(req, res, next) { downForMaintenance('/MapeoVirtual', req, res, next) }, function(req, res){
-  res.render('MV', { 'isAdmin': (req.isAuthenticated())}, 'down': downJSON['/MapeoVirtual']});
+  res.render('MV', { 'isAdmin': (req.isAuthenticated()), 'down': downJSON['/MapeoVirtual']});
 });
 
 /*
