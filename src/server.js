@@ -203,6 +203,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(passport.authenticate('remember-me'));
 
+downJSON = {'/': false, '/RelacionTutora': false, '/MapeoVirtual': false, '/CatalogoDeOfertas': false, '/CompartirTemas': false, '/CompartirExperiencias': false}
+
 // blueHeight: helper for CdO formatting
 app.locals.blueHeight = function(subject) {
   var gridLength = Math.ceil(subject.length/3.)-2;
@@ -222,7 +224,7 @@ app.locals.slickBlank = {'title': '', 'pathName': '', 'comps': [], 'temas': [], 
  * Index
  */
 
-app.get('/', downForMaintenance, function(req, res){
+app.get('/', function(req, res, next) { downForMaintenance('/', req, res, next) }, function(req, res){
   var collection = db.collection('slick');
   var slickArray = []
   var toAdd
@@ -280,7 +282,7 @@ app.post('/', ensureAuthenticated, function(req, res){
  * Relacion Tutora
  */
 
-app.get('/RelacionTutora', downForMaintenance, function(req, res){
+app.get('/RelacionTutora', function(req, res, next) { downForMaintenance('/RelacionTutora', req, res, next) }, function(req, res){
   res.render('RT', { isAdmin: (req.isAuthenticated())});
 });
 
@@ -288,7 +290,7 @@ app.get('/RelacionTutora', downForMaintenance, function(req, res){
  * Mapeo Virtual
  */
 
-app.get('/MapeoVirtual', downForMaintenance, function(req, res){
+app.get('/MapeoVirtual', function(req, res, next) { downForMaintenance('/MapeoVirtual', req, res, next) }, function(req, res){
   res.render('MV', { isAdmin: (req.isAuthenticated())});
 });
 
@@ -297,7 +299,7 @@ app.get('/MapeoVirtual', downForMaintenance, function(req, res){
  */
 
 // GET CdO
-app.get('/CatalogoDeOfertas', downForMaintenance, function(req, res){
+app.get('/CatalogoDeOfertas', function(req, res, next) { downForMaintenance('/CatalogoDeOfertas', req, res, next) }, function(req, res){
   var collection = db.collection('temas');
   var catJSON = {};
 
@@ -348,7 +350,7 @@ app.get('/CatalogoDeOfertas', downForMaintenance, function(req, res){
 });
 
 // GET CdO/tema: show individual tema
-app.get('/CatalogoDeOfertas/*', downForMaintenance, function(req, res){
+app.get('/CatalogoDeOfertas/*', function(req, res, next) { downForMaintenance('/CatalogoDeOfertas', req, res, next) }, function(req, res){
   var patharray = req.path.split('/')
   var pathName = patharray[patharray.length-1];
   collection = db.collection('temas')
@@ -366,7 +368,7 @@ app.get('/CatalogoDeOfertas/*', downForMaintenance, function(req, res){
 });
 
 // POST CdO/tema: send email to expert
-app.post('/CatalogoDeOfertas/*', downForMaintenance, function(req, res){
+app.post('/CatalogoDeOfertas/*', function(req, res, next) { downForMaintenance('/CatalogoDeOfertas', req, res, next) }, function(req, res){
   var patharray = req.path.split('/')
   var pathName = patharray[patharray.length-1]; 
   var id = utils.randomString(4);
@@ -551,7 +553,7 @@ app.post('/email/*', function(req, res) {
  */
 
 // GET CT
-app.get('/CompartirTemas', downForMaintenance, function(req, res){
+app.get('/CompartirTemas', function(req, res, next) { downForMaintenance('/CompartirTemas', req, res, next) }, function(req, res){
   res.render('CT', { isAdmin: (req.isAuthenticated()), status: ''});
 });
 
@@ -591,7 +593,7 @@ app.post('/CompartirTemas', tempUpload.fields([{'name': 'tema'}, {'name': 'tutor
  */
 
 // GET CE
-app.get('/CompartirExperiencias', downForMaintenance, function(req, res){
+app.get('/CompartirExperiencias', function(req, res, next) { downForMaintenance('/CompartirExperiencias', req, res, next) }, function(req, res){
   var collection = db.collection('forum');
   var checked = req.session.checked || '';
   req.session.checked = '';
@@ -603,7 +605,7 @@ app.get('/CompartirExperiencias', downForMaintenance, function(req, res){
 });
 
 // POST CE: adding a new topic
-app.post('/CompartirExperiencias', downForMaintenance, function(req, res) {
+app.post('/CompartirExperiencias', function(req, res, next) { downForMaintenance('/CompartirExperiencias', req, res, next) }, function(req, res) {
   var collection = db.collection('forum')
   var topic = req.body.topic
   var tempName = utils.toTitleCase(topic)
@@ -624,7 +626,7 @@ app.post('/CompartirExperiencias', downForMaintenance, function(req, res) {
 });
 
 // POST CE/topic: add a comment to a topic
-app.post('/CompartirExperiencias/*', downForMaintenance, function(req, res) {
+app.post('/CompartirExperiencias/*', function(req, res, next) { downForMaintenance('/CompartirExperiencias', req, res, next) }, function(req, res) {
   var patharray = req.path.split('/');
   var pathName = patharray[patharray.length-1];
   var collection = db.collection('forum');
@@ -788,6 +790,15 @@ app.get('/archivos/*', ensureAuthenticated, function(req, res) {
   })
 })
 
+//marking pages down for maintenance
+
+app.post('/down', ensureAuthenticated, function(req, res) {
+  var page = req.body.page;
+  var currentState = downJSON[page];
+  downJSON[page] = !currentState;
+  res.redirect(page);
+})
+
 /*
  * LOGIN
  * login page for admin privileges
@@ -856,7 +867,9 @@ function ensureAuthenticated(req, res, next) {
   res.redirect('/login')
 }
 
-function downForMaintenance(req, res, next) {
-  if (req.isAuthenticated()) { return next(); }
+function downForMaintenance(page, req, res, next) {
+  if (downJSON['page']) {
+    if (req.isAuthenticated()) { return next(); }
+  }
   res.render('down', {isAdmin: false})
 }
