@@ -260,6 +260,7 @@ app.get('/', function(req, res, next) { downForMaintenance('/', req, res, next) 
               console.log(noticia)
               noticia['slicks'] = slickArray;
               noticia['isAdmin'] = req.isAuthenticated();
+              noticia['down'] = downJSON['/'];
               res.render('index', noticia);
             });
           });
@@ -283,7 +284,7 @@ app.post('/', ensureAuthenticated, function(req, res){
  */
 
 app.get('/RelacionTutora', function(req, res, next) { downForMaintenance('/RelacionTutora', req, res, next) }, function(req, res){
-  res.render('RT', { isAdmin: (req.isAuthenticated())});
+  res.render('RT', { 'isAdmin': (req.isAuthenticated()), 'down': downJSON['/RelacionTutora']});
 });
 
 /*
@@ -291,7 +292,7 @@ app.get('/RelacionTutora', function(req, res, next) { downForMaintenance('/Relac
  */
 
 app.get('/MapeoVirtual', function(req, res, next) { downForMaintenance('/MapeoVirtual', req, res, next) }, function(req, res){
-  res.render('MV', { isAdmin: (req.isAuthenticated())});
+  res.render('MV', { 'isAdmin': (req.isAuthenticated())}, 'down': downJSON['/MapeoVirtual']);
 });
 
 /*
@@ -338,7 +339,8 @@ app.get('/CatalogoDeOfertas', function(req, res, next) { downForMaintenance('/Ca
               catJSON.tex = documents;
             }
 
-            catJSON.isAdmin = req.isAuthenticated();
+            catJSON['isAdmin'] = req.isAuthenticated();
+            catJSON['down'] = downJSON['/CatalogoDeOfertas']
 
             res.render('CdO', catJSON);
             
@@ -362,6 +364,7 @@ app.get('/CatalogoDeOfertas/*', function(req, res, next) { downForMaintenance('/
       return;
     }
     pathData['isAdmin'] = req.isAuthenticated();
+    pathData['down'] = downJSON['/CatalogoDeOfertas']
     res.render('template', pathData);
   });
  
@@ -425,6 +428,7 @@ app.get('/edit/*', ensureAuthenticated, function(req, res){
       return;
     }
     pathData['isAdmin'] = req.isAuthenticated();
+    pathData['down'] = downJSON['/CatalogoDeOfertas']
     res.render('editTemplate', pathData);
   });
 });
@@ -554,7 +558,7 @@ app.post('/email/*', function(req, res) {
 
 // GET CT
 app.get('/CompartirTemas', function(req, res, next) { downForMaintenance('/CompartirTemas', req, res, next) }, function(req, res){
-  res.render('CT', { isAdmin: (req.isAuthenticated()), status: ''});
+  res.render('CT', { 'isAdmin': (req.isAuthenticated()), 'status': '', 'down': downJSON['/CompartirTemas']});
 });
 
 app.post('/CompartirTemas', tempUpload.fields([{'name': 'tema'}, {'name': 'tutor'}, {'name': 'aprendiz'}, {'name': 'apoyo'}]), function(req, res){
@@ -579,11 +583,11 @@ app.post('/CompartirTemas', tempUpload.fields([{'name': 'tema'}, {'name': 'tutor
   var toInsert = {'temaNombre': temaNombre, 'temaPath': temaPath, 'tema': tema, 'tutor': tutor, 'aprendiz': aprendiz, 'apoyo': apoyo}
   collection.count({'temaPath': temaPath}, function(err, count) {
     if (count != 0) {
-      res.render('CT', { isAdmin: (req.isAuthenticated()), status: 'title' });
+      res.render('CT', { 'isAdmin': (req.isAuthenticated()), 'status': 'title', 'down': downJSON['/CompartirTemas']});
       return;
     }
     collection.insert(toInsert, function(err, count) {
-      res.render('CT', { isAdmin: (req.isAuthenticated()), status: ''})
+      res.render('CT', { 'isAdmin': (req.isAuthenticated()), 'status': '', 'down': downJSON['/CompartirTemas']})
     });
   });
 });
@@ -600,7 +604,7 @@ app.get('/CompartirExperiencias', function(req, res, next) { downForMaintenance(
   var inUse = req.session.inUse || false;
   req.session.inUse = false;
   collection.find().toArray(function(err, topicArray) {
-    res.render('CE', { 'isAdmin': (req.isAuthenticated()), 'topics': topicArray, 'inUse': inUse, 'checked': checked});
+    res.render('CE', { 'isAdmin': (req.isAuthenticated()), 'topics': topicArray, 'inUse': inUse, 'checked': checked, 'down': downJSON['/CompartirExperiencias']});
   });
 });
 
