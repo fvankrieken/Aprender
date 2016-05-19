@@ -30,6 +30,11 @@
 
   <body style="background-color: #f2f2f2">
 
+    <% currPage = '/' %>
+    <% if (isAdmin) { %>
+      <% include partials/downButton %>
+    <% } %>
+
     <div class="indexMain">
 
       <div class="mainTitle">

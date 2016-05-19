@@ -25,6 +25,9 @@
 
 		<% currPage = '/CatalogoDeOfertas' %>
 		<% include partials/navbar %>
+		<% if (isAdmin) { %>
+	      <% include partials/downButton %>
+	    <% } %>
 
 		<div class="main" style="width: 1024px">
 
