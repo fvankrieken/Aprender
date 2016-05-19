@@ -798,6 +798,7 @@ app.post('/down', ensureAuthenticated, function(req, res) {
   var currentState = downJSON[page];
   console.log(currentState);
   downJSON[page] = !currentState;
+  console
   res.redirect(page);
 })
 
@@ -870,7 +871,7 @@ function ensureAuthenticated(req, res, next) {
 }
 
 function downForMaintenance(page, req, res, next) {
-  if (downJSON['page']) {
+  if (downJSON[page]) {
     if (req.isAuthenticated()) { return next(); } else { res.render('down', {isAdmin: false})}
   }
   return next();
