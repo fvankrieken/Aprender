@@ -25,11 +25,12 @@
 
   <body style="background-color: #f2f2f2;">
 
-    <% currPage = 'MV' %>
+    <% currPage = '/MapeoVirtual' %>
     <% include partials/navbar %>
 
-    <% downPage = '/MapeoVirtual' %>
-    <% include partials/downButton %>
+    <% if (isAdmin) %>
+      <% include partials/downButton %>
+    <% } %>
 
     <div class="main">
 

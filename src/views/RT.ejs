@@ -28,11 +28,12 @@
       
     </div>
 
-    <% currPage = 'RT' %>
+    <% currPage = '/RelacionTutora' %>
     <% include partials/navbar %>
 
-    <% downPage = '/RelacionTutora' %>
-    <% include partials/downButton %>
+    <% if (isAdmin) %>
+      <% include partials/downButton %>
+    <% } %>
 
     <div class="main2">
       <div class="bluetext">

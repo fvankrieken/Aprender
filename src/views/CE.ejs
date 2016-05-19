@@ -27,12 +27,12 @@
   </head>
 
   <body style="background-color: #f2f2f2;">
-    <% currPage = 'CE' %>
+    <% currPage = '/CompartirExperiencias' %>
     <% include partials/navbar %>
-    <% %>
 
-    <% downPage = '/CompartirExperiencias' %>
-    <% include partials/downButton %>
+    <% if (isAdmin) %>
+      <% include partials/downButton %>
+    <% } %>
 
     <div class="main">
 

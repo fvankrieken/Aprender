@@ -26,11 +26,12 @@
 
     <% var footerStyle = "position: relative; left: -145px;"%>
 
-    <% currPage = 'CdO' %>
+    <% currPage = '/CatalogoDeOfertas' %>
     <% include partials/navbar %>
 
-    <% downPage = '/CatalogoDeOfertas' %>
-    <% include partials/downButton %>
+    <% if (isAdmin) %>
+      <% include partials/downButton %>
+    <% } %>
 
     <div class="main">
       <div class="header" style="height:40px ;padding: 0px; width:100%; margin: auto">

@@ -872,7 +872,7 @@ function ensureAuthenticated(req, res, next) {
 
 function downForMaintenance(page, req, res, next) {
   if (downJSON[page]) {
-    if (req.isAuthenticated()) { return next(); } else { res.render('down', {isAdmin: false})}
+    if (req.isAuthenticated()) { return next(); } else { res.render('down', {isAdmin: false, currPage: page})}
   } else {
     return next();
   }
