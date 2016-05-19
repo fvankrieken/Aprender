@@ -794,7 +794,9 @@ app.get('/archivos/*', ensureAuthenticated, function(req, res) {
 
 app.post('/down', ensureAuthenticated, function(req, res) {
   var page = req.body.page;
+  console.log(page)
   var currentState = downJSON[page];
+  console.log(currentState);
   downJSON[page] = !currentState;
   res.redirect(page);
 })
