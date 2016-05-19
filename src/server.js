@@ -684,7 +684,7 @@ app.get('/admin', ensureAuthenticated, function(req, res){
   res.render('admin', { status: '' })
 });
 
-var linstener = unoconv.listen( {port: 2002} )
+var listener = unoconv.listen( {port: 2002} )
 // POST admin: upload a new tema
 app.post('/admin', ensureAuthenticated, upload.single('pdf'), function(req, res){
   if (!req.file) {
@@ -869,7 +869,7 @@ function ensureAuthenticated(req, res, next) {
 
 function downForMaintenance(page, req, res, next) {
   if (downJSON['page']) {
-    if (req.isAuthenticated()) { return next(); }
+    if (req.isAuthenticated()) { return next(); } else { res.render('down', {isAdmin: false})}
   }
-  res.render('down', {isAdmin: false})
+  return next();
 }
