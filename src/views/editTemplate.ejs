@@ -36,7 +36,7 @@
 				<textarea name="title" style="width: 450px; margin: auto; margin-top: 21px; height: 20px !important; padding: 6px; text-align: center; font-size: 24"><%= title %></textarea>
 
 				<div style="position: relative; top: -27px;">
-	      		<a href="/CatalogoDeOfertas" style="display: inline; float: left; color: #0187e0 !important; position: relative; bottom: 2px;">&#9001 &nbsp Volver al Catálogo de Ofertas</a>
+	      		<a href="/CatalogoDeOfertas?cat=<%= cont %>" style="display: inline; float: left; color: #0187e0 !important; position: relative; bottom: 2px;">&#9001 &nbsp Volver al Catálogo de Ofertas</a>
 	      		<a href='/CatalogoDeOfertas/<%= pathName %>' style="display: inline; float: right; padding-right: 25px; margin: 0;color: #0187e0 !important">Volver al Tema</a>
 	      		
       			</div>
@@ -78,13 +78,6 @@
 
 						<p style="font-family: Avenir-Medium; font-size:18px;">Correo electrónico del experto</p>
 	                    <textarea rows="1" name="email"><%= email %></textarea>
-
-	                    <% var contArray = ['Esp', 'Mat', 'Cie', 'His', 'Tex']; %>
-	                    <% var selectArray = ['', '', '', '', '']; %>
-
-	                   	<% for (i = 0; i < 5; i++) { %>
-	                   	<% if (contArray[i] == cont) {selectArray[i]='selected'} %>
-	                   	<% } %>
 
 						<p style="font-family: Avenir-Medium; font-size:18px;">Disciplina</p>
 	                    <select name="Cont" form="update">
