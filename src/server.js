@@ -738,8 +738,11 @@ app.post('/admin', ensureAuthenticated, upload.single('pdf'), function(req, res)
 
   var comps = uploadInfo.comps.split(', ');
   var temas = uploadInfo.temas.split(', ');
+  var badge;
+  if (uploadInfo.badge == "True") { badge = true } else { badge = false }
+
   var toInsert = {'pathName': pathName, 'title': title, 'descript': uploadInfo.descript, 'cont': uploadInfo.Cont, 'comps': comps, 'temas': temas, 
-  'email': uploadInfo.email, 'fileName': fileName, 'downloadName': downloadName}
+  'email': uploadInfo.email, 'fileName': fileName, 'downloadName': downloadName, 'badge': badge}
 
   collection.count({'pathName': pathName}, function(err, count) {
     if (count != 0) {
