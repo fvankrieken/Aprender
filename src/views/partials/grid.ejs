@@ -7,17 +7,14 @@
     <li style="float: left; padding-right: 24px; margin-top: 24px; list-style-type: none">
       <a href="/CatalogoDeOfertas/<%= tema['pathName'] %>">
         <div class="grid">
-          <div class="topOfGrid" style="width:250px;">
-    <div style="position: absolute; display: -ms-flexbox;
-  display: -webkit-flex;
-
-  -ms-flex-align: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  text-align: center;
-
-  align-items: center; width: 250px; height: 65px;">
-    <p style="color:White; font-size: 18px; font-family: Avenir-Roman; margin:0; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; padding: 0px 8px; margin: auto;"><%= tema['title'] %></p>
+        <% var width = '190' %>
+        <% if (tema[badge]) { width = '250'} %>
+          <div class="topOfGrid" style="width: 250px; position: relative">
+            <div style="position: absolute; display: -ms-flexbox; display: -webkit-flex; -ms-flex-align: center; -webkit-align-items: center; -webkit-box-align: center; text-align: center; align-items: center; width: <%= width %>px; height: 65px;">
+              <p style="color:White; font-size: 18px; font-family: Avenir-Roman; margin:0; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; padding: 0px 8px; margin: auto;"><%= tema['title'] %></p>
+              <% if (tema[badge]) { %>
+              <img src="/img/badge.png" style="height: 33px; position: absolute; right: 4px; top: 0px;" />
+              <% } %>
             </div>
           </div>
           <div class="gridMain">

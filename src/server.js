@@ -444,9 +444,11 @@ app.post('/edit/*', ensureAuthenticated, function(req, res){
 
   var comps = uploadInfo.comps.split(', ');
   var temas = uploadInfo.temas.split(', ');
+  var badge;
+  if (uploadInfo.badge == "True") { badge = true } else { badge = false }
 
   var toInsert = {'pathName': pathName, 'title': title, 'descript': uploadInfo.descript, 'cont': uploadInfo.Cont, 'comps': comps, 'temas': temas, 
-  'email': uploadInfo.email, 'fileName': req.body.fileName}
+  'email': uploadInfo.email, 'fileName': req.body.fileName, 'badge': badge}
 
   collection.findOneAndUpdate({'pathName': OGpathName}, toInsert, function(err, count) {
     var slickCollect = db.collection('slick');
@@ -676,6 +678,15 @@ app.get('/rm/*/*', ensureAuthenticated, function(req, res) {
       res.redirect('/CompartirExperiencias')
     })
   })
+})
+
+/*
+ * NOTICIAS
+ */
+
+// GET noticias
+app.get('/Noticias', function(req, res, next) { downForMaintenance('/CompartirExperiencias', req, res, next) }, function(req, res) {
+  res.render('down');
 })
 
 /*

@@ -115,6 +115,7 @@ font-size: 14px;
 .MainLink {
 	color: #4a4a4a;
 	transition: color 0.25s ease-out;
+	font-size: 12px;
 }
 
 .MainLink:hover {
@@ -131,8 +132,8 @@ font-size: 14px;
 }
 
 .mainIcon {
-	height: 130px;
-	width: 130px;
+	height: 100px;
+	width: 100px;
 	margin-bottom: 15px;
 }
 
