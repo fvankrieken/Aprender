@@ -92,7 +92,7 @@
                         <p style="font-family: Avenir-Medium; font-size:18px;">Badge</p>
 	                    <select name="badge" form="update">
                             <option value="True" <% if (badge) { %>selected<% } %>>Sí</option>
-                            <option value="False" <% if (badge) { %>selected<% } %>>No</option>
+                            <option value="False" <% if (!badge) { %>selected<% } %>>No</option>
                         </select>
 
 	                    <input value="<%= pathName %>" name="OGpathName" style="display:none !important;">
