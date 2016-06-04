@@ -742,7 +742,7 @@ app.post('/admin', ensureAuthenticated, upload.single('pdf'), function(req, res)
   if (uploadInfo.badge == "True") { badge = true } else { badge = false }
 
   var toInsert = {'pathName': pathName, 'title': title, 'descript': uploadInfo.descript, 'cont': uploadInfo.Cont, 'comps': comps, 'temas': temas, 
-  'email': uploadInfo.email, 'fileName': fileName, 'downloadName': downloadName, 'badge': badge}
+  'email': uploadInfo.email, 'fileName': fileName, 'downloadName': downloadName, 'badge': badge, 'desde': uploadInfo.desde }
 
   collection.count({'pathName': pathName}, function(err, count) {
     if (count != 0) {
@@ -811,9 +811,7 @@ app.get('/archivos/*', ensureAuthenticated, function(req, res) {
 
 app.post('/down', ensureAuthenticated, function(req, res) {
   var page = req.body.page;
-  console.log(page)
   var currentState = downJSON[page];
-  console.log(currentState);
   downJSON[page] = !currentState;
   console
   res.redirect(page);
