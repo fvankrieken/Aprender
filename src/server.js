@@ -203,7 +203,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(passport.authenticate('remember-me'));
 
-downJSON = {'/': false, '/RelacionTutora': false, '/MapeoVirtual': false, '/CatalogoDeOfertas': false, '/CompartirTemas': false, '/CompartirExperiencias': false}
+downJSON = {'/': false, '/RelacionTutora': false, '/MapeoVirtual': false, '/CatalogoDeOfertas': false, '/CompartirTemas': false, '/CompartirExperiencias': false, '/Noticias': false }
 
 // blueHeight: helper for CdO formatting
 app.locals.blueHeight = function(subject) {
@@ -686,7 +686,7 @@ app.get('/rm/*/*', ensureAuthenticated, function(req, res) {
 
 // GET noticias
 app.get('/Noticias', function(req, res, next) { downForMaintenance('/CompartirExperiencias', req, res, next) }, function(req, res) {
-  res.render('down');
+  res.render('down', { 'isAdmin': req.isAuthenticated(), 'down': downJSON['/Noticias']} });
 })
 
 /*
