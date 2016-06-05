@@ -353,10 +353,11 @@
 
     $('.search').donetyping(function(){
       var textD = document.getElementById("search").value
-      var text = removeDiacritics(textD)
+      var text = removeDiacritics(textD).toLowerCase()
       var labels = document.getElementsByClassName('forumLabel')
       for (var i = 0; i < labels.length; i++){
-        var labelText = labels[i].textContent
+        var labelTextD = labels[i].textContent
+        var text = removeDiacritics(labelTextD).toLowerCase()
         if (labelText.indexOf(text) == -1) {
           labels[i].style.visibility = 'hidden';
           labels[i].style.position = 'absolute';
