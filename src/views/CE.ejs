@@ -357,7 +357,7 @@
       var labels = document.getElementsByClassName('forumLabel')
       for (var i = 0; i < labels.length; i++){
         var labelTextD = labels[i].textContent
-        var text = removeDiacritics(labelTextD).toLowerCase()
+        var labelText = removeDiacritics(labelTextD).toLowerCase()
         if (labelText.indexOf(text) == -1) {
           labels[i].style.visibility = 'hidden';
           labels[i].style.position = 'absolute';
