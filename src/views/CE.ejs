@@ -85,7 +85,9 @@
                 <% if (isAdmin) { %>
                 <button class="close" data-toggle="modal" data-target="#deleteTopic<%= topic['pathName'] %>" style="position: absolute; top: 7px; right: 7px; color: #ffffff">&times;</button>
 
-                <div class="modal fade" id="deleteTopic<%= topic['pathName'] %>" role="dialog" style="color: black">
+                <% } %>
+              </label>
+              <div class="modal fade" id="deleteTopic<%= topic['pathName'] %>" role="dialog" style="color: black">
                   <div class="modal-dialog modal-sm" style="width: 250px">
                     <div class="modal-content">
                       <div class="modal-header">
@@ -101,9 +103,6 @@
                     </div>
                   </div>
                </div>
-
-                <% } %>
-              </label>
             <% }); %>
           </div>
         </div>
