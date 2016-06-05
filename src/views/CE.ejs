@@ -354,10 +354,12 @@
     $('.search').donetyping(function(){
       var textD = document.getElementById("search").value
       var text = removeDiacritics(textD).toLowerCase()
+      console.log(text)
       var labels = document.getElementsByClassName('forumLabel')
       for (var i = 0; i < labels.length; i++){
         var labelTextD = labels[i].textContent
         var labelText = removeDiacritics(labelTextD).toLowerCase()
+        console.log(labelText)
         if (labelText.indexOf(text) == -1) {
           labels[i].style.visibility = 'hidden';
           labels[i].style.position = 'absolute';
@@ -366,6 +368,7 @@
           labels[i].style.position = 'relative';
         }
       }
+      console.log()
     });
 
     function showOption(topic) {
