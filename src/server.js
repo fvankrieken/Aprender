@@ -686,7 +686,7 @@ app.get('/rm/*/*', ensureAuthenticated, function(req, res) {
 
 // GET noticias
 app.get('/Noticias', function(req, res, next) { downForMaintenance('/CompartirExperiencias', req, res, next) }, function(req, res) {
-  res.render('down', { 'isAdmin': req.isAuthenticated(), 'down': downJSON['/Noticias'] });
+  res.render('down', { 'isAdmin': req.isAuthenticated(), 'down': downJSON['/Noticias'], 'currPage': '/Noticias' });
 })
 
 /*
