@@ -135,6 +135,8 @@ font-size: 14px;
 	height: 100px;
 	width: 100px;
 	margin-bottom: 15px;
+	margin-left: 10px;
+	margin-right: 10px;
 }
 
 a:hover .mi1 {
