@@ -54,6 +54,7 @@ input[name="topics"]:checked + label {
 	color: #ffffff;
 	text-align: center;
 	margin: 25px;
+	margin-bottom: 16px;
 }
 
 .blue {
@@ -68,7 +69,6 @@ input[name="topics"]:checked + label {
 	border-radius: 18px;
 	border: solid 1px #ffffff;
 	margin: auto;
-	margin-bottom: 16px;
 	background-color: transparent; 
 	color: #ffffff;
 	height: 39px;
