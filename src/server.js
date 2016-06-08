@@ -614,6 +614,7 @@ app.get('/CompartirExperiencias', function(req, res, next) { downForMaintenance(
 app.post('/CompartirExperiencias', function(req, res, next) { downForMaintenance('/CompartirExperiencias', req, res, next) }, function(req, res) {
   if(req.body['g-recaptcha-response'] === undefined || req.body['g-recaptcha-response'] === '' || req.body['g-recaptcha-response'] === null) {
     res.redirect('/CompartirExperiencias')
+    return
   }
   // Put your secret key here.
   var secretKey = "6LeICCITAAAAAO3-Wg7wU2aQKhaxmJGx0HTZir0N";
@@ -639,6 +640,7 @@ app.post('/CompartirExperiencias', function(req, res, next) { downForMaintenance
         var toInsert = {'pathName': pathName,'topic': topic, 'comments': [{'name': req.body.name, 'comment': req.body.comment, 'date': req.body.date, 'commentID': id}]}
         collection.insert(toInsert, function(err, count) {
           res.redirect('/CompartirExperiencias');
+          return
         });
       });
     } else {
