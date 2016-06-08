@@ -78,13 +78,14 @@
 <!-- noticias -->
           <% noticias.reverse() %>
           <input type="text" name="title" id="search" placeholder="buscar" class="search" autocomplete="off" style="margin-top: 20px"/>
-   
+          <% var first = true %>
           <div style="width: 100%; border-top: solid 1px #ffffff; margin-top: 20px">
             <% noticias.forEach(function(noticia, index) { %>
               <% var i = index + 1 %>
               <% var noticiaNum = "noticia" + i.toString() %>
               <% var noticiaNumLabel = noticiaNum + "label" %>
-              <input type="radio" name="noticias" id="<%= noticiaNumLabel %>"/>
+              <input type="radio" name="noticias" id="<%= noticiaNumLabel %>" <% if (first) { %> checked <% } %>/>
+              <% first = false %>
               <label for="<%= noticiaNumLabel %>" onclick="showOption('<%= noticia['pathName'] %>')" class="forumLabel">
                 <%= noticia['title'] %>
                 <% if (isAdmin) { %>
