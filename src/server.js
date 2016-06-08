@@ -705,8 +705,8 @@ app.get('/Noticias', function(req, res, next) { downForMaintenance('/Noticias', 
   var collection = db.collection('forum');
   var inUse = req.session.inUseN || false;
   req.session.inUseN = false;
-  collection.find().toArray(function(err, topicArray) {
-    res.render('N', { 'isAdmin': (req.isAuthenticated()), '': noticiaArray, 'inUse': inUse, 'down': downJSON['/Noticias']});
+  collection.find().toArray(function(err, noticiaArray) {
+    res.render('N', { 'isAdmin': (req.isAuthenticated()), 'noticias': noticiaArray, 'inUse': inUse, 'down': downJSON['/Noticias']});
   });
 });
 
