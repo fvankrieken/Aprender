@@ -21,6 +21,7 @@
       ga('send', 'pageview');
 
     </script>
+    <script src='https://www.google.com/recaptcha/api.js?hl=es'></script>
   </head>
 
   <body style="background-color: #f2f2f2; overflow-x: hidden">
@@ -101,8 +102,8 @@
                   <label><h6>Materiales de apoyo</h6>
                       <input type="file" class="filestyle" data-buttonText="Elija archivo" name="apoyo" id="apoyo" data-buttonName="button" data-iconName="glyphicon glyphicon-inbox" data-placeholder="Ningún file" style="display:inline;"> 
                   </label>
-                  
-                  <p><input type="submit" class="mybutton" value="Subir tema"></input></p> 
+                  <div class="g-recaptcha" data-sitekey="6LeICCITAAAAAExoI467aojF380Uk9TXF3z2dHA7"></div>
+                  <p style="margin-top: 10px"><input type="submit" class="mybutton" value="Subir tema"></input></p> 
                 </div>
             </form>
         </div>
@@ -133,72 +134,76 @@
           var fields = [nombre, correo, escuelaNombre, tipo, direccion, puesto, temaNombre, disciplina, comps, descript]
           var testing = (nombre == "Testing")
 
-          if (!testing) {
+          var recaptcha = $("#g-recaptcha-response").val();
+          if (recaptcha === "") {
+            alert('Por favor, revisa el "reCAPTCHA"');
+          } else {
 
-            var entries = [
-              '30967365',
-              '1383858647',
-              '1700156111',
-              '1999065118',
-              '482774097',
-              '1768614129',
-              '809406638',
-              '837674048',
-              '19163486',
-              '1511719233',
-            ]
+            if (!testing) {
 
-            var entryData = {}
-            for (var i = 0; i < fields.length; i++) {
-              var entryCode = 'entry.' + entries[i]
-              entryData[entryCode] = fields[i]
+              var entries = [
+                '30967365',
+                '1383858647',
+                '1700156111',
+                '1999065118',
+                '482774097',
+                '1768614129',
+                '809406638',
+                '837674048',
+                '19163486',
+                '1511719233',
+              ]
+
+              var entryData = {}
+              for (var i = 0; i < fields.length; i++) {
+                var entryCode = 'entry.' + entries[i]
+                entryData[entryCode] = fields[i]
+              }
+            
+              $.ajax({
+                  url: "https://docs.google.com/forms/d/10n_zREEJmIzGhZOCgbDdjt5Mv61DilkwTCocwWOKJkE/formResponse",
+                  data: entryData,
+                  type: "POST",
+                  dataType: "xml",
+                  crossDomain: true,
+                  statusCode: {
+                      0: function (){
+
+                          //Success message
+                      },
+                      200: function (){
+
+                          //Success Message
+                      }
+                  }
+              });
+
             }
-          
+
+            var formData = new FormData();
+            formData.append('tema', tema);
+            formData.append('tutor', tutor);
+            formData.append('aprendiz', aprendiz);
+            formData.append('apoyo', apoyo);
+            formData.append('temaNombre', temaNombre)
+
             $.ajax({
-                url: "https://docs.google.com/forms/d/10n_zREEJmIzGhZOCgbDdjt5Mv61DilkwTCocwWOKJkE/formResponse",
-                data: entryData,
                 type: "POST",
-                dataType: "xml",
-                crossDomain: true,
-                statusCode: {
-                    0: function (){
-
-                        //Success message
-                    },
-                    200: function (){
-
-                        //Success Message
-                    }
+                url: 'http://aprenderconinteres.org/CompartirTemas/',
+                processData: false,
+                contentType: false,
+                data: formData,
+                success: function () {
+                  document.getElementById('CT').style.display='none'
+                  document.getElementById('formSent').style.display='initial'
+                  document.getElementById('footer').style.position='absolute'
+                  document.getElementById('footer').style.bottom='0'
                 }
             });
 
+            return false;
+            
           }
-
-          var formData = new FormData();
-          formData.append('tema', tema);
-          formData.append('tutor', tutor);
-          formData.append('aprendiz', aprendiz);
-          formData.append('apoyo', apoyo);
-          formData.append('temaNombre', temaNombre)
-
-          $.ajax({
-              type: "POST",
-              url: 'http://aprenderconinteres.org/CompartirTemas/',
-              processData: false,
-              contentType: false,
-              data: formData,
-              success: function () {
-                document.getElementById('CT').style.display='none'
-                document.getElementById('formSent').style.display='initial'
-                document.getElementById('footer').style.position='absolute'
-                document.getElementById('footer').style.bottom='0'
-              }
-          });
-
-          return false;
-          
-
-          
       }
     </script>
 
