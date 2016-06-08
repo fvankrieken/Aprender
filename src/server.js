@@ -16,7 +16,7 @@ var express = require('express')
   , MongoClient = require('mongodb').MongoClient
   , MongoURL = 'mongodb://finn:sociedad@ec2-52-32-107-9.us-west-2.compute.amazonaws.com:27017/data'
   , password = require('./password').password
-  , https = require('https')
+  , request = require('request')
 
 var db;
 
