@@ -409,9 +409,10 @@
     //Make sure reCAPTCHAs are checked before submitting
 
     $("addSubject").submit(function(event) {
-
-       var recaptcha = $("#g-recaptcha-response").val();
-       if (recaptcha === "") {
+    	console.log('registered')
+        var recaptcha = $("#g-recaptcha-response").val();
+        console.log(recaptcha)
+        if (recaptcha === "") {
           event.preventDefault();
           alert('Por favor, revisa el "reCAPTCHA"');
        }
@@ -423,7 +424,7 @@
     $( window ).load(function() {
       getDate();
       <% if (captcha) { %>
-		alert('Lo siento, eres robot');
+		alert('Lo siento, se falló el "reCAPTCHA"');
    	  <% } %>
     })
 
