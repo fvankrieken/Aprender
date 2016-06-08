@@ -642,7 +642,7 @@ app.post('/CompartirExperiencias', function(req, res, next) { downForMaintenance
         });
       });
     }
-    res.render('/CompartirExperiencias', {'captcha': false})
+    res.render('CE', {'captcha': false})
   });
 });
 
