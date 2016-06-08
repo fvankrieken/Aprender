@@ -88,7 +88,7 @@
               <label for="<%= noticiaNumLabel %>" onclick="showOption('<%= noticia['pathName'] %>')" class="forumLabel">
                 <%= noticia['title'] %>
                 <% if (isAdmin) { %>
-                <button class="close" data-toggle="modal" data-target="#deletenoticia<%= noticia['pathName'] %>" style="position: absolute; top: 7px; right: 7px; color: #ffffff">&times;</button>
+                <button class="close" data-toggle="modal" data-target="#deleteNoticia<%= noticia['pathName'] %>" style="position: absolute; top: 7px; right: 7px; color: #ffffff">&times;</button>
                 <div class="modal fade" id="deleteNoticia<%= noticia['pathName'] %>" role="dialog" style="color: black">
                   <div class="modal-dialog modal-sm" style="width: 250px">
                     <div class="modal-content">
