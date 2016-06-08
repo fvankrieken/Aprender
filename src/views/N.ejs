@@ -86,7 +86,7 @@
               <% var i = index + 1 %>
               <% var noticiaNum = "noticia" + i.toString() %>
               <% var noticiaNumLabel = noticiaNum + "label" %>
-              <input type="radio" name="noticias" id="<%= noticiaNumLabel %>" <% if (checked == noticia['pathName']) { %>checked<% } %>/>
+              <input type="radio" name="noticias" id="<%= noticiaNumLabel %>"/>
               <label for="<%= noticiaNumLabel %>" onclick="showOption('<%= noticia['pathName'] %>')" class="forumLabel">
                 <%= noticia['title'] %>
                 <% if (isAdmin) { %>
@@ -358,11 +358,7 @@
 
     </script>
 
-    <% if (checked != '') { %>
-      <script>
-        showOption('<%= checked %>')
-      </script>
-      <% } %>
+    
 
   </body>
 </html>
