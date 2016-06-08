@@ -354,9 +354,6 @@
         });
     }
 
-    </script>
-    <script>
-
     $('.search').donetyping(function(){
       var textD = document.getElementById("search").value
       var text = removeDiacritics(textD).toLowerCase()
@@ -411,7 +408,7 @@
 
     //Make sure reCAPTCHAs are checked before submitting
 
-    $("addSubject").submit(function(event) {
+    $("#addSubject").submit(function(event) {
     	console.log('registered')
         var recaptcha = $("#g-recaptcha-response").val();
         console.log(recaptcha)
