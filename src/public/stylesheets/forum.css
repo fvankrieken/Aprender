@@ -4,6 +4,12 @@ input[name="topics"] {
   top: -9999px;
 }
 
+input[name="noticias"] {
+  left: -9999px;
+  position: absolute;
+  top: -9999px;
+}
+
 .forumLabel {
 	display: block;
 	border-bottom: solid 1px #ffffff;
