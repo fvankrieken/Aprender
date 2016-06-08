@@ -1,4 +1,4 @@
-<html lang="es">
+<html class="no-js" lang="es">
 
   <head>
     <meta charset="utf-8" />
@@ -64,9 +64,10 @@
                       <input type="text" name="name">
                     </label>
                     <input type="hidden" name="date" id="todayDate1"/>
+                    <div class="g-recaptcha" data-sitekey="6LeICCITAAAAAExoI467aojF380Uk9TXF3z2dHA7"></div>
                     <input type="submit" class="mybutton" value="Enviar" style="float: left"></input>
                   </div>
-                  <div class="g-recaptcha" data-sitekey="6LeICCITAAAAAExoI467aojF380Uk9TXF3z2dHA7"></div>
+                  
                 </form>
               </div>
             </div>
@@ -145,6 +146,7 @@
                           <label>Su nombre
                             <input type="text" name="name"/>
                           </label>
+                          <div class="g-recaptcha" data-sitekey="6LeICCITAAAAAExoI467aojF380Uk9TXF3z2dHA7"></div>
                           <input type="hidden" name="date" class="todayDate"/>
                           <input type="submit" class="mybutton" value="Enviar" style="float: left"></input>
                         </div>
@@ -406,12 +408,12 @@
 
     //Make sure reCAPTCHAs are checked before submitting
 
-    $("addTopic").submit(function(event) {
+    $("addSubject").submit(function(event) {
 
        var recaptcha = $("#g-recaptcha-response").val();
        if (recaptcha === "") {
           event.preventDefault();
-          alert("Please check the recaptcha");
+          alert('Por favor, revisa el "reCAPTCHA"');
        }
     });
 
@@ -420,6 +422,9 @@
 
     $( window ).load(function() {
       getDate();
+      <% if (captcha) { %>
+		alert('Por favor, revisa el "reCAPTCHA"');
+   	  <% } %>
     })
 
     </script>

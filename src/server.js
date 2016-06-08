@@ -605,16 +605,19 @@ app.get('/CompartirExperiencias', function(req, res, next) { downForMaintenance(
   req.session.checked = '';
   var inUse = req.session.inUse || false;
   req.session.inUse = false;
+  var captcha = req.session.fcaptcha || false;
+  req.session.fcaptcha = false
   collection.find().toArray(function(err, topicArray) {
-    res.render('CE', { 'isAdmin': (req.isAuthenticated()), 'topics': topicArray, 'inUse': inUse, 'checked': checked, 'down': downJSON['/CompartirExperiencias']});
+    res.render('CE', { 'isAdmin': (req.isAuthenticated()), 'topics': topicArray, 'inUse': inUse, 'checked': checked, 'down': downJSON['/CompartirExperiencias'], 'captcha': captcha});
   });
 });
 
 // POST CE: adding a new topic
 app.post('/CompartirExperiencias', function(req, res, next) { downForMaintenance('/CompartirExperiencias', req, res, next) }, function(req, res) {
   if(req.body['g-recaptcha-response'] === undefined || req.body['g-recaptcha-response'] === '' || req.body['g-recaptcha-response'] === null) {
-    res.redirect('/CompartirExperiencias')
-    return
+    req.session.fcaptcha = true;
+    res.redirect('/CompartirExperiencias');
+    return;
   }
   // Put your secret key here.
   var secretKey = "6LeICCITAAAAAO3-Wg7wU2aQKhaxmJGx0HTZir0N";
@@ -623,7 +626,6 @@ app.post('/CompartirExperiencias', function(req, res, next) { downForMaintenance
   // Hitting GET request to the URL, Google will respond with success or error scenario.
   request(verificationUrl,function(error,response,body) {
     body = JSON.parse(body);
-    console.log(body)
     // Success will be true or false depending upon captcha validation.
     if(body.success !== undefined && body.success) {
       var collection = db.collection('forum')
@@ -641,10 +643,11 @@ app.post('/CompartirExperiencias', function(req, res, next) { downForMaintenance
         var toInsert = {'pathName': pathName,'topic': topic, 'comments': [{'name': req.body.name, 'comment': req.body.comment, 'date': req.body.date, 'commentID': id}]}
         collection.insert(toInsert, function(err, count) {
           res.redirect('/CompartirExperiencias');
-          return
+          return;
         });
       });
     } else {
+      req.session.fcaptcha = true;
       res.redirect('/CompartirExperiencias')
     }
   });
@@ -652,21 +655,41 @@ app.post('/CompartirExperiencias', function(req, res, next) { downForMaintenance
 
 // POST CE/topic: add a comment to a topic
 app.post('/CompartirExperiencias/*', function(req, res, next) { downForMaintenance('/CompartirExperiencias', req, res, next) }, function(req, res) {
-  var patharray = req.path.split('/');
-  var pathName = patharray[patharray.length-1];
-  var collection = db.collection('forum');
-  var id = utils.randomString(4);
-  collection.find({'pathName': pathName}).toArray(function(err, array) {
-    var topic = array[0];
-    var comments = topic['comments'];
-    var toAdd = {'name': req.body.name, 'comment': req.body.comment, 'date': req.body.date, 'commentID': id};
-    comments.unshift(toAdd);
-    var toInsert = {'pathName': pathName,'topic': topic['topic'], 'comments': comments}
-    collection.findOneAndUpdate({'pathName': pathName}, toInsert, function(err, count) {
-      req.session.checked = pathName;
+  if(req.body['g-recaptcha-response'] === undefined || req.body['g-recaptcha-response'] === '' || req.body['g-recaptcha-response'] === null) {
+    req.session.fcaptcha = true;
+    res.redirect('/CompartirExperiencias');
+    return;
+  }
+  // Put your secret key here.
+  var secretKey = "6LeICCITAAAAAO3-Wg7wU2aQKhaxmJGx0HTZir0N";
+  // req.connection.remoteAddress will provide IP address of connected user.
+  var verificationUrl = "https://www.google.com/recaptcha/api/siteverify?secret=" + secretKey + "&response=" + req.body['g-recaptcha-response'] + "&remoteip=" + req.connection.remoteAddress;
+  // Hitting GET request to the URL, Google will respond with success or error scenario.
+  request(verificationUrl,function(error,response,body) {
+    body = JSON.parse(body);
+    // Success will be true or false depending upon captcha validation.
+    if(body.success !== undefined && body.success) {
+      var patharray = req.path.split('/');
+      var pathName = patharray[patharray.length-1];
+      var collection = db.collection('forum');
+      var id = utils.randomString(4);
+      collection.find({'pathName': pathName}).toArray(function(err, array) {
+        var topic = array[0];
+        var comments = topic['comments'];
+        var toAdd = {'name': req.body.name, 'comment': req.body.comment, 'date': req.body.date, 'commentID': id};
+        comments.unshift(toAdd);
+        var toInsert = {'pathName': pathName,'topic': topic['topic'], 'comments': comments}
+        collection.findOneAndUpdate({'pathName': pathName}, toInsert, function(err, count) {
+          req.session.checked = pathName;
+          res.redirect('/CompartirExperiencias');
+        });
+      });
+    } else {
+      req.session.fcaptcha = true;
       res.redirect('/CompartirExperiencias');
-    });
+    }
   });
+  
 });
 
 // GET CE/topic: remove a topic
