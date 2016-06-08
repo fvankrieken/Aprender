@@ -731,7 +731,7 @@ app.post('/Noticias', function(req, res, next) { downForMaintenance('/Noticias',
       res.redirect('/Noticias');
       return;
     }
-    var toInsert = {'pathName': pathName,'title': title, 'text': req.body.text, 'name': req.body.name, 'date': req.body.date}
+    var toInsert = {'pathName': pathName,'title': title, 'text': req.body.text, 'name': req.body.name, 'date': req.body.date, 'image': image}
     collection.insert(toInsert, function(err, count) {
       res.redirect('/Noticias');
     });

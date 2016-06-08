@@ -28,8 +28,6 @@
   <body style="background-color: #f2f2f2;">
     <% currPage = '/Noticias' %>
     <% include partials/navbar %>
-    <% var noticias = [{'title': 'Test title', 'text': 'Testing', 'name': 'Finn v.K.', 'date': '7 de Junio, 2016', 'pathName': 'TestTitle'}] %>
-
 
     <% if (isAdmin) { %>
       <% include partials/downButton %>
@@ -91,10 +89,7 @@
                 <%= noticia['title'] %>
                 <% if (isAdmin) { %>
                 <button class="close" data-toggle="modal" data-target="#deletenoticia<%= noticia['pathName'] %>" style="position: absolute; top: 7px; right: 7px; color: #ffffff">&times;</button>
-
-                <% } %>
-              </label>
-              <div class="modal fade" id="deleteNoticia<%= noticia['pathName'] %>" role="dialog" style="color: black">
+                <div class="modal fade" id="deleteNoticia<%= noticia['pathName'] %>" role="dialog" style="color: black">
                   <div class="modal-dialog modal-sm" style="width: 250px">
                     <div class="modal-content">
                       <div class="modal-header">
@@ -109,7 +104,10 @@
                       </div>
                     </div>
                   </div>
-               </div>
+                </div>
+                <% } %>
+              </label>
+              
             <% }); %>
           </div>
         </div>
