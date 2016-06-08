@@ -77,7 +77,7 @@
           </div>
         <% } %>
 
-<!-- topics -->
+<!-- noticias -->
           <% noticias.reverse() %>
           <input type="text" name="title" id="search" placeholder="buscar" class="search" autocomplete="off"/>
    
@@ -94,7 +94,7 @@
 
                 <% } %>
               </label>
-              <div class="modal fade" id="deleteTopic<%= topic['pathName'] %>" role="dialog" style="color: black">
+              <div class="modal fade" id="deleteNoticia<%= noticia['pathName'] %>" role="dialog" style="color: black">
                   <div class="modal-dialog modal-sm" style="width: 250px">
                     <div class="modal-content">
                       <div class="modal-header">
@@ -104,7 +104,7 @@
                       <div class="modal-body" style="padding-bottom: 39px">
                         <p>¿Quieres eliminar esta noticia?</p>
                       
-                        <a href="/Noticias/<%= topic['pathName'] %>"><button type="button" class="mybutton" style="background-color: #3a9ad9; float: left;">Eliminar</button></a>
+                        <a href="/Noticias/<%= noticia['pathName'] %>"><button type="button" class="mybutton" style="background-color: #3a9ad9; float: left;">Eliminar</button></a>
                         <!-- <button type="button" class="mybutton" data-dismiss="modal">Cerrar</button> -->
                       </div>
                     </div>
