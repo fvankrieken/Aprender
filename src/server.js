@@ -710,7 +710,7 @@ app.get('/rm/*/*', ensureAuthenticated, function(req, res) {
 
 // GET noticias
 app.get('/Noticias', function(req, res, next) { downForMaintenance('/Noticias', req, res, next) }, function(req, res){
-  var collection = db.collection('forum');
+  var collection = db.collection('noticias');
   var inUse = req.session.inUseN || false;
   req.session.inUseN = false;
   collection.find().toArray(function(err, noticiaArray) {
@@ -725,6 +725,7 @@ app.post('/Noticias', function(req, res, next) { downForMaintenance('/Noticias',
   var tempName = utils.toTitleCase(title)
   var tempName2 = tempName.replace(/\s/g, '');
   var pathName = utils.removeDiacritics(tempName2).replace(/\W/g, '');
+  var image = req.body.image
   collection.count({'pathName': pathName}, function(err, count) {
     if (count != 0) {
       req.session.inUseN = true;
