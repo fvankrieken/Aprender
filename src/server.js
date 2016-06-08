@@ -710,7 +710,7 @@ app.get('/rm/*/*', ensureAuthenticated, function(req, res) {
 
 // GET noticias
 app.get('/Noticias', function(req, res, next) { downForMaintenance('/Noticias', req, res, next) }, function(req, res){
-  var collection = db.collection('noticias');
+  var collection = db.collection('noticiasP');
   var inUse = req.session.inUseN || false;
   req.session.inUseN = false;
   collection.find().toArray(function(err, noticiaArray) {
@@ -720,7 +720,7 @@ app.get('/Noticias', function(req, res, next) { downForMaintenance('/Noticias', 
 
 // POST noticias: adding a new topic
 app.post('/Noticias', function(req, res, next) { downForMaintenance('/Noticias', req, res, next) }, function(req, res) {
-  var collection = db.collection('noticias')
+  var collection = db.collection('noticiasP')
   var title = req.body.title
   var tempName = utils.toTitleCase(title)
   var tempName2 = tempName.replace(/\s/g, '');
@@ -743,7 +743,7 @@ app.post('/Noticias', function(req, res, next) { downForMaintenance('/Noticias',
 app.get('/Noticias/*', ensureAuthenticated, function(req, res) {
   var patharray = req.path.split('/');
   var pathName = patharray[patharray.length-1];
-  collection = db.collection('noticias');
+  collection = db.collection('noticiasP');
   collection.deleteOne({'pathName': pathName})
   res.redirect('/Noticias');
 })
