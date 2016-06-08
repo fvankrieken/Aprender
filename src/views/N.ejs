@@ -130,11 +130,11 @@
               <% var topicNum = "topic" + i.toString() %>
 
               <div style="display: none" id="<%= noticia['pathName'] %>" class="comments">
-                <p style="font-family: Avenir-Roman; font-size: 18px; margin: auto; text-align: center; color: #4a4a4a; margin-bottom: 6px"><!--<%= noticia['title'] %>-->Testing: Title</p>
-                <p style="font-family: Avenir; font-size: 14px; font-weight: 300; color: #4a4a4a;">Por: <%= noticia['name'} %> - <%= noticia['date'] %></p>
+                <p style="font-family: Avenir-Roman; font-size: 18px; margin: auto; text-align: center; color: #4a4a4a; margin-bottom: 6px"><%= noticia['title'] %></p>
+                <p style="font-family: Avenir; font-size: 14px; font-weight: 300; color: #4a4a4a;">Por: <%= noticia['name'] %> - <%= noticia['date'] %></p>
                 
                 <div style="overflow-y: auto; height: 677px; width: 724px;">
-                <p> Testing </p>
+                <p> <%= noticia['text'] $> </p>
                 </div>
               </div>
             <% }); %>
