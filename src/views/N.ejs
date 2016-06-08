@@ -5,7 +5,7 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="shortcut icon" href="/img/logo_less.png" />
-    <title>Compartir Experiencias</title>
+    <title>Noticias</title>
     <link rel="stylesheet" href="/stylesheets/foundation.css" />
     <link rel="stylesheet" href="/stylesheets/app.css" />
     <link rel="stylesheet" href="/stylesheets/navbar.css" />
@@ -22,13 +22,14 @@
       ga('create', 'UA-75871722-1', 'auto');
       ga('send', 'pageview');
     </script>
-    <script src='https://www.google.com/recaptcha/api.js?hl=es'></script>
 
   </head>
 
   <body style="background-color: #f2f2f2;">
-    <% currPage = '/CompartirExperiencias' %>
+    <% currPage = '/Noticias' %>
     <% include partials/navbar %>
+    <% var noticias %>
+
 
     <% if (isAdmin) { %>
       <% include partials/downButton %>
@@ -40,40 +41,44 @@
 
 <!-- Side Bar -->
 
-        <div class="blueBar" style="float:left; height: 800px; padding: 0px; width: 240px; margin-left: 20px; overflow-y: auto">
+        <div class="blueBar" style="float:left; height: 800px; padding: 0px; width: 240px; margin-left: 20px; overflow-y: auto; background-color: #f4695f">
 
 <!-- AddTopic modal -->
-          <p class="addComment white" data-toggle="modal" data-target="#addTopic"><img src='/img/whiteplus.png' class="plus">Añadir una pregunta</p> 
+        <% if (isAdmin) { %>
+          <p class="addComment white" data-toggle="modal" data-target="#addTopic"><img src='/img/whiteplus.png' class="plus">Nueva noticia</p> 
 
           <div class="modal fade" id="addTopic" role="dialog">
             <div class="modal-dialog modal-sm" style="width: 500px">
               <div class="modal-content">
-                <form action="/CompartirExperiencias" id="addSubject" method="POST">
+                <form action="/Noticias" id="addSubject" method="POST">
                   <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title" style="text-align: center">Empezar una conversación</h4>
+                    <h4 class="modal-title" style="text-align: center">Nueva noticia</h4>
                   </div>
                   <div class="modal-body" style="margin-bottom: 30px">
-                    <label>Pregunta
-                      <input type="text" name="topic">
+                    <label>Título
+                      <input type="text" name="title">
                     </label>
-                    <label>Comentario
-                        <textarea name="comment" rows="4"></textarea>
+                    <label>Texto
+                        <textarea name="text" rows="6"></textarea>
+                    </label>
+                    <label>Image
+                      <input type="text" name="image">
                     </label>
                     <label>Su nombre
-                      <input type="text" name="name">
+                      <input type="text" name="name"/>
                     </label>
-                    <input type="hidden" name="date" id="todayDate1"/>
+                    <input type="hidden" name="date" class="todayDate"/>
                     <input type="submit" class="mybutton" value="Enviar" style="float: left"></input>
                   </div>
-                  <div class="g-recaptcha" data-sitekey="6LeICCITAAAAAExoI467aojF380Uk9TXF3z2dHA7"></div>
                 </form>
               </div>
             </div>
           </div>
+        <% } %>
 
 <!-- topics -->
-          <% topics.reverse() %>
+          <% noticias.reverse() %>
           <input type="text" name="title" id="search" placeholder="buscar" class="search" autocomplete="off"/>
    
           <div style="width: 100%; border-top: solid 1px #ffffff; margin-top: 20px">
@@ -99,7 +104,7 @@
                       <div class="modal-body" style="padding-bottom: 39px">
                         <p>¿Quieres eliminar esta convercación?</p>
                       
-                        <a href="/CompartirExperiencias/<%= topic['pathName'] %>"><button type="button" class="mybutton" style="background-color: #3a9ad9; float: left;">Eliminar</button></a>
+                        <a href="/Noticias/<%= topic['pathName'] %>"><button type="button" class="mybutton" style="background-color: #3a9ad9; float: left;">Eliminar</button></a>
                         <!-- <button type="button" class="mybutton" data-dismiss="modal">Cerrar</button> -->
                       </div>
                     </div>
@@ -110,7 +115,7 @@
         </div>
 
 
-<!-- COMMENT SECTION -->
+<!-- NOTICIA SECTION -->
 
         <div style="width: 744px; height: 800px;">
 
@@ -120,74 +125,15 @@
 
           <div style="margin-left: 18px; margin-top: 40px;">
 
-            <% topics.forEach(function(topic, index) { %>
+            <% noticias.forEach(function(noticia, index) { %>
               <% var i = index + 1 %>
               <% var topicNum = "topic" + i.toString() %>
 
-              <div style="display: none" id="<%= topic['pathName'] %>" class="comments">
-                <p style="font-family: Avenir-Roman; font-size: 18px; margin: auto; text-align: center; color: #4a4a4a; margin-bottom: 6px"><%= topic['topic'] %></p>
+              <div style="display: none" id="<%= noticia['pathName'] %>" class="comments">
+                <p style="font-family: Avenir-Roman; font-size: 18px; margin: auto; text-align: center; color: #4a4a4a; margin-bottom: 6px"><%= noticia['title'] %></p>
                 
-<!-- Comment Modal -->
-                <p class="addComment blue" data-toggle="modal" data-target="#addComment<%= topic['pathName']%>"><img src='/img/blueplus.png' class="plus">Añadir un comentario</p> 
-
-                <div class="modal fade" id="addComment<%= topic['pathName']%>" role="dialog">
-                  <div class="modal-dialog modal-sm" style="width: 500px">
-                    <div class="modal-content">
-                      <form action="/CompartirExperiencias/<%= topic['pathName'] %>" id="addComment" method="POST">
-                        <div class="modal-header">
-                          <button type="button" class="close" data-dismiss="modal">&times;</button>
-                          <h4 class="modal-title" style="text-align: center">Añadir a la conversación</h4>
-                        </div>
-                        <div class="modal-body" style="margin-bottom: 30px">
-                          <label>Comentario
-                              <textarea name="comment" rows="4"></textarea>
-                          </label>
-                          <label>Su nombre
-                            <input type="text" name="name"/>
-                          </label>
-                          <input type="hidden" name="date" class="todayDate"/>
-                          <input type="submit" class="mybutton" value="Enviar" style="float: left"></input>
-                        </div>
-                      </form>
-                    </div>
-                  </div>
-                </div>
-<!-- comments -->
                 <div style="overflow-y: auto; height: 677px; width: 724px;">
-                <% var comments = topic['comments']%>
-                  <% comments.forEach(function(comment, index) { %>
-                    <div class="comment">
-                      <div style="margin: 1px; height: <% if (isAdmin) { %>65px<% } else { %>50px<% } %>; width: 100%; padding: 16px; padding-bottom: 12px; border-bottom: solid 1px #dbdbdb;">
-                        <% if (isAdmin) { %>
-                        <div style="height: 15px"></div>
-                        <button class="close" data-toggle="modal" data-target="#<%= comment['commentID'] %>" style="position: absolute; top: 11px; right: 13px; color: black;">&times;</button>
-
-                        <div class="modal fade" id="<%= comment['commentID'] %>" role="dialog" style="color: black;">
-                          <div class="modal-dialog modal-sm" style="width: 220px">
-                            <div class="modal-content">
-                              <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title">¿Estás seguro?</h4>
-                              </div>
-                              <div class="modal-body" style="padding-bottom: 39px">
-                                <p>¿Quieres eliminar este comentario?</p>
-                              
-                                <a href="/rm/<%= topic['pathName'] %>/<%= comment['commentID'] %>"><button type="button" class="mybutton" style="background-color: #3a9ad9; float: left;">Eliminar</button></a>
-                                <!-- <button type="button" class="mybutton" data-dismiss="modal">Cerrar</button> -->
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <% } %>
-                        <p style="display: inline; font-family: Avenir-Light; font-size: 18px; line-height: 1.3; color: #4a4a4a"><%= comment['name'] %></p>
-                        <p style="display: inline; float: right; font-family: Avenir-Roman; font-size: 14px; line-height: 1.7; color: #9b9b9b;"><%= comment['date'] %></p>
-
-                      </div>
-                      <p style="padding: 20px; font-family: Avenir-Book; font-size: 14px; line-height: 1.5; color: #4a4a4a;"><%= comment['comment'] %></p>
-
-                      
-                    </div>
-                  <% }); %>
+                
                 </div>
               </div>
             <% }); %>
@@ -383,8 +329,6 @@
       self.style.backgroundImage = 'none';
     }
 
-    // Get the date for comments
-
     function getDate()
     {
         var today = new Date();
@@ -403,17 +347,6 @@
           $(toDate).val(today)
         }
     }
-
-    //Make sure reCAPTCHAs are checked before submitting
-
-    $("addTopic").submit(function(event) {
-
-       var recaptcha = $("#g-recaptcha-response").val();
-       if (recaptcha === "") {
-          event.preventDefault();
-          alert("Please check the recaptcha");
-       }
-    });
 
     //call getDate() when loading the page
    

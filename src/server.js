@@ -685,8 +685,42 @@ app.get('/rm/*/*', ensureAuthenticated, function(req, res) {
  */
 
 // GET noticias
-app.get('/Noticias', function(req, res, next) { downForMaintenance('/CompartirExperiencias', req, res, next) }, function(req, res) {
-  res.render('down', { 'isAdmin': req.isAuthenticated(), 'down': downJSON['/Noticias'], 'currPage': '/Noticias' });
+app.get('/Noticias', function(req, res, next) { downForMaintenance('/Noticias', req, res, next) }, function(req, res){
+  var collection = db.collection('forum');
+  var inUse = req.session.inUseN || false;
+  req.session.inUseN = false;
+  collection.find().toArray(function(err, topicArray) {
+    res.render('N', { 'isAdmin': (req.isAuthenticated()), '': noticiaArray, 'inUse': inUse, 'down': downJSON['/Noticias']});
+  });
+});
+
+// POST noticias: adding a new topic
+app.post('/Noticias', function(req, res, next) { downForMaintenance('/Noticias', req, res, next) }, function(req, res) {
+  var collection = db.collection('noticias')
+  var title = req.body.title
+  var tempName = utils.toTitleCase(title)
+  var tempName2 = tempName.replace(/\s/g, '');
+  var pathName = utils.removeDiacritics(tempName2).replace(/\W/g, '');
+  collection.count({'pathName': pathName}, function(err, count) {
+    if (count != 0) {
+      req.session.inUseN = true;
+      res.redirect('/Noticias');
+      return;
+    }
+    var toInsert = {'pathName': pathName,'title': title, 'text': req.body.text, 'name': req.body.name, 'date': req.body.date}
+    collection.insert(toInsert, function(err, count) {
+      res.redirect('/Noticias');
+    });
+  });
+});
+
+// GET noticias/topic: remove topic
+app.get('/Noticias/*', ensureAuthenticated, function(req, res) {
+  var patharray = req.path.split('/');
+  var pathName = patharray[patharray.length-1];
+  collection = db.collection('noticias');
+  collection.deleteOne({'pathName': pathName})
+  res.redirect('/Noticias');
 })
 
 /*
