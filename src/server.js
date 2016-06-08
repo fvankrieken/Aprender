@@ -624,6 +624,7 @@ app.post('/CompartirExperiencias', function(req, res, next) { downForMaintenance
   // Hitting GET request to the URL, Google will respond with success or error scenario.
   request(verificationUrl,function(error,response,body) {
     body = JSON.parse(body);
+    console.log(body)
     // Success will be true or false depending upon captcha validation.
     if(body.success !== undefined && !body.success) {
       var collection = db.collection('forum')
