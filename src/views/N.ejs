@@ -45,7 +45,7 @@
 
 <!-- AddTopic modal -->
         <% if (isAdmin) { %>
-          <p class="addComment white" data-toggle="modal" data-target="#addTopic"><img src='/img/whiteplus.png' class="plus">Nueva noticia</p> 
+          <p class="addComment white" data-toggle="modal" data-target="#addTopic" style="margin-top: 20px; margin-bottom: 0px"><img src='/img/whiteplus.png' class="plus">Nueva noticia</p> 
 
           <div class="modal fade" id="addTopic" role="dialog">
             <div class="modal-dialog modal-sm" style="width: 500px">
@@ -79,7 +79,7 @@
 
 <!-- noticias -->
           <% noticias.reverse() %>
-          <input type="text" name="title" id="search" placeholder="buscar" class="search" autocomplete="off"/>
+          <input type="text" name="title" id="search" placeholder="buscar" class="search" autocomplete="off" style="margin-top: 16px/>
    
           <div style="width: 100%; border-top: solid 1px #ffffff; margin-top: 20px">
             <% noticias.forEach(function(noticia, index) { %>
