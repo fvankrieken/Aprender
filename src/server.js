@@ -613,7 +613,7 @@ app.get('/CompartirExperiencias', function(req, res, next) { downForMaintenance(
 // POST CE: adding a new topic
 app.post('/CompartirExperiencias', function(req, res, next) { downForMaintenance('/CompartirExperiencias', req, res, next) }, function(req, res) {
   if(req.body['g-recaptcha-response'] === undefined || req.body['g-recaptcha-response'] === '' || req.body['g-recaptcha-response'] === null) {
-    res.render('/CompartirExperiencias', {'captcha': false})
+    res.render('CE', {'captcha': false})
   }
   // Put your secret key here.
   var secretKey = "6LeICCITAAAAAO3-Wg7wU2aQKhaxmJGx0HTZir0N";
