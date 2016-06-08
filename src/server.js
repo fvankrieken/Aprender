@@ -16,6 +16,7 @@ var express = require('express')
   , MongoClient = require('mongodb').MongoClient
   , MongoURL = 'mongodb://finn:sociedad@ec2-52-32-107-9.us-west-2.compute.amazonaws.com:27017/data'
   , password = require('./password').password
+  , https = require('https')
 
 var db;
 
@@ -611,22 +612,37 @@ app.get('/CompartirExperiencias', function(req, res, next) { downForMaintenance(
 
 // POST CE: adding a new topic
 app.post('/CompartirExperiencias', function(req, res, next) { downForMaintenance('/CompartirExperiencias', req, res, next) }, function(req, res) {
-  var collection = db.collection('forum')
-  var topic = req.body.topic
-  var tempName = utils.toTitleCase(topic)
-  var tempName2 = tempName.replace(/\s/g, '');
-  var pathName = utils.removeDiacritics(tempName2).replace(/\W/g, '');
-  var id = utils.randomString(4);
-  collection.count({'pathName': pathName}, function(err, count) {
-    if (count != 0) {
-      req.session.inUse = true;
-      res.redirect('/CompartirExperiencias');
-      return;
+  if(req.body['g-recaptcha-response'] === undefined || req.body['g-recaptcha-response'] === '' || req.body['g-recaptcha-response'] === null) {
+    res.render('/CompartirExperiencias', {'captcha': false})
+  }
+  // Put your secret key here.
+  var secretKey = "6LeICCITAAAAAO3-Wg7wU2aQKhaxmJGx0HTZir0N";
+  // req.connection.remoteAddress will provide IP address of connected user.
+  var verificationUrl = "https://www.google.com/recaptcha/api/siteverify?secret=" + secretKey + "&response=" + req.body['g-recaptcha-response'] + "&remoteip=" + req.connection.remoteAddress;
+  // Hitting GET request to the URL, Google will respond with success or error scenario.
+  request(verificationUrl,function(error,response,body) {
+    body = JSON.parse(body);
+    // Success will be true or false depending upon captcha validation.
+    if(body.success !== undefined && !body.success) {
+      var collection = db.collection('forum')
+      var topic = req.body.topic
+      var tempName = utils.toTitleCase(topic)
+      var tempName2 = tempName.replace(/\s/g, '');
+      var pathName = utils.removeDiacritics(tempName2).replace(/\W/g, '');
+      var id = utils.randomString(4);
+      collection.count({'pathName': pathName}, function(err, count) {
+        if (count != 0) {
+          req.session.inUse = true;
+          res.redirect('/CompartirExperiencias');
+          return;
+        }
+        var toInsert = {'pathName': pathName,'topic': topic, 'comments': [{'name': req.body.name, 'comment': req.body.comment, 'date': req.body.date, 'commentID': id}]}
+        collection.insert(toInsert, function(err, count) {
+          res.redirect('/CompartirExperiencias');
+        });
+      });
     }
-    var toInsert = {'pathName': pathName,'topic': topic, 'comments': [{'name': req.body.name, 'comment': req.body.comment, 'date': req.body.date, 'commentID': id}]}
-    collection.insert(toInsert, function(err, count) {
-      res.redirect('/CompartirExperiencias');
-    });
+    res.render('/CompartirExperiencias', {'captcha': false})
   });
 });
 
