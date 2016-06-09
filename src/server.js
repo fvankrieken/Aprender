@@ -300,7 +300,6 @@ app.post('/MapeoVirtual', function(req, res) {
     res.sendStatus(401);
     return;
   }
-  console.log(req.body)
   // Put your secret key here.
   var secretKey = "6LeICCITAAAAAO3-Wg7wU2aQKhaxmJGx0HTZir0N";
   // req.connection.remoteAddress will provide IP address of connected user.
