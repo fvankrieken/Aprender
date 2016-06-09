@@ -313,8 +313,8 @@ app.post('/MapeoVirtual', function(req, res) {
     } else {
       res.sendStatus(401);
     }
-  }
-})
+  });
+});
 
 /*
  * Catálogo de Ofertas
