@@ -167,29 +167,50 @@
               document.getElementById('myDropdown').style.height='764px'
               return false;
             }
-          
-            $.ajax({
-                url: "https://docs.google.com/forms/d/1QfeyHiYV9ok-tl92GImsoGASU1dlqG2lhsw_plRCZcE/formResponse",
-                data: {"entry.1194689800" : name, "entry.1776167168" : email, "entry.2018236782": position, "entry.1726408884": schoolName, "entry.1866376389": tipo, "entry.718549540": address, "entry.859306530": CCT, "entry.500026241": years},
-                type: "POST",
-                dataType: "xml",
-                crossDomain: true,
-                statusCode: {
-                    0: function (){
 
-                        document.getElementById('add').style.display='none'
-                        document.getElementById('formSent').style.display='initial'
-                        document.getElementById('myDropdown').style.height='120px'
-                        //Success message
+            var recaptcha = $("#g-recaptcha-response").val();
+              if (recaptcha === "") {
+                alert('Por favor, revisa el "reCAPTCHA"');
+              } else {
+                $.ajax({
+                  url: "https://aprenderconinteres.org/MapeoVirtual",
+                  data: {'g-recaptcha-response': recaptcha},
+                  type: "POST",
+                  dataType: "xml",
+                  statusCode: {
+                    200: function(){
+                      $.ajax({
+                        url: "https://docs.google.com/forms/d/1QfeyHiYV9ok-tl92GImsoGASU1dlqG2lhsw_plRCZcE/formResponse",
+                        data: {"entry.1194689800" : name, "entry.1776167168" : email, "entry.2018236782": position, "entry.1726408884": schoolName, "entry.1866376389": tipo, "entry.718549540": address, "entry.859306530": CCT, "entry.500026241": years},
+                        type: "POST",
+                        dataType: "xml",
+                        crossDomain: true,
+                        statusCode: {
+                            0: function (){
+
+                                document.getElementById('add').style.display='none'
+                                document.getElementById('formSent').style.display='initial'
+                                document.getElementById('myDropdown').style.height='120px'
+                                //Success message
+                            },
+                            200: function (){
+                                document.getElementById('add').style.display='none'
+                                document.getElementById('formSent').style.display='initial'
+                                document.getElementById('myDropdown').style.height='120px'
+                                //Success Message
+                            }
+                        }
+                      });
                     },
-                    200: function (){
-                        document.getElementById('add').style.display='none'
-                        document.getElementById('formSent').style.display='initial'
-                        document.getElementById('myDropdown').style.height='120px'
-                        //Success Message
+                    401: function(){
+                      alert('Lo siento, se falló el "reCAPTCHA"')
                     }
-                }
-            });
+                  }
+                });
+
+              }
+          
+            
           } else {
             document.getElementById('add').style.display='none'
             document.getElementById('formSent').style.display='initial'

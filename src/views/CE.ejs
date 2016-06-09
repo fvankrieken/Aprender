@@ -408,9 +408,7 @@
     //Make sure reCAPTCHAs are checked before submitting
 
     $("#addSubject").submit(function(event) {
-    	console.log('registered')
         var recaptcha = $("#g-recaptcha-response").val();
-        console.log(recaptcha)
         if (recaptcha === "") {
           event.preventDefault();
           alert('Por favor, revisa el "reCAPTCHA"');

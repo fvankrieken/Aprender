@@ -292,8 +292,29 @@ app.get('/RelacionTutora', function(req, res, next) { downForMaintenance('/Relac
  */
 
 app.get('/MapeoVirtual', function(req, res, next) { downForMaintenance('/MapeoVirtual', req, res, next) }, function(req, res){
-  res.render('MV', { 'isAdmin': (req.isAuthenticated()), 'down': downJSON['/MapeoVirtual']});
+  res.sendStatus(401);
 });
+
+app.post('/MapeoVirtual', function(req, res) {
+  if(req.body['g-recaptcha-response'] === undefined || req.body['g-recaptcha-response'] === '' || req.body['g-recaptcha-response'] === null) {
+    res.render('MV', { 'isAdmin': (req.isAuthenticated()), 'down': downJSON['/MapeoVirtual'], 'captcha': true});
+    return;
+  }
+  // Put your secret key here.
+  var secretKey = "6LeICCITAAAAAO3-Wg7wU2aQKhaxmJGx0HTZir0N";
+  // req.connection.remoteAddress will provide IP address of connected user.
+  var verificationUrl = "https://www.google.com/recaptcha/api/siteverify?secret=" + secretKey + "&response=" + req.body['g-recaptcha-response'] + "&remoteip=" + req.connection.remoteAddress;
+  // Hitting GET request to the URL, Google will respond with success or error scenario.
+  request(verificationUrl,function(error,response,body) {
+    body = JSON.parse(body);
+    // Success will be true or false depending upon captcha validation.
+    if(body.success !== undefined && body.success) {
+      res.sendStatus(200);
+    } else {
+      res.sendStatus(401);
+    }
+  }
+})
 
 /*
  * Catálogo de Ofertas
@@ -726,6 +747,7 @@ app.post('/Noticias', function(req, res, next) { downForMaintenance('/Noticias',
   var tempName2 = tempName.replace(/\s/g, '');
   var pathName = utils.removeDiacritics(tempName2).replace(/\W/g, '');
   var image = req.body.image
+
   collection.count({'pathName': pathName}, function(err, count) {
     if (count != 0) {
       req.session.inUseN = true;
