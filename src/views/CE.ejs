@@ -125,11 +125,11 @@
               <% var i = index + 1 %>
               <% var topicNum = "topic" + i.toString() %>
 
-              <div style="display: none" id="<%= topic['pathName'] %>" class="comments">
-                <p style="font-family: Avenir-Roman; font-size: 18px; margin: auto; text-align: center; color: #4a4a4a; margin-bottom: 6px"><%= topic['topic'] %></p>
+              <div style="display: none;" id="<%= topic['pathName'] %>" class="comments">
+                <p style="font-family: Avenir-Roman; font-size: 18px; margin: auto; text-align: center; color: #4a4a4a; margin-bottom: 20px"><%= topic['topic'] %></p>
                 
 <!-- Comment Modal -->
-                <p class="addComment blue" data-toggle="modal" data-target="#addComment<%= topic['pathName']%>"><img src='/img/blueplus.png' class="plus">Añadir un comentario</p> 
+                <p class="addComment blue" data-toggle="modal" data-target="#addComment<%= topic['pathName']%>" style="margin-bottom: 20px;"><img src='/img/blueplus.png' class="plus">Añadir un comentario</p> 
 
                 <div class="modal fade" id="addComment<%= topic['pathName']%>" role="dialog">
                   <div class="modal-dialog modal-sm" style="width: 500px">
