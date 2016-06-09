@@ -309,7 +309,7 @@ app.post('/MapeoVirtual', function(req, res) {
     body = JSON.parse(body);
     // Success will be true or false depending upon captcha validation.
     if(body.success !== undefined && body.success) {
-      res.
+      res.sendStatus(200);
     } else {
       res.sendStatus(401);
     }
