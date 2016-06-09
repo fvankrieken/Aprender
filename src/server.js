@@ -292,12 +292,12 @@ app.get('/RelacionTutora', function(req, res, next) { downForMaintenance('/Relac
  */
 
 app.get('/MapeoVirtual', function(req, res, next) { downForMaintenance('/MapeoVirtual', req, res, next) }, function(req, res){
-  res.sendStatus(401);
+  res.render('MV', { 'isAdmin': (req.isAuthenticated()), 'down': downJSON['/MapeoVirtual'], 'captcha': false});
 });
 
 app.post('/MapeoVirtual', function(req, res) {
   if(req.body['g-recaptcha-response'] === undefined || req.body['g-recaptcha-response'] === '' || req.body['g-recaptcha-response'] === null) {
-    res.render('MV', { 'isAdmin': (req.isAuthenticated()), 'down': downJSON['/MapeoVirtual'], 'captcha': true});
+    res.sendStatus(401);
     return;
   }
   // Put your secret key here.
@@ -309,12 +309,12 @@ app.post('/MapeoVirtual', function(req, res) {
     body = JSON.parse(body);
     // Success will be true or false depending upon captcha validation.
     if(body.success !== undefined && body.success) {
-      res.sendStatus(200);
+      res.
     } else {
       res.sendStatus(401);
     }
   });
-});
+})
 
 /*
  * Catálogo de Ofertas
