@@ -46,6 +46,18 @@ input[name="noticias"]:checked + label > p {
 	color: #ffffff !important;
 }
 
+.forumLabel:hover .nDate {
+	color: #ffffff !important;
+}
+
+.nDate {
+	font-family: Avenir;
+	font-size: 14px;
+	font-weight: 300;
+	color: #f2f2f2;
+	margin-bottom: 0px;
+}
+
 .comment {
 	width: 718px;
 	height: auto;
