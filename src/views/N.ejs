@@ -132,7 +132,7 @@
                 <p style="font-family: Avenir; font-size: 18px; font-weight: 500; line-height: 1.06; color: #2f2f2f; margin-bottom: 10px"><%= noticia['title'] %></p>
 
                 <% if (isAdmin) { %>
-                <p style="display: inline; float: right; margin: 0;">
+                <p style="display: inline; float: right; margin: 0; font-size: 15px;">
                   <a data-toggle="modal" data-target="#<%= noticiaNum %>" style="color: #0187e0 !important">Editar</a>
                 </p>
                 <div class="modal fade" id="<%= noticiaNum %>" role="dialog">
@@ -166,7 +166,7 @@
                   </div>
                 </div>
                 <% } %>
-                
+
                 <p style="font-family: Avenir; font-size: 14px; font-weight: 300; color: #4a4a4a; margin-bottom: 10px;">Por: <%= noticia['name'] %> - <%= noticia['date'] %></p>
                 
                 <div style="overflow-y: auto; height: 659px; width: 719px;">
