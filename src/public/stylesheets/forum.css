@@ -37,7 +37,7 @@ input[name="noticias"]:checked + label {
 	color: #ffffff;
 }
 
-input[name="noticias"]:checked + label p { 
+input[name="noticias"]:checked + label > p { 
 	cursor: default;
 	color: #ffffff;
 }
