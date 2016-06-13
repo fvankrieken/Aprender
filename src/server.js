@@ -762,7 +762,7 @@ app.post('/Noticias', function(req, res, next) { downForMaintenance('/Noticias',
 });
 
 // POST noticias/topic: edit topic
-app.post('/Noticias/*,' ensureAuthenticated, function(req, res) {
+app.post('/Noticias/*', ensureAuthenticated, function(req, res) {
   var patharray = req.path.split('/');
   var OGpathName = patharray[patharray.length-1];
   collection = db.collection('noticiasP');
