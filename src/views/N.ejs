@@ -138,10 +138,10 @@
                 <% var text = noticia['text'] %>
                 <% texts = text.split('\r\n\r\n') %>
                 <p>
-                  <% texts.forEach(text, index) { %>
+                  <% texts.forEach(function(text, index) { %>
                     <%= text %>
                     <br>
-                  <% } %>
+                  <% }) %>
                 </p>
                 </div>
               </div>
