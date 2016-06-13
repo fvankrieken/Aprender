@@ -134,8 +134,8 @@
                 <p style="font-family: Avenir; font-size: 14px; font-weight: 300; color: #4a4a4a; margin-bottom: 20px;">Por: <%= noticia['name'] %> - <%= noticia['date'] %></p>
                 
                 <div style="overflow-y: auto; height: 677px; width: 724px;">
-                <% if (noticia['image'] != '') { %> <img src=<%= noticia['image'] %> style='float: left; max-width: 300px; padding-right: 20px; padding-bottom: 20px;'/> <% } %> 
-                <p> <%= noticia['text'] %> </p>
+                <% if (noticia['image'] != '') { %> <img src=<%= noticia['image'] %> style='float: left; max-width: 300px; padding-right: 20px; padding-bottom: 20px; padding-top: 5px;'/> <% } %> 
+                <p> <%- noticia['text'] %> </p>
                 </div>
               </div>
               <% first = true %>
