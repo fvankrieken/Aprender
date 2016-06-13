@@ -132,7 +132,7 @@
                 <p style="font-family: Avenir; font-size: 18px; font-weight: 500; line-height: 1.06; color: #2f2f2f; margin-bottom: 10px"><%= noticia['title'] %></p>
                 <p style="font-family: Avenir; font-size: 14px; font-weight: 300; color: #4a4a4a; margin-bottom: 10px;">Por: <%= noticia['name'] %> - <%= noticia['date'] %></p>
                 
-                <div style="overflow-y: auto; height: 677px; width: 724px;">
+                <div style="overflow-y: auto; height: 665px; width: 724px;">
                 <% if (noticia['image'] != '') { %> <img src=<%= noticia['image'] %> style='float: left; max-width: 300px; padding-right: 20px; padding-bottom: 20px; padding-top: 3px;'/> <% } %> 
                 <% var text = noticia['text'] %>
                 <% texts = text.split('\r\n\r\n') %>
