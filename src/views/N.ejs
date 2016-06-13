@@ -77,9 +77,9 @@
 
 <!-- noticias -->
           <% noticias.reverse() %>
-          <input type="text" name="title" id="search" placeholder="buscar" class="search" autocomplete="off" style="margin-top: 10px"/>
+          <input type="text" name="title" id="search" placeholder="buscar" class="search" autocomplete="off" style="margin-top: 20px"/>
           <% var first = true %>
-          <div style="width: 100%; border-top: solid 1px #ffffff; margin-top: 10px">
+          <div style="width: 100%; border-top: solid 1px #ffffff; margin-top: 20px">
             <% noticias.forEach(function(noticia, index) { %>
               <% var i = index + 1 %>
               <% var noticiaNum = "noticia" + i.toString() %>
@@ -122,15 +122,15 @@
             <p style="margin-bottom: 0px;"> Noticias </p>
           </div>
 
-          <div style="margin-left: 30px; margin-top: 30px;">
+          <div style="margin-left: 30px; margin-top: 15px;">
 
             <% noticias.forEach(function(noticia, index) { %>
               <% var i = index + 1 %>
               <% var noticiaNum = "noticia" + i.toString() %>
 
               <div id="<%= noticia['pathName'] %>" class="noticias" <% if (first) { %> style="display: none" <% } %>>
-                <p style="font-family: Avenir; font-size: 18px; font-weight: 500; line-height: 1.06; color: #2f2f2f; margin-bottom: 20px"><%= noticia['title'] %></p>
-                <p style="font-family: Avenir; font-size: 14px; font-weight: 300; color: #4a4a4a; margin-bottom: 20px;">Por: <%= noticia['name'] %> - <%= noticia['date'] %></p>
+                <p style="font-family: Avenir; font-size: 18px; font-weight: 500; line-height: 1.06; color: #2f2f2f; margin-bottom: 10px"><%= noticia['title'] %></p>
+                <p style="font-family: Avenir; font-size: 14px; font-weight: 300; color: #4a4a4a; margin-bottom: 10px;">Por: <%= noticia['name'] %> - <%= noticia['date'] %></p>
                 
                 <div style="overflow-y: auto; height: 677px; width: 724px;">
                 <% if (noticia['image'] != '') { %> <img src=<%= noticia['image'] %> style='float: left; max-width: 300px; padding-right: 20px; padding-bottom: 20px; padding-top: 3px;'/> <% } %> 
