@@ -761,6 +761,24 @@ app.post('/Noticias', function(req, res, next) { downForMaintenance('/Noticias',
   });
 });
 
+// POST noticias/topic: edit topic
+app.post('/Noticias/*,' ensureAuthenticated, function(req, res) {
+  var patharray = req.path.split('/');
+  var OGpathName = patharray[patharray.length-1];
+  collection = db.collection('noticiasP');
+  
+  var title = req.body.title
+  var tempName = utils.toTitleCase(title)
+  var tempName2 = tempName.replace(/\s/g, '');
+  var pathName = utils.removeDiacritics(tempName2).replace(/\W/g, '');
+
+  var toInsert = {'pathName': pathName,'title': title, 'text': req.body.text, 'name': req.body.name, 'date': req.body.date, 'image': req.body.image}
+    
+  collection.findOneAndUpdate({'pathName': OGpathName}, toInsert, function(err, count) {
+    res.redirect('/Noticias');
+  });
+})
+
 // GET noticias/topic: remove topic
 app.get('/Noticias/*', ensureAuthenticated, function(req, res) {
   var patharray = req.path.split('/');
