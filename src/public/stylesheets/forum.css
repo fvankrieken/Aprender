@@ -34,12 +34,12 @@ input[name="topics"]:checked + label {
 input[name="noticias"]:checked + label { 
 	background-color: rgba(255, 255, 255, 0.35);
 	cursor: default;
-	color: #ffffff;
+	color: #ffffff !important;
 }
 
 input[name="noticias"]:checked + label > p { 
 	cursor: default;
-	color: #ffffff;
+	color: #ffffff !important;
 }
 
 .forumLabel p:hover {

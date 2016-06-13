@@ -85,7 +85,7 @@
               <% var noticiaNum = "noticia" + i.toString() %>
               <% var noticiaNumLabel = noticiaNum + "label" %>
               <input type="radio" name="noticias" id="<%= noticiaNumLabel %>" <% if (first) { %>checked<% } %>/>
-              <label for="<%= noticiaNumLabel %>" onclick="showOption('<%= noticia['pathName'] %>')" class="forumLabel" style="color: #f7ead7">
+              <label for="<%= noticiaNumLabel %>" onclick="showOption('<%= noticia['pathName'] %>')" class="forumLabel" style="color: #f7ead7;">
                 <%= noticia['title'] %>
                 <p style="font-family: Avenir; font-size: 14px; font-weight: 300; color: #f2f2f2; margin-bottom: 0px;"><%= noticia['date'] %></p>
                 <% if (isAdmin) { %>
