@@ -130,7 +130,7 @@
 
               <% if (isAdmin) { %>
               <p style="display: inline; float: right; padding-right: 25px; margin: 0;">
-                <a data-toggle="modal" data-target="#<%= noticiaNum %>" style="color: #0187e0 !important">Eliminar Tema</a>
+                <a data-toggle="modal" data-target="#<%= noticiaNum %>" style="color: #0187e0 !important">Editar</a>
               </p>
               <div class="modal fade" id="<%= noticiaNum %>" role="dialog">
                 <div class="modal-dialog modal-sm" style="width: 500px">
@@ -151,7 +151,7 @@
                           <input type="text" name="image" value="<%= noticia['image'] %>" />
                         </label>
                         <label>Su nombre
-                          <input type="text" name="name" value="<%= noticia['nombre'] %>" />
+                          <input type="text" name="name" value="<%= noticia['name'] %>" />
                         </label>
                         <label>Fecha
                         <input type="text" name="date" value="<%= noticia['date'] %>" />
