@@ -75,7 +75,7 @@
           </div>
         <% } %>
 
-<!-- noticias -->
+<!-- noticias bar -->
           <% noticias.reverse() %>
           <input type="text" name="title" id="search" placeholder="buscar" class="search" autocomplete="off" style="margin-top: 20px"/>
           <% var first = true %>
@@ -136,7 +136,7 @@
                 <p style="display: inline; float: right; margin: 0; font-size: 15px;">
                   <a data-toggle="modal" data-target="#<%= noticiaNum %>" style="color: #0187e0 !important">Editar</a>
                 </p>
-                <div class="modal fade" id="<%= noticiaNum %>" role="dialog">
+                <div class="modal fade" id="<%= noticiaNum %>" role="dialog" style="margin-top: 60px;">
                   <div class="modal-dialog modal-sm" style="width: 500px">
                     <div class="modal-content">
                       <form action="/Noticias/<%= noticia['pathName'] %>" method="POST">
