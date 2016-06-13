@@ -140,15 +140,15 @@
                   <% texts.forEach(function(text, index) { %>
                     <% if (text.includes('\r\n')) { %>
                       <% var subTexts = text.split('\r\n') %>
-                      <% subTexts.forEach(function(subText, index) { %>
+                      <% subTexts.forEach(function(subText, index2) { %>
                         <%= subText %>
-                        <br>
+                        <% if (index2 != (subTexts.length-1)) { %><br><% } %>
                       <% }); %>
                     <% } else { %>
                       <%= text %>
-                      <br>
+                      <% if (index != (texts.length-1)) { %><br><% } %>
                     <% } %>
-                    <br>
+                    <% if (index != (texts.length-1)) { %><br><% } %>
                   <% }) %>
                 </p>
                 </div>
