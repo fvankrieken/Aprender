@@ -141,7 +141,7 @@
                 <% texts = text.split('\r\n\r\n') %>
                 <p>
                   <% texts.forEach(function(text, index) { %>
-                    <% if (text.includes('\r\n') { %>
+                    <% if (text.includes('\r\n')) { %>
                       <% var subTexts = text.split('\r\n') %>
                       <% subTexts.forEach(function(subText, index) { %>
                         <%= subText %>
