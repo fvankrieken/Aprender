@@ -33,8 +33,6 @@
       <% include partials/downButton %>
     <% } %>
 
-    <% var firstTopic %>
-
     <div class="main">
 
       <div style="display: flex;">
@@ -86,8 +84,7 @@
               <% var i = index + 1 %>
               <% var noticiaNum = "noticia" + i.toString() %>
               <% var noticiaNumLabel = noticiaNum + "label" %>
-              <input type="radio" name="noticias" id="<%= noticiaNumLabel %>"/>
-              <% if (first) { firstTopic = noticia['pathName'] } %>
+              <input type="radio" name="noticias" id="<%= noticiaNumLabel %>" <% if (first) { %>checked<% } %>/>
               <label for="<%= noticiaNumLabel %>" onclick="showOption('<%= noticia['pathName'] %>')" class="forumLabel">
                 <%= noticia['title'] %>
                 <% if (isAdmin) { %>
@@ -372,7 +369,6 @@
 
     $( window ).load(function() {
       getDate();
-      showOption(<%= firstTopic %>)
     })
 
     </script>
