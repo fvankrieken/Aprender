@@ -172,7 +172,7 @@
                 <% if (noticia['image'] != '') { %> <img src=<%= noticia['image'] %> style='float: left; max-width: 300px; padding-right: 20px; padding-bottom: 20px; padding-top: 3px;'/> <% } %> 
                 <% var text = noticia['text'] %>
                 <% texts = text.split('\r\n\r\n') %>
-                <p style="margin-bottom: 0px;">
+                <p style="margin-bottom: 0px; text-align: justify;">
                   <% texts.forEach(function(text, index) { %>
                     <% if (text.includes('\r\n')) { %>
                       <% var subTexts = text.split('\r\n') %>
