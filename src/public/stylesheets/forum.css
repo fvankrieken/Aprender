@@ -42,10 +42,6 @@ input[name="noticias"]:checked + label > p {
 	color: #ffffff !important;
 }
 
-.forumLabel p:hover {
-	color: #ffffff;
-}
-
 .forumLabel:hover {
 	color: #ffffff;
 }
