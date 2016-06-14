@@ -180,7 +180,18 @@
                     <% if (text.includes('\r\n')) { %>
                       <% var subTexts = text.split('\r\n') %>
                       <% subTexts.forEach(function(subText, index2) { %>
-                        <%= subText %>
+                        <% if (subText.includes(']]{{')) { %>
+                          <% while (subText.includes(']]{{')) { %>
+                            <% var preString = subText.substring(0, subText.indexOf('[[') %>
+                            <% var toLink = subText.substring(subText.indexOf('[[') + 1, subText.indexOf(']]')) %>
+                            <% var link = subText.substring(subText.indexOf('{{') + 1, subText.indexOf('}}')) %>
+                            <% var subText = subText.substring(subText.indexOf('}}')+1, subText.length) %>
+                            <%= preString %>
+                            <a href="<%= link %>"><%= toLink %></a>
+                          <% } %>
+                        <% } else { %>
+                          <%= subText %>
+                        <% } %>
                         <% if (index2 != (subTexts.length-1)) { %><br><% } %>
                       <% }); %>
                     <% } else { %>
@@ -401,6 +412,12 @@
           var toDate = commentDates[i]
           $(toDate).val(today)
         }
+    }
+
+    function makeLink()
+    {
+
+
     }
 
     //call getDate() when loading the page
