@@ -442,9 +442,9 @@
       console.log(uri)
       console.log(re)
       if (uri.match(re)) {
-        return uri.assign(re, '$1' + key + "=" + value + '$2');
+        return uriObject.assign(re, '$1' + key + "=" + value + '$2');
       } else {
-        return uri.assign(uri + separator + key + "=" + value);
+        return uriObject.assign(uri + separator + key + "=" + value);
       }
     }
 
