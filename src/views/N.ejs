@@ -411,6 +411,7 @@
       }
 
       document.getElementById(topic).style.display = "initial";
+      updateQueryStringParameter(window.location.href, 'n', topic)
     }
 
     function hideIcon(self) {
@@ -434,17 +435,41 @@
         }
     }
 
-    function makeLink()
-    {
-
-
+    function updateQueryStringParameter(uri, key, value) {
+      var re = new RegExp("([?&])" + key + "=.*?(&|$)", "i");
+      var separator = uri.indexOf('?') !== -1 ? "&" : "?";
+      if (uri.match(re)) {
+        return uri.replace(re, '$1' + key + "=" + value + '$2');
+      }
+      else {
+        return uri + separator + key + "=" + value;
+      }
     }
 
     //call getDate() when loading the page
+
+    function getQueryVariable(variable) {
+        var query = window.location.search.substring(1);
+        var vars = query.split('&');
+        for (var i = 0; i < vars.length; i++) {
+            var pair = vars[i].split('=');
+            if (decodeURIComponent(pair[0]) == variable) {
+                return decodeURIComponent(pair[1]);
+            }
+        }
+    }
    
 
     $( window ).load(function() {
       getDate();
+      var am=getQueryVariable("n");
+      showOption(am)
+      var allElems = document.getElementsByName('noticias');
+      for (i = 0; i < allElems.length; i++) {
+        if (allElems[i].type == 'radio' && allElems[i].value ==am ) {
+            allElems[i].checked = true;
+        }
+      }
     })
 
     </script>
