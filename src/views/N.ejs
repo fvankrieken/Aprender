@@ -164,7 +164,7 @@
                           <label> Grande
                             <select name="big" form="editSubject">
                               <option value="true">Sí</option>
-                              <option value="false" <% if noticia['big'] {%>selected<% } %>>No</option>
+                              <option value="false" <% if (!noticia['big']) { %>selected<% } %>>No</option>
                             </select>
                           </label>
                           <label>Su nombre
