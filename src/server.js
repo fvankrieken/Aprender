@@ -760,7 +760,7 @@ app.post('/Noticias', function(req, res, next) { downForMaintenance('/Noticias',
   var tempName = utils.toTitleCase(title)
   var tempName2 = tempName.replace(/\s/g, '');
   var pathName = utils.removeDiacritics(tempName2).replace(/\W/g, '');
-  
+  var big = (req.body.big == 'true')
 
   collection.count({'pathName': pathName}, function(err, count) {
     if (count != 0) {
@@ -768,7 +768,7 @@ app.post('/Noticias', function(req, res, next) { downForMaintenance('/Noticias',
       res.redirect('/Noticias');
       return;
     }
-    var toInsert = {'pathName': pathName,'title': title, 'text': req.body.text, 'name': req.body.name, 'date': req.body.date, 'image': image}
+    var toInsert = {'pathName': pathName,'title': title, 'text': req.body.text, 'name': req.body.name, 'date': req.body.date, 'image': image, 'big': big}
     collection.insert(toInsert, function(err, count) {
       res.redirect('/Noticias');
     });
@@ -785,8 +785,9 @@ app.post('/Noticias/*', ensureAuthenticated, function(req, res) {
   var tempName = utils.toTitleCase(title)
   var tempName2 = tempName.replace(/\s/g, '');
   var pathName = utils.removeDiacritics(tempName2).replace(/\W/g, '');
+  var big = (req.body.big == 'true')
 
-  var toInsert = {'pathName': pathName,'title': title, 'text': req.body.text, 'name': req.body.name, 'date': req.body.date, 'image': req.body.image}
+  var toInsert = {'pathName': pathName,'title': title, 'text': req.body.text, 'name': req.body.name, 'date': req.body.date, 'image': req.body.image, 'big': big}
     
   collection.findOneAndUpdate({'pathName': OGpathName}, toInsert, function(err, count) {
     res.redirect('/Noticias');
