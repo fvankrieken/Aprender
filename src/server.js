@@ -750,6 +750,12 @@ app.get('/Noticias', function(req, res, next) { downForMaintenance('/Noticias', 
 
 // POST noticias: adding a new topic
 app.post('/Noticias', function(req, res, next) { downForMaintenance('/Noticias', req, res, next) }, function(req, res) {
+  var image = '';
+  if (req.file) {
+    noticiasUpload.single('image')
+    image = req.file.filename
+  }
+
   var collection = db.collection('noticiasP')
   var title = req.body.title
   console.log(title)
@@ -757,11 +763,7 @@ app.post('/Noticias', function(req, res, next) { downForMaintenance('/Noticias',
   var tempName = utils.toTitleCase(title)
   var tempName2 = tempName.replace(/\s/g, '');
   var pathName = utils.removeDiacritics(tempName2).replace(/\W/g, '');
-  var image = '';
-  if (req.file) {
-    noticiasUpload.single('image')
-    image = req.file.filename
-  }
+  
 
   collection.count({'pathName': pathName}, function(err, count) {
     if (count != 0) {
@@ -852,9 +854,8 @@ app.post('/admin', ensureAuthenticated, upload.single('pdf'), function(req, res)
 
   var comps = uploadInfo.comps.split(', ');
   var temas = uploadInfo.temas.split(', ');
-  var badge;
-  if (uploadInfo.badge == "True") { badge = true } else { badge = false }
-
+  var badge = (uploadInfo.badge == "True")
+  
   var toInsert = {'pathName': pathName, 'title': title, 'descript': uploadInfo.descript, 'cont': uploadInfo.Cont, 'comps': comps, 'temas': temas, 
   'email': uploadInfo.email, 'fileName': fileName, 'downloadName': downloadName, 'badge': badge, 'desde': uploadInfo.desde }
 
