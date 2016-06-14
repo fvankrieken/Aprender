@@ -180,29 +180,25 @@
                     <% if (text.includes('\r\n')) { %>
                       <% var subTexts = text.split('\r\n') %>
                       <% subTexts.forEach(function(subText, index2) { %>
-                        <% if (subText.includes(']]{{')) { %>
-                          <% while (subText.includes(']]{{')) { %>
-                            <% var preString = subText.substring(0, subText.indexOf('[[')) %>
-                            <% var toLink = subText.substring(subText.indexOf('[[') + 2, subText.indexOf(']]')) %>
-                            <% var link = subText.substring(subText.indexOf('{{') + 2, subText.indexOf('}}')) %>
-                            <% var subText = subText.substring(subText.indexOf('}}')+2, subText.length) %>
-                            <%= preString %>
-                            <a href="<%= link %>" style="color: #0187e0 !important"><%= toLink %></a>
-                          <% } %>
+                        <% while (subText.includes('[[') && (subText.indexOf('[[') < subText.indexOf(']]{{')) && (subText.indexOf(']]{{') < subText.indexOf('}}'))) { %>
+                          <% var preString = subText.substring(0, subText.indexOf('[[')) %>
+                          <% var toLink = subText.substring(subText.indexOf('[[') + 2, subText.indexOf(']]')) %>
+                          <% var link = subText.substring(subText.indexOf('{{') + 2, subText.indexOf('}}')) %>
+                          <% var subText = subText.substring(subText.indexOf('}}') + 2, subText.length) %>
+                          <%= preString %>
+                          <a href="<%= link %>" style="color: #0187e0 !important"><%= toLink %></a>
                         <% } %>
                         <%= subText %>
                         <% if (index2 != (subTexts.length-1)) { %><br><% } %>
                       <% }); %>
                     <% } else { %>
-                      <% if (text.includes(']]{{')) { %>
-                        <% while (text.includes(']]{{')) { %>
-                          <% var preString = text.substring(0, text.indexOf('[[')) %>
-                          <% var toLink = text.substring(text.indexOf('[[') + 2, text.indexOf(']]')) %>
-                          <% var link = text.substring(text.indexOf('{{') + 2, text.indexOf('}}')) %>
-                          <% var text = text.substring(text.indexOf('}}') + 2, text.length) %>
-                          <%= preString %>
-                          <a href="<%= link %>" style="color: #0187e0 !important"><%= toLink %></a>
-                        <% } %>
+                      <% while (subText.includes('[[') && (subText.indexOf('[[') < subText.indexOf(']]{{')) && (subText.indexOf(']]{{') < subText.indexOf('}}'))) { %>                      
+                        <% var preString = text.substring(0, text.indexOf('[[')) %>
+                        <% var toLink = text.substring(text.indexOf('[[') + 2, text.indexOf(']]')) %>
+                        <% var link = text.substring(text.indexOf('{{') + 2, text.indexOf('}}')) %>
+                        <% var text = text.substring(text.indexOf('}}') + 2, text.length) %>
+                        <%= preString %>
+                        <a href="<%= link %>" style="color: #0187e0 !important"><%= toLink %></a>
                       <% } %>
                       <%= text %>
                       <% if (index != (texts.length-1)) { %><br><% } %>
