@@ -164,7 +164,7 @@
                           <label> Grande
                             <select name="big" form="edit<%= noticia['pathName'] %>">
                               <option value="true">Sí</option>
-                              <option value="false" <% if (!noticia['big']) { %>checked<% } %>>No</option>
+                              <option value="false" <% if (!noticia['big']) { %>selected<% } %>>No</option>
                             </select>
                           </label>
                           <label>Su nombre
@@ -186,7 +186,7 @@
                 <div style="overflow-y: auto; height: 659px; width: 714px;">
                 <% if (noticia['image'] != '') { %>
                   <% if (noticia['big']) { %>
-                    <a href="/noticiasimg/<%= noticia['image'] %>"><img src="/noticiasimg/<%= noticia['image'] %>" style="max-width: 714px; margin: auto; padding-bottom: 20px;'/></a>
+                    <a href="/noticiasimg/<%= noticia['image'] %>"><img src="/noticiasimg/<%= noticia['image'] %>" style="max-width: 714px; margin: auto; padding-bottom: 20px;"/></a>
                   <% } else { %>
                     <a href="/noticiasimg/<%= noticia['image'] %>"><img src="/noticiasimg/<%= noticia['image'] %>" style='float: left; max-width: 300px; padding-right: 20px; padding-bottom: 20px; padding-top: 4px;'/></a>
                   <% } %> 
