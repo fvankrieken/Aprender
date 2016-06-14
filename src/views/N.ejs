@@ -439,7 +439,7 @@
       if (uriObject.href.includes('?')) {
         return uriObject.assign(uri.split('?')[0] + '?n=' + value)
       } else {
-        return uriObject.assign(uri + "?n=" + value);
+        return uriObject.assign(uriObject.href + "?n=" + value);
       }
     }
 
