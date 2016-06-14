@@ -437,7 +437,7 @@
 
     function updateQueryStringParameter(uriObject, value) {
       var uri = uriObject.href
-      if (uriincludes('?')) {
+      if (uri.includes('?')) {
         return uriObject.assign(uri.split('?')[0] + '?n=' + value)
       } else {
         return uriObject.assign(uri + "?n=" + value);
