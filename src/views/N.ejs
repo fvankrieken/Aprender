@@ -136,11 +136,10 @@
               <% var noticiaNum = "noticia" + i.toString() %>
 
               <div id="<%= noticia['pathName'] %>" class="noticias" style="display: none">
-                <p style="font-family: Avenir; font-size: 18px; font-weight: 500; line-height: 1.06; color: #2f2f2f; margin-bottom: 10px; text-align: center; margin-top: 30px"><%= noticia['title'] %></p>
-
+                <p style="font-family: Avenir; font-size: 18px; font-weight: 500; line-height: 1.06; color: #2f2f2f; margin-bottom: 10px; text-align: center; margin-top: 30px"><%= noticia['title'] %>
                 <% if (isAdmin) { %>
-                <p style="display: inline; float: right; margin: 0; font-size: 15px;">
                   <a data-toggle="modal" data-target="#<%= noticiaNum %>" style="color: #0187e0 !important">Editar</a>
+                <% } %>
                 </p>
                 <div class="modal fade" id="<%= noticiaNum %>" role="dialog">
                   <div class="modal-dialog modal-sm" style="width: 500px; margin-top: 40px !important;">
