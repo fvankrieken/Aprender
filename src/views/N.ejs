@@ -85,13 +85,12 @@
 <!-- noticias bar -->
           <% noticias.reverse() %>
           <input type="text" name="title" id="search" placeholder="buscar" class="search" autocomplete="off" style="margin-top: 20px"/>
-          <% var first = true %>
           <div style="width: 100%; border-top: solid 1px #ffffff; margin-top: 20px">
             <% noticias.forEach(function(noticia, index) { %>
               <% var i = index + 1 %>
               <% var noticiaNum = "noticia" + i.toString() %>
               <% var noticiaNumLabel = noticiaNum + "label" %>
-              <input type="radio" name="noticias" id="<%= noticiaNumLabel %>" <% if (first) { %>checked<% } %>/>
+              <input type="radio" name="noticias" id="<%= noticiaNumLabel %>"/>
               <label for="<%= noticiaNumLabel %>" onclick="showOption('<%= noticia['pathName'] %>')" class="forumLabel" style="color: #f7ead7;">
                 <%= noticia['title'] %>
                 <p class="nDate"><%= noticia['date'] %></p>
@@ -136,8 +135,8 @@
               <% var i = index + 1 %>
               <% var noticiaNum = "noticia" + i.toString() %>
 
-              <div id="<%= noticia['pathName'] %>" class="noticias" <% if (first) { %> style="display: none" <% } %>>
-                <p style="font-family: Avenir; font-size: 18px; font-weight: 500; line-height: 1.06; color: #2f2f2f; margin-bottom: 10px; text-align: center;"><%= noticia['title'] %></p>
+              <div id="<%= noticia['pathName'] %>" class="noticias" style="display: none">
+                <p style="font-family: Avenir; font-size: 18px; font-weight: 500; line-height: 1.06; color: #2f2f2f; margin-bottom: 10px; text-align: center; margin-top: 20px"><%= noticia['title'] %></p>
 
                 <% if (isAdmin) { %>
                 <p style="display: inline; float: right; margin: 0; font-size: 15px;">
@@ -228,7 +227,6 @@
                 </p>
                 </div>
               </div>
-              <% first = true %>
             <% }); %>
           </div>
         </div>
