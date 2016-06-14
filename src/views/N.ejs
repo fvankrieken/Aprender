@@ -192,7 +192,7 @@
                         <% if (index2 != (subTexts.length-1)) { %><br><% } %>
                       <% }); %>
                     <% } else { %>
-                      <% while (subText.includes('[[') && (subText.indexOf('[[') < subText.indexOf(']]{{')) && (subText.indexOf(']]{{') < subText.indexOf('}}'))) { %>                      
+                      <% while (text.includes('[[') && (text.indexOf('[[') < text.indexOf(']]{{')) && (text.indexOf(']]{{') < text.indexOf('}}'))) { %>                      
                         <% var preString = text.substring(0, text.indexOf('[[')) %>
                         <% var toLink = text.substring(text.indexOf('[[') + 2, text.indexOf(']]')) %>
                         <% var link = text.substring(text.indexOf('{{') + 2, text.indexOf('}}')) %>
