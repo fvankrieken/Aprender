@@ -198,9 +198,9 @@
                       <% if (text.includes(']]{{')) { %>
                         <% while (text.includes(']]{{')) { %>
                           <% var preString = text.substring(0, text.indexOf('[[')) %>
-                          <% var toLink = text.substring(text.indexOf('[[') + 1, text.indexOf(']]')) %>
-                          <% var link = text.substring(text.indexOf('{{') + 1, text.indexOf('}}')) %>
-                          <% var text = text.substring(text.indexOf('}}')+1, text.length) %>
+                          <% var toLink = text.substring(text.indexOf('[[') + 2, text.indexOf(']]')) %>
+                          <% var link = text.substring(text.indexOf('{{') + 2, text.indexOf('}}')) %>
+                          <% var text = text.substring(text.indexOf('}}') + 2, text.length) %>
                           <%= preString %>
                           <a href="<%= link %>"><%= toLink %></a>
                         <% } %>
