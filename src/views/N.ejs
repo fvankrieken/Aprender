@@ -439,11 +439,10 @@
       var re = new RegExp("([?&])" + key + "=.*?(&|$)", "i");
       var separator = uri.indexOf('?') !== -1 ? "&" : "?";
       console.log(uri)
+      console.log(re)
       if (uri.match(re)) {
         return uri.replace(re, '$1' + key + "=" + value + '$2');
-      }
-      console.log(re)
-      else {
+      } else {
         return uri + separator + key + "=" + value;
       }
     }
