@@ -91,7 +91,7 @@
             <% var i = index + 1 %>
             <% var noticiaNum = "noticia" + i.toString() %>
             <% var noticiaNumLabel = noticiaNum + "label" %>
-            <input type="radio" name="noticias" id="<%= noticiaNumLabel %>" <% if (first) { %>checked<% } %>/>
+            <input type="radio" name="noticias" id="<%= noticiaNumLabel %>" value="<%= noticia['pathName'] %>" <% if (first) { %>checked<% } %>/>
             <label for="<%= noticiaNumLabel %>" onclick="showOption('<%= noticia['pathName'] %>')" class="forumLabel" style="color: #f7ead7;">
               <%= noticia['title'] %>
               <p class="nDate"><%= noticia['date'] %></p>
@@ -463,11 +463,13 @@
     $( window ).load(function() {
       getDate();
       var am=getQueryVariable("n");
-      showOption(am)
-      var allElems = document.getElementsByName('noticias');
-      for (i = 0; i < allElems.length; i++) {
-        if (allElems[i].type == 'radio' && allElems[i].value ==am ) {
-            allElems[i].checked = true;
+      if (am) {
+        showOption(am)
+        var allElems = document.getElementsByName('noticias');
+        for (i = 0; i < allElems.length; i++) {
+          if (allElems[i].type == 'radio' && allElems[i].value ==am ) {
+              allElems[i].checked = true;
+          }
         }
       }
     })
