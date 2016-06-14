@@ -146,7 +146,7 @@
                 <div class="modal fade" id="<%= noticiaNum %>" role="dialog">
                   <div class="modal-dialog modal-sm" style="width: 500px; margin-top: 40px !important;">
                     <div class="modal-content">
-                      <form action="/Noticias/<%= noticia['pathName'] %>" method="POST" id="editSubject">
+                      <form action="/Noticias/<%= noticia['pathName'] %>" method="POST" id="edit<%= noticia['pathName'] %>">
                         <div class="modal-header">
                           <button type="button" class="close" data-dismiss="modal">&times;</button>
                           <h4 class="modal-title" style="text-align: center">Editar noticia</h4>
@@ -162,9 +162,9 @@
                             <input type="text" name="image" value="<%= noticia['image'] %>" />
                           </label>
                           <label> Grande
-                            <select name="big" form="editSubject">
+                            <select name="big" form="edit<%= noticia['pathName'] %>">
                               <option value="true">Sí</option>
-                              <option value="false" <% if (!noticia['big']) { %>selected<% } %>>No</option>
+                              <option value="false" <% if (!noticia['big']) { %>checked<% } %>>No</option>
                             </select>
                           </label>
                           <label>Su nombre
