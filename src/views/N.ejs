@@ -171,7 +171,7 @@
 
                 <p style="font-family: Avenir; font-size: 14px; font-weight: 300; color: #4a4a4a; margin-bottom: 10px;"><%= noticia['name'] %> - <%= noticia['date'] %></p>
                 
-                <div style="overflow-y: auto; height: 659px; width: 719px;">
+                <div style="overflow-y: auto; height: 654px; width: 719px;">
                 <% if (noticia['image'] != '') { %> <a href="/noticiasimg/<%= noticia['image'] %>"><img src="/noticiasimg/<%= noticia['image'] %>" style='float: left; max-width: 300px; padding-right: 20px; padding-bottom: 20px; padding-top: 4px;'/></a> <% } %> 
                 <% var text = noticia['text'] %>
                 <% texts = text.split('\r\n\r\n') %>
