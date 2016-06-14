@@ -749,14 +749,18 @@ app.get('/Noticias', function(req, res, next) { downForMaintenance('/Noticias', 
 });
 
 // POST noticias: adding a new topic
-app.post('/Noticias', function(req, res, next) { downForMaintenance('/Noticias', req, res, next) }, function(req, res) {
+app.post('/Noticias', function(req, res, next) { downForMaintenance('/Noticias', req, res, next) }, noticiasUpload.single('image'), function(req, res) {
+  var image = '';
+  if (req.file) {
+    image = req.file.filename
+  }
+
   var collection = db.collection('noticiasP')
-  console.log(req.body)
   var title = req.body.title
   var tempName = utils.toTitleCase(title)
   var tempName2 = tempName.replace(/\s/g, '');
   var pathName = utils.removeDiacritics(tempName2).replace(/\W/g, '');
-  var image = req.body.image
+  
 
   collection.count({'pathName': pathName}, function(err, count) {
     if (count != 0) {
