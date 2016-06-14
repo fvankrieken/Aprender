@@ -49,7 +49,7 @@ var tempStorage = multer.diskStorage({
   filename: function (req, file, cb) {
     cb(null, file.originalname)
   }
-})
+});
 var otherStorage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, __dirname + '/public/ejemplos')
@@ -57,10 +57,19 @@ var otherStorage = multer.diskStorage({
   filename: function (req, file, cb) {
     cb(null, file.originalname)
   }
-})
-var upload = multer({ storage: storage })
-var tempUpload = multer({ storage: tempStorage })
-var otherUpload = multer({ storage: otherStorage})
+});
+var noticiasStorage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, __dirname + '/public/noticiasimg')
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname)
+  }
+});
+var upload = multer({ storage: storage });
+var tempUpload = multer({ storage: tempStorage });
+var otherUpload = multer({ storage: otherStorage});
+var noticiasUpload = multer({ storage: noticiasStorage });
 
 // Users for login (for administrator privileges)
 var users = [
@@ -746,7 +755,11 @@ app.post('/Noticias', function(req, res, next) { downForMaintenance('/Noticias',
   var tempName = utils.toTitleCase(title)
   var tempName2 = tempName.replace(/\s/g, '');
   var pathName = utils.removeDiacritics(tempName2).replace(/\W/g, '');
-  var image = req.body.image
+  var image = '';
+  if (req.file) {
+    noticiasUpload.single('image')
+    image = req.file.filename
+  }
 
   collection.count({'pathName': pathName}, function(err, count) {
     if (count != 0) {
