@@ -751,6 +751,7 @@ app.get('/Noticias', function(req, res, next) { downForMaintenance('/Noticias', 
 // POST noticias: adding a new topic
 app.post('/Noticias', function(req, res, next) { downForMaintenance('/Noticias', req, res, next) }, function(req, res) {
   var collection = db.collection('noticiasP')
+  console.log(req.body)
   var title = req.body.title
   var tempName = utils.toTitleCase(title)
   var tempName2 = tempName.replace(/\s/g, '');
