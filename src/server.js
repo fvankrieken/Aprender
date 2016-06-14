@@ -752,6 +752,8 @@ app.get('/Noticias', function(req, res, next) { downForMaintenance('/Noticias', 
 app.post('/Noticias', function(req, res, next) { downForMaintenance('/Noticias', req, res, next) }, function(req, res) {
   var collection = db.collection('noticiasP')
   var title = req.body.title
+  console.log(title)
+  console.log(req.body);
   var tempName = utils.toTitleCase(title)
   var tempName2 = tempName.replace(/\s/g, '');
   var pathName = utils.removeDiacritics(tempName2).replace(/\W/g, '');
