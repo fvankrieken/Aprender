@@ -187,7 +187,7 @@
                             <% var link = subText.substring(subText.indexOf('{{') + 2, subText.indexOf('}}')) %>
                             <% var subText = subText.substring(subText.indexOf('}}')+2, subText.length) %>
                             <%= preString %>
-                            <a href="<%= link %>"><%= toLink %></a>
+                            <a href="<%= link %>" style="color: #0187e0 !important"><%= toLink %></a>
                           <% } %>
                         <% } %>
                         <%= subText %>
@@ -201,7 +201,7 @@
                           <% var link = text.substring(text.indexOf('{{') + 2, text.indexOf('}}')) %>
                           <% var text = text.substring(text.indexOf('}}') + 2, text.length) %>
                           <%= preString %>
-                          <a href="<%= link %>"><%= toLink %></a>
+                          <a href="<%= link %>" style="color: #0187e0 !important"><%= toLink %></a>
                         <% } %>
                       <% } %>
                       <%= text %>
