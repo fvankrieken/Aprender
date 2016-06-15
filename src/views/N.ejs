@@ -132,7 +132,7 @@
               <% var noticiaNum = "noticia" + i.toString() %>
 
               <div id="<%= noticia['pathName'] %>" class="noticias" <% if (!first) { %>style="display: none"<% } %>>
-                <p style="font-family: Avenir; font-size: 20px; font-weight: 500; line-height: 1.06; color: #2f2f2f; margin-bottom: 20px; text-align: center; margin-top: 30px"><%= noticia['title'] %></p>
+                <p style="font-family: Avenir-Roman; font-size: 20px; font-weight: 500; line-height: 1.06; color: #2f2f2f; margin-bottom: 20px; text-align: center; margin-top: 30px"><%= noticia['title'] %></p>
                 
                 <p style="font-family: Avenir; font-size: 14px; font-weight: 300; color: #4a4a4a; margin-bottom: 10px; text-align: center;"><%= noticia['name'] %> - <%= noticia['date'] %>
                 <% if (isAdmin) { %>
