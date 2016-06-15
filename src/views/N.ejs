@@ -92,7 +92,7 @@
             <% var noticiaNum = "noticia" + i.toString() %>
             <% var noticiaNumLabel = noticiaNum + "label" %>
             <input type="radio" name="noticias" id="<%= noticiaNumLabel %>" value="<%= noticia['pathName'] %>" <% if (first) { %>checked<% } %>/>
-            <label for="<%= noticiaNumLabel %>" onclick="showOption('<%= noticia['pathName'] %>')" class="forumLabel" style="color: #f7ead7;">
+            <label for="<%= noticiaNumLabel %>" onclick="showOption('<%= noticia['pathName'] %>')" class="forumLabel" style="color: #f7ead7; padding: 10px 20px">
               <%= noticia['title'] %>
               <p class="nDate"><%= noticia['date'] %></p>
               <% if (isAdmin) { %>
@@ -134,7 +134,7 @@
               <div id="<%= noticia['pathName'] %>" class="noticias" <% if (!first) { %>style="display: none"<% } %>>
                 <p style="font-family: Avenir; font-size: 18px; font-weight: 500; line-height: 1.06; color: #2f2f2f; margin-bottom: 10px; text-align: center; margin-top: 30px"><%= noticia['title'] %></p>
                 
-                <p style="font-family: Avenir; font-size: 14px; font-weight: 300; color: #4a4a4a; margin-bottom: 10px;"><%= noticia['name'] %> - <%= noticia['date'] %>
+                <p style="font-family: Avenir; font-size: 14px; font-weight: 300; color: #4a4a4a; margin-bottom: 10px; text-align: center;"><%= noticia['name'] %> - <%= noticia['date'] %>
                 <% if (isAdmin) { %>
                    - <a data-toggle="modal" data-target="#<%= noticiaNum %>" style="color: #0187e0 !important">Editar</a>
                 <% } %>
