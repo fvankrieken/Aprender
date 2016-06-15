@@ -777,7 +777,7 @@ app.post('/Noticias', ensureAuthenticated, noticiasUpload.single('image'), funct
 
 // POST noticias/topic: edit topic
 app.post('/Noticias/*', ensureAuthenticated, noticiasUpload.single('image'),function(req, res) {
-  var image = req.body.image;
+  var image = req.body.OGimage;
   if (req.file) {
     image = req.file.filename
   }

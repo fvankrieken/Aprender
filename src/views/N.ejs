@@ -158,6 +158,9 @@
                           <label style="display: inline;">Cambiar Imagen <br><br>
                             <input type="file" class="filestyle" data-buttonText="Elija imagen" name="image" id="image" data-buttonName="button" data-iconName="glyphicon glyphicon-inbox" data-placeholder="Ningún archivo" style="display:inline;"> 
                           </label>
+                          <label>Image
+                            <input type="hidden" name="OGimage" value="<%= noticia['image'] %>" />
+                          </label>
                           <label> Grande
                             <select name="big" form="edit<%= noticia['pathName'] %>">
                               <option value="true">Sí</option>
