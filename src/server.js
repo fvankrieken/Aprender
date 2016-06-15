@@ -749,7 +749,7 @@ app.get('/Noticias', function(req, res, next) { downForMaintenance('/Noticias', 
 });
 
 // POST noticias: adding a new topic
-app.post('/Noticias', function(req, res, next) { downForMaintenance('/Noticias', req, res, next) }, noticiasUpload.single('image'), function(req, res) {
+app.post('/Noticias', ensureAuthenticated, noticiasUpload.single('image'), function(req, res) {
   var image = '';
   if (req.file) {
     image = req.file.filename
@@ -776,7 +776,11 @@ app.post('/Noticias', function(req, res, next) { downForMaintenance('/Noticias',
 });
 
 // POST noticias/topic: edit topic
-app.post('/Noticias/*', ensureAuthenticated, function(req, res) {
+app.post('/Noticias/*', ensureAuthenticated, noticiasUpload.single('image'),function(req, res) {
+  var image = req.body.image;
+  if (req.file) {
+    image = req.file.filename
+  }
   var patharray = req.path.split('/');
   var OGpathName = patharray[patharray.length-1];
   collection = db.collection('noticiasP');
@@ -787,7 +791,7 @@ app.post('/Noticias/*', ensureAuthenticated, function(req, res) {
   var pathName = utils.removeDiacritics(tempName2).replace(/\W/g, '');
   var big = (req.body.big == 'true')
 
-  var toInsert = {'pathName': pathName,'title': title, 'text': req.body.text, 'name': req.body.name, 'date': req.body.date, 'image': req.body.image, 'big': big}
+  var toInsert = {'pathName': pathName,'title': title, 'text': req.body.text, 'name': req.body.name, 'date': req.body.date, 'image': image, 'big': big}
     
   collection.findOneAndUpdate({'pathName': OGpathName}, toInsert, function(err, count) {
     res.redirect('/Noticias');
