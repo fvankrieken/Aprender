@@ -185,20 +185,20 @@
     cats = [esp, mat, cie, his, tex];
     bs = [espB, matB, cieB, hisB, texB];
     noBs = [esps, mats, cies, hiss, texs];
-    bs.forEach(function(b, index)) {
+    bs.forEach(function(b, index) {
       cats[index].forEach(function(tema, index)) {
         if (tema['badge']) {
           b.push(tema)
         }
       }
-    }
-    noBs.forEach(function(noB, index)) {
+    })
+    noBs.forEach(function(noB, index) {
       cats[index].forEach(function(tema, index)) {
         if !(tema['badge']) {
           noB.push(tema)
         }
       }
-    }
+    })
     %>
 
     <script>
