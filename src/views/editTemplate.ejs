@@ -23,16 +23,13 @@
 	</head>
 	<body style="background-color: #f2f2f2;">
 
-		<%
-			if (!desde) { desde = '' };
-			currPage = '/CatalogoDeOfertas';
-			include partials/navbar;
-			var badge;
-			if (isAdmin) {
-	      		include partials/downButton
-	    	};
-	    %>
-
+		<% currPage = '/CatalogoDeOfertas' %>
+		<% include partials/navbar %>
+		<% var badge %>
+		<% if (isAdmin) { %>
+	      <% include partials/downButton %>
+	    <% } %>
+	    <% if (!desde) { desde = '' } %>
 		<div class="main" style="width: 1024px">
 
 			<form id="update" action="/edit/<%= pathName %>" method="POST" enctype="application/x-www-form-urlencoded">
