@@ -45,15 +45,21 @@
           <input type="radio" name="sections" id="option1" checked value="Esp">
           <label for="option1">Español</label>
           <article style="position: absolute">
-            <div style="position: relative; top: -20px; right: -718px; height: 0px;">
-            <select ng-model="sortTypeE" ng-options="option.name for option in options" style="width: 100px"></select>
+            <div style="position: relative; top: -30px; right: -718px; height: 0px;">
+              <label>ordenar por:
+                <select ng-model="sortTypeE" ng-options="option.name for option in options" style="width: 100px">
+                  <option value="order" selected>defecto</option>
+                  <option value="desde">ubicación</option>
+                  <option value="title">alfabético</option>              
+                </select>
+              </label>
             </div>
             <div class="grids">
               <ul>
                 <li style="float: left; padding-right: 24px; margin-top: 24px; list-style-type: none" ng-repeat="tema in espB | orderBy:'-order'">
                   <b-grid info="tema">
                 </li>
-                <li style="float: left; padding-right: 24px; margin-top: 24px; list-style-type: none" ng-repeat="tema in esp | orderBy:sortTypeE.name">
+                <li style="float: left; padding-right: 24px; margin-top: 24px; list-style-type: none" ng-repeat="tema in esp | orderBy:sortTypeE">
                   <grid info="tema">
                 </li>
               </ul>
