@@ -45,6 +45,7 @@
           <input type="radio" name="sections" id="option1" checked value="Esp">
           <label for="option1">Español</label>
           <article style="position: absolute">
+            <!--
             <div style="position: relative; top: -10px; right: -655px; height: 0px;">
               <p style="color: black !important; font-size: 14px !important; display: inline;">ordenar por:</p>
               <select ng-model="sortTypeE" style="width: 80px; height: 30px; padding: 0px 6px; font-size: 12px; display: inline;">
@@ -53,6 +54,7 @@
                 <option value="title">alfabético</option>              
               </select>
             </div>
+            -->
             <div class="grids">
               <ul>
                 <li style="float: left; padding-right: 24px; margin-top: 24px; list-style-type: none" ng-repeat="tema in espB | orderBy:'-order'">
@@ -75,7 +77,16 @@
           <input type="radio" name="sections" id="option2" value="Mat">
           <label for="option2">Matemáticas</label>
           <article>
-            
+            <!--
+            <div style="position: relative; top: -10px; right: -655px; height: 0px;">
+              <p style="color: black !important; font-size: 14px !important; display: inline;">ordenar por:</p>
+              <select ng-model="sortTypeM" style="width: 80px; height: 30px; padding: 0px 6px; font-size: 12px; display: inline;">
+                <option value="order" selected>defecto</option>
+                <option value="desde">ubicación</option>
+                <option value="title">alfabético</option>              
+              </select>
+            </div>
+            -->
             <div class="grids">
               <ul>
                 <li style="float: left; padding-right: 24px; margin-top: 24px; list-style-type: none" ng-repeat="tema in matB | orderBy:'-order'">
@@ -98,7 +109,16 @@
           <input type="radio" name="sections" id="option3" value="Cie">
           <label for="option3">Ciencias</label>
           <article>
-            
+            <!--
+            <div style="position: relative; top: -10px; right: -655px; height: 0px;">
+              <p style="color: black !important; font-size: 14px !important; display: inline;">ordenar por:</p>
+              <select ng-model="sortTypeC" style="width: 80px; height: 30px; padding: 0px 6px; font-size: 12px; display: inline;">
+                <option value="order" selected>defecto</option>
+                <option value="desde">ubicación</option>
+                <option value="title">alfabético</option>              
+              </select>
+            </div>
+            -->
             <div class="grids">
               <ul>
                 <li style="float: left; padding-right: 24px; margin-top: 24px; list-style-type: none" ng-repeat="tema in cieB | orderBy:'-order'">
@@ -121,7 +141,16 @@
           <input type="radio" name="sections" id="option4" value="His">
           <label for="option4">Historia</label>
           <article>
-
+            <!--
+            <div style="position: relative; top: -10px; right: -655px; height: 0px;">
+              <p style="color: black !important; font-size: 14px !important; display: inline;">ordenar por:</p>
+              <select ng-model="sortTypeH" style="width: 80px; height: 30px; padding: 0px 6px; font-size: 12px; display: inline;">
+                <option value="order" selected>defecto</option>
+                <option value="desde">ubicación</option>
+                <option value="title">alfabético</option>              
+              </select>
+            </div>
+            -->
             <div class="grids">
               <ul>
                 <li style="float: left; padding-right: 24px; margin-top: 24px; list-style-type: none" ng-repeat="tema in hisB | orderBy:'-order'">
@@ -144,7 +173,16 @@
           <input type="radio" name="sections" id="option5" value="Tex">
           <label for="option5">Textos</label>
           <article>
-
+            <!--
+            <div style="position: relative; top: -10px; right: -655px; height: 0px;">
+              <p style="color: black !important; font-size: 14px !important; display: inline;">ordenar por:</p>
+              <select ng-model="sortTypeT" style="width: 80px; height: 30px; padding: 0px 6px; font-size: 12px; display: inline;">
+                <option value="order" selected>defecto</option>
+                <option value="desde">ubicación</option>
+                <option value="title">alfabético</option>              
+              </select>
+            </div>
+            -->
             <div class="grids">
               <ul>
                 <li style="float: left; padding-right: 24px; margin-top: 24px; list-style-type: none" ng-repeat="tema in texB | orderBy:'-order'">
