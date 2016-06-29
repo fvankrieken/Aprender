@@ -1,7 +1,11 @@
 angular.module('sort', [])
 
 .controller('MainController', function($scope) {
-	$scope.sortTypeE = $scope.sortTypeM = $scope.sortTypeC = $scope.sortTypeH = $scope.sortTypeT = "order";
+	$scope.sortTypeE = "order";
+    $scope.sortTypeM = "order";
+    $scope.sortTypeC = "order";
+    $scope.sortTypeH = "order";
+    $scope.sortTypeT = "order";
     $scope.espB = window.espB;
     $scope.esp = window.esp;
     $scope.matB = window.matB;
@@ -12,6 +16,7 @@ angular.module('sort', [])
     $scope.his = window.his;
     $scope.texB = window.texB;
     $scope.tex = window.tex;
+    $scope.options = ["order", "desde", "title"]
 })
 
 .directive('grid', function() { 
