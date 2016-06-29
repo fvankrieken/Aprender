@@ -1,4 +1,4 @@
-<html class="no-js" lang="es">
+<html class="no-js" lang="es" ng-app="sort">
 
   <head>
     <meta charset="utf-8" />
@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="/stylesheets/app.css" />
     <link rel="stylesheet" href="/stylesheets/navbar.css" />
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
+    <script src="js/sort.js"></script>
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -38,17 +39,25 @@
         <div class="blueBar" style="float: left; height:100%;"></div>
         <p style="margin-bottom: 0px; padding-top: 25px; padding-right: 25px"> Catálogo de Ofertas </p>
       </div>
-      <div class="tabordion">
+      <div class="tabordion" ng-controller="MainController">
         
         <section id="section1">
           <input type="radio" name="sections" id="option1" checked value="Esp">
           <label for="option1">Español</label>
           <article>
             
-            <% var category = esp; %>
-            <% include partials/grid.ejs %>
+            <div class="grids">
+              <ul>
+                <li style="float: left; padding-right: 24px; margin-top: 24px; list-style-type: none" ng-repeat="tema in espB | orderBy:'-order'">
+                  <grid info="tema">
+                </li>
+                <li style="float: left; padding-right: 24px; margin-top: 24px; list-style-type: none" ng-repeat="tema in esp | orderBy:sortTypeE">
+                  <grid info="tema">
+                </li>
+              </ul>
+            </div>
 
-            <div class="blueBar" style="height: <%= blueHeight(category) %>px; position: relative; top: -16px; left: -160px"></div>
+            <div class="blueBar" style="height: <%= blueHeight(esp) %>px; position: relative; top: -16px; left: -160px"></div>
 
             <% include partials/footer.ejs %>
 
@@ -60,10 +69,18 @@
           <label for="option2">Matemáticas</label>
           <article>
             
-            <% category = mat; %>
-            <% include partials/grid.ejs %>
+            <div class="grids">
+              <ul>
+                <li style="float: left; padding-right: 24px; margin-top: 24px; list-style-type: none" ng-repeat="tema in matB | orderBy:'-order'">
+                  <grid info="tema">
+                </li>
+                <li style="float: left; padding-right: 24px; margin-top: 24px; list-style-type: none" ng-repeat="tema in mat | orderBy:sortTypeM">
+                  <grid info="tema">
+                </li>
+              </ul>
+            </div>
 
-            <div class="blueBar" style="height: <%= blueHeight(category) %>px; position: relative; top: -16px; left: -160px"></div>
+            <div class="blueBar" style="height: <%= blueHeight(mat) %>px; position: relative; top: -16px; left: -160px"></div>
 
             <% include partials/footer.ejs %>
 
@@ -75,10 +92,18 @@
           <label for="option3">Ciencias</label>
           <article>
             
-            <% category = cie; %>
-            <% include partials/grid.ejs %>
+            <div class="grids">
+              <ul>
+                <li style="float: left; padding-right: 24px; margin-top: 24px; list-style-type: none" ng-repeat="tema in cieB | orderBy:'-order'">
+                  <grid info="tema">
+                </li>
+                <li style="float: left; padding-right: 24px; margin-top: 24px; list-style-type: none" ng-repeat="tema in cie | orderBy:sortTypeC">
+                  <grid info="tema">
+                </li>
+              </ul>
+            </div>
 
-            <div class="blueBar" style="height: <%= blueHeight(category) %>px; position: relative; top: -16px; left: -160px"></div>
+            <div class="blueBar" style="height: <%= blueHeight(cie) %>px; position: relative; top: -16px; left: -160px"></div>
 
             <% include partials/footer.ejs %>
 
@@ -90,10 +115,18 @@
           <label for="option4">Historia</label>
           <article>
 
-            <% category = his; %>
-            <% include partials/grid.ejs %>
+            <div class="grids">
+              <ul>
+                <li style="float: left; padding-right: 24px; margin-top: 24px; list-style-type: none" ng-repeat="tema in hisB | orderBy:'-order'">
+                  <grid info="tema">
+                </li>
+                <li style="float: left; padding-right: 24px; margin-top: 24px; list-style-type: none" ng-repeat="tema in his | orderBy:sortTypeH">
+                  <grid info="tema">
+                </li>
+              </ul>
+            </div>
 
-            <div class="blueBar" style="height: <%= blueHeight(category) %>px; position: relative; top: -16px; left: -160px"></div>
+            <div class="blueBar" style="height: <%= blueHeight(his) %>px; position: relative; top: -16px; left: -160px"></div>
 
             <% include partials/footer.ejs %>
 
@@ -105,10 +138,18 @@
           <label for="option5">Textos</label>
           <article>
 
-            <% category = tex; %>
-            <% include partials/grid.ejs %>
+            <div class="grids">
+              <ul>
+                <li style="float: left; padding-right: 24px; margin-top: 24px; list-style-type: none" ng-repeat="tema in texB | orderBy:'-order'">
+                  <grid info="tema">
+                </li>
+                <li style="float: left; padding-right: 24px; margin-top: 24px; list-style-type: none" ng-repeat="tema in tex | orderBy:sortTypeT">
+                  <grid info="tema">
+                </li>
+              </ul>
+            </div>
 
-            <div class="blueBar" style="height: <%= blueHeight(category) %>px; position: relative; top: -16px; left: -160px"></div>
+            <div class="blueBar" style="height: <%= blueHeight(tex) %>px; position: relative; top: -16px; left: -160px"></div>
 
             <% include partials/footer.ejs %>
 
@@ -139,7 +180,39 @@
         }
     }
     </script>
+    <% 
+    espB = esps = matB = mats = cieB = cies = hisB = hiss = texB = texs = [];
+    cats = [esp, mat, cie, his, tex];
+    bs = [espB, matB, cieB, hisB, texB];
+    noBs = [esps, mats, cies, hiss, texs];
+    bs.forEach(function(b, index)) {
+      cats[index].forEach(function(tema, index)) {
+        if (tema['badge']) {
+          b.push(tema)
+        }
+      }
+    }
+    noBs.forEach(function(noB, index)) {
+      cats[index].forEach(function(tema, index)) {
+        if !(tema['badge']) {
+          noB.push(tema)
+        }
+      }
+    }
+    %>
 
+    <script>
+    var espB = <%= espB %>
+    var esp = <%= esps %>
+    var matB = <%= matB %>
+    var mat = <%= mats %>
+    var cieB = <%= cieB %>
+    var cie = <%= cies %>
+    var hisB = <%= hisB %>
+    var his = <%= hiss %>
+    var texB = <%= texB %>
+    var tex = <%= texs %>
+    </script>
 
   </body>
 </html>
