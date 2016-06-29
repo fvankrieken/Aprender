@@ -1,6 +1,7 @@
 angular.module('sort', [])
 
 .controller('MainController', function($scope) {
+    $scope.sortTypeE = "order";
     $scope.sortTypeM = "order";
     $scope.sortTypeC = "order";
     $scope.sortTypeH = "order";
