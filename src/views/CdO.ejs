@@ -186,7 +186,8 @@
     bs = [espB, matB, cieB, hisB, texB];
     noBs = [esps, mats, cies, hiss, texs];
     bs.forEach(function(b, index) {
-      cats[index].forEach(function(tema, index) {
+      cat = cats[index]
+      cat.forEach(function(tema, index) {
         if (tema['badge']) {
           b.push(tema);
         }
