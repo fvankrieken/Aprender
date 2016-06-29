@@ -16,7 +16,7 @@ angular.module('sort', [])
     $scope.his = window.his;
     $scope.texB = window.texB;
     $scope.tex = window.tex;
-    $scope.options = ["order", "desde", "title"]
+    $scope.options = [{'name':"order"}, {'name':"desde"}, {'name':"title"}]
 })
 
 .directive('grid', function() { 
