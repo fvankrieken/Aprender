@@ -29,7 +29,8 @@
 		<% if (isAdmin) { %>
 	      <% include partials/downButton %>
 	    <% } %>
-	    <% if (desde == null) { desde = '' } %>
+	    <% var desde %>
+	    <% if (!desde) { desde = '' } %>
 		<div class="main" style="width: 1024px">
 
 			<form id="update" action="/edit/<%= pathName %>" method="POST" enctype="application/x-www-form-urlencoded">
