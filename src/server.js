@@ -479,7 +479,7 @@ app.post('/edit/*', ensureAuthenticated, function(req, res){
   if (uploadInfo.badge == "True") { badge = true } else { badge = false }
 
   var toInsert = {'pathName': pathName, 'title': title, 'descript': uploadInfo.descript, 'cont': uploadInfo.Cont, 'comps': comps, 'temas': temas, 
-  'email': uploadInfo.email, 'fileName': req.body.fileName, 'badge': badge}
+  'email': uploadInfo.email, 'fileName': req.body.fileName, 'badge': badge, 'desde': uploadInfo.desde}
 
   collection.findOneAndUpdate({'pathName': OGpathName}, toInsert, function(err, count) {
     var slickCollect = db.collection('slick');

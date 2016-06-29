@@ -23,12 +23,15 @@
 	</head>
 	<body style="background-color: #f2f2f2;">
 
-		<% currPage = '/CatalogoDeOfertas' %>
-		<% include partials/navbar %>
-		<% var badge %>
-		<% if (isAdmin) { %>
-	      <% include partials/downButton %>
-	    <% } %>
+		<%
+			if (!desde) { desde = '' };
+			currPage = '/CatalogoDeOfertas';
+			include partials/navbar;
+			var badge;
+			if (isAdmin) {
+	      		include partials/downButton
+	    	};
+	    %>
 
 		<div class="main" style="width: 1024px">
 
@@ -94,6 +97,9 @@
                             <option value="True" <% if (badge) { %>selected<% } %>>Sí</option>
                             <option value="False" <% if (!badge) { %>selected<% } %>>No</option>
                         </select>
+
+                        <p style="font-family: Avenir-Medium; font-size:18px;">Desde:</p>
+	                    <textarea rows="1" name="desde"><%= desde %></textarea>
 
 	                    <input value="<%= pathName %>" name="OGpathName" style="display:none !important;">
 	                    <input value="<%= fileName %>" name="fileName" style="display:none !important;">
