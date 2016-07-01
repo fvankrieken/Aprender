@@ -16,6 +16,7 @@ var express = require('express')
   , MongoClient = require('mongodb').MongoClient
   , MongoURL = require('./password').mongoURL
   , password = require('./password').password
+  , password2 = require('./password').password2
   , request = require('request')
 
 var db;
@@ -74,6 +75,7 @@ var noticiasUpload = multer({ storage: noticiasStorage });
 // Users for login (for administrator privileges)
 var users = [
     { id: 1, 'username': 'admin', 'password': password}
+    { id: 2, 'username': 'finn', 'password': password2}
 ];
 
 function findById(id, fn) {
@@ -1004,7 +1006,9 @@ function ensureAuthenticated(req, res, next) {
 
 function downForMaintenance(page, req, res, next) {
   if (downJSON[page]) {
-    if (req.isAuthenticated()) { return next(); } else { res.render('down', {isAdmin: false, currPage: page})}
+    if (req.isAuthenticated()) { return next(); } else { 
+      res.render('down', {isAdmin: false, currPage: page})
+    }
   } else {
     return next();
   }
