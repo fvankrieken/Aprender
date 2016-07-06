@@ -1,12 +1,18 @@
 <a href="/CatalogoDeOfertas/{{ info['pathName'] }}">
   <div class="grid">
-    <div class="topOfGrid" style="width: 250px; position: relative">
+    <div ng-if="(!($first) && editing)" style="float: left; margin-top: 60px;">
+      <button type='button' class='slickprevnext' ng-click="switch($index - 1, $index, false)"><img src='/img/left.png' style='width:13px; height: 25px;'/ ></button>
+    </div>
+    <div ng-if="(!($last) && editing)" style="float: right; margin-top: 60px;">
+      <button type='button' class='slickprevnext' ng-click="switch($index, $index + 1, false)"><img src='/img/right.png' style='width:13px; height: 25px;'/ ></button>"
+    </div>
+    <div class="topOfGrid" style="width: 250px; position: relative; pointer-events: {{ labelPointer }};">
       <div style="position: absolute; display: -ms-flexbox; display: -webkit-flex; -ms-flex-align: center; -webkit-align-items: center; -webkit-box-align: center; text-align: center; align-items: center; width: 250px; height: 65px;">
         <p style="color:White; font-size: 18px; font-family: Avenir-Roman; margin:0; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; padding: 0px 8px; margin: auto;">{{ info['title'] }}</p>
         
       </div>
     </div>
-    <div class="gridMain">
+    <div class="gridMain" style="pointer-events: {{ labelPointer }};">
       <p class="desc" style="height: 108px; font-size: 14px; font-family: Avenir-LightOblique; color: #4a4a4a; overflow: hidden; margin-bottom: 5px; display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical;"><i>{{ info['descript'] }}</i></p>
       <a href="/pdfs/{{ info['fileName'] }}" style="font-size: 14px; font-family: Avenir-Medium; color: #0187e0;" download>Descargar</a>
     </div>
