@@ -74,7 +74,7 @@ var noticiasUpload = multer({ storage: noticiasStorage });
 
 // Users for login (for administrator privileges)
 var users = [
-    { id: 1, 'username': 'admin', 'password': password}
+    { id: 1, 'username': 'admin', 'password': password},
     { id: 2, 'username': 'finn', 'password': password2}
 ];
 
@@ -402,6 +402,39 @@ app.get('/CatalogoDeOfertas/*', function(req, res, next) { downForMaintenance('/
  
 });
 
+// POST CdO: reorder things
+app.post('/CatalogoDeOfertas', ensureAuthenticated, function(req, res) {
+  var newBOrder = req.body.newBOrder;
+  var newOrder = req.body.newOrder;
+  var cont = req.body.cont;
+  var collection = db.collection('temas');
+
+  newBOrder.forEach(function(order, index){
+    if (order != -1) {
+      collection.update(
+        {'$and': [{'cont': {'$eq': cont}}, {'order': {'$eq': order}}, {'badge': {'$eq': true}}, {'updated': {'$ne': true}}]},
+        {'$set': {'order': index, 'updated': true}}
+      );
+    } 
+  });
+
+  newOrder.forEach(function(order, index){
+    if (order != -1) {
+      collection.update(
+        {'$and': [{'cont': {'$eq': cont}}, {'order': {'$eq': order}}, {'badge': {'$eq': false}}, {'updated': {'$ne': true}}]},
+        {'$set': {'order': index, 'updated': true}}
+      );
+    } 
+  });
+
+  collection.update(
+    {'updated': {'$eq': true}},
+    {'$unset': {'updated': true}}
+  );
+
+  res.sendStatus(200);
+})
+
 // POST CdO/tema: send email to expert
 app.post('/CatalogoDeOfertas/*', function(req, res, next) { downForMaintenance('/CatalogoDeOfertas', req, res, next) }, function(req, res){
   var patharray = req.path.split('/')
@@ -477,19 +510,39 @@ app.post('/edit/*', ensureAuthenticated, function(req, res){
 
   var comps = uploadInfo.comps.split(', ');
   var temas = uploadInfo.temas.split(', ');
-  var badge;
-  if (uploadInfo.badge == "True") { badge = true } else { badge = false }
+  
+  var wasBadge = (uploadInfo.badge == "True");
+  var badge = (uploadInfo.badge == "True");
+  var toInsert = {'pathName': pathName, 'title': title, 'descript': uploadInfo.descript, 'cont': uploadInfo.Cont, 'comps': comps, 'temas': temas, 'email': uploadInfo.email, 'fileName': req.body.fileName, 'badge': badge, 'desde': uploadInfo.desde};
+  
+  if (badge == wasBadge) {
+    toInsert['order'] = uploadInfo.order;
 
-  var toInsert = {'pathName': pathName, 'title': title, 'descript': uploadInfo.descript, 'cont': uploadInfo.Cont, 'comps': comps, 'temas': temas, 
-  'email': uploadInfo.email, 'fileName': req.body.fileName, 'badge': badge, 'desde': uploadInfo.desde}
+    collection.findOneAndUpdate({'pathName': OGpathName}, toInsert, function(err, count) {
+      var slickCollect = db.collection('slick');
 
-  collection.findOneAndUpdate({'pathName': OGpathName}, toInsert, function(err, count) {
-    var slickCollect = db.collection('slick');
-
-    slickCollect.findOneAndUpdate({'pathName': OGpathName}, toInsert, function(err, count) {
-      res.redirect('/CatalogoDeOfertas/'+pathName);
+      slickCollect.findOneAndUpdate({'pathName': OGpathName}, toInsert, function(err, count2) {
+        res.redirect('/CatalogoDeOfertas/'+pathName);
+      });
     });
-  });
+  } else {
+    collection.count({'cont': uploadInfo.Cont, 'badge': badge}, function(err, count) {
+      toInsert['order'] = count + 1;
+      collection.findOneAndUpdate({'pathName': OGpathName}, toInsert, function(err, count) {
+        collection.update(
+          {'$and': [{'cont': {'$eq': uploadInfo.cont}}, {'order': {'$gt': order}}, {'badge': {'$eq': wasBadge}}]},
+          {'$inc': {'order': -1}},
+          {'multi': true}
+        );
+
+        var slickCollect = db.collection('slick');
+
+        slickCollect.findOneAndUpdate({'pathName': OGpathName}, toInsert, function(err, count2) {
+          res.redirect('/CatalogoDeOfertas/'+pathName);
+        });
+      });
+    });
+  }
 });
 
 // GET delete/tema: remove tema from DB
@@ -497,7 +550,17 @@ app.get('/delete/*', ensureAuthenticated, function(req, res) {
   var patharray = req.path.split('/');
   var pathName = patharray[patharray.length-1];
   collection = db.collection('temas');
-  collection.deleteOne({'pathName': pathName});
+  collection.find({'pathName': pathName}).toArray(function(err, array) {
+    var order = array[0]['order'];
+    collection.update(
+      {'$and': [{'cont': {'$eq': array[0]['cont']}}, {'order': {'$gt': order}}, {'badge': {'$eq': array[0]['badge']}}]},
+      {'$inc': {'order': -1}},
+      {'multi': true},
+      function(err, count) {
+        collection.deleteOne({'pathName': pathName})
+      }
+    );
+  });
   slickCollect = db.collection('slick');
   slickCollect.deleteOne({'pathName': pathName})
   res.redirect('/CatalogoDeOfertas');
@@ -689,20 +752,9 @@ app.post('/CompartirExperiencias', function(req, res, next) { downForMaintenance
 app.post('/CompartirExperiencias/*', function(req, res, next) { downForMaintenance('/CompartirExperiencias', req, res, next) }, function(req, res) {
   var patharray = req.path.split('/');
   var pathName = patharray[patharray.length-1];
-  var collection = db.collection('forum');
-  var id = utils.randomString(4);
-  collection.find({'pathName': pathName}).toArray(function(err, array) {
-    var topic = array[0];
-    var comments = topic['comments'];
-    var toAdd = {'name': req.body.name, 'comment': req.body.comment, 'date': req.body.date, 'commentID': id};
-    comments.unshift(toAdd);
-    var toInsert = {'pathName': pathName,'topic': topic['topic'], 'comments': comments}
-    collection.findOneAndUpdate({'pathName': pathName}, toInsert, function(err, count) {
-      req.session.checked = pathName;
-      res.redirect('/CompartirExperiencias');
-    });
-  });
-  
+  collection = db.collection('noticiasP');
+  collection.deleteOne({'pathName': pathName})
+  res.redirect('/Noticias');
 });
 
 // GET CE/topic: remove a topic
@@ -805,7 +857,17 @@ app.get('/Noticias/*', ensureAuthenticated, function(req, res) {
   var patharray = req.path.split('/');
   var pathName = patharray[patharray.length-1];
   collection = db.collection('noticiasP');
-  collection.deleteOne({'pathName': pathName})
+  collection.find({'pathName': pathName}).toArray(function(err, array) {
+    var order = array[0]['order'];
+    collection.update(
+      {'$and': [{'cont': {'$eq': array[0]['cont']}}, {'order': {'$gt': order}}, {'badge': {'$eq': array[0]['badge']}}]},
+      {'$inc': {'order': -1}},
+      {'multi': true},
+      function(err, count) {
+        collection.deleteOne({'pathName': pathName})
+      }
+    );
+  });
   res.redirect('/Noticias');
 })
 
@@ -817,8 +879,9 @@ app.get('/Noticias/*', ensureAuthenticated, function(req, res) {
 app.get('/admin', ensureAuthenticated, function(req, res){
   res.render('admin', { status: '' })
 });
-
+/*
 var listener = unoconv.listen( {port: 2002} )
+*/
 // POST admin: upload a new tema
 app.post('/admin', ensureAuthenticated, upload.single('pdf'), function(req, res){
   if (!req.file) {
@@ -858,7 +921,7 @@ app.post('/admin', ensureAuthenticated, upload.single('pdf'), function(req, res)
 
   var comps = uploadInfo.comps.split(', ');
   var temas = uploadInfo.temas.split(', ');
-  var badge = (uploadInfo.badge == "True")
+  var badge = (uploadInfo.badge == "True");
 
   var toInsert = {'pathName': pathName, 'title': title, 'descript': uploadInfo.descript, 'cont': uploadInfo.Cont, 'comps': comps, 'temas': temas, 
   'email': uploadInfo.email, 'fileName': fileName, 'downloadName': downloadName, 'badge': badge, 'desde': uploadInfo.desde }
@@ -868,22 +931,24 @@ app.post('/admin', ensureAuthenticated, upload.single('pdf'), function(req, res)
       res.render('admin', { status: 'title' });
       return;
     }
-    collection.insert(toInsert, function(err, count) {
-      var slickCollect = db.collection('slick');
-
-      slickCollect.count({'cont': uploadInfo.Cont}, function(err, count) {
-        if (count == 0) {
-          slickCollect.insert(toInsert, res.render('admin', { status: 'success' }))
-        } else {
-          delete toInsert._id
-          slickCollect.findOneAndUpdate({'cont': uploadInfo.Cont}, toInsert, function(err, count) {
-            if (err) {
-              res.send(err)
-            } else {
-              res.render('admin', { status: 'success' });
-            }
-          });
-        }
+    collection.count({'cont': uploadInfo.Cont, 'badge': badge}, function(err, count2) {
+      toInsert['order'] = count2 + 1
+      collection.insert(toInsert, function(err, count) {
+        var slickCollect = db.collection('slick');
+        slickCollect.count({'cont': uploadInfo.Cont}, function(err, count) {
+          if (count == 0) {
+            slickCollect.insert(toInsert, res.render('admin', { status: 'success' }))
+          } else {
+            delete toInsert._id;
+            slickCollect.findOneAndUpdate({'cont': uploadInfo.Cont}, toInsert, function(err, count) {
+              if (err) {
+                res.send(err);
+              } else {
+                res.render('admin', { status: 'success' });
+              }
+            });
+          }
+        });
       });
     });
   });

@@ -45,23 +45,28 @@
           <input type="radio" name="sections" id="option1" checked value="Esp">
           <label for="option1" style="pointer-events: {{ labelPointer }}">Español</label>
           <article style="position: absolute">
-            <!--
-            <div style="position: relative; top: -10px; right: -655px; height: 0px;">
-              <p style="color: black !important; font-size: 14px !important; display: inline;">ordenar por:</p>
-              <select ng-model="sortTypeE" style="width: 80px; height: 30px; padding: 0px 6px; font-size: 12px; display: inline;">
-                <option value="order" selected>defecto</option>
-                <option value="desde">ubicación</option>
-                <option value="title">alfabético</option>              
-              </select>
+          	<% if (isAdmin) { %>
+            <div style="position: relative; top: -3px; left: 20px; height: 0px;">
+              	<a ng-if='!(editing.val)' href='#' style="color: #0187e0 !important; font-size: 14px !important;" ng-click="edit('esp')">Editar orden</a>
+              	<button ng-if='editing.val' class="mybutton" ng-click="submitOrder('esp')">Finalizar</button>
             </div>
-            -->
+            <% } %>
+            <div style="position: relative; top: -10px; right: -655px; height: 0px;">
+	            <p style="color: black !important; font-size: 14px !important; display: inline;">Organizar por:</p>
+	            <select ng-model="sortTypeE" style="width: 80px; height: 30px; padding: 0px 6px; font-size: 12px; display: inline;">
+	                <option value="order" selected>estándar</option>
+	                <option value="desde">ubicación</option>
+	                <option value="title">título</option>              
+            	</select>
+            </div>
+            
             <div class="grids">
               <ul>
-                <li style="float: left; padding-right: 24px; margin-top: 24px; list-style-type: none" ng-repeat="tema in espB | orderBy:'-order'">
-                  <b-grid info="tema">
+                <li style="float: left; padding-right: 24px; margin-top: 24px; list-style-type: none" ng-repeat="tema in espB | orderBy:sortTypeE">
+                  <b-grid info="tema" edit="editing.val" switch="switch" l="labelPointer" first="$first" last="$last" index='$index'>
                 </li>
                 <li style="float: left; padding-right: 24px; margin-top: 24px; list-style-type: none" ng-repeat="tema in esp | orderBy:sortTypeE">
-                  <grid info="tema">
+                  <grid info="tema" edit="editing.val" switch="switch" l="labelPointer" first="$first" last="$last" index='$index'>
                 </li>
               </ul>
             </div>
@@ -77,23 +82,29 @@
           <input type="radio" name="sections" id="option2" value="Mat">
           <label for="option2" style="pointer-events: {{ labelPointer }}">Matemáticas</label>
           <article>
-            <!--
-            <div style="position: relative; top: -10px; right: -655px; height: 0px;">
-              <p style="color: black !important; font-size: 14px !important; display: inline;">ordenar por:</p>
-              <select ng-model="sortTypeM" style="width: 80px; height: 30px; padding: 0px 6px; font-size: 12px; display: inline;">
-                <option value="order" selected>defecto</option>
-                <option value="desde">ubicación</option>
-                <option value="title">alfabético</option>              
-              </select>
+            
+            <% if (isAdmin) { %>
+            <div style="position: relative; top: -3px; left: 20px; height: 0px;">
+              	<a ng-if='!(editing.val)' href='#' style="color: #0187e0 !important; font-size: 14px !important;" ng-click="edit('mat')">Editar orden</a>
+              	<button ng-if='editing.val' class="mybutton" ng-click="submitOrder('mat')">Finalizar</button>
             </div>
-            -->
+            <% } %>
+            <div style="position: relative; top: -10px; right: -655px; height: 0px;">
+              	<p style="color: black !important; font-size: 14px !important; display: inline;">Organizar por:</p>
+              	<select ng-model="sortTypeM" style="width: 80px; height: 30px; padding: 0px 6px; font-size: 12px; display: inline;">
+                	<option value="order" selected>estándar</option>
+                	<option value="desde">ubicación</option>
+                	<option value="title">título</option>              
+              	</select>
+            </div>
+            
             <div class="grids">
               <ul>
-                <li style="float: left; padding-right: 24px; margin-top: 24px; list-style-type: none" ng-repeat="tema in matB | orderBy:'-order'">
-                  <b-grid info="tema">
+                <li style="float: left; padding-right: 24px; margin-top: 24px; list-style-type: none" ng-repeat="tema in matB | orderBy:sortTypeM">
+                  <b-grid info="tema" edit="editing.val" switch="switch" l="labelPointer" first="$first" last="$last" index='$index'>
                 </li>
                 <li style="float: left; padding-right: 24px; margin-top: 24px; list-style-type: none" ng-repeat="tema in mat | orderBy:sortTypeM">
-                  <grid info="tema">
+                  <grid info="tema" edit="editing.val" switch="switch" l="labelPointer" first="$first" last="$last" index='$index'>
                 </li>
               </ul>
             </div>
@@ -109,23 +120,29 @@
           <input type="radio" name="sections" id="option3" value="Cie">
           <label for="option3" style="pointer-events: {{ labelPointer }}">Ciencias</label>
           <article>
-            <!--
-            <div style="position: relative; top: -10px; right: -655px; height: 0px;">
-              <p style="color: black !important; font-size: 14px !important; display: inline;">ordenar por:</p>
-              <select ng-model="sortTypeC" style="width: 80px; height: 30px; padding: 0px 6px; font-size: 12px; display: inline;">
-                <option value="order" selected>defecto</option>
-                <option value="desde">ubicación</option>
-                <option value="title">alfabético</option>              
-              </select>
+            
+            <% if (isAdmin) { %>
+            <div style="position: relative; top: -3px; left: 20px; height: 0px;">
+              	<a ng-if='!(editing.val)' href='#' style="color: #0187e0 !important; font-size: 14px !important;" ng-click="edit('cie')">Editar orden</a>
+              	<button ng-if='editing.val' class="mybutton" ng-click="submitOrder('cie')">Finalizar</button>
             </div>
-            -->
+            <% } %>
+            <div style="position: relative; top: -10px; right: -655px; height: 0px;">
+              	<p style="color: black !important; font-size: 14px !important; display: inline;">Organizar por:</p>
+              	<select ng-model="sortTypeC" style="width: 80px; height: 30px; padding: 0px 6px; font-size: 12px; display: inline;">
+                	<option value="order" selected>estándar</option>
+                	<option value="desde">ubicación</option>
+                	<option value="title">título</option>              
+              	</select>
+            </div>
+            
             <div class="grids">
               <ul>
-                <li style="float: left; padding-right: 24px; margin-top: 24px; list-style-type: none" ng-repeat="tema in cieB | orderBy:'-order'">
-                  <b-grid info="tema">
+                <li style="float: left; padding-right: 24px; margin-top: 24px; list-style-type: none" ng-repeat="tema in cieB | orderBy:sortTypeC">
+                  <b-grid info="tema" edit="editing.val" switch="switch" l="labelPointer" first="$first" last="$last" index='$index'>
                 </li>
                 <li style="float: left; padding-right: 24px; margin-top: 24px; list-style-type: none" ng-repeat="tema in cie | orderBy:sortTypeC">
-                  <grid info="tema">
+                  <grid info="tema" edit="editing.val" switch="switch" l="labelPointer" first="$first" last="$last" index='$index'>
                 </li>
               </ul>
             </div>
@@ -141,28 +158,29 @@
           <input type="radio" name="sections" id="option4" value="His">
           <label for="option4" style="pointer-events: {{ labelPointer }}">Historia</label>
           <article>
-            <!--
+            
             <% if (isAdmin) { %>
-			<div style="position: relative; top: -10px; left: 0px; height: 0px;">
-              	<a href='/edit/<%= pathName %>' style="color: #0187e0 !important; font-size: 14px !important;">Editar orden</a>
+            <div style="position: relative; top: -3px; left: 20px; height: 0px;">
+              	<a ng-if='!(editing.val)' href='#' style="color: #0187e0 !important; font-size: 14px !important;" ng-click="edit('his')">Editar orden</a>
+              	<button ng-if='editing.val' class="mybutton" ng-click="submitOrder('his')">Finalizar</button>
             </div>
             <% } %>
             <div style="position: relative; top: -10px; right: -655px; height: 0px;">
-              	<p style="color: black !important; font-size: 14px !important; display: inline;">ordenar por:</p>
+              	<p style="color: black !important; font-size: 14px !important; display: inline;">Organizar por:</p>
               	<select ng-model="sortTypeH" style="width: 80px; height: 30px; padding: 0px 6px; font-size: 12px; display: inline;">
-            		<option value="order" selected>defecto</option>
+            		<option value="order" selected>estándar</option>
 	                <option value="desde">ubicación</option>
-	                <option value="title">alfabético</option>              
+	                <option value="title">título</option>              
               	</select>
             </div>
-            -->
+            
             <div class="grids">
               <ul>
                 <li style="float: left; padding-right: 24px; margin-top: 24px; list-style-type: none" ng-repeat="tema in hisB | orderBy:'-order'">
-                  <b-grid info="tema">
+                  <b-grid info="tema" edit="editing.val" switch="switch" l="labelPointer" first="$first" last="$last" index='$index'>
                 </li>
                 <li style="float: left; padding-right: 24px; margin-top: 24px; list-style-type: none" ng-repeat="tema in his | orderBy:sortTypeH">
-                  <grid info="tema">
+                  <grid info="tema" edit="editing.val" switch="switch" l="labelPointer" first="$first" last="$last" index='$index'>
                 </li>
               </ul>
             </div>
@@ -178,28 +196,29 @@
           <input type="radio" name="sections" id="option5" value="Tex">
           <label for="option5" style="pointer-events: {{ labelPointer }}">Textos</label>
           <article>
-            <!--
+            
             <% if (isAdmin) { %>
-			<div style="position: relative; top: -10px; left: 0px; height: 0px;">
-              	<a href='/edit/<%= pathName %>' style="color: #0187e0 !important; font-size: 14px !important;">Editar orden</a>
+            <div style="position: relative; top: -3px; left: 20px; height: 0px;">
+              	<a ng-if='!(editing.val)' href='#' style="color: #0187e0 !important; font-size: 14px !important;" ng-click="edit('tex')">Editar orden</a>
+              	<button ng-if='editing.val' class="mybutton" ng-click="submitOrder('tex')">Finalizar</button>
             </div>
             <% } %>
             <div style="position: relative; top: -10px; right: -655px; height: 0px;">
-              <p style="color: black !important; font-size: 14px !important; display: inline;">ordenar por:</p>
-              <select ng-model="sortTypeT" style="width: 80px; height: 30px; padding: 0px 6px; font-size: 12px; display: inline;">
-                <option value="order" selected>defecto</option>
-                <option value="desde">ubicación</option>
-                <option value="title">alfabético</option>              
-              </select>
+              	<p style="color: black !important; font-size: 14px !important; display: inline;">Organizar por:</p>
+              	<select ng-model="sortTypeT" style="width: 80px; height: 30px; padding: 0px 6px; font-size: 12px; display: inline;">
+	                <option value="order" selected>estándar</option>
+	                <option value="desde">ubicación</option>
+	                <option value="title">título</option>              
+              	</select>
             </div>
-            -->
+            
             <div class="grids">
               <ul>
                 <li style="float: left; padding-right: 24px; margin-top: 24px; list-style-type: none" ng-repeat="tema in texB | orderBy:'-order'">
-                  <b-grid info="tema">
+                  <b-grid info="tema" edit="editing.val" switch="switch" l="labelPointer" first="$first" last="$last" index='$index'>
                 </li>
                 <li style="float: left; padding-right: 24px; margin-top: 24px; list-style-type: none" ng-repeat="tema in tex | orderBy:sortTypeT">
-                  <grid info="tema">
+                  <grid info="tema" edit="editing.val" switch="switch" l="labelPointer" first="$first" last="$last" index='$index' >
                 </li>
               </ul>
             </div>
