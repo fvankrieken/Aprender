@@ -214,6 +214,7 @@ app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(passport.authenticate('remember-me'));
+var jsonParser = BodyParser.json()
 
 downJSON = {'/': false, '/RelacionTutora': false, '/MapeoVirtual': false, '/CatalogoDeOfertas': false, '/CompartirTemas': false, '/CompartirExperiencias': false, '/Noticias': false }
 
@@ -403,9 +404,9 @@ app.get('/CatalogoDeOfertas/*', function(req, res, next) { downForMaintenance('/
 });
 
 // POST CdO: reorder things
-app.post('/CatalogoDeOfertas', ensureAuthenticated, function(req, res) {
-  var newBOrder = req.body.newBOrder;
-  var newOrder = req.body.newOrder;
+app.post('/CatalogoDeOfertas', ensureAuthenticated, jsonParser, function(req, res) {
+  var newBOrder = JSON.parse('[' + req.body.newBOrder + ']');
+  var newOrder = JSON.parse('[' + req.body.newOrder + ']');
   var cont = req.body.cont;
   var collection = db.collection('temas');
 
@@ -413,7 +414,10 @@ app.post('/CatalogoDeOfertas', ensureAuthenticated, function(req, res) {
     if (order != -1) {
       collection.update(
         {'$and': [{'cont': {'$eq': cont}}, {'order': {'$eq': order}}, {'badge': {'$eq': true}}, {'updated': {'$ne': true}}]},
-        {'$set': {'order': index, 'updated': true}}
+        {'$set': {'order': index, 'updated': true}},
+        function(err, something) {
+          console.log(something).pretty()
+        }
       );
     } 
   });
@@ -429,7 +433,8 @@ app.post('/CatalogoDeOfertas', ensureAuthenticated, function(req, res) {
 
   collection.update(
     {'updated': {'$eq': true}},
-    {'$unset': {'updated': true}}
+    {'$unset': {'updated': true}},
+    {'multi': true}
   );
 
   res.sendStatus(200);

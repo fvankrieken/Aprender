@@ -29,7 +29,7 @@ angular.module('sort', [])
         $scope.editing.val = true;
         var O = [];
         var BO = [];
-        var contStrings = ['esp', 'mat', 'cie', 'his', 'tex'];
+        var contStrings = ['Esp', 'Mat', 'Cie', 'His', 'Tex'];
         var conts = [$scope.esp, $scope.mat, $scope.cie, $scope.his, $scope.tex];
         var bConts = [$scope.espB, $scope.matB, $scope.cieB, $scope.hisB, $scope.texB];
         var index = contStrings.indexOf(cont);
@@ -44,10 +44,15 @@ angular.module('sort', [])
     }
 
     $scope.submitOrder = function(cont) {
-        $http.post('/CatalogoDeOfertas', {
-            'cont': editCont,
-            'newOrder': $scope.newOrder,
-            'newBOrder': $scope.newBOrder
+        var data = {'cont': cont, 'newOrder': $scope.newOrder.toString(), 'newBOrder': $scope.newBOrder.toString()}
+        console.log(data)
+        $http({
+            url: '/CatalogoDeOfertas',
+            method: 'POST',
+            data: data,
+            headers: {
+                     'Content-Type': 'application/json'
+            }
         }).then(function successCallback(response) {
             //do nothing for success
         }, function errorCallback(response) {
@@ -62,8 +67,7 @@ angular.module('sort', [])
     }
 
     $scope.switch = function(first, second, b) {
-        console.log($scope.editCont)
-        if ($scope.editCont == "esp") {
+        if ($scope.editCont == "Esp") {
             if (b) {
                 $scope.espB.forEach(function(tema, index) {
                     if (tema['order'] == first) {
@@ -81,7 +85,7 @@ angular.module('sort', [])
                     }
                 });
             }
-        } else if ($scope.editCont == "mat") {
+        } else if ($scope.editCont == "Mat") {
             if (b) {
                 $scope.matB.forEach(function(tema, index) {
                     if (tema['order'] == first) {
@@ -99,7 +103,7 @@ angular.module('sort', [])
                     }
                 });
             }
-        } else if ($scope.editCont == "cie") {
+        } else if ($scope.editCont == "Cie") {
             if (b) {
                 $scope.cieB.forEach(function(tema, index) {
                     if (tema['order'] == first) {
@@ -117,7 +121,7 @@ angular.module('sort', [])
                     }
                 });
             }
-        } else if ($scope.editCont == "his") {
+        } else if ($scope.editCont == "His") {
             if (b) {
                 $scope.hisB.forEach(function(tema, index) {
                     if (tema['order'] == first) {
@@ -135,7 +139,7 @@ angular.module('sort', [])
                     }
                 });
             }
-        } else if ($scope.editCont == "tex") {
+        } else if ($scope.editCont == "Tex") {
             if (b) {
                 $scope.texB.forEach(function(tema, index) {
                     if (tema['order'] == first) {
