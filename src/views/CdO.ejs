@@ -62,10 +62,10 @@
             
             <div class="grids">
               <ul>
-                <li style="float: left; padding-right: 24px; margin-top: 24px; list-style-type: none" ng-repeat="tema in espB | orderBy:[sortTypeE, 'order']">
+                <li style="float: left; padding-right: 24px; margin-top: 24px; list-style-type: none" ng-repeat="tema in espB | orderBy:[sortTypeE, 'title']">
                   <b-grid info="tema" edit="editing.val" switch="switch" l="labelPointer" first="$first" last="$last" index='$index'>
                 </li>
-                <li style="float: left; padding-right: 24px; margin-top: 24px; list-style-type: none" ng-repeat="tema in esp | orderBy:sortTypeE">
+                <li style="float: left; padding-right: 24px; margin-top: 24px; list-style-type: none" ng-repeat="tema in esp | orderBy:[sortTypeE, 'title']">
                   <grid info="tema" edit="editing.val" switch="switch" l="labelPointer" first="$first" last="$last" index='$index'>
                 </li>
               </ul>
@@ -100,10 +100,10 @@
             
             <div class="grids">
               <ul>
-                <li style="float: left; padding-right: 24px; margin-top: 24px; list-style-type: none" ng-repeat="tema in matB | orderBy:[sortTypeM, 'order']">
+                <li style="float: left; padding-right: 24px; margin-top: 24px; list-style-type: none" ng-repeat="tema in matB | orderBy:[sortTypeM, 'title']">
                   <b-grid info="tema" edit="editing.val" switch="switch" l="labelPointer" first="$first" last="$last" index='$index'>
                 </li>
-                <li style="float: left; padding-right: 24px; margin-top: 24px; list-style-type: none" ng-repeat="tema in mat | orderBy:sortTypeM">
+                <li style="float: left; padding-right: 24px; margin-top: 24px; list-style-type: none" ng-repeat="tema in mat | orderBy:[sortTypeM, 'title']">
                   <grid info="tema" edit="editing.val" switch="switch" l="labelPointer" first="$first" last="$last" index='$index'>
                 </li>
               </ul>
@@ -138,10 +138,10 @@
             
             <div class="grids">
               <ul>
-                <li style="float: left; padding-right: 24px; margin-top: 24px; list-style-type: none" ng-repeat="tema in cieB | orderBy:[sortTypeC, 'order']">
+                <li style="float: left; padding-right: 24px; margin-top: 24px; list-style-type: none" ng-repeat="tema in cieB | orderBy:[sortTypeC, 'title']">
                   <b-grid info="tema" edit="editing.val" switch="switch" l="labelPointer" first="$first" last="$last" index='$index'>
                 </li>
-                <li style="float: left; padding-right: 24px; margin-top: 24px; list-style-type: none" ng-repeat="tema in cie | orderBy:sortTypeC">
+                <li style="float: left; padding-right: 24px; margin-top: 24px; list-style-type: none" ng-repeat="tema in cie | orderBy:[sortTypeC, 'title']">
                   <grid info="tema" edit="editing.val" switch="switch" l="labelPointer" first="$first" last="$last" index='$index'>
                 </li>
               </ul>
@@ -176,10 +176,10 @@
             
             <div class="grids">
               <ul>
-                <li style="float: left; padding-right: 24px; margin-top: 24px; list-style-type: none" ng-repeat="tema in hisB | orderBy:[sortTypeH, 'order']">
+                <li style="float: left; padding-right: 24px; margin-top: 24px; list-style-type: none" ng-repeat="tema in hisB | orderBy:[sortTypeH, 'title']">
                   <b-grid info="tema" edit="editing.val" switch="switch" l="labelPointer" first="$first" last="$last" index='$index'>
                 </li>
-                <li style="float: left; padding-right: 24px; margin-top: 24px; list-style-type: none" ng-repeat="tema in his | orderBy:sortTypeH">
+                <li style="float: left; padding-right: 24px; margin-top: 24px; list-style-type: none" ng-repeat="tema in his | orderBy:[sortTypeH, 'title']">
                   <grid info="tema" edit="editing.val" switch="switch" l="labelPointer" first="$first" last="$last" index='$index'>
                 </li>
               </ul>
@@ -214,10 +214,10 @@
             
             <div class="grids">
               <ul>
-                <li style="float: left; padding-right: 24px; margin-top: 24px; list-style-type: none" ng-repeat="tema in texB | orderBy:[sortTypeT, 'order']">
+                <li style="float: left; padding-right: 24px; margin-top: 24px; list-style-type: none" ng-repeat="tema in texB | orderBy:[sortTypeT, 'title']">
                   <b-grid info="tema" edit="editing.val" switch="switch" l="labelPointer" first="$first" last="$last" index='$index'>
                 </li>
-                <li style="float: left; padding-right: 24px; margin-top: 24px; list-style-type: none" ng-repeat="tema in tex | orderBy:sortTypeT">
+                <li style="float: left; padding-right: 24px; margin-top: 24px; list-style-type: none" ng-repeat="tema in tex | orderBy:[sortTypeT, 'title']">
                   <grid info="tema" edit="editing.val" switch="switch" l="labelPointer" first="$first" last="$last" index='$index' >
                 </li>
               </ul>
