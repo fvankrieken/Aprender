@@ -24,6 +24,11 @@ angular.module('sort', [])
     $scope.editCont = '';
     $scope.editing = {'val': false}
     $scope.edit = function(cont) {
+        $scope.sortTypeE = "order";
+        $scope.sortTypeM = "order";
+        $scope.sortTypeC = "order";
+        $scope.sortTypeH = "order";
+        $scope.sortTypeT = "order";
         $scope.editCont = cont;
         $scope.labelPointer = "none";
         $scope.editing.val = true;
