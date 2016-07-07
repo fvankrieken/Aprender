@@ -414,10 +414,7 @@ app.post('/CatalogoDeOfertas', ensureAuthenticated, jsonParser, function(req, re
     if (order != -1) {
       collection.update(
         {'$and': [{'cont': {'$eq': cont}}, {'order': {'$eq': order}}, {'badge': {'$eq': true}}, {'updated': {'$ne': true}}]},
-        {'$set': {'order': index, 'updated': true}},
-        function(err, something) {
-          console.log(something).pretty()
-        }
+        {'$set': {'order': index, 'updated': true}}
       );
     } 
   });
