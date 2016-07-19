@@ -1,6 +1,51 @@
 angular.module('sort', [])
 
-.controller('MainController', ['$scope', '$http', function($scope, $http) {
+.controller('MainController', ['$scope', '$http', '$timeout', function($scope, $http, $timeout) {
+    
+    $scope.rearrange = function(cl, quick){
+        $(cl).each(function(idx, el){
+            var $el = $(el);                
+            var newTop = Math.floor(idx / 3) * 239 + 40;
+            var newLeft = (idx % 3) * 274 + 20
+
+            if(!quick) {
+                if ((newTop != parseInt($el.css('top'))) || (newLeft != parseInt($el.css('left')))) {
+                    $el.css({
+                        'top': newTop,
+                        'left': newLeft,
+                        '-webkit-transition': '.5s ease-in-out all',
+                        'transition': '.5s ease-in-out all'
+                    });
+                }
+            } else {
+                $el.css({
+                    'top': newTop,
+                    'left': newLeft,
+                    '-webkit-transition': '0s',
+                    'transition': '0s'
+                });
+            }   
+            
+        });
+    }
+
+    $scope._rearrange = function(cont, bool) {
+        $timeout(function() {
+            $scope.rearrange(cont, bool)
+        }, 0)
+    }
+
+    $scope.init = function() {
+        $timeout(function(){
+            $scope.rearrange('.EspI', true);
+            $scope.rearrange('.MatI', true);
+            $scope.rearrange('.CieI', true);
+            $scope.rearrange('.HisI', true);
+            $scope.rearrange('.TexI', true);
+        }, 0);
+        
+    };
+
     $scope.sortTypeE = "order";
     $scope.sortTypeM = "order";
     $scope.sortTypeC = "order";
@@ -23,6 +68,13 @@ angular.module('sort', [])
     $scope.newBOrder = [];
     $scope.editCont = '';
     $scope.editing = {'val': false}
+    $scope.display = function() {
+        if ($scope.editing.val) {
+            return 'none'
+        } else {
+            return 'block'
+        }
+    }
     $scope.edit = function(cont) {
         $scope.editCont = cont;
         $scope.labelPointer = "none";
@@ -33,19 +85,28 @@ angular.module('sort', [])
         var conts = [$scope.esp, $scope.mat, $scope.cie, $scope.his, $scope.tex];
         var bConts = [$scope.espB, $scope.matB, $scope.cieB, $scope.hisB, $scope.texB];
         var index = contStrings.indexOf(cont);
-        conts[index].forEach(function(thing, index) {
+        conts[index].forEach(function(thing, i) {
             O.push(-1);
         });
-        bConts[index].forEach(function(thing, index) {
+        bConts[index].forEach(function(thing, i) {
             BO.push(-1);
         });
+        
         $scope.newOrder = O;
         $scope.newBOrder = BO;
+
+        var orders = [$scope.sortTypeE, $scope.sortTypeM, $scope.sortTypeC, $scope.sortTypeH, $scope.sortTypeT]
+        orders.forEach(function(order, i) {
+            if (index == i) {
+                order = "order";
+            }
+        });
+        $timeout(function(){$scope.rearrange('.' + $scope.editCont + 'I', false)}, 0)
     }
 
     $scope.submitOrder = function(cont) {
         var data = {'cont': cont, 'newOrder': $scope.newOrder.toString(), 'newBOrder': $scope.newBOrder.toString()}
-        console.log(data)
+        
         $http({
             url: '/CatalogoDeOfertas',
             method: 'POST',
@@ -164,10 +225,14 @@ angular.module('sort', [])
         if (toReturn[second] == -1) { toReturn[first] = second; } else { toReturn[first] = toReturn[second]; }
         toReturn[second] = new2;
         if (b) { $scope.newBOrder = toReturn; } else { $scope.newORder = toReturn; }
+        console.log($scope.editCont)
+        $timeout(function(){$scope.rearrange('.' + $scope.editCont + 'I', false)}, 0)
     }
+
+
 }])
 
-.directive('grid', function() { 
+.directive('grid', function() {
  	return { 
     	restrict: 'E', 
     	scope: { 

@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/stylesheets/foundation.css" />
     <link rel="stylesheet" href="/stylesheets/app.css" />
     <link rel="stylesheet" href="/stylesheets/navbar.css" />
+    <link rel="stylesheet" href="/stylesheets/drag.css" />
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.js"></script>
     <script src="js/sort.js"></script>
@@ -52,9 +53,9 @@
               	<button ng-if='editing.val' class="mybutton" ng-click="submitOrder('Esp')">Finalizar</button>
             </div>
             <% } %>
-            <div style="position: relative; top: -10px; right: -644px; height: 0px;">
+            <div style="position: relative; top: -10px; right: -644px; height: 0px; display: {{display()}}">
 	            <p style="color: black !important; font-size: 14px !important; display: inline;">Organizar por:</p>
-	            <select ng-model="sortTypeE" style="width: 80px; height: 30px; padding: 0px 6px; font-size: 12px; display: inline;">
+	            <select ng-model="sortTypeE" style="width: 80px; height: 30px; padding: 0px 6px; font-size: 12px; display: inline;" ng-change="_rearrange('.EspI', true)">
 	                <option value="order" selected>estándar</option>
 	                <option value="desde">ubicación</option>
 	                <option value="title">título</option>              
@@ -62,14 +63,15 @@
             </div>
             
             <div class="grids">
-              <ul>
-                <li style="float: left; padding-right: 24px; margin-top: 24px; list-style-type: none" ng-repeat="tema in espB | orderBy:[sortTypeE, 'title']">
-                  <b-grid info="tema" edit="editing.val" switch="switch" l="labelPointer" first="$first" last="$last" index='$index'>
-                </li>
-                <li style="float: left; padding-right: 24px; margin-top: 24px; list-style-type: none" ng-repeat="tema in esp | orderBy:[sortTypeE, 'title']">
-                  <grid info="tema" edit="editing.val" switch="switch" l="labelPointer" first="$first" last="$last" index='$index'>
-                </li>
-              </ul>
+              
+                <div class="item EspI" ng-repeat="tema in espB | orderBy:[sortTypeE, 'title']">
+                  	<b-grid info="tema" edit="editing.val" switch="switch" l="labelPointer" first="$first" last="$last" index='$index'>
+                </div>
+                
+                <div class="item EspI" ng-repeat="tema in esp | orderBy:[sortTypeE, 'title']">
+                  	<grid info="tema" edit="editing.val" switch="switch" l="labelPointer" first="$first" last="$last" index='$index'>
+                </div>
+                
             </div>
 
             <div class="blueBar" style="height: <%= blueHeight(esp) %>px; position: relative; top: -16px; left: -160px"></div>
@@ -90,9 +92,9 @@
               	<button ng-if='editing.val' class="mybutton" ng-click="submitOrder('Mat')">Finalizar</button>
             </div>
             <% } %>
-            <div style="position: relative; top: -10px; right: -644px; height: 0px;">
+            <div style="position: relative; top: -10px; right: -644px; height: 0px; display: {{display()}}">
               	<p style="color: black !important; font-size: 14px !important; display: inline;">Organizar por:</p>
-              	<select ng-model="sortTypeM" style="width: 80px; height: 30px; padding: 0px 6px; font-size: 12px; display: inline;">
+              	<select ng-model="sortTypeM" style="width: 80px; height: 30px; padding: 0px 6px; font-size: 12px; display: inline;" ng-change="_rearrange('.MatI', true)">
                 	<option value="order" selected>estándar</option>
                 	<option value="desde">ubicación</option>
                 	<option value="title">título</option>              
@@ -100,14 +102,13 @@
             </div>
             
             <div class="grids">
-              <ul>
-                <li style="float: left; padding-right: 24px; margin-top: 24px; list-style-type: none" ng-repeat="tema in matB | orderBy:[sortTypeM, 'title']">
-                  <b-grid info="tema" edit="editing.val" switch="switch" l="labelPointer" first="$first" last="$last" index='$index'>
-                </li>
-                <li style="float: left; padding-right: 24px; margin-top: 24px; list-style-type: none" ng-repeat="tema in mat | orderBy:[sortTypeM, 'title']">
-                  <grid info="tema" edit="editing.val" switch="switch" l="labelPointer" first="$first" last="$last" index='$index'>
-                </li>
-              </ul>
+              	<div class="item MatI" ng-repeat="tema in matB | orderBy:[sortTypeM, 'title']">
+                  	<b-grid info="tema" edit="editing.val" switch="switch" l="labelPointer" first="$first" last="$last" index='$index'>
+                </div>
+                
+                <div class="item MatI" ng-repeat="tema in mat | orderBy:[sortTypeM, 'title']">
+                  	<grid info="tema" edit="editing.val" switch="switch" l="labelPointer" first="$first" last="$last" index='$index'>
+                </div>
             </div>
 
             <div class="blueBar" style="height: <%= blueHeight(mat) %>px; position: relative; top: -16px; left: -160px"></div>
@@ -128,9 +129,9 @@
               	<button ng-if='editing.val' class="mybutton" ng-click="submitOrder('Cie')">Finalizar</button>
             </div>
             <% } %>
-            <div style="position: relative; top: -10px; right: -644px; height: 0px;">
+            <div style="position: relative; top: -10px; right: -644px; height: 0px; display: {{display()}}">
               	<p style="color: black !important; font-size: 14px !important; display: inline;">Organizar por:</p>
-              	<select ng-model="sortTypeC" style="width: 80px; height: 30px; padding: 0px 6px; font-size: 12px; display: inline;">
+              	<select ng-model="sortTypeC" style="width: 80px; height: 30px; padding: 0px 6px; font-size: 12px; display: inline;" ng-change="_rearrange('.CieI', true)">
                 	<option value="order" selected>estándar</option>
                 	<option value="desde">ubicación</option>
                 	<option value="title">título</option>              
@@ -138,14 +139,13 @@
             </div>
             
             <div class="grids">
-              <ul>
-                <li style="float: left; padding-right: 24px; margin-top: 24px; list-style-type: none" ng-repeat="tema in cieB | orderBy:[sortTypeC, 'title']">
-                  <b-grid info="tema" edit="editing.val" switch="switch" l="labelPointer" first="$first" last="$last" index='$index'>
-                </li>
-                <li style="float: left; padding-right: 24px; margin-top: 24px; list-style-type: none" ng-repeat="tema in cie | orderBy:[sortTypeC, 'title']">
-                  <grid info="tema" edit="editing.val" switch="switch" l="labelPointer" first="$first" last="$last" index='$index'>
-                </li>
-              </ul>
+              <div class="item CieI" ng-repeat="tema in cieB | orderBy:[sortTypeC, 'title']">
+                  	<b-grid info="tema" edit="editing.val" switch="switch" l="labelPointer" first="$first" last="$last" index='$index'>
+                </div>
+                
+                <div class="item CieI" ng-repeat="tema in cie | orderBy:[sortTypeC, 'title']">
+                  	<grid info="tema" edit="editing.val" switch="switch" l="labelPointer" first="$first" last="$last" index='$index'>
+                </div>
             </div>
 
             <div class="blueBar" style="height: <%= blueHeight(cie) %>px; position: relative; top: -16px; left: -160px"></div>
@@ -166,9 +166,9 @@
               	<button ng-if='editing.val' class="mybutton" ng-click="submitOrder('His')">Finalizar</button>
             </div>
             <% } %>
-            <div style="position: relative; top: -10px; right: -644px; height: 0px;">
+            <div style="position: relative; top: -10px; right: -644px; height: 0px; display: {{display()}}">
               	<p style="color: black !important; font-size: 14px !important; display: inline;">Organizar por:</p>
-              	<select ng-model="sortTypeH" style="width: 80px; height: 30px; padding: 0px 6px; font-size: 12px; display: inline;">
+              	<select ng-model="sortTypeH" style="width: 80px; height: 30px; padding: 0px 6px; font-size: 12px; display: inline;" ng-change="_rearrange('.HisI' , false)">
             		<option value="order" selected>estándar</option>
 	                <option value="desde">ubicación</option>
 	                <option value="title">título</option>              
@@ -176,14 +176,13 @@
             </div>
             
             <div class="grids">
-              <ul>
-                <li style="float: left; padding-right: 24px; margin-top: 24px; list-style-type: none" ng-repeat="tema in hisB | orderBy:[sortTypeH, 'title']">
-                  <b-grid info="tema" edit="editing.val" switch="switch" l="labelPointer" first="$first" last="$last" index='$index'>
-                </li>
-                <li style="float: left; padding-right: 24px; margin-top: 24px; list-style-type: none" ng-repeat="tema in his | orderBy:[sortTypeH, 'title']">
-                  <grid info="tema" edit="editing.val" switch="switch" l="labelPointer" first="$first" last="$last" index='$index'>
-                </li>
-              </ul>
+              <div class="item HisI" ng-repeat="tema in hisB | orderBy:[sortTypeH, 'title']">
+                  	<b-grid info="tema" edit="editing.val" switch="switch" l="labelPointer" first="$first" last="$last" index='$index'>
+                </div>
+                
+                <div class="item HisI" ng-repeat="tema in his | orderBy:[sortTypeH, 'title']">
+                  	<grid info="tema" edit="editing.val" switch="switch" l="labelPointer" first="$first" last="$last" index='$index'>
+                </div>
             </div>
 
             <div class="blueBar" style="height: <%= blueHeight(his) %>px; position: relative; top: -16px; left: -160px"></div>
@@ -204,9 +203,9 @@
               	<button ng-if='editing.val' class="mybutton" ng-click="submitOrder('Tex')">Finalizar</button>
             </div>
             <% } %>
-            <div style="position: relative; top: -10px; right: -644px; height: 0px;">
+            <div style="position: relative; top: -10px; right: -644px; height: 0px; display: {{display()}}">
               	<p style="color: black !important; font-size: 14px !important; display: inline;">Organizar por:</p>
-              	<select ng-model="sortTypeT" style="width: 80px; height: 30px; padding: 0px 6px; font-size: 12px; display: inline;">
+              	<select ng-model="sortTypeT" style="width: 80px; height: 30px; padding: 0px 6px; font-size: 12px; display: inline;" ng-change="_rearrange('.TexI', false)">
 	                <option value="order" selected>estándar</option>
 	                <option value="desde">ubicación</option>
 	                <option value="title">título</option>              
@@ -214,17 +213,16 @@
             </div>
             
             <div class="grids">
-              <ul>
-                <li style="float: left; padding-right: 24px; margin-top: 24px; list-style-type: none" ng-repeat="tema in texB | orderBy:[sortTypeT, 'title']">
-                  <b-grid info="tema" edit="editing.val" switch="switch" l="labelPointer" first="$first" last="$last" index='$index'>
-                </li>
-                <li style="float: left; padding-right: 24px; margin-top: 24px; list-style-type: none" ng-repeat="tema in tex | orderBy:[sortTypeT, 'title']">
-                  <grid info="tema" edit="editing.val" switch="switch" l="labelPointer" first="$first" last="$last" index='$index' >
-                </li>
-              </ul>
+              <div class="item TexI" ng-repeat="tema in texB | orderBy:[sortTypeT, 'title']">
+                  	<b-grid info="tema" edit="editing.val" switch="switch" l="labelPointer" first="$first" last="$last" index='$index'>
+                </div>
+                
+                <div class="item TexI" ng-repeat="tema in tex | orderBy:[sortTypeT, 'title']">
+                  	<grid info="tema" edit="editing.val" switch="switch" l="labelPointer" first="$first" last="$last" index='$index'>
+                </div>
             </div>
 
-            <div class="blueBar" style="height: <%= blueHeight(tex) %>px; position: relative; top: -16px; left: -160px"></div>
+            <div class="blueBar" style="height: <%= blueHeight(tex) %>px; position: relative; top: -16px; left: -160px" ng-init="init()"></div>
 
             <% include partials/footer.ejs %>
 

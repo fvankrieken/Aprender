@@ -221,8 +221,8 @@ downJSON = {'/': false, '/RelacionTutora': false, '/MapeoVirtual': false, '/Cata
 // blueHeight: helper for CdO formatting
 app.locals.blueHeight = function(subject) {
   var gridLength = Math.ceil(subject.length/3.)-2;
-  var toReturn = (gridLength * 239) + 155;
-  if (gridLength < 0) {return 40};
+  var toReturn = (gridLength * 239) + 171;
+  if (gridLength < 0) {return 56};
   return toReturn;
 }
 
