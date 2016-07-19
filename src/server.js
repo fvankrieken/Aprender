@@ -518,7 +518,7 @@ app.post('/edit/*', ensureAuthenticated, function(req, res){
   var toInsert = {'pathName': pathName, 'title': title, 'descript': uploadInfo.descript, 'cont': uploadInfo.Cont, 'comps': comps, 'temas': temas, 'email': uploadInfo.email, 'fileName': req.body.fileName, 'badge': badge, 'desde': uploadInfo.desde};
   
   if (badge == wasBadge) {
-    toInsert['order'] = uploadInfo.order;
+    toInsert['order'] = parseInt(uploadInfo.order);
 
     collection.findOneAndUpdate({'pathName': OGpathName}, toInsert, function(err, count) {
       var slickCollect = db.collection('slick');
