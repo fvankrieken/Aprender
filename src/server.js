@@ -501,7 +501,7 @@ var newSubmitEmail = function(page) {
           res.send('Enviado');
           return;
         })
-    );
+    
 }
 
 // GET edit/tema: editable tema page. must ensure authenticated
