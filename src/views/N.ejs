@@ -91,13 +91,13 @@
             <% var i = index + 1 %>
             <% var noticiaNum = "noticia" + i.toString() %>
             <% var noticiaNumLabel = noticiaNum + "label" %>
-            <input type="radio" name="noticias" id="<%= noticiaNumLabel %>" value="<%= noticia['pathName'] %>" <% if (first) { %>checked<% } %>/>
-            <label for="<%= noticiaNumLabel %>" onclick="showOption('<%= noticia['pathName'] %>')" class="forumLabel" style="color: #f7ead7; padding: 10px 20px">
+            <input type="radio" name="noticias" id="<%= noticiaNumLabel %>" value="<%= noticia.urlID %>" <% if (first) { %>checked<% } %>/>
+            <label for="<%= noticiaNumLabel %>" onclick="showOption('<%= noticia.urlID %>')" class="forumLabel" style="color: #f7ead7; padding: 10px 20px">
               <%= noticia['title'] %>
               <p class="nDate"><%= noticia['date'] %></p>
               <% if (isAdmin) { %>
-              <button class="close" data-toggle="modal" data-target="#deleteNoticia<%= noticia['pathName'] %>" style="position: absolute; top: 7px; right: 7px; color: #ffffff">&times;</button>
-              <div class="modal fade" id="deleteNoticia<%= noticia['pathName'] %>" role="dialog" style="color: black">
+              <button class="close" data-toggle="modal" data-target="#deleteNoticia<%= noticia.urlID %>" style="position: absolute; top: 7px; right: 7px; color: #ffffff">&times;</button>
+              <div class="modal fade" id="deleteNoticia<%= noticia.urlID %>" role="dialog" style="color: black">
                 <div class="modal-dialog modal-sm" style="width: 250px">
                   <div class="modal-content">
                     <div class="modal-header">
@@ -107,7 +107,7 @@
                     <div class="modal-body" style="padding-bottom: 39px">
                       <p>¿Quieres eliminar esta noticia?</p>
                     
-                      <a href="/Noticias/<%= noticia['pathName'] %>"><button type="button" class="mybutton" style="background-color: #3a9ad9; float: left;">Eliminar</button></a>
+                      <a href="/Noticias/<%= noticia.urlID %>"><button type="button" class="mybutton" style="background-color: #3a9ad9; float: left;">Eliminar</button></a>
                       <!-- <button type="button" class="mybutton" data-dismiss="modal">Cerrar</button> -->
                     </div>
                   </div>
@@ -131,7 +131,7 @@
               <% var i = index + 1 %>
               <% var noticiaNum = "noticia" + i.toString() %>
 
-              <div id="<%= noticia['pathName'] %>" class="noticias" <% if (!first) { %>style="display: none"<% } %>>
+              <div id="<%= noticia.urlID %>" class="noticias" <% if (!first) { %>style="display: none"<% } %>>
                 <p style="font-family: Avenir; font-size: 20px; font-weight: 500; line-height: 1.06; color: #2f2f2f; margin-bottom: 20px; text-align: center; margin-top: 30px"><b><%= noticia['title'] %></b></p>
                 
                 <p style="font-family: Avenir; font-size: 14px; font-weight: 300; color: #4a4a4a; margin-bottom: 10px; text-align: center;"><%= noticia['name'] %> - <%= noticia['date'] %>
@@ -143,7 +143,7 @@
                 <div class="modal fade" id="<%= noticiaNum %>" role="dialog">
                   <div class="modal-dialog modal-sm" style="width: 500px; margin-top: 40px !important;">
                     <div class="modal-content">
-                      <form action="/Noticias/<%= noticia['pathName'] %>" method="POST" id="edit<%= noticia['pathName'] %>" enctype="multipart/form-data">
+                      <form action="/Noticias/<%= noticia['pathName'] %>" method="POST" id="edit<%= noticia['urlID'] %>" enctype="multipart/form-data">
                         <div class="modal-header">
                           <button type="button" class="close" data-dismiss="modal">&times;</button>
                           <h4 class="modal-title" style="text-align: center">Editar noticia</h4>
@@ -406,15 +406,15 @@
       }
     });
 
-    function showOption(topic) {
+    function showOption(ID) {
       var elements = document.getElementsByClassName('noticias')
 
       for (var i = 0; i < elements.length; i++){
           elements[i].style.display = "none";
       }
 
-      document.getElementById(topic).style.display = "initial";
-      updateQueryStringParameter(window.location, topic)
+      document.getElementById(ID).style.display = "initial";
+      updateQueryStringParameter(window.location, ID)
     }
 
     function hideIcon(self) {

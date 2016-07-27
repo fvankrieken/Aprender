@@ -5,7 +5,18 @@
 	opacity: 1;
 }
 
-.moving {
-	opacity: 0.25;
-	z-index: 10;
+.drag {
+	opacity: .5;
+}
+
+.over {
+	box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 1);
+}
+
+.over .topOfGrid  { background-color: #E74B40; color: #1f1f1f;}
+
+.over .gridMain { color: #2f2f2f;}
+
+.todrag {
+	-khtml-user-drag: element;
 }

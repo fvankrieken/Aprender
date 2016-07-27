@@ -55,7 +55,7 @@
             <% } %>
             <div style="position: relative; top: -10px; right: -644px; height: 0px; display: {{display()}}">
 	            <p style="color: black !important; font-size: 14px !important; display: inline;">Organizar por:</p>
-	            <select ng-model="sortTypeE" style="width: 80px; height: 30px; padding: 0px 6px; font-size: 12px; display: inline;" ng-change="_rearrange('.EspI', true)">
+	            <select ng-model="sortTypeE.val" style="width: 80px; height: 30px; padding: 0px 6px; font-size: 12px; display: inline;" ng-change="_rearrange('.EspI', false)">
 	                <option value="order" selected>estándar</option>
 	                <option value="desde">ubicación</option>
 	                <option value="title">título</option>              
@@ -64,12 +64,12 @@
             
             <div class="grids">
               
-                <div class="item EspI" ng-repeat="tema in espB | orderBy:[sortTypeE, 'title']">
-                  	<b-grid info="tema" edit="editing.val" switch="switch" l="labelPointer" first="$first" last="$last" index='$index'>
+                <div class="item EspI" ng-repeat="tema in espB | orderBy:[sortTypeE.val, 'title']">
+                  	<b-grid info="tema" edit="editing.val" switch="switch" l="labelPointer" first="$first" last="$last" index='$index' dragstart="dragstart" dragover="dragover" drop="drop" dragexit="dragexit" dragb="dragb">
                 </div>
                 
-                <div class="item EspI" ng-repeat="tema in esp | orderBy:[sortTypeE, 'title']">
-                  	<grid info="tema" edit="editing.val" switch="switch" l="labelPointer" first="$first" last="$last" index='$index'>
+                <div class="item EspI" ng-repeat="tema in esp | orderBy:[sortTypeE.val, 'title']">
+                  	<grid info="tema" edit="editing.val" switch="switch" l="labelPointer" first="$first" last="$last" index='$index' dragstart="dragstart" dragover="dragover" drop="drop" dragexit="dragexit" dragb="dragb">
                 </div>
                 
             </div>
@@ -94,7 +94,7 @@
             <% } %>
             <div style="position: relative; top: -10px; right: -644px; height: 0px; display: {{display()}}">
               	<p style="color: black !important; font-size: 14px !important; display: inline;">Organizar por:</p>
-              	<select ng-model="sortTypeM" style="width: 80px; height: 30px; padding: 0px 6px; font-size: 12px; display: inline;" ng-change="_rearrange('.MatI', true)">
+              	<select ng-model="sortTypeM.val" style="width: 80px; height: 30px; padding: 0px 6px; font-size: 12px; display: inline;" ng-change="_rearrange('.MatI', false)">
                 	<option value="order" selected>estándar</option>
                 	<option value="desde">ubicación</option>
                 	<option value="title">título</option>              
@@ -102,12 +102,12 @@
             </div>
             
             <div class="grids">
-              	<div class="item MatI" ng-repeat="tema in matB | orderBy:[sortTypeM, 'title']">
-                  	<b-grid info="tema" edit="editing.val" switch="switch" l="labelPointer" first="$first" last="$last" index='$index'>
+              	<div class="item MatI" ng-repeat="tema in matB | orderBy:[sortTypeM.val, 'title']">
+                  	<b-grid info="tema" edit="editing.val" switch="switch" l="labelPointer" first="$first" last="$last" index='$index' dragstart="dragstart" dragover="dragover" drop="drop" dragexit="dragexit" dragb="dragb">
                 </div>
                 
-                <div class="item MatI" ng-repeat="tema in mat | orderBy:[sortTypeM, 'title']">
-                  	<grid info="tema" edit="editing.val" switch="switch" l="labelPointer" first="$first" last="$last" index='$index'>
+                <div class="item MatI" ng-repeat="tema in mat | orderBy:[sortTypeM.val, 'title']">
+                  	<grid info="tema" edit="editing.val" switch="switch" l="labelPointer" first="$first" last="$last" index='$index' dragstart="dragstart" dragover="dragover" drop="drop" dragexit="dragexit" dragb="dragb">
                 </div>
             </div>
 
@@ -131,7 +131,7 @@
             <% } %>
             <div style="position: relative; top: -10px; right: -644px; height: 0px; display: {{display()}}">
               	<p style="color: black !important; font-size: 14px !important; display: inline;">Organizar por:</p>
-              	<select ng-model="sortTypeC" style="width: 80px; height: 30px; padding: 0px 6px; font-size: 12px; display: inline;" ng-change="_rearrange('.CieI', true)">
+              	<select ng-model="sortTypeC.val" style="width: 80px; height: 30px; padding: 0px 6px; font-size: 12px; display: inline;" ng-change="_rearrange('.CieI', false)">
                 	<option value="order" selected>estándar</option>
                 	<option value="desde">ubicación</option>
                 	<option value="title">título</option>              
@@ -139,12 +139,12 @@
             </div>
             
             <div class="grids">
-              <div class="item CieI" ng-repeat="tema in cieB | orderBy:[sortTypeC, 'title']">
-                  	<b-grid info="tema" edit="editing.val" switch="switch" l="labelPointer" first="$first" last="$last" index='$index'>
+              <div class="item CieI" ng-repeat="tema in cieB | orderBy:[sortTypeC.val, 'title']">
+                  	<b-grid info="tema" edit="editing.val" switch="switch" l="labelPointer" first="$first" last="$last" index='$index' dragstart="dragstart" dragover="dragover" drop="drop" dragexit="dragexit" dragb="dragb">
                 </div>
                 
-                <div class="item CieI" ng-repeat="tema in cie | orderBy:[sortTypeC, 'title']">
-                  	<grid info="tema" edit="editing.val" switch="switch" l="labelPointer" first="$first" last="$last" index='$index'>
+                <div class="item CieI" ng-repeat="tema in cie | orderBy:[sortTypeC.val, 'title']">
+                  	<grid info="tema" edit="editing.val" switch="switch" l="labelPointer" first="$first" last="$last" index='$index' dragstart="dragstart" dragover="dragover" drop="drop" dragexit="dragexit" dragb="dragb">
                 </div>
             </div>
 
@@ -168,7 +168,7 @@
             <% } %>
             <div style="position: relative; top: -10px; right: -644px; height: 0px; display: {{display()}}">
               	<p style="color: black !important; font-size: 14px !important; display: inline;">Organizar por:</p>
-              	<select ng-model="sortTypeH" style="width: 80px; height: 30px; padding: 0px 6px; font-size: 12px; display: inline;" ng-change="_rearrange('.HisI' , false)">
+              	<select ng-model="sortTypeH.val" style="width: 80px; height: 30px; padding: 0px 6px; font-size: 12px; display: inline;" ng-change="_rearrange('.HisI' , true)">
             		<option value="order" selected>estándar</option>
 	                <option value="desde">ubicación</option>
 	                <option value="title">título</option>              
@@ -176,12 +176,12 @@
             </div>
             
             <div class="grids">
-              <div class="item HisI" ng-repeat="tema in hisB | orderBy:[sortTypeH, 'title']">
-                  	<b-grid info="tema" edit="editing.val" switch="switch" l="labelPointer" first="$first" last="$last" index='$index'>
+              <div class="item HisI" ng-repeat="tema in hisB | orderBy:[sortTypeH.val, 'title']">
+                  	<b-grid info="tema" edit="editing.val" switch="switch" l="labelPointer" first="$first" last="$last" index='$index' dragstart="dragstart" dragover="dragover" drop="drop" dragexit="dragexit" dragb="dragb">
                 </div>
                 
-                <div class="item HisI" ng-repeat="tema in his | orderBy:[sortTypeH, 'title']">
-                  	<grid info="tema" edit="editing.val" switch="switch" l="labelPointer" first="$first" last="$last" index='$index'>
+                <div class="item HisI" ng-repeat="tema in his | orderBy:[sortTypeH.val, 'title']">
+                  	<grid info="tema" edit="editing.val" switch="switch" l="labelPointer" first="$first" last="$last" index='$index' dragstart="dragstart" dragover="dragover" drop="drop" dragexit="dragexit" dragb="dragb">
                 </div>
             </div>
 
@@ -205,7 +205,7 @@
             <% } %>
             <div style="position: relative; top: -10px; right: -644px; height: 0px; display: {{display()}}">
               	<p style="color: black !important; font-size: 14px !important; display: inline;">Organizar por:</p>
-              	<select ng-model="sortTypeT" style="width: 80px; height: 30px; padding: 0px 6px; font-size: 12px; display: inline;" ng-change="_rearrange('.TexI', false)">
+              	<select ng-model="sortTypeT.val" style="width: 80px; height: 30px; padding: 0px 6px; font-size: 12px; display: inline;" ng-change="_rearrange('.TexI', false)">
 	                <option value="order" selected>estándar</option>
 	                <option value="desde">ubicación</option>
 	                <option value="title">título</option>              
@@ -213,12 +213,12 @@
             </div>
             
             <div class="grids">
-              <div class="item TexI" ng-repeat="tema in texB | orderBy:[sortTypeT, 'title']">
-                  	<b-grid info="tema" edit="editing.val" switch="switch" l="labelPointer" first="$first" last="$last" index='$index'>
+              <div class="item TexI" ng-repeat="tema in texB | orderBy:[sortTypeT.val, 'title']">
+                  	<b-grid info="tema" edit="editing.val" switch="switch" l="labelPointer" first="$first" last="$last" index='$index' dragstart="dragstart" dragover="dragover" drop="drop" dragexit="dragexit" dragb="dragb">
                 </div>
                 
-                <div class="item TexI" ng-repeat="tema in tex | orderBy:[sortTypeT, 'title']">
-                  	<grid info="tema" edit="editing.val" switch="switch" l="labelPointer" first="$first" last="$last" index='$index'>
+                <div class="item TexI" ng-repeat="tema in tex | orderBy:[sortTypeT.val, 'title']">
+                  	<grid info="tema" edit="editing.val" switch="switch" l="labelPointer" first="$first" last="$last" index='$index' dragstart="dragstart" dragover="dragover" drop="drop" dragexit="dragexit" dragb="dragb">
                 </div>
             </div>
 

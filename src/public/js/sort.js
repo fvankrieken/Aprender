@@ -46,11 +46,11 @@ angular.module('sort', [])
         
     };
 
-    $scope.sortTypeE = "order";
-    $scope.sortTypeM = "order";
-    $scope.sortTypeC = "order";
-    $scope.sortTypeH = "order";
-    $scope.sortTypeT = "order";
+    $scope.sortTypeE = {'val': "order"};
+    $scope.sortTypeM = {'val': "order"};
+    $scope.sortTypeC = {'val': "order"};
+    $scope.sortTypeH = {'val': "order"};
+    $scope.sortTypeT = {'val': "order"};
     $scope.espB = window.espB;
     $scope.esp = window.esp;
     $scope.matB = window.matB;
@@ -61,19 +61,21 @@ angular.module('sort', [])
     $scope.his = window.his;
     $scope.texB = window.texB;
     $scope.tex = window.tex;
+
+    var catsB = [$scope.espB, $scope.matB, $scope.cieB, $scope.hisB, $scope.texB];
+    var cats = [$scope.esp, $scope.mat, $scope.cie, $scope.his, $scope.tex];
+    var catNames = ['Esp', 'Mat', 'Cie', 'His', 'Tex'];
+    var orders = [$scope.sortTypeE, $scope.sortTypeM, $scope.sortTypeC, $scope.sortTypeH, $scope.sortTypeT];
+
     $scope.options = [{'name':"order"}, {'name':"desde"}, {'name':"title"}]
 
     $scope.labelPointer = "auto";
-    $scope.newOrder = [];
-    $scope.newBOrder = [];
+    var newOrder = [];
+    var newBOrder = [];
     $scope.editCont = '';
     $scope.editing = {'val': false}
     $scope.display = function() {
-        if ($scope.editing.val) {
-            return 'none'
-        } else {
-            return 'block'
-        }
+        if ($scope.editing.val) { return 'none' } else { return 'block' }
     }
     $scope.edit = function(cont) {
         $scope.editCont = cont;
@@ -81,31 +83,29 @@ angular.module('sort', [])
         $scope.editing.val = true;
         var O = [];
         var BO = [];
-        var contStrings = ['Esp', 'Mat', 'Cie', 'His', 'Tex'];
-        var conts = [$scope.esp, $scope.mat, $scope.cie, $scope.his, $scope.tex];
-        var bConts = [$scope.espB, $scope.matB, $scope.cieB, $scope.hisB, $scope.texB];
-        var index = contStrings.indexOf(cont);
-        conts[index].forEach(function(thing, i) {
-            O.push(-1);
+        var index = catNames.indexOf(cont);
+        cats[index].forEach(function(thing, i) {
+            O.push(i);
         });
-        bConts[index].forEach(function(thing, i) {
-            BO.push(-1);
+        catsB[index].forEach(function(thing, i) {
+            BO.push(i);
         });
         
-        $scope.newOrder = O;
-        $scope.newBOrder = BO;
-
-        var orders = [$scope.sortTypeE, $scope.sortTypeM, $scope.sortTypeC, $scope.sortTypeH, $scope.sortTypeT]
+        newOrder = O;
+        newBOrder = BO;
+        console.log(index)
         orders.forEach(function(order, i) {
             if (index == i) {
-                order = "order";
+                console.log(order);
+                order.val = "order";
             }
         });
+        console.log(orders)
         $timeout(function(){$scope.rearrange('.' + $scope.editCont + 'I', false)}, 0)
     }
 
     $scope.submitOrder = function(cont) {
-        var data = {'cont': cont, 'newOrder': $scope.newOrder.toString(), 'newBOrder': $scope.newBOrder.toString()}
+        var data = {'cont': cont, 'newOrder': newOrder.toString(), 'newBOrder': newBOrder.toString()}
         
         $http({
             url: '/CatalogoDeOfertas',
@@ -122,113 +122,189 @@ angular.module('sort', [])
         $scope.editCont = '';
         $scope.labelPointer = "auto";
         $scope.editing.val = false;
-        $scope.newOrder = [];
-        $scope.newBOrder = [];
+        newOrder = [];
+        newBOrder = [];
 
     }
 
     $scope.switch = function(first, second, b) {
-        if ($scope.editCont == "Esp") {
-            if (b) {
-                $scope.espB.forEach(function(tema, index) {
-                    if (tema['order'] == first) {
-                        tema['order'] = second;
-                    } else if (tema['order'] == second) {
-                        tema['order'] = first;
-                    }
-                });
-            } else {
-                $scope.esp.forEach(function(tema, index) {
-                    if (tema['order'] == first) {
-                        tema['order'] = second;
-                    } else if (tema['order'] == second) {
-                        tema['order'] = first;
-                    }
-                });
-            }
-        } else if ($scope.editCont == "Mat") {
-            if (b) {
-                $scope.matB.forEach(function(tema, index) {
-                    if (tema['order'] == first) {
-                        tema['order'] = second;
-                    } else if (tema['order'] == second) {
-                        tema['order'] = first;
-                    }
-                });
-            } else {
-                $scope.mat.forEach(function(tema, index) {
-                    if (tema['order'] == first) {
-                        tema['order'] = second;
-                    } else if (tema['order'] == second) {
-                        tema['order'] = first;
-                    }
-                });
-            }
-        } else if ($scope.editCont == "Cie") {
-            if (b) {
-                $scope.cieB.forEach(function(tema, index) {
-                    if (tema['order'] == first) {
-                        tema['order'] = second;
-                    } else if (tema['order'] == second) {
-                        tema['order'] = first;
-                    }
-                });
-            } else {
-                $scope.cie.forEach(function(tema, index) {
-                    if (tema['order'] == first) {
-                        tema['order'] = second;
-                    } else if (tema['order'] == second) {
-                        tema['order'] = first;
-                    }
-                });
-            }
-        } else if ($scope.editCont == "His") {
-            if (b) {
-                $scope.hisB.forEach(function(tema, index) {
-                    if (tema['order'] == first) {
-                        tema['order'] = second;
-                    } else if (tema['order'] == second) {
-                        tema['order'] = first;
-                    }
-                });
-            } else {
-                $scope.his.forEach(function(tema, index) {
-                    if (tema['order'] == first) {
-                        tema['order'] = second;
-                    } else if (tema['order'] == second) {
-                        tema['order'] = first;
-                    }
-                });
-            }
-        } else if ($scope.editCont == "Tex") {
-            if (b) {
-                $scope.texB.forEach(function(tema, index) {
-                    if (tema['order'] == first) {
-                        tema['order'] = second;
-                    } else if (tema['order'] == second) {
-                        tema['order'] = first;
-                    }
-                });
-            } else {
-                $scope.tex.forEach(function(tema, index) {
-                    if (tema['order'] == first) {
-                        tema['order'] = second;
-                    } else if (tema['order'] == second) {
-                        tema['order'] = first;
-                    }
-                });
-            }
+        if (b) {
+            catsB.forEach(function(cat, i) {
+                if (i == catNames.indexOf($scope.editCont)) {
+                    cat.forEach(function(tema, index) {
+                        if (tema.order == first) {
+                            tema.order = second;
+                        } else if (tema.order == second) {
+                            tema.order = first;
+                        }
+                    });
+                }
+            });
+        } else {
+            cats.forEach(function(cat, i) {
+                if (i == catNames.indexOf($scope.editCont)) {
+                    cat.forEach(function(tema, index) {
+                        if (tema.order == first) {
+                            tema.order = second;
+                        } else if (tema.order == second) {
+                            tema.order = first;
+                        }
+                    });
+                }
+            });
         }
 
-        if (b) { toReturn = $scope.newBOrder; } else { toReturn = $scope.newORder; }
-        if (toReturn[first] == -1) { new2 = first; } else { new2 = toReturn[first]; }
-        if (toReturn[second] == -1) { toReturn[first] = second; } else { toReturn[first] = toReturn[second]; }
-        toReturn[second] = new2;
-        if (b) { $scope.newBOrder = toReturn; } else { $scope.newORder = toReturn; }
-        console.log($scope.editCont)
+        if (b) { toReturn = newBOrder; } else { toReturn = newORder; }
+        toReturn.forEach(function(newPos, i) {
+            if (newPos == first) {
+                toReturn[i] = second;
+            } else if (newPos == second) {
+                toReturn[i] = first;
+            }
+        });
+        if (b) { newBOrder = toReturn; } else { newORder = toReturn; }
         $timeout(function(){$scope.rearrange('.' + $scope.editCont + 'I', false)}, 0)
     }
 
+    var sourceIndex = -1;
+    var tempIndex = -1;
+    $scope.dragb = null;
+    var readyToShift = [];
+    var dontLetShift = false;
+
+    $scope.dragstart = function(index, badge) {
+        sourceIndex = index;
+        tempIndex = index;
+        $scope.dragb = badge;
+        // MAKE INVISIBLE
+    }
+
+    $scope.dragexit = function(targetIndex, badge) {
+        if (badge == $scope.dragb) {
+            readyToShift[targetIndex] = false;
+            dontLetShift = false;
+        }
+    }
+
+    $scope.dragover = function(targetIndex, badge) {
+        if ((tempIndex == -1) || (badge != $scope.dragb) || (dontLetShift)) {
+            return
+        }
+        dontLetShift = true;
+        readyToShift[targetIndex] = true;
+        $timeout(function(){
+            if (readyToShift[targetIndex]) {
+                shift(targetIndex);
+                tempIndex = targetIndex;
+                $timeout(function(){$scope.rearrange('.' + $scope.editCont + 'I', false)}, 0);
+                $timeout(function(){dontLetShift = false}, 1250);
+            }
+        }, 750);
+        
+        
+    }
+
+    //only if 
+    $scope.drop = function(targetIndex, badge) {
+        if ((sourceIndex == -1) || (badge != $scope.dragb) || (targetIndex == tempIndex)) {
+            return
+        }
+        if (targetIndex == -1) {
+            targetIndex = tempIndex;
+        }
+        shift(targetIndex);
+        // make visible
+        $timeout(function(){$scope.rearrange('.' + $scope.editCont + 'I', false)}, 0);
+        readyToShift = [];
+
+        shiftArray(targetIndex);
+
+        sourceIndex = -1;
+        tempIndex = -1;
+    }
+
+    shift = function(targetIndex) {
+        
+        if (targetIndex == tempIndex) {
+            return
+        }
+
+        var low;
+        var high;
+        if (targetIndex > tempIndex) {
+            low = tempIndex + 1;
+            high = targetIndex;
+            increment = -1;
+        } else {
+            low = targetIndex;
+            high = tempIndex - 1;
+            increment = 1;
+        }
+        if ($scope.dragb) {
+            catsB.forEach(function(cat, i) {
+                if (i == catNames.indexOf($scope.editCont)) {
+                    cat.forEach(function(tema, index) {
+                        var old = tema.order;
+                        if (old == tempIndex) {
+                            tema.order = targetIndex;
+                        } else if ((old >= low) && (old <= high)) {
+                            tema.order += increment;
+                        }
+                    });
+                }
+            });
+        } else {
+            cats.forEach(function(cat, i) {
+                if (i == catNames.indexOf($scope.editCont)) {
+                    cat.forEach(function(tema, index) {
+                        var old = tema.order;
+                        if (old == tempIndex) {
+                            tema.order = targetIndex;
+                        } else if ((old >= low) && (old <= high)) {
+                            tema.order += increment;
+                        }
+                    });
+                }
+            });
+        }
+    }
+
+    shiftArray = function(targetIndex) {
+        if (targetIndex == sourceIndex) {
+            return
+        }
+        var low;
+        var high;
+        if (targetIndex > sourceIndex) {
+            low = sourceIndex + 1;
+            high = targetIndex;
+            increment = -1;
+        } else {
+            low = targetIndex;
+            high = sourceIndex - 1;
+            increment = 1;
+        }
+
+        if ($scope.dragb) {
+            newBOrder.forEach(function(loc, i) {
+                if ((loc >= low) && (loc <= high)) {
+                    newBOrder[i] += increment
+                } else if (loc == sourceIndex) {
+                    newBOrder[i] = targetIndex
+                }
+            });
+            console.log(newBOrder)
+        } else {
+            newOrder.forEach(function(loc, i) {
+                if ((loc >= low) && (loc <= high)) {
+                    newOrder[i] += increment
+                } else if (loc == sourceIndex) {
+                    newOrder[i] = targetIndex
+                }
+            });
+            console.log(newOrder)
+        }
+    }
 
 }])
 
@@ -242,7 +318,12 @@ angular.module('sort', [])
             l: '=',
             first: '=',
             last: '=',
-            index: '='
+            index: '=',
+            dragstart: '=',
+            dragover: '=',
+            dragexit: '=',
+            drop: '=',
+            dragb: '='
     	}, 
     	templateUrl: 'js/directives/grid.html' 
 	}; 
@@ -258,8 +339,108 @@ angular.module('sort', [])
             l: '=',
             first: '=',
             last: '=',
-            index: '='
+            index: '=',
+            dragstart: '=',
+            dragover: '=',
+            dragexit: '=',
+            drop: '=',
+            dragb: '='
     	}, 
     	templateUrl: 'js/directives/bGrid.html'
 	};
+})
+
+.directive('dragdrop', function() {
+    return {
+        scope: {
+            dragstart: '=',
+            dragover: '=',
+            dragexit: '=',
+            drop: '=',
+            index: '=',
+            badge: '=',
+            dragb: '='
+        },
+        link: function(scope, element, attrs) {
+            var el = element[0];
+
+            el.draggable = true
+
+            el.addEventListener(
+                'dragstart',
+                function(e) {
+                    e.dataTransfer.effectAllowed = 'move';
+                    this.classList.add('drag');
+                    scope.$apply('dragstart(index, badge)');
+                    return false;
+                },
+                false
+            );
+
+            el.addEventListener(
+                'dragenter',
+                function(e) {
+                    if (e.preventDefault) e.preventDefault();
+                    return false;
+                },
+                false
+            );
+
+            el.addEventListener(
+                'dragover',
+                function(e) {
+                    if (scope.dragb == scope.badge) {
+                        this.classList.add('over');
+                    }
+                    if (e.preventDefault) e.preventDefault();
+                    scope.$apply('dragover(index, badge)');
+                    return false;
+                },
+                false
+            );
+
+            el.addEventListener(
+                'dragleave',
+                function(e) {
+                    if (e.preventDefault) e.preventDefault();
+                    this.classList.remove('over');
+                    scope.$apply('dragexit(index, badge)');
+                    return false;
+                },
+
+                false
+            );
+
+            el.addEventListener(
+                'dragend',
+                function(e) {
+                    if (e.preventDefault) e.preventDefault();
+                    this.classList.remove('drag');
+                    scope.$apply('drop(-1, badge)');
+                    return false;
+                },
+                false
+            );
+
+            el.addEventListener(
+                'drop',
+                function(e) {
+                    if (e.preventDefault) e.preventDefault();
+                    this.classList.remove('over');
+                    scope.$apply('drop(index, badge)');
+                    return false;
+                },
+                false
+            );
+        }
+    }
 });
+
+
+
+
+
+
+
+
+

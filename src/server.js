@@ -411,7 +411,7 @@ app.post('/CatalogoDeOfertas', ensureAuthenticated, jsonParser, function(req, re
   var collection = db.collection('temas');
 
   newBOrder.forEach(function(order, index){
-    if (order != -1) {
+    if (order != index) {
       collection.update(
         {'$and': [{'cont': {'$eq': cont}}, {'order': {'$eq': order}}, {'badge': {'$eq': true}}, {'updated': {'$ne': true}}]},
         {'$set': {'order': index, 'updated': true}}
@@ -481,6 +481,28 @@ app.post('/CatalogoDeOfertas/*', function(req, res, next) { downForMaintenance('
 
   });
 });
+
+// Send email to Aron and Izzy about new submission to a page (MV, CT, CE)
+var newSubmitEmail = function(page) {
+  app.mailer.send('email', 
+        {
+          to: expEmail,
+          subject: subject + ', de: ' + email,
+          id: id,
+          content: content,
+          expOrNot: 'exp'
+        }, function (err) {
+          if (err) {
+            // handle error
+            console.log(err);
+            res.send('There was an error sending the email');
+            return;
+          }
+          res.send('Enviado');
+          return;
+        })
+    );
+}
 
 // GET edit/tema: editable tema page. must ensure authenticated
 app.get('/edit/*', ensureAuthenticated, function(req, res){
@@ -811,12 +833,15 @@ app.post('/Noticias', ensureAuthenticated, noticiasUpload.single('image'), funct
     image = req.file.filename
   }
 
-  var collection = db.collection('noticiasP')
-  var title = req.body.title
-  var tempName = utils.toTitleCase(title)
+  var collection = db.collection('noticiasP');
+
+  var title = req.body.title;
+  var tempName = utils.toTitleCase(title);
   var tempName2 = tempName.replace(/\s/g, '');
   var pathName = utils.removeDiacritics(tempName2).replace(/\W/g, '');
-  var big = (req.body.big == 'true')
+  var big = (req.body.big == 'true');
+
+  var urlID = utils.randomString(4);
 
   collection.count({'pathName': pathName}, function(err, count) {
     if (count != 0) {
@@ -824,7 +849,7 @@ app.post('/Noticias', ensureAuthenticated, noticiasUpload.single('image'), funct
       res.redirect('/Noticias');
       return;
     }
-    var toInsert = {'pathName': pathName,'title': title, 'text': req.body.text, 'name': req.body.name, 'date': req.body.date, 'image': image, 'big': big}
+    var toInsert = {'pathName': pathName,'title': title, 'text': req.body.text, 'name': req.body.name, 'date': req.body.date, 'image': image, 'big': big, 'urlID': urlID}
     collection.insert(toInsert, function(err, count) {
       res.redirect('/Noticias');
     });
@@ -838,7 +863,7 @@ app.post('/Noticias/*', ensureAuthenticated, noticiasUpload.single('image'),func
     image = req.file.filename
   }
   var patharray = req.path.split('/');
-  var OGpathName = patharray[patharray.length-1];
+  var urlID = patharray[patharray.length-1];
   collection = db.collection('noticiasP');
   
   var title = req.body.title
@@ -847,9 +872,9 @@ app.post('/Noticias/*', ensureAuthenticated, noticiasUpload.single('image'),func
   var pathName = utils.removeDiacritics(tempName2).replace(/\W/g, '');
   var big = (req.body.big == 'true')
 
-  var toInsert = {'pathName': pathName,'title': title, 'text': req.body.text, 'name': req.body.name, 'date': req.body.date, 'image': image, 'big': big}
+  var toInsert = {'pathName': pathName,'title': title, 'text': req.body.text, 'name': req.body.name, 'date': req.body.date, 'image': image, 'big': big, 'urlID': urlID}
     
-  collection.findOneAndUpdate({'pathName': OGpathName}, toInsert, function(err, count) {
+  collection.findOneAndUpdate({'urlID': urlID}, toInsert, function(err, count) {
     res.redirect('/Noticias');
   });
 })
@@ -857,18 +882,10 @@ app.post('/Noticias/*', ensureAuthenticated, noticiasUpload.single('image'),func
 // GET noticias/topic: remove topic
 app.get('/Noticias/*', ensureAuthenticated, function(req, res) {
   var patharray = req.path.split('/');
-  var pathName = patharray[patharray.length-1];
+  var urlID = patharray[patharray.length-1];
   collection = db.collection('noticiasP');
-  collection.find({'pathName': pathName}).toArray(function(err, array) {
-    var order = array[0]['order'];
-    collection.update(
-      {'$and': [{'cont': {'$eq': array[0]['cont']}}, {'order': {'$gt': order}}, {'badge': {'$eq': array[0]['badge']}}]},
-      {'$inc': {'order': -1}},
-      {'multi': true},
-      function(err, count) {
-        collection.deleteOne({'pathName': pathName})
-      }
-    );
+  collection.find({'urlID': urlID}).toArray(function(err, array) {
+    collection.deleteOne({'urlID': urlID})
   });
   res.redirect('/Noticias');
 })
@@ -881,9 +898,9 @@ app.get('/Noticias/*', ensureAuthenticated, function(req, res) {
 app.get('/admin', ensureAuthenticated, function(req, res){
   res.render('admin', { status: '' })
 });
-
+/*
 var listener = unoconv.listen( {port: 2002} )
-
+*/
 // POST admin: upload a new tema
 app.post('/admin', ensureAuthenticated, upload.single('pdf'), function(req, res){
   if (!req.file) {

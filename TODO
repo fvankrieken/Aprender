@@ -21,3 +21,8 @@ Admin
 
 Archivos
 	better
+
+
+DRAGGABLE
+
+mainly: make visible/invisible-> see drag/drop events and what data they contain (maybe use window function w/ drag), change css of element
