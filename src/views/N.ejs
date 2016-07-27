@@ -134,7 +134,7 @@
               <div id="<%= noticia.urlID %>" class="noticias" <% if (!first) { %>style="display: none"<% } %>>
                 <p style="font-family: Avenir; font-size: 20px; font-weight: 500; line-height: 1.06; color: #2f2f2f; margin-bottom: 20px; text-align: center; margin-top: 30px"><b><%= noticia['title'] %></b></p>
                 
-                <p style="font-family: Avenir; font-size: 14px; font-weight: 300; color: #4a4a4a; margin-bottom: 15px; text-align: center;"><%= noticia['name'] %> - <%= noticia['date'] %>
+                <p style="font-family: Avenir; font-size: 14px; font-weight: 300; color: #4a4a4a; margin-bottom: 18px; text-align: center;"><%= noticia['name'] %> - <%= noticia['date'] %>
                 <% if (isAdmin) { %>
                    - <a data-toggle="modal" data-target="#<%= noticiaNum %>" style="color: #0187e0 !important">Editar</a>
                 <% } %>
@@ -181,7 +181,7 @@
                 </div>
                 <% } %>
                 
-                <div style="overflow-y: auto; height: 691px; width: 714px;">
+                <div style="overflow-y: auto; height: 688px; width: 714px;">
                 <% if (noticia['image'] != '') { %>
                   <% if (noticia['big']) { %>
                   <div style="text-align: center;">
