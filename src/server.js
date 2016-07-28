@@ -17,6 +17,7 @@ var express = require('express')
   , MongoURL = require('./password').mongoURL
   , password = require('./password').password
   , password2 = require('./password').password2
+  , secretKey = require('./password').secretKey
   , request = require('request')
 
 var db;
@@ -312,8 +313,6 @@ app.post('/MapeoVirtual', function(req, res) {
     res.sendStatus(401);
     return;
   }
-  // Put your secret key here.
-  var secretKey = "6LeICCITAAAAAO3-Wg7wU2aQKhaxmJGx0HTZir0N";
   // req.connection.remoteAddress will provide IP address of connected user.
   var verificationUrl = "https://www.google.com/recaptcha/api/siteverify?secret=" + secretKey + "&response=" + req.body['g-recaptcha-response'] + "&remoteip=" + req.connection.remoteAddress;
   // Hitting GET request to the URL, Google will respond with success or error scenario.
@@ -322,6 +321,7 @@ app.post('/MapeoVirtual', function(req, res) {
     // Success will be true or false depending upon captcha validation.
     if(body.success !== undefined && body.success) {
       res.sendStatus(200);
+      newSubmitEmail('Mapeo Virtual')
     } else {
       res.sendStatus(401);
     }
@@ -371,9 +371,13 @@ app.get('/CatalogoDeOfertas', function(req, res, next) { downForMaintenance('/Ca
             } else {
               catJSON.tex = documents;
             }
+            cats = [catJSON.esp, catJSON.mat, catJSON.cie, catJSON.his, catJSON.tex];
+            cats.forEach(function(e, i) {
+              addSortTitles(e);
+            });
 
             catJSON['isAdmin'] = req.isAuthenticated();
-            catJSON['down'] = downJSON['/CatalogoDeOfertas']
+            catJSON['down'] = downJSON['/CatalogoDeOfertas'];
 
             res.render('CdO', catJSON);
             
@@ -383,6 +387,12 @@ app.get('/CatalogoDeOfertas', function(req, res, next) { downForMaintenance('/Ca
     });
   });
 });
+
+var addSortTitles = function(array) {
+  array.forEach(function(e, i) {
+    e.sortTitle = utils.removeDiacritics(utils.removeThe(e.title));
+  });
+};
 
 // GET CdO/tema: show individual tema
 app.get('/CatalogoDeOfertas/*', function(req, res, next) { downForMaintenance('/CatalogoDeOfertas', req, res, next) }, function(req, res){
@@ -481,28 +491,6 @@ app.post('/CatalogoDeOfertas/*', function(req, res, next) { downForMaintenance('
 
   });
 });
-
-// Send email to Aron and Izzy about new submission to a page (MV, CT, CE)
-var newSubmitEmail = function(page) {
-  app.mailer.send('email', 
-        {
-          to: expEmail,
-          subject: subject + ', de: ' + email,
-          id: id,
-          content: content,
-          expOrNot: 'exp'
-        }, function (err) {
-          if (err) {
-            // handle error
-            console.log(err);
-            res.send('There was an error sending the email');
-            return;
-          }
-          res.send('Enviado');
-          return;
-        })
-    
-}
 
 // GET edit/tema: editable tema page. must ensure authenticated
 app.get('/edit/*', ensureAuthenticated, function(req, res){
@@ -708,7 +696,8 @@ app.post('/CompartirTemas', tempUpload.fields([{'name': 'tema'}, {'name': 'tutor
       return;
     }
     collection.insert(toInsert, function(err, count) {
-      res.render('CT', { 'isAdmin': (req.isAuthenticated()), 'status': '', 'down': downJSON['/CompartirTemas']})
+      res.render('CT', { 'isAdmin': (req.isAuthenticated()), 'status': '', 'down': downJSON['/CompartirTemas']});
+      newSubmitEmail('Compartir Temas')
     });
   });
 });
@@ -762,6 +751,7 @@ app.post('/CompartirExperiencias', function(req, res, next) { downForMaintenance
         var toInsert = {'pathName': pathName,'topic': topic, 'comments': [{'name': req.body.name, 'comment': req.body.comment, 'date': req.body.date, 'commentID': id}]}
         collection.insert(toInsert, function(err, count) {
           res.redirect('/CompartirExperiencias');
+          newSubmitEmail('Compartir Experiencias');
           return;
         });
       });
@@ -1096,4 +1086,20 @@ function downForMaintenance(page, req, res, next) {
   } else {
     return next();
   }
+}
+
+// Send email to Aron and Izzy about new submission to a page (MV, CT, CE)
+var newSubmitEmail = function(page) {
+  app.mailer.send('notify', 
+        {
+          to: 'finnvankrieken@gmail.com', //['alesser@redesdetutoria.org', 'igarcia@redesdetutoria.org'],
+          subject: 'Nueva presentación: ' + page,
+          page: page
+        }, function (err) {
+          if (err) {
+            // handle error
+            console.log(err);
+          }
+        })
+    
 }

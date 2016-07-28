@@ -240,3 +240,14 @@ exports.makeLink = function(str) {
     toReturn = toReturn.replace(/\W/g, '');
     return toReturn
 }
+
+exports.removeThe = function(str) {
+    if (str.startsWith('Los ') || str.startsWith('Las ')) {
+        return str.substring(4, str.length)
+    } else if (str.startsWith('El ') || str.startsWith('La ')) {
+        return str.substring(3, str.length)
+    } else {
+        return str
+    }
+    
+}

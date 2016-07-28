@@ -67,7 +67,7 @@ angular.module('sort', [])
     var catNames = ['Esp', 'Mat', 'Cie', 'His', 'Tex'];
     var orders = [$scope.sortTypeE, $scope.sortTypeM, $scope.sortTypeC, $scope.sortTypeH, $scope.sortTypeT];
 
-    $scope.options = [{'name':"order"}, {'name':"desde"}, {'name':"title"}]
+    $scope.options = [{'name':"order"}, {'name':"desde"}, {'name':"sortTitle"}]
 
     $scope.labelPointer = "auto";
     var newOrder = [];
