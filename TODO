@@ -6,25 +6,16 @@ RT
 MV
 
 CdO
-	remove los/las/la/el at beginning of words
 
 CT
 
 CE
-	emails
 	need text to submit
-	comments 10 px shorter
 
 N
-	make thing longer
 
 Admin
 	location?
 
 Archivos
 	better
-
-
-DRAGGABLE
-
-mainly: make visible/invisible-> see drag/drop events and what data they contain (maybe use window function w/ drag), change css of element

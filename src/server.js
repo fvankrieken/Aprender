@@ -888,9 +888,9 @@ app.get('/Noticias/*', ensureAuthenticated, function(req, res) {
 app.get('/admin', ensureAuthenticated, function(req, res){
   res.render('admin', { status: '' })
 });
-/*
+
 var listener = unoconv.listen( {port: 2002} )
-*/
+
 // POST admin: upload a new tema
 app.post('/admin', ensureAuthenticated, upload.single('pdf'), function(req, res){
   if (!req.file) {
