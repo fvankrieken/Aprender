@@ -7,6 +7,7 @@
 
 .drag {
 	opacity: .5;
+	cursor: move;
 }
 
 .over {
