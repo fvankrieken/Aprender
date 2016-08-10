@@ -78,7 +78,6 @@ angular.module('sort', [])
         if ($scope.editing.val) { return 'none' } else { return 'block' }
     }
     $scope.edit = function(cont) {
-        $('.todrag').draggable( "option", "cursor", "move" )
         $scope.editCont = cont;
         $scope.labelPointer = "none";
         $scope.editing.val = true;
@@ -365,7 +364,9 @@ angular.module('sort', [])
         link: function(scope, element, attrs) {
             var el = element[0];
 
-            el.draggable = true
+            $(el).draggable({
+                cursor: 'move'
+            });
 
             el.addEventListener(
                 'dragstart',
