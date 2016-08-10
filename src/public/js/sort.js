@@ -372,6 +372,7 @@ angular.module('sort', [])
                     e.dataTransfer.effectAllowed = 'move';
                     this.classList.add('drag');
                     scope.$apply('dragstart(index, badge)');
+                    $(document.body).css('cursor', 'move');
                     return false;
                 },
                 false
@@ -417,6 +418,7 @@ angular.module('sort', [])
                     if (e.preventDefault) e.preventDefault();
                     this.classList.remove('drag');
                     scope.$apply('drop(-1, badge)');
+                    $(document.body).css('cursor', 'initial');
                     return false;
                 },
                 false
