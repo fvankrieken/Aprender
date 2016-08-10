@@ -364,7 +364,7 @@ angular.module('sort', [])
         link: function(scope, element, attrs) {
             var el = element[0];
 
-            el.draggable = true
+            $(el).draggable({'cursor': 'move'});
 
             el.addEventListener(
                 'dragstart',
