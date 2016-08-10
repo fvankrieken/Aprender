@@ -372,7 +372,6 @@ angular.module('sort', [])
                     e.dataTransfer.effectAllowed = 'move';
                     this.classList.add('drag');
                     scope.$apply('dragstart(index, badge)');
-                    this.draggable({'cursor': 'move'})
                     return false;
                 },
                 false
