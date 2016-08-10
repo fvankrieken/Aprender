@@ -78,6 +78,7 @@ angular.module('sort', [])
         if ($scope.editing.val) { return 'none' } else { return 'block' }
     }
     $scope.edit = function(cont) {
+        $('.todrag').draggable( "option", "cursor", "move" )
         $scope.editCont = cont;
         $scope.labelPointer = "none";
         $scope.editing.val = true;
@@ -372,7 +373,6 @@ angular.module('sort', [])
                     e.dataTransfer.effectAllowed = 'move';
                     this.classList.add('drag');
                     scope.$apply('dragstart(index, badge)');
-                    $( this ).draggable( "option", "cursor", "crosshair" )
                     return false;
                 },
                 false
