@@ -379,7 +379,9 @@ app.get('/CatalogoDeOfertas', function(req, res, next) { downForMaintenance('/Ca
 
             catJSON['isAdmin'] = req.isAuthenticated();
             catJSON['down'] = downJSON['/CatalogoDeOfertas'];
-
+            if ((req.user) && (req.user.username == 'finn')) {
+              catJSON.showOrder = true;
+            }
             res.render('CdO', catJSON);
             
           });
@@ -942,7 +944,7 @@ app.post('/admin', ensureAuthenticated, upload.single('pdf'), function(req, res)
       return;
     }
     collection.count({'cont': uploadInfo.Cont, 'badge': badge}, function(err, count2) {
-      toInsert['order'] = count2 + 1
+      toInsert['order'] = count2
       collection.insert(toInsert, function(err, count) {
         var slickCollect = db.collection('slick');
         slickCollect.count({'cont': uploadInfo.Cont}, function(err, count) {

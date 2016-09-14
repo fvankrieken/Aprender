@@ -61,6 +61,7 @@ angular.module('sort', [])
     $scope.his = window.his;
     $scope.texB = window.texB;
     $scope.tex = window.tex;
+    $scope.showOrder = window.showOrder;
 
     var catsB = [$scope.espB, $scope.matB, $scope.cieB, $scope.hisB, $scope.texB];
     var cats = [$scope.esp, $scope.mat, $scope.cie, $scope.his, $scope.tex];
@@ -93,14 +94,11 @@ angular.module('sort', [])
         
         newOrder = O;
         newBOrder = BO;
-        console.log(index)
         orders.forEach(function(order, i) {
             if (index == i) {
-                console.log(order);
                 order.val = "order";
             }
         });
-        console.log(orders)
         $timeout(function(){$scope.rearrange('.' + $scope.editCont + 'I', false)}, 0)
     }
 
@@ -323,7 +321,8 @@ angular.module('sort', [])
             dragover: '=',
             dragexit: '=',
             drop: '=',
-            dragb: '='
+            dragb: '=',
+            showorder: '='
     	}, 
     	templateUrl: 'js/directives/grid.html' 
 	}; 
@@ -344,7 +343,8 @@ angular.module('sort', [])
             dragover: '=',
             dragexit: '=',
             drop: '=',
-            dragb: '='
+            dragb: '=',
+            showorder: '='
     	}, 
     	templateUrl: 'js/directives/bGrid.html'
 	};
