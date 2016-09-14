@@ -239,6 +239,7 @@ app.locals.slickBlank = {'title': '', 'pathName': '', 'comps': [], 'temas': [], 
  */
 
 app.get('/', function(req, res, next) { downForMaintenance('/', req, res, next) }, function(req, res){
+  console.log(req.user)
   var collection = db.collection('slick');
   var slickArray = []
   var toAdd
