@@ -38,34 +38,34 @@ MongoClient.connect(MongoURL, function(err, database) {
 // Storage for uploaded pdfs
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, __dirname + '/public/pdfs')
+    cb(null, __dirname + '/public/pdfs');
   },
   filename: function (req, file, cb) {
-    cb(null, file.originalname)
+    cb(null, toTitleCase(file.originalname));
   }
-})
+});
 var tempStorage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, __dirname + '/public/pdfTemp')
+    cb(null, __dirname + '/public/pdfTemp');
   },
   filename: function (req, file, cb) {
-    cb(null, file.originalname)
+    cb(null, toTitleCase(file.originalname));
   }
 });
 var otherStorage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, __dirname + '/public/ejemplos')
+    cb(null, __dirname + '/public/ejemplos');
   },
   filename: function (req, file, cb) {
-    cb(null, file.originalname)
+    cb(null, toTitleCase(file.originalname));
   }
 });
 var noticiasStorage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, __dirname + '/public/noticiasimg')
+    cb(null, __dirname + '/public/noticiasimg');
   },
   filename: function (req, file, cb) {
-    cb(null, file.originalname)
+    cb(null, toTitleCase(file.originalname));
   }
 });
 var upload = multer({ storage: storage });
