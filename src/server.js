@@ -1070,6 +1070,7 @@ app.post('/uploadSupport', isFinn, otherUpload.single('upload'), function(req, r
 })
 
 app.get('/resetPDFs', isFinn, function(req, res) {
+  FStest();
   renamePDF();
   res.redirect('/')
 })
@@ -1125,7 +1126,7 @@ function isFinn(req, res, next) {
 }
 
 function renamePDFS() {
-  fs.readdir('/src/public/pdfs', function(err, files) {
+  fs.readdir('/src/public/pdfs/', function(err, files) {
     var path = "/src/public/pdfs/";
     var collection = db.collection('temas');
     files.forEach(function(file, index) {
@@ -1138,7 +1139,7 @@ function renamePDFS() {
   });
 }
 function renamePDF() {
-  fs.readdir('../src/public/pdfs', function(err, files) {
+  fs.readdir('../src/public/pdfs/', function(err, files) {
     var path = "../src/public/pdfs/";
     var collection = db.collection('temas');
     console.log(files)
@@ -1150,5 +1151,11 @@ function renamePDF() {
       collection.update({fileName: {$eq: file}}, {$set: {fileName: newFileName}}, {multi: true})
     }
     
+  });
+}
+
+function FStest() {
+  fs.readdir('../', function(err, files) {
+    console.log(files);
   });
 }
