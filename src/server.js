@@ -22,6 +22,9 @@ var express = require('express')
 
 var db;
 
+function fileNaming(filename) {
+  return utils.removeDiacritics(utils.toTitleCase(filename)).replace(/\s/g, '');
+}
 
 // Initialize connection once
 MongoClient.connect(MongoURL, function(err, database) {
@@ -41,7 +44,7 @@ var storage = multer.diskStorage({
     cb(null, __dirname + '/public/pdfs');
   },
   filename: function (req, file, cb) {
-    cb(null, utils.removeDiacritics(file.originalname).replace(/\W/g, ''));
+    cb(null, fileNaming(file.originalname));
   }
 });
 var tempStorage = multer.diskStorage({
@@ -49,7 +52,7 @@ var tempStorage = multer.diskStorage({
     cb(null, __dirname + '/public/pdfTemp');
   },
   filename: function (req, file, cb) {
-    cb(null, utils.removeDiacritics(file.originalname).replace(/\W/g, ''));
+    cb(null, fileNaming(file.originalname));
   }
 });
 var otherStorage = multer.diskStorage({
@@ -57,7 +60,7 @@ var otherStorage = multer.diskStorage({
     cb(null, __dirname + '/public/ejemplos');
   },
   filename: function (req, file, cb) {
-    cb(null, utils.removeDiacritics(file.originalname).replace(/\W/g, ''));
+    cb(null, fileNaming(file.originalname));
   }
 });
 var noticiasStorage = multer.diskStorage({
@@ -65,7 +68,7 @@ var noticiasStorage = multer.diskStorage({
     cb(null, __dirname + '/public/noticiasimg');
   },
   filename: function (req, file, cb) {
-    cb(null, utils.removeDiacritics(file.originalname).replace(/\W/g, ''));
+    cb(null, fileNaming(file.originalname));
   }
 });
 var upload = multer({ storage: storage });
@@ -200,7 +203,7 @@ mailer.extend(app, {
 // initialize app settings
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
-app.set('port', 80)
+app.set('port', 8080)
 app.use(morgan('combined'));
 app.use(express.static(__dirname + '/public'));
 app.use(CookieParser());
@@ -810,14 +813,33 @@ app.get('/rm/*/*', ensureAuthenticated, function(req, res) {
  * NOTICIAS
  */
 
+var months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+function getDate(date) {
+  var dd = date.getDate() + 1
+  var month = months[date.getMonth()]
+  var yyyy = date.getFullYear();
+
+  return dd + ' de ' + month + ', ' + yyyy;
+}
+
 // GET noticias
 app.get('/Noticias', function(req, res, next) { downForMaintenance('/Noticias', req, res, next) }, function(req, res){
   var collection = db.collection('noticiasP');
   var inUse = req.session.inUseN || false;
   var preview = req.session.preview || false;
-  req.session.inUseN = false;
-  req.session.preview = false
+  req.session.inUseN = null;
+  req.session.preview = null;
+
   collection.find().toArray(function(err, noticiaArray) {
+    if (preview) {
+      noticiaArray.push(req.session.toPreview);
+    }
+    noticiaArray.sort(function(a, b) {
+      //return b.date.getTime() - a.date.getTime();
+    });
+    noticiaArray.forEach(function(noticia, index) {
+      noticia.displayDate = getDate(noticia.date)
+    });
     res.render('N', { 'isAdmin': (req.isAuthenticated()), 'noticias': noticiaArray, 'inUse': inUse, 'down': downJSON['/Noticias'], 'preview': preview});
   });
 });
@@ -826,55 +848,57 @@ app.get('/Noticias', function(req, res, next) { downForMaintenance('/Noticias', 
 app.post('/Noticias', ensureAuthenticated, noticiasUpload.single('image'), function(req, res) {
   var image = '';
   if (req.file) {
-    image = req.file.filename
+    image = file.filename;
   }
 
   var collection = db.collection('noticiasP');
 
   var title = req.body.title;
-  var tempName = utils.toTitleCase(title);
-  var tempName2 = tempName.replace(/\s/g, '');
-  var pathName = utils.removeDiacritics(tempName2).replace(/\W/g, '');
   var big = (req.body.big == 'true');
+  var date = new Date(req.body.date);
 
   var urlID = utils.randomString(4);
 
-  collection.count({'pathName': pathName}, function(err, count) {
-    if (count != 0) {
-      req.session.inUseN = true;
-      res.redirect('/Noticias');
-      return;
-    }
-    var toInsert = {'pathName': pathName,'title': title, 'text': req.body.text, 'name': req.body.name, 'date': req.body.date, 'image': image, 'big': big, 'urlID': urlID}
-    collection.insert(toInsert, function(err, count) {
-      req.session.preview = true;
-      res.redirect('/Noticias');
-    });
-  });
+  req.session.preview = true;
+  req.session.toPreview = {'title': title, 'text': req.body.text, 'name': req.body.name, 'date': date, 'image': image, 'big': big, 'urlID': urlID}
+  res.redirect('/Noticias?n=' + urlID);
 });
+
+// GET noticias/nuevo: publish new topic
+app.get('/Noticias/Nuevo', ensureAuthenticated, function(req, res) {
+  collection = db.collection('noticiasP');
+  if (req.session.toPreview) {
+    collection.insert(req.session.toPreview, function(err, count) {
+      res.redirect('/Noticias?n=' + toPreview.urlID)
+    })
+  }
+})
 
 // POST noticias/topic: edit topic
 app.post('/Noticias/*', ensureAuthenticated, noticiasUpload.single('image'),function(req, res) {
   var image = req.body.OGimage;
   if (req.file) {
-    image = req.file.filename
+    image = req.file.filename;
   }
   var patharray = req.path.split('/');
   var urlID = patharray[patharray.length-1];
   collection = db.collection('noticiasP');
   
   var title = req.body.title
-  var tempName = utils.toTitleCase(title)
-  var tempName2 = tempName.replace(/\s/g, '');
-  var pathName = utils.removeDiacritics(tempName2).replace(/\W/g, '');
-  var big = (req.body.big == 'true')
-  var date = Date(req.body.date)
+  var big = (req.body.big == 'true');
+  var date = new Date(req.body.date);
 
-  var toInsert = {'pathName': pathName,'title': title, 'text': req.body.text, 'name': req.body.name, 'date': date, 'image': image, 'big': big, 'urlID': urlID}
-    
-  collection.findOneAndUpdate({'urlID': urlID}, toInsert, function(err, count) {
-    res.redirect('/Noticias');
+  var toInsert = {'title': title, 'text': req.body.text, 'name': req.body.name, 'date': date, 'image': image, 'big': big, 'urlID': urlID}
+ 
+  collection.count({'urlID': urlID}, function(err, count) {
+    if (count != 0) {
+      collection.findOneAndUpdate({'urlID': urlID}, toInsert, function(err, count) {
+        res.redirect('/Noticias');
+      });
+    }
   });
+
+  
 })
 
 // GET noticias/topic: remove topic
@@ -896,9 +920,9 @@ app.get('/Noticias/*', ensureAuthenticated, function(req, res) {
 app.get('/admin', ensureAuthenticated, function(req, res){
   res.render('admin', { status: '' })
 });
-
+/*
 var listener = unoconv.listen( {port: 2002} )
-
+*/
 // POST admin: upload a new tema
 app.post('/admin', ensureAuthenticated, upload.single('pdf'), function(req, res){
   if (!req.file) {
@@ -1062,21 +1086,11 @@ app.get('/logout', function(req, res){
 
 app.get('/uploadSupport', isFinn, function(req, res){
   res.render('uS', { isAdmin: (req.isAuthenticated()), status: ''})
-})
+});
 
 app.post('/uploadSupport', isFinn, otherUpload.single('upload'), function(req, res){
   res.render('uS', { isAdmin: (req.isAuthenticated()), status: 'success'})
-})
-
-app.get('/resetPDFs', isFinn, function(req, res) {
-  renamePDF();
-  res.redirect('/')
-})
-
-app.get('/resetAllPDFs', isFinn, function(req, res) {
-  renamePDFS();
-  res.redirect('/')
-})
+});
 
 /*
  * Catch all (bad url)
@@ -1128,51 +1142,3 @@ function isFinn(req, res, next) {
   redirect('/admin');
 }
 
-function renamePDFS() {
-  fs.readdir('./src/public/pdfs/', function(err, files) {
-    var path = "./src/public/pdfs/";
-    var collection = db.collection('temas');
-    files.forEach(function(file, index) {
-      if (!(file.endsWith('.pdf')) && !(file.endsWith('.doc')) && !(file.endsWith('.docx'))) {
-        files.splice(index, 1)
-      }
-    });
-    files.forEach(function(file, index) {
-      var spliceL = 4
-      if (file.endsWith('.docx')) { spliceL = 5 }
-      var extension = file.substring(file.length - spliceL, file.length)
-      var spliced = file.substring(0, file.length - spliceL)
-      var title = utils.toTitleCase(spliced)
-      var newFileName = utils.removeDiacritics(title).replace(/\W/g, '') + extension;
-      if (newFileName != file) {
-        fs.rename(path + file, path + newFileName);
-        collection.update({fileName: {$eq: file}}, {$set: {fileName: newFileName}}, {multi: true})
-      }
-    });
-  });
-}
-function renamePDF() {
-  fs.readdir('./src/public/pdfs/', function(err, files) {
-    var path = "./src/public/pdfs/";
-    var collection = db.collection('temas');
-    files.forEach(function(file, index) {
-      if (!(file.endsWith('.pdf')) && !(file.endsWith('.doc')) && !(file.endsWith('.docx'))) {
-        files.splice(index, 1)
-      }
-    });
-    var file = files[15]
-    console.log(file)
-    var spliceL = 4
-    if (file.endsWith('.docx')) { spliceL = 5 }
-    var extension = file.substring(file.length - spliceL, file.length)
-    var spliced = file.substring(0, file.length - spliceL)
-    var title = utils.toTitleCase(spliced)
-    var newFileName = utils.removeDiacritics(title).replace(/\W/g, '') + extension;
-    console.log(newFileName)
-    if (newFileName != file) {
-      fs.rename(path + file, path + newFileName);
-      collection.update({fileName: {$eq: file}}, {$set: {fileName: newFileName}}, {multi: true})
-    }
-    
-  });
-}

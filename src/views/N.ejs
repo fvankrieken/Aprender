@@ -94,7 +94,7 @@
             <input type="radio" name="noticias" id="<%= noticiaNumLabel %>" value="<%= noticia.urlID %>" <% if (first) { %>checked<% } %>/>
             <label for="<%= noticiaNumLabel %>" onclick="showOption('<%= noticia.urlID %>')" class="forumLabel" style="color: #f7ead7; padding: 10px 20px">
               <%= noticia['title'] %>
-              <p class="nDate"><%= noticia['date'] %></p>
+              <p class="nDate"><%= noticia.displayDate %></p>
               <% if (isAdmin) { %>
               <button class="close" data-toggle="modal" data-target="#deleteNoticia<%= noticia.urlID %>" style="position: absolute; top: 7px; right: 7px; color: #ffffff">&times;</button>
               <div class="modal fade" id="deleteNoticia<%= noticia.urlID %>" role="dialog" style="color: black">
@@ -134,7 +134,7 @@
               <div id="<%= noticia.urlID %>" class="noticias" <% if (!first) { %>style="display: none"<% } %>>
                 <p style="font-family: Avenir; font-size: 20px; font-weight: 500; line-height: 1.06; color: #2f2f2f; margin-bottom: 20px; text-align: center; margin-top: 30px"><b><%= noticia['title'] %></b></p>
                 
-                <p style="font-family: Avenir; font-size: 14px; font-weight: 300; color: #4a4a4a; margin-bottom: 18px; text-align: center;"><%= noticia['name'] %> - <%= noticia['date'] %>
+                <p style="font-family: Avenir; font-size: 14px; font-weight: 300; color: #4a4a4a; margin-bottom: 18px; text-align: center;"><%= noticia['name'] %> - <%= noticia.displayDate %>
                 <% if (isAdmin) { %>
                    - <a data-toggle="modal" data-target="#<%= noticiaNum %>" style="color: #0187e0 !important">Editar</a>
                 <% } %>
@@ -146,7 +146,7 @@
                       <% if (preview) { %>
                       <form action="/Noticias" method="POST" id="addSubject" enctype="multipart/form-data">
                       <% } else { %>
-                      <form action="/Noticias/<%= noticia['pathName'] %>" method="POST" id="edit<%= noticia['urlID'] %>" enctype="multipart/form-data">
+                      <form action="/Noticias/<%= noticia['urlID'] %>" method="POST" id="edit<%= noticia['urlID'] %>" enctype="multipart/form-data">
                       <% } %>
                       
                         <div class="modal-header">
@@ -167,7 +167,7 @@
                             <input type="hidden" name="OGimage" value="<%= noticia['image'] %>" />
                           </label>
                           <label> Grande
-                            <select name="big" form="edit<%= noticia['pathName'] %>">
+                            <select name="big" form="edit<%= noticia['urlID'] %>">
                               <option value="true">Sí</option>
                               <option value="false" <% if (!noticia['big']) { %>selected<% } %>>No</option>
                             </select>
@@ -176,7 +176,7 @@
                             <input type="text" name="name" value="<%= noticia['name'] %>" />
                           </label>
                           <label>Fecha
-                          <input type="datetime-local" name="date" value="<%= noticia['date'].slice(0, 15) %>" />
+                          <input type="datetime-local" name="date" value="<%= noticia.date %>" />
                           </label>
                           <% if (preview) { %>
                           <input type="submit" class="mybutton" value="Ver Avance" style="float: left"></input>
@@ -438,11 +438,6 @@
           var toDate = commentDates[i]
           $(toDate).val(today)
         }
-        var months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
-        var month = months[today.getMonth()]
-        var yyyy = today.getFullYear();
-
-        today = dd + ' de ' + month + ', ' + yyyy;
 
         
     }
