@@ -43,11 +43,11 @@
         <div class="blueBar" style="float:left; height: 800px; padding: 0px; width: 240px; margin-left: 20px; overflow-y: auto; background-color: #f4695f">
 
 <!-- AddTopic modal -->
-        <% if (isAdmin) { %>
+        <% if (isAdmin && !(preview)) { %>
           <p class="addComment white" data-toggle="modal" data-target="#addTopic" style="margin-top: 20px; margin-bottom: 0px"><img src='/img/whiteplus.png' class="plus">Nueva noticia</p> 
 
           <div class="modal fade" id="addTopic" role="dialog">
-            <div class="modal-dialog modal-sm" style="width: 500px">
+            <div class="modal-dialog modal-sm" style="width: 700px">
               <div class="modal-content">
                 <form action="/Noticias" id="addSubject" method="POST" enctype="multipart/form-data">
                   <div class="modal-header">
@@ -74,7 +74,7 @@
                       <input type="text" name="name"/>
                     </label>
                     <input type="hidden" name="date" class="todayDate"/>
-                    <input type="submit" class="mybutton" value="Enviar" style="float: left"></input>
+                    <input type="submit" class="mybutton" value="Ver Avance" style="float: left"></input>
                   </div>
                 </form>
               </div>
@@ -141,9 +141,14 @@
                 </p>
                 <% if (isAdmin) { %>
                 <div class="modal fade" id="<%= noticiaNum %>" role="dialog">
-                  <div class="modal-dialog modal-sm" style="width: 500px; margin-top: 40px !important;">
+                  <div class="modal-dialog modal-sm" style="width: 700px; margin-top: 40px !important;">
                     <div class="modal-content">
+                      <% if (preview) { %>
+                      <form action="/Noticias" method="POST" id="addSubject" enctype="multipart/form-data">
+                      <% } else { %>
                       <form action="/Noticias/<%= noticia['pathName'] %>" method="POST" id="edit<%= noticia['urlID'] %>" enctype="multipart/form-data">
+                      <% } %>
+                      
                         <div class="modal-header">
                           <button type="button" class="close" data-dismiss="modal">&times;</button>
                           <h4 class="modal-title" style="text-align: center">Editar noticia</h4>
@@ -158,7 +163,7 @@
                           <label style="display: inline;">Cambiar Imagen <br><br>
                             <input type="file" class="filestyle" data-buttonText="Elija imagen" name="image" data-buttonName="button" data-iconName="glyphicon glyphicon-inbox" data-placeholder="Ningún archivo" style="display:inline;"> 
                           </label>
-                          <label>Image
+                          <label>
                             <input type="hidden" name="OGimage" value="<%= noticia['image'] %>" />
                           </label>
                           <label> Grande
@@ -171,9 +176,13 @@
                             <input type="text" name="name" value="<%= noticia['name'] %>" />
                           </label>
                           <label>Fecha
-                          <input type="text" name="date" value="<%= noticia['date'] %>" />
+                          <input type="datetime-local" name="date" value="<%= noticia['date'].slice(0, 15) %>" />
                           </label>
+                          <% if (preview) { %>
+                          <input type="submit" class="mybutton" value="Ver Avance" style="float: left"></input>
+                          <% } else { %>
                           <input type="submit" class="mybutton" value="Enviar" style="float: left"></input>
+                          <% } %>
                         </div>
                       </form>
                     </div>
@@ -423,19 +432,19 @@
 
     function getDate()
     {
-        var today = new Date();
-        var dd = today.getDate();
+        var today = new Date().toJSON();
+        var commentDates = $('.todayDate')
+        for (var i = 0; i < commentDates.length; i++) {
+          var toDate = commentDates[i]
+          $(toDate).val(today)
+        }
         var months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
         var month = months[today.getMonth()]
         var yyyy = today.getFullYear();
 
         today = dd + ' de ' + month + ', ' + yyyy;
 
-        var commentDates = $('.todayDate')
-        for (var i = 0; i < commentDates.length; i++) {
-          var toDate = commentDates[i]
-          $(toDate).val(today)
-        }
+        
     }
 
     function updateQueryStringParameter(uriObject, value) {

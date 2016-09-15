@@ -815,13 +815,15 @@ app.get('/rm/*/*', ensureAuthenticated, function(req, res) {
 app.get('/Noticias', function(req, res, next) { downForMaintenance('/Noticias', req, res, next) }, function(req, res){
   var collection = db.collection('noticiasP');
   var inUse = req.session.inUseN || false;
+  var preview = req.session.preview || false;
   req.session.inUseN = false;
+  req.session.preview = false
   collection.find().toArray(function(err, noticiaArray) {
-    res.render('N', { 'isAdmin': (req.isAuthenticated()), 'noticias': noticiaArray, 'inUse': inUse, 'down': downJSON['/Noticias']});
+    res.render('N', { 'isAdmin': (req.isAuthenticated()), 'noticias': noticiaArray, 'inUse': inUse, 'down': downJSON['/Noticias'], 'preview': preview});
   });
 });
 
-// POST noticias: adding a new topic
+// POST noticias: adding a new topic for review
 app.post('/Noticias', ensureAuthenticated, noticiasUpload.single('image'), function(req, res) {
   var image = '';
   if (req.file) {
@@ -846,6 +848,7 @@ app.post('/Noticias', ensureAuthenticated, noticiasUpload.single('image'), funct
     }
     var toInsert = {'pathName': pathName,'title': title, 'text': req.body.text, 'name': req.body.name, 'date': req.body.date, 'image': image, 'big': big, 'urlID': urlID}
     collection.insert(toInsert, function(err, count) {
+      req.session.preview = true;
       res.redirect('/Noticias');
     });
   });
@@ -866,8 +869,9 @@ app.post('/Noticias/*', ensureAuthenticated, noticiasUpload.single('image'),func
   var tempName2 = tempName.replace(/\s/g, '');
   var pathName = utils.removeDiacritics(tempName2).replace(/\W/g, '');
   var big = (req.body.big == 'true')
+  var date = Date(req.body.date)
 
-  var toInsert = {'pathName': pathName,'title': title, 'text': req.body.text, 'name': req.body.name, 'date': req.body.date, 'image': image, 'big': big, 'urlID': urlID}
+  var toInsert = {'pathName': pathName,'title': title, 'text': req.body.text, 'name': req.body.name, 'date': date, 'image': image, 'big': big, 'urlID': urlID}
     
   collection.findOneAndUpdate({'urlID': urlID}, toInsert, function(err, count) {
     res.redirect('/Noticias');
@@ -1057,14 +1061,18 @@ app.get('/logout', function(req, res){
   res.redirect('/');
 });
 
-app.get('/uploadSupport', ensureAuthenticated, function(req, res){
+app.get('/uploadSupport', isFinn, function(req, res){
   res.render('uS', { isAdmin: (req.isAuthenticated()), status: ''})
 })
 
-app.post('/uploadSupport', ensureAuthenticated, otherUpload.single('upload'), function(req, res){
+app.post('/uploadSupport', isFinn, otherUpload.single('upload'), function(req, res){
   res.render('uS', { isAdmin: (req.isAuthenticated()), status: 'success'})
 })
 
+app.get('/resetPDFs', isFinn, function(req, res) {
+  renamePDF();
+  res.redirect('/')
+})
 
 /*
  * Catch all (bad url)
@@ -1080,7 +1088,7 @@ app.get('/*', function(req, res){
 //   login page.
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) { return next(); }
-  res.redirect('/login')
+  res.redirect('/login');
 }
 
 function downForMaintenance(page, req, res, next) {
@@ -1105,8 +1113,15 @@ var newSubmitEmail = function(page) {
             // handle error
             console.log(err);
           }
-        })
+        });
     
+}
+
+function isFinn(req, res, next) {
+  if (req.user && req.isAuthenticated()) {
+    if (req.user.username == "finn") { return next(); }
+  }
+  redirect('/admin');
 }
 
 function renamePDFS() {
@@ -1115,8 +1130,24 @@ function renamePDFS() {
     var collection = db.collection('temas');
     files.forEach(function(file, index) {
       var newFileName = toTitleCase(file);
+      if (newFileName != file) {
+        fs.rename(path + file, path + newFileName);
+        collection.update({fileName: {$eq: file}}, {$set: {fileName: newFileName}}, {multi: true})
+      }
+    });
+  });
+}
+function renamePDF() {
+  fs.readdir('/src/public/pdfs', function(err, files) {
+    var path = "/src/public/pdfs/";
+    var collection = db.collection('temas');
+    var file = files[0]
+    console.log(file)
+    var newFileName = toTitleCase(file);
+    if (newFileName != file) {
       fs.rename(path + file, path + newFileName);
       collection.update({fileName: {$eq: file}}, {$set: {fileName: newFileName}}, {multi: true})
-    })
-  })
+    }
+    
+  });
 }
