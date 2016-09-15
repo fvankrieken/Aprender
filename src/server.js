@@ -1110,7 +1110,7 @@ var newSubmitEmail = function(page) {
 }
 
 function renamePDFS() {
-  fs.readdir('/src/public/pdfs'. function(err, files) {
+  fs.readdir('/src/public/pdfs', function(err, files) {
     var path = "/src/public/pdfs/";
     var collection = db.collection('temas');
     files.forEach(function(file, index) {
