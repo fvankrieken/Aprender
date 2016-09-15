@@ -41,7 +41,7 @@ var storage = multer.diskStorage({
     cb(null, __dirname + '/public/pdfs');
   },
   filename: function (req, file, cb) {
-    cb(null, toTitleCase(file.originalname));
+    cb(null, utils.toTitleCase(file.originalname));
   }
 });
 var tempStorage = multer.diskStorage({
@@ -49,7 +49,7 @@ var tempStorage = multer.diskStorage({
     cb(null, __dirname + '/public/pdfTemp');
   },
   filename: function (req, file, cb) {
-    cb(null, toTitleCase(file.originalname));
+    cb(null, utils.toTitleCase(file.originalname));
   }
 });
 var otherStorage = multer.diskStorage({
@@ -57,7 +57,7 @@ var otherStorage = multer.diskStorage({
     cb(null, __dirname + '/public/ejemplos');
   },
   filename: function (req, file, cb) {
-    cb(null, toTitleCase(file.originalname));
+    cb(null, utils.toTitleCase(file.originalname));
   }
 });
 var noticiasStorage = multer.diskStorage({
@@ -65,7 +65,7 @@ var noticiasStorage = multer.diskStorage({
     cb(null, __dirname + '/public/noticiasimg');
   },
   filename: function (req, file, cb) {
-    cb(null, toTitleCase(file.originalname));
+    cb(null, utils.toTitleCase(file.originalname));
   }
 });
 var upload = multer({ storage: storage });
@@ -1134,7 +1134,7 @@ function renamePDFS() {
     var path = "/src/public/pdfs/";
     var collection = db.collection('temas');
     files.forEach(function(file, index) {
-      var newFileName = toTitleCase(file);
+      var newFileName = utils.toTitleCase(file);
       if (newFileName != file) {
         fs.rename(path + file, path + newFileName);
         collection.update({fileName: {$eq: file}}, {$set: {fileName: newFileName}}, {multi: true})
@@ -1149,7 +1149,7 @@ function renamePDF() {
     console.log(files)
     var file = files[0]
     console.log(file)
-    var newFileName = toTitleCase(file);
+    var newFileName = utils.toTitleCase(file);
     if (newFileName != file) {
       fs.rename(path + file, path + newFileName);
       collection.update({fileName: {$eq: file}}, {$set: {fileName: newFileName}}, {multi: true})
