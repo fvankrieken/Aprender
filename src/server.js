@@ -1142,7 +1142,8 @@ function renamePDFS() {
       if (file.endsWith('.docx')) { spliceL = 5 }
       var extension = file.substring(file.length - spliceL, file.length)
       var spliced = file.substring(0, file.length - spliceL)
-      var newFileName = utils.removeDiacritics(spliced).replace(/\W/g, '') + extension;
+      var title = utils.toTitleCase(spliced)
+      var newFileName = utils.removeDiacritics(title).replace(/\W/g, '') + extension;
       if (newFileName != file) {
         fs.rename(path + file, path + newFileName);
         collection.update({fileName: {$eq: file}}, {$set: {fileName: newFileName}}, {multi: true})
@@ -1159,13 +1160,14 @@ function renamePDF() {
         files.splice(index, 1)
       }
     });
-    var file = files[0]
+    var file = files[15]
     console.log(file)
     var spliceL = 4
     if (file.endsWith('.docx')) { spliceL = 5 }
     var extension = file.substring(file.length - spliceL, file.length)
     var spliced = file.substring(0, file.length - spliceL)
-    var newFileName = utils.removeDiacritics(spliced).replace(/\W/g, '') + extension;
+    var title = utils.toTitleCase(spliced)
+    var newFileName = utils.removeDiacritics(title).replace(/\W/g, '') + extension;
     console.log(newFileName)
     if (newFileName != file) {
       fs.rename(path + file, path + newFileName);
