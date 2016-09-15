@@ -1074,7 +1074,7 @@ app.get('/resetPDFs', isFinn, function(req, res) {
 })
 
 app.get('/resetAllPDFs', isFinn, function(req, res) {
-  renamePDF();
+  renamePDFS();
   res.redirect('/')
 })
 
