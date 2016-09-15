@@ -1070,7 +1070,11 @@ app.post('/uploadSupport', isFinn, otherUpload.single('upload'), function(req, r
 })
 
 app.get('/resetPDFs', isFinn, function(req, res) {
-  FStest();
+  renamePDF();
+  res.redirect('/')
+})
+
+app.get('/resetAllPDFs', isFinn, function(req, res) {
   renamePDF();
   res.redirect('/')
 })
