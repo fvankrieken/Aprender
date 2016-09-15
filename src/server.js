@@ -41,7 +41,7 @@ var storage = multer.diskStorage({
     cb(null, __dirname + '/public/pdfs');
   },
   filename: function (req, file, cb) {
-    cb(null, utils.toTitleCase(file.originalname));
+    cb(null, utils.removeDiacritics(file.originalname).replace(/\W/g, ''));
   }
 });
 var tempStorage = multer.diskStorage({
@@ -49,7 +49,7 @@ var tempStorage = multer.diskStorage({
     cb(null, __dirname + '/public/pdfTemp');
   },
   filename: function (req, file, cb) {
-    cb(null, utils.toTitleCase(file.originalname));
+    cb(null, utils.removeDiacritics(file.originalname).replace(/\W/g, ''));
   }
 });
 var otherStorage = multer.diskStorage({
@@ -57,7 +57,7 @@ var otherStorage = multer.diskStorage({
     cb(null, __dirname + '/public/ejemplos');
   },
   filename: function (req, file, cb) {
-    cb(null, utils.toTitleCase(file.originalname));
+    cb(null, utils.removeDiacritics(file.originalname).replace(/\W/g, ''));
   }
 });
 var noticiasStorage = multer.diskStorage({
@@ -65,7 +65,7 @@ var noticiasStorage = multer.diskStorage({
     cb(null, __dirname + '/public/noticiasimg');
   },
   filename: function (req, file, cb) {
-    cb(null, utils.toTitleCase(file.originalname));
+    cb(null, utils.removeDiacritics(file.originalname).replace(/\W/g, ''));
   }
 });
 var upload = multer({ storage: storage });
@@ -239,7 +239,6 @@ app.locals.slickBlank = {'title': '', 'pathName': '', 'comps': [], 'temas': [], 
  */
 
 app.get('/', function(req, res, next) { downForMaintenance('/', req, res, next) }, function(req, res){
-  console.log(req.user)
   var collection = db.collection('slick');
   var slickArray = []
   var toAdd
@@ -1134,7 +1133,7 @@ function renamePDFS() {
     var path = "/src/public/pdfs/";
     var collection = db.collection('temas');
     files.forEach(function(file, index) {
-      var newFileName = utils.toTitleCase(file);
+      var newFileName = utils.removeDiacritics(file).replace(/\W/g, '');
       if (newFileName != file) {
         fs.rename(path + file, path + newFileName);
         collection.update({fileName: {$eq: file}}, {$set: {fileName: newFileName}}, {multi: true})
@@ -1146,10 +1145,10 @@ function renamePDF() {
   fs.readdir('./src/public/pdfs/', function(err, files) {
     var path = "./src/public/pdfs/";
     var collection = db.collection('temas');
-    console.log(files)
     var file = files[0]
     console.log(file)
-    var newFileName = utils.toTitleCase(file);
+    var newFileName = utils.removeDiacritics(file).replace(/\W/g, '');
+    console.log(newFileName)
     if (newFileName != file) {
       fs.rename(path + file, path + newFileName);
       collection.update({fileName: {$eq: file}}, {$set: {fileName: newFileName}}, {multi: true})
