@@ -1133,7 +1133,16 @@ function renamePDFS() {
     var path = "/src/public/pdfs/";
     var collection = db.collection('temas');
     files.forEach(function(file, index) {
-      var newFileName = utils.removeDiacritics(file).replace(/\W/g, '');
+      if (!(file.endsWith('.pdf')) && !(file.endsWith('.doc')) && !(file.endsWith('.docx'))) {
+        files.splice(index, 1)
+      }
+    });
+    files.forEach(function(file, index) {
+      var spliceL = 4
+      if (file.endsWith('.docx')) { spliceL = 5 }
+      var extension = file.substring(file.length - spliceL, file.length)
+      var spliced = file.substring(0, file.length - spliceL)
+      var newFileName = utils.removeDiacritics(spliced).replace(/\W/g, '') + extension;
       if (newFileName != file) {
         fs.rename(path + file, path + newFileName);
         collection.update({fileName: {$eq: file}}, {$set: {fileName: newFileName}}, {multi: true})
@@ -1145,9 +1154,18 @@ function renamePDF() {
   fs.readdir('./src/public/pdfs/', function(err, files) {
     var path = "./src/public/pdfs/";
     var collection = db.collection('temas');
+    files.forEach(function(file, index) {
+      if (!(file.endsWith('.pdf')) && !(file.endsWith('.doc')) && !(file.endsWith('.docx'))) {
+        files.splice(index, 1)
+      }
+    });
     var file = files[0]
     console.log(file)
-    var newFileName = utils.removeDiacritics(file).replace(/\W/g, '');
+    var spliceL = 4
+    if (file.endsWith('.docx')) { spliceL = 5 }
+    var extension = file.substring(file.length - spliceL, file.length)
+    var spliced = file.substring(0, file.length - spliceL)
+    var newFileName = utils.removeDiacritics(spliced).replace(/\W/g, '') + extension;
     console.log(newFileName)
     if (newFileName != file) {
       fs.rename(path + file, path + newFileName);
