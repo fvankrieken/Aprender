@@ -381,6 +381,8 @@ app.get('/CatalogoDeOfertas', function(req, res, next) { downForMaintenance('/Ca
             catJSON['down'] = downJSON['/CatalogoDeOfertas'];
             if ((req.user) && (req.user.username == 'finn')) {
               catJSON.showOrder = true;
+            } else {
+              catJSON.showOrder = false;
             }
             res.render('CdO', catJSON);
             
@@ -1095,7 +1097,7 @@ function downForMaintenance(page, req, res, next) {
 var newSubmitEmail = function(page) {
   app.mailer.send('notify', 
         {
-          to: 'finnvankrieken@gmail.com', //['alesser@redesdetutoria.org', 'igarcia@redesdetutoria.org'],
+          to: ['alesser@redesdetutoria.org', 'igarcia@redesdetutoria.org'],
           subject: 'Nueva presentación: ' + page,
           page: page
         }, function (err) {
@@ -1105,4 +1107,16 @@ var newSubmitEmail = function(page) {
           }
         })
     
+}
+
+function renamePDFS() {
+  fs.readdir('/src/public/pdfs'. function(err, files) {
+    var path = "/src/public/pdfs/";
+    var collection = db.collection('temas');
+    files.forEach(function(file, index) {
+      var newFileName = toTitleCase(file);
+      fs.rename(path + file, path + newFileName);
+      collection.update({fileName: {$eq: file}}, {$set: {fileName: newFileName}}, {multi: true})
+    })
+  })
 }
