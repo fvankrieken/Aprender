@@ -1129,8 +1129,8 @@ function isFinn(req, res, next) {
 }
 
 function renamePDFS() {
-  fs.readdir('/src/public/pdfs/', function(err, files) {
-    var path = "/src/public/pdfs/";
+  fs.readdir('./src/public/pdfs/', function(err, files) {
+    var path = "./src/public/pdfs/";
     var collection = db.collection('temas');
     files.forEach(function(file, index) {
       if (!(file.endsWith('.pdf')) && !(file.endsWith('.doc')) && !(file.endsWith('.docx'))) {
