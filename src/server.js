@@ -203,7 +203,7 @@ mailer.extend(app, {
 // initialize app settings
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
-app.set('port', 8080)
+app.set('port', 80)
 app.use(morgan('combined'));
 app.use(express.static(__dirname + '/public'));
 app.use(CookieParser());
@@ -816,7 +816,7 @@ app.get('/rm/*/*', ensureAuthenticated, function(req, res) {
 var months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
 function getDate(date) {
   var dd = date.getDate() + 1
-  var month = months[date.getMonth()]
+ var month = months[date.getMonth()]
   var yyyy = date.getFullYear();
 
   return dd + ' de ' + month + ', ' + yyyy;
@@ -920,9 +920,9 @@ app.get('/Noticias/*', ensureAuthenticated, function(req, res) {
 app.get('/admin', ensureAuthenticated, function(req, res){
   res.render('admin', { status: '' })
 });
-/*
+
 var listener = unoconv.listen( {port: 2002} )
-*/
+
 // POST admin: upload a new tema
 app.post('/admin', ensureAuthenticated, upload.single('pdf'), function(req, res){
   if (!req.file) {
