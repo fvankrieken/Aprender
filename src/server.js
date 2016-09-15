@@ -1138,9 +1138,10 @@ function renamePDFS() {
   });
 }
 function renamePDF() {
-  fs.readdir('/src/public/pdfs', function(err, files) {
-    var path = "/src/public/pdfs/";
+  fs.readdir('../src/public/pdfs', function(err, files) {
+    var path = "../src/public/pdfs/";
     var collection = db.collection('temas');
+    console.log(files)
     var file = files[0]
     console.log(file)
     var newFileName = toTitleCase(file);
