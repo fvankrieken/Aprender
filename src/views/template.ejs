@@ -86,7 +86,7 @@
 
 				<div style="flex: 1; padding-left: 25px; padding-top: 35px; padding-bottom: 20px;">
 
-					<% if (!((comps.length!=1) && (comps[0]!=" ") && (comps[0]!="")) && comps.length!=0) { %>
+					<% if (!((comps.length=1) && ((comps[0]==" ") || (comps[0]==""))) && comps.length!=0) { %>
 
 						<p style="font-family: Avenir-Medium; font-size:18px;">Competencias</p>
 						<ul class="cote">
@@ -95,7 +95,7 @@
 							<% }); %>
 						</ul>
 
-					<% } if (!((temas.length!=1) && (temas[0]!=" ") && (temas[0]!="")) && temas.length!=0) { %>
+					<% } if (!((temas.length=1) && ((temas[0]==" ") || (temas[0]==""))) && temas.length!=0) { %>
 						
 						<p style="font-family: Avenir-Medium; font-size:18px;">Temas relacionados</p>
 						<ul class="cote">
