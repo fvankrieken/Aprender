@@ -176,7 +176,7 @@
                             <input type="text" name="name" value="<%= noticia['name'] %>" />
                           </label>
                           <label>Fecha
-                          <input type="datetime-local" name="date" value="<%= noticia.date %>" />
+                          <input type="datetime-local" name="date" value="<%- noticia.date.toJSON().substring(0, 16) %>" />
                           </label>
                           <% if (preview) { %>
                           <input type="submit" class="mybutton" value="Ver Avance" style="float: left"></input>
