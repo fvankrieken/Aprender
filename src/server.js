@@ -813,7 +813,7 @@ app.get('/rm/*/*', ensureAuthenticated, function(req, res) {
 
 var months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
 function getDates(date) {
-  var dd = date.getDate() + 1
+  var dd = date.getDate()
   var month = months[date.getMonth()]
   var yyyy = date.getFullYear();
 

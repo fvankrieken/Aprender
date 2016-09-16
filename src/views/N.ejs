@@ -128,7 +128,7 @@
           <div style="margin-left: 30px; margin-top: 15px;">
 
             <% noticias.forEach(function(noticia, index) { %>
-              <% var i = index + 1 %>
+              <% var i = index %>
               <% var noticiaNum = "noticia" + i.toString() %>
 
               <div id="<%= noticia.urlID %>" class="noticias" <% if (!first) { %>style="display: none"<% } %>>
