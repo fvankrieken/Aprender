@@ -837,11 +837,9 @@ app.get('/Noticias', function(req, res, next) { downForMaintenance('/Noticias', 
       noticiaArray.push(toAdd);
     }
     noticiaArray.sort(function(a, b) {
-      //return b.date.getTime() - a.date.getTime();
+      return b.date.getTime() - a.date.getTime();
     });
     noticiaArray.forEach(function(noticia, index) {
-      console.log(noticia.date)
-      console.log(noticia)
       noticia.displayDate = getDates(noticia.date)
     });
     res.render('N', { 'isAdmin': (req.isAuthenticated()), 'noticias': noticiaArray, 'inUse': inUse, 'down': downJSON['/Noticias'], 'preview': preview});
