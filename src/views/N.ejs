@@ -83,7 +83,6 @@
         <% } %>
 
 <!-- noticias bar -->
-          <% noticias.reverse() %>
           <input type="text" name="title" id="search" placeholder="buscar" class="search" autocomplete="off" style="margin-top: 20px"/>
           <div style="width: 100%; border-top: solid 1px #ffffff; margin-top: 20px">
           <% var first = true %>
@@ -105,8 +104,11 @@
                       <h4 class="modal-title">¿Estás seguro?</h4>
                     </div>
                     <div class="modal-body" style="padding-bottom: 39px">
+                      <% if (noticia.preview) { %>
+                      <p>¿Quieres descartar esta noticia?</p>
+                      <% } else { %>
                       <p>¿Quieres eliminar esta noticia?</p>
-                    
+                      <% } %>
                       <a href="/Noticias/<%= noticia.urlID %>"><button type="button" class="mybutton" style="background-color: #3a9ad9; float: left;">Eliminar</button></a>
                       <!-- <button type="button" class="mybutton" data-dismiss="modal">Cerrar</button> -->
                     </div>
@@ -132,9 +134,35 @@
               <% var noticiaNum = "noticia" + i.toString() %>
 
               <div id="<%= noticia.urlID %>" class="noticias" <% if (!first) { %>style="display: none"<% } %>>
-                <p style="font-family: Avenir; font-size: 20px; font-weight: 500; line-height: 1.06; color: #2f2f2f; margin-bottom: 20px; text-align: center; margin-top: 30px"><b><%= noticia['title'] %></b></p>
+                <% if ((isAdmin) && (noticia.preview)) { %>
+              
+                  
+                  <div style="position: fixed; top: 75px; right: 20px; box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.5); background: #ffffff; z-index: 3; padding: 10px; padding-left: 14px; padding-bottom: 0px; display: inline">
+                    <p style="font-family: Avenir; font-size: 16px; color: red; text-align: center; display: inline; margin-right: 4px;"><img id="missIMG" src="/img/error.png" style="height: 15px; width: 15px; margin-bottom: 3px; display: inline;"> Esta noticia no se ha publicado aún </p>
+                    <form action="/Noticias/Publicar" method="POST" id="publish<%= noticia.urlID %>" enctype="application/x-www-form-urlencoded" style="display: inline;">
+                      <input type="hidden" name="title" value="<%= noticia.title %>">
+                      <input type="hidden" name="text" value="<%= noticia.text %>" />
+                      <input type="hidden" name="image" value="<%= noticia.image %>" />
+                      <input type="hidden" name="big" value="<%= noticia.big %>" />
+                      <input type="hidden" name="name" value="<%= noticia.name %>" />
+                      <input type="hidden" name="urlID" value="<%= noticia.urlID %>" />
+                      <input type="hidden" name="date" value="<%- noticia.date.toJSON().substring(0, 16) %>" />
+                      
+                      <input type="submit" class="mybutton" value="Publicar" style="display: inline"></input>
+                  </form>
+                  
+          
+                </div>
+                <% } %>
+                  
+                <p style="font-family: Avenir; font-size: 20px; font-weight: 500; line-height: 1.06; color: #2f2f2f; margin-bottom: 20px; text-align: center; margin-top: 30px;"><b>
+                  <% if (noticia.preview) { %>
+                  <span style="color: red">Previa </span>- 
+                  <% } %>
+                  <%= noticia['title'] %>
+                </b></p>
                 
-                <p style="font-family: Avenir; font-size: 14px; font-weight: 300; color: #4a4a4a; margin-bottom: 18px; text-align: center;"><%= noticia['name'] %> - <%= noticia.displayDate %>
+                <p style="font-family: Avenir; font-size: 14px; font-weight: 300; color: #4a4a4a; margin-bottom: 18px; text-align: center;"><%= noticia.name %> - <%= noticia.displayDate %>
                 <% if (isAdmin) { %>
                    - <a data-toggle="modal" data-target="#<%= noticiaNum %>" style="color: #0187e0 !important">Editar</a>
                 <% } %>
@@ -178,8 +206,8 @@
                           <label>Fecha
                           <input type="datetime-local" name="date" value="<%- noticia.date.toJSON().substring(0, 16) %>" />
                           </label>
-                          <% if (preview) { %>
-                          <input type="submit" class="mybutton" value="Ver Avance" style="float: left"></input>
+                          <% if (noticia.preview) { %>
+                          <input type="submit" class="mybutton" value="Vista Previa" style="float: left"></input>
                           <% } else { %>
                           <input type="submit" class="mybutton" value="Enviar" style="float: left"></input>
                           <% } %>

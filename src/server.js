@@ -832,12 +832,12 @@ app.get('/Noticias', function(req, res, next) { downForMaintenance('/Noticias', 
     if (preview) {
       var toAdd = req.session.toPreview;
       req.session.toPreview = null;
-      console.log(toAdd)
       toAdd.date = new Date(toAdd.date);
+      toAdd.preview = true;
       noticiaArray.push(toAdd);
     }
     noticiaArray.sort(function(a, b) {
-      return a.date.getTime() - b.date.getTime();
+      return b.date.getTime() - a.date.getTime();
     });
     noticiaArray.forEach(function(noticia, index) {
       noticia.displayDate = getDates(noticia.date)
@@ -851,6 +851,14 @@ app.post('/Noticias', ensureAuthenticated, noticiasUpload.single('image'), funct
   var image = '';
   if (req.file) {
     image = file.filename;
+  } else if (req.body.OGimage) {
+    image = req.body.OGimage
+  }
+  var urlID;
+  if (req.body.urlID) {
+    urlID = req.body.urlID;
+  } else {
+    urlID = utils.randomString(4);
   }
 
   var collection = db.collection('noticiasP');
@@ -858,21 +866,23 @@ app.post('/Noticias', ensureAuthenticated, noticiasUpload.single('image'), funct
   var title = req.body.title;
   var big = (req.body.big == 'true');
 
-  var urlID = utils.randomString(4);
-
   req.session.preview = true;
   req.session.toPreview = {'title': title, 'text': req.body.text, 'name': req.body.name, 'date': req.body.date, 'image': image, 'big': big, 'urlID': urlID}
   res.redirect('/Noticias?n=' + urlID);
 });
 
-// GET noticias/nuevo: publish new topic
-app.get('/Noticias/Nuevo', ensureAuthenticated, function(req, res) {
-  collection = db.collection('noticiasP');
-  if (req.session.toPreview) {
-    collection.insert(req.session.toPreview, function(err, count) {
-      res.redirect('/Noticias?n=' + toPreview.urlID)
-    })
-  }
+// POST noticias/publicar: publish new topic
+app.post('/Noticias/Publicar', ensureAuthenticated, function(req, res) {
+  collection = db.collection('noticiasP'); 
+
+  var big = (req.body.big == 'true');
+  var date = new Date(req.body.date);
+
+  var toInsert = {'title': req.body.title, 'text': req.body.text, 'name': req.body.name, 'date': date, 'image': req.body.image, 'big': big, 'urlID': req.body.urlID}
+ 
+  collection.insert(toInsert, function(err, count) {
+    res.redirect('/Noticias?n=' + req.body.urlID)
+  })
 })
 
 // POST noticias/topic: edit topic
