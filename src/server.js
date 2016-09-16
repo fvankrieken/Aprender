@@ -249,35 +249,33 @@ app.get('/', function(req, res, next) { downForMaintenance('/', req, res, next) 
   collection.find({ 'cont': 'Esp' }).toArray(function(err, documents) {
     toAdd = documents[0];
     if (toAdd) {
-      slickArray.push(toAdd)
+      slickArray.push(toAdd);
     }
     collection.find({ 'cont': 'Mat' }).toArray(function(err, documents) {
       toAdd = documents[0];
       if (toAdd) {
-        slickArray.push(toAdd)
+        slickArray.push(toAdd);
       }
       collection.find({ 'cont': 'Cie' }).toArray(function(err, documents) {
         toAdd = documents[0];
         if (toAdd) {
-          slickArray.push(toAdd)
+          slickArray.push(toAdd);
         }
         collection.find({ 'cont': 'His' }).toArray(function(err, documents) {
           toAdd = documents[0];
           if (toAdd) {
-            slickArray.push(toAdd)
+            slickArray.push(toAdd);
           }
           collection.find({ 'cont': 'Tex' }).toArray(function(err, documents) {
             toAdd = documents[0];
             if (toAdd) {
-              slickArray.push(toAdd)
+              slickArray.push(toAdd);
             }
-            noticiadb = db.collection('noticias')
-            noticiadb.find().toArray(function(err, docs) {
-              noticia = docs[0]
-              noticia['slicks'] = slickArray;
-              noticia['isAdmin'] = req.isAuthenticated();
-              noticia['down'] = downJSON['/'];
-              res.render('index', noticia);
+            noticiadb = db.collection('noticiasP')
+            noticiadb.find( { $query: {}, $orderby: { date : -1 } } ).toArray(function(err, docs) {
+              noticia = docs[0];
+              var data = {'slicks': slickArray, 'noticia': noticia, 'isAdmin': req.isAuthenticated(), 'down': downJSON['/']};
+              res.render('index', data);
             });
           });
         });
@@ -814,9 +812,9 @@ app.get('/rm/*/*', ensureAuthenticated, function(req, res) {
  */
 
 var months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
-function getDate(date) {
+function getDates(date) {
   var dd = date.getDate() + 1
- var month = months[date.getMonth()]
+  var month = months[date.getMonth()]
   var yyyy = date.getFullYear();
 
   return dd + ' de ' + month + ', ' + yyyy;
@@ -832,13 +830,19 @@ app.get('/Noticias', function(req, res, next) { downForMaintenance('/Noticias', 
 
   collection.find().toArray(function(err, noticiaArray) {
     if (preview) {
-      noticiaArray.push(req.session.toPreview);
+      var toAdd = req.session.toPreview;
+      req.session.toPreview = null;
+      console.log(toAdd)
+      toAdd.date = new Date(toAdd.date);
+      noticiaArray.push(toAdd);
     }
     noticiaArray.sort(function(a, b) {
       //return b.date.getTime() - a.date.getTime();
     });
     noticiaArray.forEach(function(noticia, index) {
-      noticia.displayDate = getDate(noticia.date)
+      console.log(noticia.date)
+      console.log(noticia)
+      noticia.displayDate = getDates(noticia.date)
     });
     res.render('N', { 'isAdmin': (req.isAuthenticated()), 'noticias': noticiaArray, 'inUse': inUse, 'down': downJSON['/Noticias'], 'preview': preview});
   });
@@ -855,12 +859,11 @@ app.post('/Noticias', ensureAuthenticated, noticiasUpload.single('image'), funct
 
   var title = req.body.title;
   var big = (req.body.big == 'true');
-  var date = new Date(req.body.date);
 
   var urlID = utils.randomString(4);
 
   req.session.preview = true;
-  req.session.toPreview = {'title': title, 'text': req.body.text, 'name': req.body.name, 'date': date, 'image': image, 'big': big, 'urlID': urlID}
+  req.session.toPreview = {'title': title, 'text': req.body.text, 'name': req.body.name, 'date': req.body.date, 'image': image, 'big': big, 'urlID': urlID}
   res.redirect('/Noticias?n=' + urlID);
 });
 
