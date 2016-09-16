@@ -837,7 +837,7 @@ app.get('/Noticias', function(req, res, next) { downForMaintenance('/Noticias', 
       noticiaArray.push(toAdd);
     }
     noticiaArray.sort(function(a, b) {
-      return b.date.getTime() - a.date.getTime();
+      return a.date.getTime() - b.date.getTime();
     });
     noticiaArray.forEach(function(noticia, index) {
       noticia.displayDate = getDates(noticia.date)
