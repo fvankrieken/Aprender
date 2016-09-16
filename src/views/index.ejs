@@ -123,7 +123,7 @@
               <div style="position: absolute; top: 70px; right: 25px; height: 150px; width: 150px; overflow: hidden;border: solid 4px #FFFFFF;
     box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.2);">
                 
-                <a class='th' href="/noticiasimg/<%= noticia.image %>"><img style="height: 200px; width: auto; position: absolute; left: -70px;"src="/noticiasimg/?n=<%= noticia.image %>"></a>
+                <a class='th' href="/noticiasimg/<%= noticia.image %>"><img style="height: 200px; width: auto; position: absolute; left: -70px;"src="/noticiasimg/<%= noticia.image %>"></a>
                 
               </div>
               <% } else { %>
@@ -139,7 +139,7 @@
               <% } %>
 
               <div style="position: absolute; bottom: 10px">
-                <p><a class='bluelink' href="/Noticias/<%= noticia.urlID %>" style='display: inline'>Más información </a>
+                <p><a class='bluelink' href="/Noticias/?n=<%= noticia.urlID %>" style='display: inline'>Más información </a>
                 
                   </p>
               </div>
