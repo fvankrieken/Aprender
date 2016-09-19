@@ -525,7 +525,7 @@ app.get('/edit/*', ensureAuthenticated, function(req, res){
 });
 
 // POST edit/tema: make changes to existing tema
-app.post('/edit/*', ensureAuthenticated, audioUpload.single('audio'), function(req, res){
+app.post('/edit/*', ensureAuthenticated, upload.single('audio'), function(req, res){
   var audio = ''
   if (req.body.OGaudio) {
     audio = req.body.OGaudio;
@@ -950,11 +950,10 @@ app.get('/admin', ensureAuthenticated, function(req, res){
 
 var listener = unoconv.listen( {port: 2002} );
 
-var temaUp = upload.fields([{ name: 'pdf', maxCount: 1 }]);
-var audioUp = audioUpload.fields([{ name: 'audio', maxCount: 1}]);
+var adminUp = upload.fields([{ name: 'pdf', maxCount: 1 }, { name: 'audio', maxCount: 1}]);
 
 // POST admin: upload a new tema
-app.post('/admin', ensureAuthenticated, temaUp, audioUp, function(req, res){
+app.post('/admin', ensureAuthenticated, adminUp, function(req, res){
   console.log(req.files)
   var pdfAr = req.files.pdf;
   if (!pdfAr) {
