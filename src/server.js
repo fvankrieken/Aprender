@@ -955,6 +955,7 @@ var audioUp = audioUpload.fields([{ name: 'audio', maxCount: 1}]);
 
 // POST admin: upload a new tema
 app.post('/admin', ensureAuthenticated, temaUp, audioUp, function(req, res){
+  console.log(req.files)
   var pdfAr = req.files.pdf;
   if (!pdfAr) {
     res.render('admin', { status: 'noPDF' });
