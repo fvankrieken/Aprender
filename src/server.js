@@ -47,6 +47,14 @@ var storage = multer.diskStorage({
     cb(null, fileNaming(file.originalname));
   }
 });
+var audioStorage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, __dirname + '/public/audio');
+  },
+  filename: function (req, file, cb) {
+    cb(null, fileNaming(file.originalname));
+  }
+});
 var tempStorage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, __dirname + '/public/pdfTemp');
@@ -72,6 +80,7 @@ var noticiasStorage = multer.diskStorage({
   }
 });
 var upload = multer({ storage: storage });
+var audioUpload = multer({ storage: audioStorage})
 var tempUpload = multer({ storage: tempStorage });
 var otherUpload = multer({ storage: otherStorage});
 var noticiasUpload = multer({ storage: noticiasStorage });
@@ -516,7 +525,14 @@ app.get('/edit/*', ensureAuthenticated, function(req, res){
 });
 
 // POST edit/tema: make changes to existing tema
-app.post('/edit/*', ensureAuthenticated, function(req, res){
+app.post('/edit/*', ensureAuthenticated, audioUpload.single('audio'), function(req, res){
+  var audio = ''
+  if (req.body.OGaudio) {
+    audio = req.body.OGaudio;
+  }
+  if (req.file) {
+    audio = req.file.filename
+  }
   var uploadInfo = req.body;
   var collection = db.collection('temas');
   var OGpathName = uploadInfo.OGpathName;
@@ -530,7 +546,7 @@ app.post('/edit/*', ensureAuthenticated, function(req, res){
   
   var wasBadge = (uploadInfo.badge == "True");
   var badge = (uploadInfo.badge == "True");
-  var toInsert = {'pathName': pathName, 'title': title, 'descript': uploadInfo.descript, 'cont': uploadInfo.Cont, 'comps': comps, 'temas': temas, 'email': uploadInfo.email, 'fileName': req.body.fileName, 'badge': badge, 'desde': uploadInfo.desde};
+  var toInsert = {'pathName': pathName, 'title': title, 'descript': uploadInfo.descript, 'cont': uploadInfo.Cont, 'comps': comps, 'temas': temas, 'email': uploadInfo.email, 'fileName': req.body.fileName, 'badge': badge, 'desde': uploadInfo.desde, 'audio': audio};
   
   if (badge == wasBadge) {
     toInsert['order'] = parseInt(uploadInfo.order);
@@ -929,18 +945,23 @@ app.get('/Noticias/*', ensureAuthenticated, function(req, res) {
 
 // GET admin
 app.get('/admin', ensureAuthenticated, function(req, res){
-  res.render('admin', { status: '' })
+  res.render('admin', { status: '' });
 });
 
-var listener = unoconv.listen( {port: 2002} )
+var listener = unoconv.listen( {port: 2002} );
+
+var temaUp = upload.fields([{ name: 'pdf', maxCount: 1 }]);
+var audioUp = audioUpload.fields([{ name: 'audio', maxCount: 1}]);
 
 // POST admin: upload a new tema
-app.post('/admin', ensureAuthenticated, upload.single('pdf'), function(req, res){
-  if (!req.file) {
+app.post('/admin', ensureAuthenticated, temaUp, audioUp, function(req, res){
+  var pdfAr = req.files.pdf;
+  if (!pdfAr) {
     res.render('admin', { status: 'noPDF' });
     return;
   }
-  var fileName = req.file.filename;
+  var pdf = pdfAr[0]
+  var fileName = pdf.filename;
   var nameArray = fileName.split('.');
   var extension = nameArray[nameArray.length - 1];
   var downloadName = ''
@@ -952,9 +973,9 @@ app.post('/admin', ensureAuthenticated, upload.single('pdf'), function(req, res)
     }
     newPathName += '.pdf';
     fileName = newPathName;
-    downloadName = req.file.fileName
+    downloadName = pdf.fileName
     
-    unoconv.convert(req.file.path, 'pdf', {'bin': 'unoconv'}, function(err, result) {
+    unoconv.convert(pdf.path, 'pdf', {'bin': 'unoconv'}, function(err, result) {
       if (err) {
         console.log(err);
         return;
@@ -962,6 +983,11 @@ app.post('/admin', ensureAuthenticated, upload.single('pdf'), function(req, res)
       
       fs.writeFile(req.file.destination + '/' + newPathName, result);
     });
+  }
+
+  var audio = '';
+  if (req.files.audio) {
+    audio = req.files.audio[0].filename
   }
   
   var uploadInfo = req.body;
@@ -976,7 +1002,7 @@ app.post('/admin', ensureAuthenticated, upload.single('pdf'), function(req, res)
   var badge = (uploadInfo.badge == "True");
 
   var toInsert = {'pathName': pathName, 'title': title, 'descript': uploadInfo.descript, 'cont': uploadInfo.Cont, 'comps': comps, 'temas': temas, 
-  'email': uploadInfo.email, 'fileName': fileName, 'downloadName': downloadName, 'badge': badge, 'desde': uploadInfo.desde }
+  'email': uploadInfo.email, 'fileName': fileName, 'downloadName': downloadName, 'badge': badge, 'desde': uploadInfo.desde, 'audio': audio }
 
   collection.count({'pathName': pathName}, function(err, count) {
     if (count != 0) {

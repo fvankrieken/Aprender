@@ -6,6 +6,8 @@ RT
 MV
 
 CdO
+	location
+	Audio files
 
 CT
 
@@ -13,9 +15,11 @@ CE
 	need text to submit
 
 N
+	Hover over ? for links, italics
 
 Admin
 	location?
+	no file: keep form data
 
 Archivos
 	better

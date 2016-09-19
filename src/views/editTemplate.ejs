@@ -99,6 +99,14 @@
                         <p style="font-family: Avenir-Medium; font-size:18px;">Desde:</p>
 	                    <textarea rows="1" name="desde"><%= desde %></textarea>
 
+	                    <label style="display: inline;">Archivo de audio
+	                        <input type="file" class="filestyle" data-buttonText="Elija archivo" name="audio" id="audio" data-buttonName="button" data-iconName="glyphicon glyphicon-inbox" data-placeholder="Ningún file" style="display:inline;"> 
+	                    </label>
+
+	                    <% if (audio) { %>
+	                    	<input value="<%= audio %>" name="OGaudio" style="display:none !important;">
+	                    <% } %>
+
 	                    <input value="<%= pathName %>" name="OGpathName" style="display:none !important;">
 	                    <input value="<%= fileName %>" name="fileName" style="display:none !important;">
 	                    <input value=<% if (badge) { %>"True"<% } else { %>"False"<% } %> name="wasBadge" style="display:none !important;">

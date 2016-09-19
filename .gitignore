@@ -1,6 +1,7 @@
 *.pdf
 *.doc
 *.docx
+*.mp3
 data
 password.js
 unoconv
