@@ -1065,9 +1065,21 @@ app.get('/archivos/*', ensureAuthenticated, function(req, res) {
       res.render('error', {isAdmin: req.isAuthenticated});
       return
     }
-    res.render('pdfTemplate', tema)
+    res.render('archivoTemplate', tema)
   })
 })
+
+// GET delete/tema: remove tema from DB
+app.get('/deleteA/*', ensureAuthenticated, function(req, res) {
+  var patharray = req.path.split('/');
+  var pathName = patharray[patharray.length-1];
+  collection = db.collection('tempPDFs');
+  
+  collection.deleteOne({'temaPath': pathName}, function(err, count) {
+    res.redirect('/archivos');
+  });
+
+});
 
 //marking pages down for maintenance
 
