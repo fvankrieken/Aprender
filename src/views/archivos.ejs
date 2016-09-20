@@ -1,4 +1,4 @@
-<html class="no-js" lang="es">
+<html class="no-js" lang="es" ng-app="arch">
 
   <head>
     <meta charset="utf-8" />
@@ -19,26 +19,46 @@
       ga('send', 'pageview');
 
     </script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.js"></script>
+    <script src="js/arch.js"></script>
   </head>
 
-  <body style="background-color: #f2f2f2;">
+  <body style="background-color: #f2f2f2;" ng-controller='MainCtlr'>
     
-    <% currPage = '' %>
+    <% currPage = 'admin' %>
     <% var isAdmin = true %>
     <% include partials/navbar %>
 
     <div class="main">
 
-      <div class="header">Archivos</div>
-      <ul class="pdfList" style="width: 600px; margin: auto;">
-        <% temaNombres.forEach(function(tema, index) {%>
-        <li>
-          <p><a href="/archivos/<%= tema['temaPath'] %>"><%= tema['temaNombre'] %></a></p>
-        </li>
-        <% }); %>
-      </ul>
+      <div class="header" style="padding-bottom: 5px;">Archivos</div>
+      
+      <a href="/admin" style="float: left; color: #0187e0 !important; padding-bottom: 10px;">&#9001 &nbsp Subir un tema</a>
+      
+      <table>
+        <thead>
+          <tr>
+            <th ng-repeat="h in sortHeaders">
+              <a href="#" ng-click="tSort($index)" style="color: #0187e0 !important;">
+                {{ h.display }} <span ng-show="sortType == h.name"><span ng-show="!sortReverse">&#9660</span><span ng-show="sortReverse">&#9650</span></span>
+              </a>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="a in archivos | orderBy: sortType: sortReverse">
+            <td ng-repeat="h in sortHeaders">
+              {{ a[h.name] }}
+            </td> 
+          </tr>
+        </tbody>
+      </table>
 
     </div>
+
+    <script>
+      var archivos = <%- JSON.stringify(archivos) %>
+    </script>
 
   </body>
 </html>

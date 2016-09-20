@@ -1,5 +1,5 @@
 home page
-	noticia slider
+	
 
 RT
 
@@ -10,6 +10,8 @@ CdO
 	Audio files
 
 CT
+	completely rework form submission (for table, talk to aron)
+	CAPTCHA
 
 CE
 	need text to submit
@@ -18,8 +20,7 @@ N
 	Hover over ? for links, italics
 
 Admin
-	location?
-	no file: keep form data
+	no file in upload: send form-data in response and fill in
 
 Archivos
-	better
+	DO IT

@@ -691,6 +691,7 @@ app.get('/CompartirTemas', function(req, res, next) { downForMaintenance('/Compa
   res.render('CT', { 'isAdmin': (req.isAuthenticated()), 'status': '', 'down': downJSON['/CompartirTemas']});
 });
 
+// POST CT
 app.post('/CompartirTemas', tempUpload.fields([{'name': 'tema'}, {'name': 'tutor'}, {'name': 'aprendiz'}, {'name': 'apoyo'}]), function(req, res){
   var files = req.files;
   console.log(files)
@@ -866,7 +867,7 @@ app.get('/Noticias', function(req, res, next) { downForMaintenance('/Noticias', 
 app.post('/Noticias', ensureAuthenticated, noticiasUpload.single('image'), function(req, res) {
   var image = '';
   if (req.file) {
-    image = file.filename;
+    image = req.file.filename;
   } else if (req.body.OGimage) {
     image = req.body.OGimage
   }
@@ -1048,9 +1049,8 @@ app.post('/admin', ensureAuthenticated, adminUp, function(req, res){
 // GET archivos
 app.get('/archivos', ensureAuthenticated, function(req, res) {
   var temas = db.collection('tempPDFs')
-  temas.find({}).toArray(function(err, docs) {
-    console.log(docs)
-    res.render('archivos', {'temaNombres': docs})
+  temas.find().toArray(function(err, docs) {
+    res.render('archivos', {'archivos': docs})
   })
 })
 
