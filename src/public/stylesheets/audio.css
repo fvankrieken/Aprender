@@ -1,8 +1,7 @@
 .audio {
-	display: inline;
 	color: #0187e0 !important;
 }
 
 .container {
-	display: inline;
+	display: inline-block;
 }

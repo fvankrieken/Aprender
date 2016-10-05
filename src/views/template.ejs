@@ -57,20 +57,21 @@
 				
 				<% if (downloadName == '') { downloadName = fileName } %>
 				<p style="margin-bottom:5px; display: inline">
-					<a href="/pdfs/<%= downloadName %>" style="position: relative; left: 2px;color: #0187e0 !important; display: inline;" download>Descargar </a>
+					<a href="/pdfs/<%= downloadName %>" style="position: relative; left: 2px;color: #0187e0 !important;" download>Descargar </a>
 					<% if (audio) { %>
-					<span style="position: relative; bottom: 2px; font-size: 14px; display: inline;"> | </span>
+					<span style="position: relative; bottom: 2px; font-size: 14px;"> | </span>
+				</p>
 					<a href="#" onclick="" style="color: #0187e0 !important; display: none" id='escuchar'>Escuchar</a>
 
 					<div class="container gradient">
 				        <div class="player gradient">
 				            <a class="audio Play" id="play" href="" title="">&#9658;</a>
-				       		<input type="range" id="seek" value="0" max="" style="display: inline"/>
+				       		<input type="range" id="seek" value="0" max="" />
 				        </div><!-- / player -->
 				    </div><!-- / Container-->
-
-					<span style="position: relative; bottom: 2px; font-size: 14px; display: inline"> | </span>
-					<a href="/pdfs/<%= audio %>" style="color: #0187e0 !important; display: inline">Descargar Audio</a>
+				<p style="margin-bottom: 5px; display: inline"
+					<span style="position: relative; bottom: 2px; font-size: 14px;"> | </span>
+					<a href="/pdfs/<%= audio %>" style="color: #0187e0 !important;">Descargar Audio</a>
 					<% } %>
 				</p>
 
@@ -190,7 +191,7 @@
 				e.preventDefault();
 				song.play();
 
-				$(this).replaceWith('<a class="audio Pause" id="pause" href="" title="">P</a>');
+				$(this).replaceWith('<a class="audio Pause" id="pause" href="" title="">&#10073;&#10073;</a>');
 				container.addClass('containerLarge');
 				$('#seek').attr('max',song.duration);
 			});
@@ -208,7 +209,7 @@
 			song.addEventListener('timeupdate',function (){
 				curtime = parseInt(song.currentTime, 10);
 				console.log(curtime)
-				$("#seek").attr("value", curtime);
+				document.getElementById("seek").value = curtime;
 			});
 		</script>
 
