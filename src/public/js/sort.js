@@ -164,9 +164,12 @@ angular.module('sort', [])
         $timeout(function(){$scope.rearrange('.' + $scope.editCont + 'I', false)}, 0)
     }
 
+    // index of tema being dragged
     var sourceIndex = -1;
+    // current location of tema being dragged (during drag after hovering)
     var tempIndex = -1;
     $scope.dragb = null;
+    // counter for dragover shift
     var readyToShift = [];
     var dontLetShift = false;
 
@@ -185,7 +188,7 @@ angular.module('sort', [])
     }
 
     $scope.dragover = function(targetIndex, badge) {
-        if ((tempIndex == -1) || (badge != $scope.dragb) || (dontLetShift)) {
+        if ((tempIndex == -1) || (badge != $scope.dragb) || (dontLetShift) || (targetIndex == tempIndex)) {
             return
         }
         dontLetShift = true;

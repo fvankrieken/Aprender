@@ -8,8 +8,10 @@
 		<link rel="stylesheet" href="/stylesheets/foundation.css" />
 		<link rel="stylesheet" href="/stylesheets/app.css" />
 		<link rel="stylesheet" href="/stylesheets/navbar.css" />
+		<link rel="stylesheet" href="/stylesheets/bootstrap.css" />
     	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
+		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     	<script>
 		  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -37,8 +39,26 @@
 				<textarea name="title" style="width: 450px; margin: auto; margin-top: 21px; height: 20px !important; padding: 6px; text-align: center; font-size: 24"><%= title %></textarea>
 
 				<div style="position: relative; top: -27px;">
-	      		<a href="/CatalogoDeOfertas?cat=<%= cont %>" style="display: inline; float: left; color: #0187e0 !important; position: relative; bottom: 2px;">&#9001 &nbsp Volver al Catálogo de Ofertas</a>
-	      		<a href='/CatalogoDeOfertas/<%= pathName %>' style="display: inline; float: right; padding-right: 25px; margin: 0;color: #0187e0 !important">Volver al Tema</a>
+		      		<a href="/CatalogoDeOfertas/<%= pathName %>" style="display: inline; float: left; color: #0187e0 !important; position: relative; bottom: 2px;">&#9001 &nbsp Volver al tema</a>
+		      		<p style="display: inline; float: right; padding-right: 25px; margin: 0;">
+		      			<a data-toggle="modal" data-target="#myModal" style="color: #0187e0 !important">Eliminar Tema</a>
+		      		</p>
+		      		<div class="modal fade" id="myModal" role="dialog">
+				    	<div class="modal-dialog modal-sm" style="width: 250px;">
+					    	<div class="modal-content">
+					        	<div class="modal-header">
+					        		<button type="button" class="close" data-dismiss="modal">&times;</button>
+					        		<h4 class="modal-title">¿Estás seguro?</h4>
+					        	</div>
+					        	<div class="modal-body" style="padding-bottom: 39px">
+					        		<p>¿Quieres eliminar este tema?</p>
+					        	
+					        		<a href="/delete/<%= pathName %>"><button type="button" class="mybutton" style="background-color: #3a9ad9; float: left;">Eliminar</button></a>
+					         		<!-- <button type="button" class="mybutton" data-dismiss="modal">Cerrar</button> -->
+					        	</div>
+					    	</div>
+					    </div>
+					</div>
 	      		
       			</div>
 
