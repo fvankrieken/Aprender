@@ -64,10 +64,8 @@
 					<a href="#" onclick="" style="color: #0187e0 !important; display: none" id='escuchar'>Escuchar</a>
 
 					<div class="container gradient">
-				        <div class="player gradient">
-				            <a class="audio Play" id="play" href="" title="">&#9658;</a>
-				       		<input type="range" id="seek" value="0" max="" oninput="change(this.value)" onchange="change(this.value)" style="position: relative; top: 2px;"/>
-				        </div><!-- / player -->
+			            <a class="audio Play" id="play" href="#" title="" onclick="Play()">&#9658;</a>
+			       		<input type="range" id="seek" value="0" max="" oninput="change(this.value)" onchange="change(this.value)" style="position: relative; top: 2px; float: right;"/>
 				    </div><!-- / Container-->
 				<p style="margin-bottom: 5px; display: inline">
 					<span style="position: relative; bottom: 2px; font-size: 14px !important;"> |&nbsp</span>
@@ -186,21 +184,20 @@
 			  	song.type= 'audio/ogg';
 			}
 
-			play.on('click', null, function(e) {
-				e.preventDefault();
+			function Play() {
 				song.play();
-
-				$(this).replaceWith('<a class="audio Pause" id="pause" href="" title="">&#10073;&#10073;</a>');
+				$('#play').replaceWith('<a class="audio Pause" id="pause" href="#" title="" onclick="Pause()">&#10073;&#10073;</a>');
+				pause = $('#pause');
 				$('#seek').attr('max', Math.floor(song.duration));
-			});
+				$('#seek').css({"top": "4px"});
+			};
 
-			pause.on('click', null, function(e) {
-				e.preventDefault();
-				e.stopImmediatePropagation();
+			function Pause() {
 				song.pause();
-				$(this).replaceWith('<a class="audio Play" id="play" href="" title="">&#9658;</a>');
-
-			});
+				$('#pause').replaceWith('<a class="audio Play" id="play" href="#" title="" onclick="Play()">&#9658;</a>');
+				play = $('#play');
+				$('#seek').css({"top": "2px"});
+			};
 			function change(val) {
 				song.currentTime = val;
 				$("#seek").attr("max", song.duration);
@@ -210,8 +207,9 @@
 				document.getElementById("seek").value = curtime;
 			});
 			song.addEventListener('ended', function(){
-				pbutton = $(document.getElementById('pause'));
-				pbutton.replaceWith('<a class="audio Pause" id="pause" href="" title="">&#10073;&#10073;</a>');
+				pbutton = $('#pause');
+				pbutton.replaceWith('<a class="audio Play" id="play" href="#" title="" onclick="Play()">&#9658;</a>');
+				$('#seek').css({"top": "2px"});
 			})
 		</script>
 
