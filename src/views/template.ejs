@@ -66,7 +66,7 @@
 					<div class="container gradient">
 				        <div class="player gradient">
 				            <a class="audio Play" id="play" href="" title="">&#9658;</a>
-				       		<input type="range" id="seek" value="0" max="" style="position: relative; top: 2px;"/>
+				       		<input type="range" id="seek" value="0" max="" oninput="change(this.value)" onchange="change(this.value)" style="position: relative; top: 2px;"/>
 				        </div><!-- / player -->
 				    </div><!-- / Container-->
 				<p style="margin-bottom: 5px; display: inline">
@@ -182,7 +182,6 @@
 			if (song.canPlayType('audio/mpeg;')) {
 			  	song.type= 'audio/mpeg';
 			  	song.src= 'http://aprenderconinteres.org/pdfs/<%= audio%>';
-			  	console.log(song.src)
 			} else {
 			  	song.type= 'audio/ogg';
 			}
@@ -192,25 +191,28 @@
 				song.play();
 
 				$(this).replaceWith('<a class="audio Pause" id="pause" href="" title="">&#10073;&#10073;</a>');
-				container.addClass('containerLarge');
-				$('#seek').attr('max',song.duration);
+				$('#seek').attr('max', Math.floor(song.duration));
 			});
 
 			pause.on('click', null, function(e) {
 				e.preventDefault();
+				e.stopImmediatePropagation();
 				song.pause();
 				$(this).replaceWith('<a class="audio Play" id="play" href="" title="">&#9658;</a>');
 
 			});
-			$("#seek").bind("change", function() {
-				song.currentTime = $(this).val();
+			function change(val) {
+				song.currentTime = val;
 				$("#seek").attr("max", song.duration);
-			});
+			}
 			song.addEventListener('timeupdate',function (){
 				curtime = parseInt(song.currentTime, 10);
-				console.log(curtime)
 				document.getElementById("seek").value = curtime;
 			});
+			song.addEventListener('ended', function(){
+				pbutton = $(document.getElementById('pause'));
+				pbutton.replaceWith('<a class="audio Pause" id="pause" href="" title="">&#10073;&#10073;</a>');
+			})
 		</script>
 
 	</body>
