@@ -2,6 +2,12 @@
 	color: #0187e0 !important;
 }
 
+.play {
+	font-size: 14px;
+}
+
 .container {
 	display: inline-block;
+	margin-left: 4px;
+	margin-right: 6px;
 }
