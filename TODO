@@ -9,7 +9,7 @@ CdO
 	location
 
 CT
-	CAPTCHA
+	
 
 CE
 	need text to submit
@@ -24,4 +24,4 @@ Archivos
 	DO IT
 
 Server
-	CT submission
+	test CT, captcha

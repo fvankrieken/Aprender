@@ -212,7 +212,7 @@ mailer.extend(app, {
 // initialize app settings
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
-app.set('port', 8080)
+app.set('port', 80)
 app.use(morgan('combined'));
 app.use(express.static(__dirname + '/public'));
 app.use(CookieParser());
@@ -712,8 +712,8 @@ app.post('/CompartirTemas', tempUpload.fields([{'name': 'tema'}, {'name': 'tutor
       var files = req.files;
       console.log(files);
       var collection = db.collection('tempPDFs');
-      temaNombre = req.body.temaNombre;
-      var temaPath = utils.makeLink(temaNombre);
+      title = req.body.title;
+      var pathName = utils.makeLink(title);
       var tema, tutor, aprendiz, apoyo;
       if (req.files['tema']) {
         tema = req.files['tema'][0]['filename'];
@@ -727,8 +727,24 @@ app.post('/CompartirTemas', tempUpload.fields([{'name': 'tema'}, {'name': 'tutor
       if (req.files['apoyo']) {
         apoyo = req.files['apoyo'][0]['filename'];
       }
-      var toInsert = {'temaNombre': temaNombre, 'temaPath': temaPath, 'tema': tema, 'tutor': tutor, 'aprendiz': aprendiz, 'apoyo': apoyo}
-      collection.count({'temaPath': temaPath}, function(err, count) {
+      var toInsert = {
+        'title': title,
+        'pathName': pathName,
+        'tema': tema,
+        'nombre': req.body.nombre,
+        'correo': req.body.correo,
+        'escuela': req.body.escuela,
+        'tipo': req.body.tipo,
+        'direccion': req.body.direccion,
+        'puesto': req.body.puesto,
+        'disciplina': req.body.disciplina,
+        'comps': req.body.comps,
+        'descript': req.body.descript,
+        'tutor': tutor,
+        'aprendiz': aprendiz,
+        'apoyo': apoyo
+      }
+      collection.count({'pathName': pathName}, function(err, count) {
         if (count != 0) {
           res.render('CT', { 'isAdmin': (req.isAuthenticated()), 'status': 'title', 'down': downJSON['/CompartirTemas']});
           return;
@@ -970,9 +986,9 @@ app.get('/Noticias/*', ensureAuthenticated, function(req, res) {
 app.get('/admin', ensureAuthenticated, function(req, res){
   res.render('admin', { status: '' });
 });
-/*
+
 var listener = unoconv.listen( {port: 2002} );
-*/
+
 var adminUp = upload.fields([{ name: 'pdf', maxCount: 1 }, { name: 'audio', maxCount: 1}]);
 
 // POST admin: upload a new tema
@@ -1081,7 +1097,7 @@ app.get('/archivos/*', ensureAuthenticated, function(req, res) {
   var patharray = req.path.split('/');
   var pathName = patharray[patharray.length-1];
   var temas = db.collection('tempPDFs')
-  temas.find({'temaPath': pathName}).toArray(function(err, docs) {
+  temas.find({'pathName': pathName}).toArray(function(err, docs) {
     var tema = docs[0]
     if (!tema) {
       res.render('error', {isAdmin: req.isAuthenticated});
@@ -1097,7 +1113,7 @@ app.get('/deleteA/*', ensureAuthenticated, function(req, res) {
   var pathName = patharray[patharray.length-1];
   collection = db.collection('tempPDFs');
   
-  collection.deleteOne({'temaPath': pathName}, function(err, count) {
+  collection.deleteOne({'pathName': pathName}, function(err, count) {
     res.redirect('/archivos');
   });
 

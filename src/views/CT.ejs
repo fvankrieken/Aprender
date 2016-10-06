@@ -53,7 +53,7 @@
                       <input type="text" name="correo" id="correo" placeholder="">
                   </label>
                   <label><h6>Nombre de la escuela</h6>
-                      <input type="text" name="escuelaNombre" id="escuelaNombre" placeholder="">
+                      <input type="text" name="escuela" id="escuela" placeholder="">
                   </label>
                   <label><h6>Tipo de escuela</h6>
                       <input type="text" name="tipo" id="tipo" placeholder="">
@@ -67,7 +67,7 @@
 
                   <h4>El Tema</h4>
                   <label><h6>Nombre del tema</h6>
-                      <input type="text" name="temaNombre" id="temaNombre" placeholder="">
+                      <input type="text" name="title" id="title" placeholder="">
                   </label>
                   <label><h6>Disciplina</h6>
                     <p class="subheader">Español, Matemáticas, Historia, Ciencias</p>
@@ -118,11 +118,11 @@
       function sendData(){
           var nombre = $('#nombre').val();
           var correo = $('#correo').val();
-          var escuelaNombre = $('#escuelaNombre').val();
+          var escuela = $('#escuela').val();
           var tipo = $('#tipo').val();
           var direccion = $('#direccion').val();
           var puesto = $('#puesto').val();
-          var temaNombre = $('#temaNombre').val();
+          var title = $('#title').val();
           var disciplina = $('#disciplina').val();
           var comps = $('#comps').val();
           var descript = $('#descript').val();
@@ -131,7 +131,7 @@
           var aprendiz = $('#aprendiz')[0].files[0];
           var apoyo = $('#apoyo')[0].files[0];
 
-          var fields = [nombre, correo, escuelaNombre, tipo, direccion, puesto, temaNombre, disciplina, comps, descript]
+          var fields = [nombre, correo, escuela, tipo, direccion, puesto, title, disciplina, comps, descript]
           var testing = (nombre == "Testing")
 
           if (!testing) {
@@ -174,8 +174,9 @@
             });
 
           }
-
+          var today = new Date().toJSON();
           var formData = document.getElementById('CT').elements
+          formData.append('date', today)
 
           $.ajax({
               type: "POST",

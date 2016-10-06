@@ -2,9 +2,9 @@ angular.module('arch', [])
 
 .controller('MainCtlr', ['$scope', function($scope) {
 	$scope.archivos = window.archivos;
-	$scope.sortType = 'temaNombre';
+	$scope.sortType = 'title';
 	$scope.sortHeaders = [
-		{'name': 'temaNombre', 'display': 'Título'},
+		{'name': 'title', 'display': 'Título'},
 		{'name': 'tema', 'display': 'Documento'},
 		{'name': 'tutor', 'display': 'Ejemplo de registro del tutor'}
 	]
