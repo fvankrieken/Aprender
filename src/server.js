@@ -688,40 +688,62 @@ app.post('/email/*', function(req, res) {
 
 // GET CT
 app.get('/CompartirTemas', function(req, res, next) { downForMaintenance('/CompartirTemas', req, res, next) }, function(req, res){
-  res.render('CT', { 'isAdmin': (req.isAuthenticated()), 'status': '', 'down': downJSON['/CompartirTemas']});
+  var fcaptcha = req.session.fcaptcha || false;
+  req.session.fcaptcha = false;
+  res.render('CT', { 'isAdmin': (req.isAuthenticated()), 'status': '', 'down': downJSON['/CompartirTemas', 'fcaptcha': fcaptcha]});
 });
 
 // POST CT
 app.post('/CompartirTemas', tempUpload.fields([{'name': 'tema'}, {'name': 'tutor'}, {'name': 'aprendiz'}, {'name': 'apoyo'}]), function(req, res){
-  var files = req.files;
-  console.log(files)
-  var collection = db.collection('tempPDFs');
-  temaNombre = req.body.temaNombre;
-  var temaPath = utils.makeLink(temaNombre);
-  var tema, tutor, aprendiz, apoyo
-  if (req.files['tema']) {
-    tema = req.files['tema'][0]['filename']
+  if(req.body['g-recaptcha-response'] === undefined || req.body['g-recaptcha-response'] === '' || req.body['g-recaptcha-response'] === null) {
+    req.session.fcaptcha = true;
+    res.redirect('/CompartirExperiencias');
+    return;
   }
-  if (req.files['tutor']) {
-    tutor = req.files['tutor'][0]['filename']
-  }
-  if (req.files['aprendiz']) {
-    aprendiz = req.files['aprendiz'][0]['filename']
-  }
-  if (req.files['apoyo']) {
-    apoyo = req.files['apoyo'][0]['filename']
-  }
-  var toInsert = {'temaNombre': temaNombre, 'temaPath': temaPath, 'tema': tema, 'tutor': tutor, 'aprendiz': aprendiz, 'apoyo': apoyo}
-  collection.count({'temaPath': temaPath}, function(err, count) {
-    if (count != 0) {
-      res.render('CT', { 'isAdmin': (req.isAuthenticated()), 'status': 'title', 'down': downJSON['/CompartirTemas']});
-      return;
+  // Put your secret key here.
+  var secretKey = "6LeICCITAAAAAO3-Wg7wU2aQKhaxmJGx0HTZir0N";
+  // req.connection.remoteAddress will provide IP address of connected user.
+  var verificationUrl = "https://www.google.com/recaptcha/api/siteverify?secret=" + secretKey + "&response=" + req.body['g-recaptcha-response'] + "&remoteip=" + req.connection.remoteAddress;
+  // Hitting GET request to the URL, Google will respond with success or error scenario.
+  request(verificationUrl,function(error,response,body) {
+    body = JSON.parse(body);
+    // Success will be true or false depending upon captcha validation.
+    if(body.success !== undefined && body.success) {
+      var files = req.files;
+      console.log(files);
+      var collection = db.collection('tempPDFs');
+      temaNombre = req.body.temaNombre;
+      var temaPath = utils.makeLink(temaNombre);
+      var tema, tutor, aprendiz, apoyo;
+      if (req.files['tema']) {
+        tema = req.files['tema'][0]['filename'];
+      }
+      if (req.files['tutor']) {
+        tutor = req.files['tutor'][0]['filename'];
+      }
+      if (req.files['aprendiz']) {
+        aprendiz = req.files['aprendiz'][0]['filename'];
+      }
+      if (req.files['apoyo']) {
+        apoyo = req.files['apoyo'][0]['filename'];
+      }
+      var toInsert = {'temaNombre': temaNombre, 'temaPath': temaPath, 'tema': tema, 'tutor': tutor, 'aprendiz': aprendiz, 'apoyo': apoyo}
+      collection.count({'temaPath': temaPath}, function(err, count) {
+        if (count != 0) {
+          res.render('CT', { 'isAdmin': (req.isAuthenticated()), 'status': 'title', 'down': downJSON['/CompartirTemas']});
+          return;
+        }
+        collection.insert(toInsert, function(err, count) {
+          res.render('CT', { 'isAdmin': (req.isAuthenticated()), 'status': '', 'down': downJSON['/CompartirTemas']});
+          newSubmitEmail('Compartir Temas')
+        });
+      });
+    } else {
+      req.session.fcaptcha = true;
+      res.redirect('/CompartirExperiencias')
     }
-    collection.insert(toInsert, function(err, count) {
-      res.render('CT', { 'isAdmin': (req.isAuthenticated()), 'status': '', 'down': downJSON['/CompartirTemas']});
-      newSubmitEmail('Compartir Temas')
-    });
   });
+
 });
 
 /*

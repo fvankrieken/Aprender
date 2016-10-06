@@ -7,10 +7,8 @@ MV
 
 CdO
 	location
-	Audio files
 
 CT
-	completely rework form submission (for table, talk to aron)
 	CAPTCHA
 
 CE
@@ -24,3 +22,6 @@ Admin
 
 Archivos
 	DO IT
+
+Server
+	CT submission

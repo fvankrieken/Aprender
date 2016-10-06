@@ -66,9 +66,8 @@
 
 				<div style="width: 1024px; display:flex; padding: 25px; padding-top: 0px; margin: auto">
 					<div>
-						<a href="/pdfs/<%= fileName %>" style="position: relative; left: 2px;" download><p style="margin-bottom:5px;">Descargar</p></a>
 
-						<div style="width: 650px; height: 900px; box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.5);">
+						<div style="width: 650px; height: 900px; box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.5); margin-top: 44px;">
 
 							<object data="/pdfs/<%= fileName %>" type="application/pdf" width="650" height="900" style="position: relative;">
 								<p>Alternative text - include a link <a href="/app/pdfs/test.pdf">to the PDF!</a></p>
@@ -77,7 +76,7 @@
 
 					</div>
 
-					<div style="flex: 1; padding-left: 25px; padding-top: 35px; padding-bottom: 20px;">
+					<div style="flex: 1; padding-left: 25px; padding-bottom: 20px;">
 
 						
 
@@ -118,18 +117,9 @@
                         <p style="font-family: Avenir-Medium; font-size:18px;">Desde:</p>
 	                    <textarea rows="1" name="desde"><%= desde %></textarea>
 
-	                    <label style="display: inline; font-size: 18px;">Cambiar/añadir archivo de audio
+	                    <label style="display: inline; font-size: 18px;"><% if (audio && (audio != '')) { %>Cambiar<% } else { %>Añadir<% } %> archivo de audio
 	                        <input type="file" class="filestyle" data-buttonText="Elija archivo" name="audio" id="audio" data-buttonName="button" data-iconName="glyphicon glyphicon-inbox" data-placeholder="Ningún file" style="display:inline;"> 
 	                    </label>
-
-	                    <% if (audio && (audio != '')) { %>
-							<audio controls>
-							 	<source src="http://aprenderconinteres.org/pdfs/<%= audio %>" type="audio/mpeg">
-								Your browser does not support the audio element.
-							</audio>
-							<a href="http://aprenderconinteres.org/pdfs/<%= audio %>" style="position: relative; left: 2px;" download><p style="margin-bottom:5px;">Descargar</p></a>
-	                    	<input value="<%= audio %>" name="OGaudio" style="display:none !important;">
-	                    <% } %>
 
 	                    <input value="<%= pathName %>" name="OGpathName" style="display:none !important;">
 	                    <input value="<%= fileName %>" name="fileName" style="display:none !important;">

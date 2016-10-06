@@ -54,36 +54,37 @@
 
 			<div style="width: 1024px; display:flex; padding: 25px; padding-top: 0px; margin: auto">
 				<div>
-				
-				<% if (downloadName == '') { downloadName = fileName } %>
-				<p style="margin-bottom:5px; display: inline">
-					<a href="/pdfs/<%= downloadName %>" style="position: relative; left: 2px;color: #0187e0 !important;" download>Descargar </a>
-					<% if (audio) { %>
-					<span style="position: relative; bottom: 2px; font-size: 14px;">&nbsp| </span>
-				</p>
-					<a href="#" onclick="" style="color: #0187e0 !important; display: none" id='escuchar'>Escuchar</a>
+					
+					<% if (downloadName == '') { downloadName = fileName } %>
+					<div style="margin-top: 2px;">
+						<p style="margin-bottom:5px; display: inline">
+							<a href="/pdfs/<%= downloadName %>" style="position: relative; left: 2px;color: #0187e0 !important;" download>Descargar </a>
+							<% if (audio && (audio != '')) { %>
+							<span style="position: relative; bottom: 2px; font-size: 14px;">&nbsp|&nbsp</span>
+						</p>
+							<a href="#" onclick="showAudio()" style="color: #0187e0 !important;" id='escuchar'>Escuchar</a>
 
-					<div class="container gradient">
-			            <a class="audio Play" id="play" href="#" title="" onclick="Play()">&#9658;</a>
-			       		<input type="range" id="seek" value="0" max="" oninput="change(this.value)" onchange="change(this.value)" style="position: relative; top: 2px; float: right;"/>
-				    </div><!-- / Container-->
-				<p style="margin-bottom: 5px; display: inline">
-					<span style="position: relative; bottom: 2px; font-size: 14px !important;"> |&nbsp</span>
-					<a href="/pdfs/<%= audio %>" style="color: #0187e0 !important;">Descargar Audio</a>
-					<% } %>
-				</p>
+							<div class="container gradient" id="container" >
+					            <a class="audio Play" id="play" href="#" title="" onclick="Play()">&#9658;</a>
+					       		<input type="range" id="seek" value="0" max="" oninput="change(this.value)" onchange="change(this.value)" style="position: relative; top: 2px; right: 0px;"/>
+						    </div><!-- / Container-->
+						<p id="after" style="margin-bottom: 5px; display: inline;">
+							<span style="position: relative; bottom: 2px; font-size: 14px !important;">&nbsp|&nbsp</span>
+							<a href="/pdfs/<%= audio %>" style="color: #0187e0 !important;">Descargar Audio</a>
+							<% } %>
+						</p>
+					</div>
+					<div style="width: 650px; height: 900px; box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.5); margin-top: 17px">
 
-				<div style="width: 650px; height: 900px; box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.5);">
+						<object type="application/pdf" data="/pdfs/<%= fileName %>" width="650" height="900">
+				            <embed type="application/pdf" data="/pdfs/<%= fileName %>" width="650" height="900">
+				        </object>
 
-					<object type="application/pdf" data="/pdfs/<%= fileName %>" width="650" height="900">
-			            <embed type="application/pdf" data="/pdfs/<%= fileName %>" width="650" height="900">
-			        </object>
+					</div>
 
 				</div>
 
-				</div>
-
-				<div style="flex: 1; padding-left: 25px; padding-top: 35px; padding-bottom: 20px;">
+				<div style="flex: 1; padding-left: 25px; padding-bottom: 20px;">
 
 					<% if (!((comps.length=1) && ((comps[0]==" ") || (comps[0]==""))) && comps.length!=0) { %>
 
@@ -171,9 +172,15 @@
 			});
 			$(document).ready();
 
+			<% if (audio && (audio != '')) { %>
+
+			function showAudio() {
+				$('#escuchar').css({'display': 'none'});
+				$('#container').css({"display": "initial"});
+				$('#after').css({"margin-left": "152px"});
+			}
+
 			container = $('.container');
-			play = $('#play');
-			pause = $('#pause');
 			song = new Audio('pdfs/<%= audio %>');
 			duration = song.duration;
 
@@ -187,16 +194,14 @@
 			function Play() {
 				song.play();
 				$('#play').replaceWith('<a class="audio Pause" id="pause" href="#" title="" onclick="Pause()">&#10073;&#10073;</a>');
-				pause = $('#pause');
 				$('#seek').attr('max', Math.floor(song.duration));
-				$('#seek').css({"top": "4px"});
+				$('#seek').css({"right": "-3px"});
 			};
 
 			function Pause() {
 				song.pause();
 				$('#pause').replaceWith('<a class="audio Play" id="play" href="#" title="" onclick="Play()">&#9658;</a>');
-				play = $('#play');
-				$('#seek').css({"top": "2px"});
+				$('#seek').css({"right": "0px"});
 			};
 			function change(val) {
 				song.currentTime = val;
@@ -209,8 +214,10 @@
 			song.addEventListener('ended', function(){
 				pbutton = $('#pause');
 				pbutton.replaceWith('<a class="audio Play" id="play" href="#" title="" onclick="Play()">&#9658;</a>');
-				$('#seek').css({"top": "2px"});
-			})
+				$('#seek').css({"right": "0px"});
+			});
+
+			<% } %>
 		</script>
 
 	</body>
