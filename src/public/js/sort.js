@@ -80,7 +80,7 @@ angular.module('sort', [])
     $scope.editCont = '';
     $scope.editing = {'val': false}
     $scope.display = function() {
-        if ($scope.editing.val) { return 'none' } else { return 'inline-cd block' }
+        if ($scope.editing.val) { return 'none' } else { return 'inline-block' }
     }
     $scope.edit = function(cont) {
         $scope.editCont = cont;
