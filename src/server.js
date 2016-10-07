@@ -65,7 +65,7 @@ var tempStorage = multer.diskStorage({
 });
 var otherStorage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, __dirname + '/public/ejemplos');
+    cb(null, __dirname + '/public/files');
   },
   filename: function (req, file, cb) {
     cb(null, fileNaming(file.originalname));
@@ -212,7 +212,7 @@ mailer.extend(app, {
 // initialize app settings
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
-app.set('port', 8080)
+app.set('port', 80)
 app.use(morgan('combined'));
 app.use(express.static(__dirname + '/public'));
 app.use(CookieParser());
@@ -234,7 +234,7 @@ downJSON = {'/': false, '/RelacionTutora': false, '/MapeoVirtual': false, '/Cata
 // blueHeight: helper for CdO formatting
 app.locals.blueHeight = function(subject) {
   var gridLength = Math.ceil(subject.length/3.)-2;
-  var toReturn = (gridLength * 239) + 171;
+  var toReturn = (gridLength * 239) + 84;
   if (gridLength < 0) {return 56};
   return toReturn;
 }
@@ -986,9 +986,9 @@ app.get('/Noticias/*', ensureAuthenticated, function(req, res) {
 app.get('/admin', ensureAuthenticated, function(req, res){
   res.render('admin', { status: '' });
 });
-/*
+
 var listener = unoconv.listen( {port: 2002} );
-*/
+
 var adminUp = upload.fields([{ name: 'pdf', maxCount: 1 }, { name: 'audio', maxCount: 1}]);
 
 // POST admin: upload a new tema

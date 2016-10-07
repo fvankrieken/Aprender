@@ -58,11 +58,11 @@
 					<% if (downloadName == '') { downloadName = fileName } %>
 					<div style="margin-top: 2px;">
 						<p style="margin-bottom:5px; display: inline">
-							<a href="/pdfs/<%= downloadName %>" style="position: relative; left: 2px;color: #0187e0 !important;" download>Descargar </a>
+							<a href="/pdfs/<%= downloadName %>" style="position: relative; left: 2px;color: #0187e0 !important;" download><img src="/img/descargar.svg" style="height: 16px; width: 16px; margin-bottom: 4px">&nbspDescargar la unidad</a>
 							<% if (audio && (audio != '')) { %>
 							<span style="position: relative; bottom: 2px; font-size: 14px;">&nbsp|&nbsp</span>
 						</p>
-							<a href="#" onclick="showAudio()" style="color: #0187e0 !important;" id='escuchar'>Escuchar</a>
+							<a href="#" onclick="showAudio()" style="color: #0187e0 !important;" id='escuchar'><img src="/img/escuchar.svg" style="height: 16px; width: 16px; margin-bottom: 4px">&nbspEscuchar texto de inglés</a>
 
 							<div class="container gradient" id="container" >
 					            <a class="audio Play" id="play" href="#" title="" onclick="Play()">&#9658;</a>
@@ -70,7 +70,7 @@
 						    </div><!-- / Container-->
 						<p id="after" style="margin-bottom: 5px; display: inline;">
 							<span style="position: relative; bottom: 2px; font-size: 14px !important;">&nbsp|&nbsp</span>
-							<a href="/pdfs/<%= audio %>" style="color: #0187e0 !important;">Descargar Audio</a>
+							<a href="/pdfs/<%= audio %>" style="color: #0187e0 !important;"><img src="/img/descargar-audio.svg" style="height: 16px; width: 16px; margin-bottom: 4px">&nbspDescargar Audio</a>
 							<% } %>
 						</p>
 					</div>

@@ -39,27 +39,42 @@
     <div class="main">
       <div class="header" style="height:40px ;padding: 0px; width:100%; margin: auto">
         <div class="blueBar" style="float: left; height:100%;"></div>
-        <p style="margin-bottom: 0px; padding-top: 25px; padding-right: 25px"> Catálogo de Ofertas </p>
       </div>
       <div class="tabordion" ng-controller="MainController">
         
         <section id="section1">
           <input type="radio" name="sections" id="option1" checked value="Esp">
-          <label for="option1" style="pointer-events: {{ labelPointer }}">Español</label>
-          <article style="position: absolute">
-          	<% if (isAdmin) { %>
-            <div style="position: relative; top: 14px; left: 20px; height: 0px;">
-              	<a ng-if='!(editing.val)' href='' style="color: #0187e0 !important; font-size: 14px !important;" ng-click="edit('Esp')">Editar orden</a>
-              	<button ng-if='editing.val' class="mybutton" ng-click="submitOrder('Esp')">Finalizar</button>
+          <label for="option1" style="pointer-events: {{ labelPointer }}">Lenguaje y Comunicación</label>
+          <article style="width: 838px;">
+            <div class="header" style="height:0px ;padding: 0px; width:100%; margin: auto; position: absolute">
+              <p style="position: relative; top: -10px;">Lenguaje y Comunicación</p>
             </div>
-            <% } %>
-            <div style="position: relative; top: 10px; right: -643px; height: 0px; display: {{display()}}">
+
+            <div style="position: relative; top: 26px; left: 20px; height: 26px; height: 0px;">
+              <div style="height: 30px; width: 230px; padding: 2px;">
+                <p>
+                  <img src="/img/logo_less.png" style="height: 17px; width: 17px; margin-bottom: 3px"/> - 
+                  <a href="/files/DerechosLenguajeYComprension.pdf" style="color: #0187e0 !important; font-size: 14px !important">Derechos de autor, CONAFE</a>
+                </p>
+              </div>
+            </div>
+          	
+            <div style="position: relative; top: 25px; right: <% if (isAdmin) { %>-550px<% } else { %>-643px<% } %>; height: 0px;">
+              <div style="display: {{display()}}">
 	            <p style="color: black !important; font-size: 14px !important; display: inline;">Organizar por:</p>
 	            <select ng-model="sortTypeE.val" style="width: 80px; height: 28px; padding: 0px 6px; font-size: 12px; display: inline;" ng-change="_rearrange('.EspI', false)">
 	                <option value="order" selected>estándar</option>
 	                <option value="desde">ubicación</option>
 	                <option value="sortTitle">título</option>              
             	</select>
+              </div>
+              <% if (isAdmin) { %>
+              <div style="height: 0px; display: inline-block">
+                <p style="display: {{display()}}"> - </p>
+                <a ng-if='!(editing.val)' href='' style="color: #0187e0 !important; font-size: 14px !important;" ng-click="edit('Esp')">Editar orden</a>
+                <button ng-if='editing.val' class="mybutton" ng-click="submitOrder('Esp')" style="margin-left: 187px;">Finalizar</button>
+              </div>
+              <% } %>
             </div>
             
             <div class="grids">
@@ -74,7 +89,7 @@
                 
             </div>
 
-            <div class="blueBar" style="height: <%= blueHeight(esp) %>px; position: relative; top: -16px; left: -160px"></div>
+            <div class="blueBar" style="height: <%= blueHeight(esp) %>px; position: relative; top: -21px; left: -160px"></div>
 
             <% include partials/footer.ejs %>
 
@@ -83,22 +98,37 @@
     
         <section id="section2">
           <input type="radio" name="sections" id="option2" value="Mat">
-          <label for="option2" style="pointer-events: {{ labelPointer }}">Matemáticas</label>
-          <article>
-            
-            <% if (isAdmin) { %>
-            <div style="position: relative; top: 14px; left: 20px; height: 0px;">
-              	<a ng-if='!(editing.val)' href='' style="color: #0187e0 !important; font-size: 14px !important;" ng-click="edit('Mat')">Editar orden</a>
-              	<button ng-if='editing.val' class="mybutton" ng-click="submitOrder('Mat')">Finalizar</button>
+          <label for="option2" style="pointer-events: {{ labelPointer }}">Pensamiento Matemático</label>
+          <article style="width: 838px;">
+            <div class="header" style="height:0px ;padding: 0px; width:100%; margin: auto; position: absolute">
+              <p style="position: relative; top: -10px;">Pensamiento Matemático</p>
             </div>
-            <% } %>
-            <div style="position: relative; top: 10px; right: -643px; height: 0px; display: {{display()}}">
-              	<p style="color: black !important; font-size: 14px !important; display: inline;">Organizar por:</p>
-              	<select ng-model="sortTypeM.val" style="width: 80px; height: 28px; padding: 0px 6px; font-size: 12px; display: inline;" ng-change="_rearrange('.MatI', false)">
-                	<option value="order" selected>estándar</option>
-                	<option value="desde">ubicación</option>
-                	<option value="sortTitle">título</option>              
-              	</select>
+            
+            <div style="position: relative; top: 26px; left: 20px; height: 26px; height: 0px;">
+              <div style="height: 30px; width: 230px; padding: 2px;">
+                <p>
+                  <img src="/img/logo_less.png" style="height: 17px; width: 17px; margin-bottom: 3px"/> - 
+                  <a href="/files/DerechosPiensamientoMatematico.pdf" style="color: #0187e0 !important; font-size: 14px !important">Derechos de autor, CONAFE</a>
+                </p>
+              </div>
+            </div>
+            
+            <div style="position: relative; top: 25px; right: <% if (isAdmin) { %>-550px<% } else { %>-643px<% } %>; height: 0px;">
+              <div style="display: {{display()}}">
+              <p style="color: black !important; font-size: 14px !important; display: inline;">Organizar por:</p>
+              <select ng-model="sortTypeM.val" style="width: 80px; height: 28px; padding: 0px 6px; font-size: 12px; display: inline;" ng-change="_rearrange('.MatI', false)">
+                  <option value="order" selected>estándar</option>
+                  <option value="desde">ubicación</option>
+                  <option value="sortTitle">título</option>              
+              </select>
+              </div>
+              <% if (isAdmin) { %>
+              <div style="height: 0px; display: inline-block">
+                <p style="display: {{display()}}"> - </p>
+                <a ng-if='!(editing.val)' href='' style="color: #0187e0 !important; font-size: 14px !important;" ng-click="edit('Mat')">Editar orden</a>
+                <button ng-if='editing.val' class="mybutton" ng-click="submitOrder('Mat')" style="margin-left: 187px;">Finalizar</button>
+              </div>
+              <% } %>
             </div>
             
             <div class="grids">
@@ -111,7 +141,7 @@
                 </div>
             </div>
 
-            <div class="blueBar" style="height: <%= blueHeight(mat) %>px; position: relative; top: -16px; left: -160px"></div>
+            <div class="blueBar" style="height: <%= blueHeight(mat) %>px; position: relative; top: -21px; left: -160px"></div>
 
             <% include partials/footer.ejs %>
 
@@ -120,22 +150,37 @@
 
         <section id="section3">
           <input type="radio" name="sections" id="option3" value="Cie">
-          <label for="option3" style="pointer-events: {{ labelPointer }}">Ciencias</label>
-          <article>
-            
-            <% if (isAdmin) { %>
-            <div style="position: relative; top: 14px; left: 20px; height: 0px;">
-              	<a ng-if='!(editing.val)' href='' style="color: #0187e0 !important; font-size: 14px !important;" ng-click="edit('Cie')">Editar orden</a>
-              	<button ng-if='editing.val' class="mybutton" ng-click="submitOrder('Cie')">Finalizar</button>
+          <label for="option3" style="pointer-events: {{ labelPointer }}">Ciencias Naturales</label>
+          <article style="width: 838px;">
+            <div class="header" style="height:0px ;padding: 0px; width:100%; margin: auto; position: absolute">
+              <p style="position: relative; top: -10px;">Exploración y Comprensión del Mundo Natural</p>
             </div>
-            <% } %>
-            <div style="position: relative; top: 10px; right: -643px; height: 0px; display: {{display()}}">
-              	<p style="color: black !important; font-size: 14px !important; display: inline;">Organizar por:</p>
-              	<select ng-model="sortTypeC.val" style="width: 80px; height: 28px; padding: 0px 6px; font-size: 12px; display: inline;" ng-change="_rearrange('.CieI', false)">
-                	<option value="order" selected>estándar</option>
-                	<option value="desde">ubicación</option>
-                	<option value="sortTitle">título</option>              
-              	</select>
+            
+            <div style="position: relative; top: 26px; left: 20px; height: 26px; height: 0px;">
+              <div style="height: 30px; width: 230px; padding: 2px;">
+                <p>
+                  <img src="/img/logo_less.png" style="height: 17px; width: 17px; margin-bottom: 3px"/> - 
+                  <a href="/files/DerechosCienciasNaturales.pdf" style="color: #0187e0 !important; font-size: 14px !important">Derechos de autor, CONAFE</a>
+                </p>
+              </div>
+            </div>
+            
+            <div style="position: relative; top: 25px; right: <% if (isAdmin) { %>-550px<% } else { %>-643px<% } %>; height: 0px;">
+              <div style="display: {{display()}}">
+              <p style="color: black !important; font-size: 14px !important; display: inline;">Organizar por:</p>
+              <select ng-model="sortTypeC.val" style="width: 80px; height: 28px; padding: 0px 6px; font-size: 12px; display: inline;" ng-change="_rearrange('.CieI', false)">
+                  <option value="order" selected>estándar</option>
+                  <option value="desde">ubicación</option>
+                  <option value="sortTitle">título</option>              
+              </select>
+              </div>
+              <% if (isAdmin) { %>
+              <div style="height: 0px; display: inline-block">
+                <p style="display: {{display()}}"> - </p>
+                <a ng-if='!(editing.val)' href='' style="color: #0187e0 !important; font-size: 14px !important;" ng-click="edit('Cie')">Editar orden</a>
+                <button ng-if='editing.val' class="mybutton" ng-click="submitOrder('Cie')" style="margin-left: 187px;">Finalizar</button>
+              </div>
+              <% } %>
             </div>
             
             <div class="grids">
@@ -148,7 +193,7 @@
                 </div>
             </div>
 
-            <div class="blueBar" style="height: <%= blueHeight(cie) %>px; position: relative; top: -16px; left: -160px"></div>
+            <div class="blueBar" style="height: <%= blueHeight(cie) %>px; position: relative; top: -21px; left: -160px"></div>
 
             <% include partials/footer.ejs %>
 
@@ -157,22 +202,37 @@
 
         <section id="section4">
           <input type="radio" name="sections" id="option4" value="His">
-          <label for="option4" style="pointer-events: {{ labelPointer }}">Historia</label>
-          <article>
-            
-            <% if (isAdmin) { %>
-            <div style="position: relative; top: 14px; left: 20px; height: 0px;">
-              	<a ng-if='!(editing.val)' href='' style="color: #0187e0 !important; font-size: 14px !important;" ng-click="edit('His')">Editar orden</a>
-              	<button ng-if='editing.val' class="mybutton" ng-click="submitOrder('His')">Finalizar</button>
+          <label for="option4" style="pointer-events: {{ labelPointer }}">Ciencias Sociales</label>
+          <article style="width: 838px;">
+            <div class="header" style="height:0px ;padding: 0px; width:100%; margin: auto; position: absolute">
+              <p style="position: relative; top: -10px;">Exploración y Comprensión del Mundo Social</p>
             </div>
-            <% } %>
-            <div style="position: relative; top: 10px; right: -643px; height: 0px; display: {{display()}}">
-              	<p style="color: black !important; font-size: 14px !important; display: inline;">Organizar por:</p>
-              	<select ng-model="sortTypeH.val" style="width: 80px; height: 28px; padding: 0px 6px; font-size: 12px; display: inline;" ng-change="_rearrange('.HisI' , false)">
-            		<option value="order" selected>estándar</option>
-	                <option value="desde">ubicación</option>
-	                <option value="sortTitle">título</option>              
-              	</select>
+            
+            <div style="position: relative; top: 26px; left: 20px; height: 26px; height: 0px;">
+              <div style="height: 30px; width: 230px; padding: 2px;">
+                <p>
+                  <img src="/img/logo_less.png" style="height: 17px; width: 17px; margin-bottom: 3px"/> - 
+                  <a href="/files/DerechosCienciasSociales.pdf" style="color: #0187e0 !important; font-size: 14px !important">Derechos de autor, CONAFE</a>
+                </p>
+              </div>
+            </div>
+            
+            <div style="position: relative; top: 25px; right: <% if (isAdmin) { %>-550px<% } else { %>-643px<% } %>; height: 0px;">
+              <div style="display: {{display()}}">
+              <p style="color: black !important; font-size: 14px !important; display: inline;">Organizar por:</p>
+              <select ng-model="sortTypeH.val" style="width: 80px; height: 28px; padding: 0px 6px; font-size: 12px; display: inline;" ng-change="_rearrange('.HisI', false)">
+                  <option value="order" selected>estándar</option>
+                  <option value="desde">ubicación</option>
+                  <option value="sortTitle">título</option>              
+              </select>
+              </div>
+              <% if (isAdmin) { %>
+              <div style="height: 0px; display: inline-block">
+                <p style="display: {{display()}}"> - </p>
+                <a ng-if='!(editing.val)' href='' style="color: #0187e0 !important; font-size: 14px !important;" ng-click="edit('His')">Editar orden</a>
+                <button ng-if='editing.val' class="mybutton" ng-click="submitOrder('His')" style="margin-left: 187px;">Finalizar</button>
+              </div>
+              <% } %>
             </div>
             
             <div class="grids">
@@ -185,7 +245,7 @@
                 </div>
             </div>
 
-            <div class="blueBar" style="height: <%= blueHeight(his) %>px; position: relative; top: -16px; left: -160px"></div>
+            <div class="blueBar" style="height: <%= blueHeight(his) %>px; position: relative; top: -21px; left: -160px"></div>
 
             <% include partials/footer.ejs %>
 
@@ -194,22 +254,28 @@
 
         <section id="section5">
           <input type="radio" name="sections" id="option5" value="Tex">
-          <label for="option5" style="pointer-events: {{ labelPointer }}">Textos</label>
-          <article>
-            
-            <% if (isAdmin) { %>
-            <div style="position: relative; top: 14px; left: 20px; height: 0px;">
-              	<a ng-if='!(editing.val)' href='' style="color: #0187e0 !important; font-size: 14px !important;" ng-click="edit('Tex')">Editar orden</a>
-              	<button ng-if='editing.val' class="mybutton" ng-click="submitOrder('Tex')">Finalizar</button>
+          <label for="option5" style="pointer-events: {{ labelPointer }};">Textos</label>
+          <article style="width: 838px;">
+            <div class="header" style="height:0px ;padding: 0px; width:100%; margin: auto; position: absolute">
+              <p style="position: relative; top: -10px;">Textos</p>
             </div>
-            <% } %>
-            <div style="position: relative; top: 10px; right: -643px; height: 0px; display: {{display()}}">
-              	<p style="color: black !important; font-size: 14px !important; display: inline;">Organizar por:</p>
-              	<select ng-model="sortTypeT.val" style="width: 80px; height: 28px; padding: 0px 6px; font-size: 12px; display: inline;" ng-change="_rearrange('.TexI', false)">
-	                <option value="order" selected>estándar</option>
-	                <option value="desde">ubicación</option>
-	                <option value="sortTitle">título</option>              
-              	</select>
+            
+            <div style="position: relative; top: 25px; right: <% if (isAdmin) { %>-550px<% } else { %>-643px<% } %>; height: 0px;">
+              <div style="display: {{display()}}">
+              <p style="color: black !important; font-size: 14px !important; display: inline;">Organizar por:</p>
+              <select ng-model="sortTypeT.val" style="width: 80px; height: 28px; padding: 0px 6px; font-size: 12px; display: inline;" ng-change="_rearrange('.TexI', false)">
+                  <option value="order" selected>estándar</option>
+                  <option value="desde">ubicación</option>
+                  <option value="sortTitle">título</option>              
+              </select>
+              </div>
+              <% if (isAdmin) { %>
+              <div style="height: 0px; display: inline-block">
+                <p style="display: {{display()}}"> - </p>
+                <a ng-if='!(editing.val)' href='' style="color: #0187e0 !important; font-size: 14px !important;" ng-click="edit('Tex')">Editar orden</a>
+                <button ng-if='editing.val' class="mybutton" ng-click="submitOrder('Tex')" style="margin-left: 187px;">Finalizar</button>
+              </div>
+              <% } %>
             </div>
             
             <div class="grids">
@@ -222,7 +288,7 @@
                 </div>
             </div>
 
-            <div class="blueBar" style="height: <%= blueHeight(tex) %>px; position: relative; top: -16px; left: -160px" ng-init="init()"></div>
+            <div class="blueBar" style="height: <%= blueHeight(tex) %>px; position: relative; top: -21px; left: -160px" ng-init="init()"></div>
 
             <% include partials/footer.ejs %>
 

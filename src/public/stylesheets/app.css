@@ -352,7 +352,9 @@ li a {
 	position: relative;
 	z-index: -1;
 	padding-left: 20px;
-	margin-top: 5px;
+	padding-right: 20px;
+	margin-top: 20px;
+	padding-top: 5px;
 }
 
 .topOfGrid {
@@ -407,6 +409,7 @@ li a {
   width: 150px;
   z-index:100;
   font-size: 18px;
+  line-height: 1.6 !important;
   transition: color 0.15s ease-out;
 }
 
