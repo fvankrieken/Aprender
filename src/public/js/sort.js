@@ -62,6 +62,10 @@ angular.module('sort', [])
     $scope.texB = window.texB;
     $scope.tex = window.tex;
     $scope.showOrder = window.showOrder;
+    $scope.eLink = '/files/DerechosLenguajeYComprension.pdf';
+    $scope.mLink = '/files/DerechosPiensamientoMatematico.pdf';
+    $scope.cLink = '/files/DerechosCienciasNaturales.pdf';
+    $scope.hLink = '/files/DerechosCienciasSociales.pdf';
 
     var catsB = [$scope.espB, $scope.matB, $scope.cieB, $scope.hisB, $scope.texB];
     var cats = [$scope.esp, $scope.mat, $scope.cie, $scope.his, $scope.tex];
@@ -76,7 +80,7 @@ angular.module('sort', [])
     $scope.editCont = '';
     $scope.editing = {'val': false}
     $scope.display = function() {
-        if ($scope.editing.val) { return 'none' } else { return 'inline-block' }
+        if ($scope.editing.val) { return 'none' } else { return 'inline-cd block' }
     }
     $scope.edit = function(cont) {
         $scope.editCont = cont;
@@ -347,7 +351,8 @@ angular.module('sort', [])
             dragexit: '=',
             drop: '=',
             dragb: '=',
-            showorder: '='
+            showorder: '=',
+            pdf: '='
     	}, 
     	templateUrl: 'js/directives/bGrid.html'
 	};

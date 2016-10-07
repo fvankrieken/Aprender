@@ -54,7 +54,7 @@
               <div style="height: 30px; width: 230px; padding: 2px;">
                 <p>
                   <img src="/img/logo_less.png" style="height: 17px; width: 17px; margin-bottom: 3px"/> - 
-                  <a href="/files/DerechosLenguajeYComprension.pdf" style="color: #0187e0 !important; font-size: 14px !important">Derechos de autor, CONAFE</a>
+                  <a href="{{ eLink }}" style="color: #0187e0 !important; font-size: 14px !important">Derechos de autor, CONAFE</a>
                 </p>
               </div>
             </div>
@@ -80,7 +80,7 @@
             <div class="grids">
               
                 <div class="item EspI" ng-repeat="tema in espB | orderBy:[sortTypeE.val, 'sortTitle']">
-                  	<b-grid info="tema" edit="editing.val" switch="switch" l="labelPointer" first="$first" last="$last" index='$index' dragstart="dragstart" dragover="dragover" drop="drop" dragexit="dragexit" dragb="dragb" showOrder="showOrder">
+                  	<b-grid info="tema" edit="editing.val" switch="switch" l="labelPointer" first="$first" last="$last" index='$index' dragstart="dragstart" dragover="dragover" drop="drop" dragexit="dragexit" dragb="dragb" showOrder="showOrder" pdf="eLink">
                 </div>
                 
                 <div class="item EspI" ng-repeat="tema in esp | orderBy:[sortTypeE.val, 'sortTitle']">
@@ -108,7 +108,7 @@
               <div style="height: 30px; width: 230px; padding: 2px;">
                 <p>
                   <img src="/img/logo_less.png" style="height: 17px; width: 17px; margin-bottom: 3px"/> - 
-                  <a href="/files/DerechosPiensamientoMatematico.pdf" style="color: #0187e0 !important; font-size: 14px !important">Derechos de autor, CONAFE</a>
+                  <a href="{{ mLink }}" style="color: #0187e0 !important; font-size: 14px !important">Derechos de autor, CONAFE</a>
                 </p>
               </div>
             </div>
@@ -133,7 +133,7 @@
             
             <div class="grids">
               	<div class="item MatI" ng-repeat="tema in matB | orderBy:[sortTypeM.val, 'sortTitle']">
-                  	<b-grid info="tema" edit="editing.val" switch="switch" l="labelPointer" first="$first" last="$last" index='$index' dragstart="dragstart" dragover="dragover" drop="drop" dragexit="dragexit" dragb="dragb" showOrder="showOrder">
+                  	<b-grid info="tema" edit="editing.val" switch="switch" l="labelPointer" first="$first" last="$last" index='$index' dragstart="dragstart" dragover="dragover" drop="drop" dragexit="dragexit" dragb="dragb" showOrder="showOrder" pdf="mLink">
                 </div>
                 
                 <div class="item MatI" ng-repeat="tema in mat | orderBy:[sortTypeM.val, 'sortTitle']">
@@ -160,7 +160,7 @@
               <div style="height: 30px; width: 230px; padding: 2px;">
                 <p>
                   <img src="/img/logo_less.png" style="height: 17px; width: 17px; margin-bottom: 3px"/> - 
-                  <a href="/files/DerechosCienciasNaturales.pdf" style="color: #0187e0 !important; font-size: 14px !important">Derechos de autor, CONAFE</a>
+                  <a href="{{ cLink }}" style="color: #0187e0 !important; font-size: 14px !important">Derechos de autor, CONAFE</a>
                 </p>
               </div>
             </div>
@@ -185,7 +185,7 @@
             
             <div class="grids">
               <div class="item CieI" ng-repeat="tema in cieB | orderBy:[sortTypeC.val, 'sortTitle']">
-                  	<b-grid info="tema" edit="editing.val" switch="switch" l="labelPointer" first="$first" last="$last" index='$index' dragstart="dragstart" dragover="dragover" drop="drop" dragexit="dragexit" dragb="dragb" showOrder="showOrder">
+                  	<b-grid info="tema" edit="editing.val" switch="switch" l="labelPointer" first="$first" last="$last" index='$index' dragstart="dragstart" dragover="dragover" drop="drop" dragexit="dragexit" dragb="dragb" showOrder="showOrder" pdf="cLink">
                 </div>
                 
                 <div class="item CieI" ng-repeat="tema in cie | orderBy:[sortTypeC.val, 'sortTitle']">
@@ -212,7 +212,7 @@
               <div style="height: 30px; width: 230px; padding: 2px;">
                 <p>
                   <img src="/img/logo_less.png" style="height: 17px; width: 17px; margin-bottom: 3px"/> - 
-                  <a href="/files/DerechosCienciasSociales.pdf" style="color: #0187e0 !important; font-size: 14px !important">Derechos de autor, CONAFE</a>
+                  <a href="{{ hLink }}" style="color: #0187e0 !important; font-size: 14px !important">Derechos de autor, CONAFE</a>
                 </p>
               </div>
             </div>
@@ -237,7 +237,7 @@
             
             <div class="grids">
               <div class="item HisI" ng-repeat="tema in hisB | orderBy:[sortTypeH.val, 'sortTitle']">
-                  	<b-grid info="tema" edit="editing.val" switch="switch" l="labelPointer" first="$first" last="$last" index='$index' dragstart="dragstart" dragover="dragover" drop="drop" dragexit="dragexit" dragb="dragb" showOrder="showOrder">
+                  	<b-grid info="tema" edit="editing.val" switch="switch" l="labelPointer" first="$first" last="$last" index='$index' dragstart="dragstart" dragover="dragover" drop="drop" dragexit="dragexit" dragb="dragb" showOrder="showOrder" pdf="hLink">
                 </div>
                 
                 <div class="item HisI" ng-repeat="tema in his | orderBy:[sortTypeH.val, 'sortTitle']">

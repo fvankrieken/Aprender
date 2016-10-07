@@ -17,7 +17,9 @@
     <div class="gridMain" >
       <p class="desc" style="height: 108px; font-size: 14px; font-family: Avenir-LightOblique; color: #4a4a4a; overflow: hidden; margin-bottom: 5px; display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical;"><i>{{ info.descript }}</i></p>
       <a href="/pdfs/{{ info.fileName }}" style="font-size: 14px; font-family: Avenir-Medium; color: #0187e0;" download>Descargar</a>
-      <p style="float: right; font-size: 14px; font-family: Avenir-Light; color: #4a4a4a">{{ info.desde }}</p>
+      <p style="float: right; font-size: 14px; font-family: Avenir-Light; color: #4a4a4a" ng-if="(info.desde != 'CONAFE')">{{ info.desde }}</p>
+      <p style="float: right; font-size: 14px; font-family: Avenir-Light; color: #4a4a4a" ng-if="(info.desde == 'CONAFE')"> <a style="color: #0187e0 !important;" href="{{ pdf }}">CONAFE</a>
+      </p>
     </div>
   </div>
 </a>
