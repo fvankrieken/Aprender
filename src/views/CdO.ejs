@@ -37,7 +37,7 @@
     <% } %>
 
     <div class="main">
-      <div class="header" style="height:40px ;padding: 0px; width:100%; margin: auto">
+      <div class="header" style="height:110px ;padding: 0px; width:100%; margin: auto">
         <div class="blueBar" style="float: left; height:100%;"></div>
       </div>
       <div class="tabordion" ng-controller="MainController">
@@ -47,10 +47,10 @@
           <label for="option1" style="pointer-events: {{ labelPointer }}">Lenguaje y Comunicación</label>
           <article style="width: 838px;">
             <div class="header" style="height:0px ;padding: 0px; width:100%; margin: auto; position: absolute">
-              <p style="position: relative; top: -10px;">Lenguaje y Comunicación</p>
+              <p style="position: relative; top: -80px;">Lenguaje y Comunicación</p>
             </div>
 
-            <div style="position: relative; top: 26px; left: 20px; height: 26px; height: 0px;">
+            <div style="position: relative; top: -34px; left: 20px; height: 26px; height: 0px;">
               <div style="height: 30px; width: 230px; padding: 2px;">
                 <p>
                   <img src="/img/logo_less.png" style="height: 17px; width: 17px; margin-bottom: 3px"/> - 
@@ -59,7 +59,7 @@
               </div>
             </div>
           	
-            <div style="position: relative; top: 25px; right: <% if (isAdmin) { %>-550px<% } else { %>-643px<% } %>; height: 0px;">
+            <div style="position: relative; top: -35px; right: <% if (isAdmin) { %>-550px<% } else { %>-643px<% } %>; height: 0px;">
               <div style="display: {{display()}}">
 	            <p style="color: black !important; font-size: 14px !important; display: inline;">Organizar por:</p>
 	            <select ng-model="sortTypeE.val" style="width: 80px; height: 28px; padding: 0px 6px; font-size: 12px; display: inline;" ng-change="_rearrange('.EspI', false)">
@@ -89,7 +89,7 @@
                 
             </div>
 
-            <div class="blueBar" style="height: <%= blueHeight(esp) %>px; position: relative; top: -21px; left: -160px"></div>
+            <div class="blueBar" style="height: <%= blueHeight(esp) %>px; position: relative; top: -31px; left: -160px"></div>
 
             <% include partials/footer.ejs %>
 
@@ -101,10 +101,10 @@
           <label for="option2" style="pointer-events: {{ labelPointer }}">Pensamiento Matemático</label>
           <article style="width: 838px;">
             <div class="header" style="height:0px ;padding: 0px; width:100%; margin: auto; position: absolute">
-              <p style="position: relative; top: -10px;">Pensamiento Matemático</p>
+              <p style="position: relative; top: -80px;">Pensamiento Matemático</p>
             </div>
             
-            <div style="position: relative; top: 26px; left: 20px; height: 26px; height: 0px;">
+            <div style="position: relative; top: -34px; left: 20px; height: 26px; height: 0px;">
               <div style="height: 30px; width: 230px; padding: 2px;">
                 <p>
                   <img src="/img/logo_less.png" style="height: 17px; width: 17px; margin-bottom: 3px"/> - 
@@ -113,7 +113,7 @@
               </div>
             </div>
             
-            <div style="position: relative; top: 25px; right: <% if (isAdmin) { %>-550px<% } else { %>-643px<% } %>; height: 0px;">
+            <div style="position: relative; top: -35px; right: <% if (isAdmin) { %>-550px<% } else { %>-643px<% } %>; height: 0px;">
               <div style="display: {{display()}}">
               <p style="color: black !important; font-size: 14px !important; display: inline;">Organizar por:</p>
               <select ng-model="sortTypeM.val" style="width: 80px; height: 28px; padding: 0px 6px; font-size: 12px; display: inline;" ng-change="_rearrange('.MatI', false)">
@@ -141,7 +141,7 @@
                 </div>
             </div>
 
-            <div class="blueBar" style="height: <%= blueHeight(mat) %>px; position: relative; top: -21px; left: -160px"></div>
+            <div class="blueBar" style="height: <%= blueHeight(mat) %>px; position: relative; top: -31px; left: -160px"></div>
 
             <% include partials/footer.ejs %>
 
@@ -153,10 +153,10 @@
           <label for="option3" style="pointer-events: {{ labelPointer }}">Ciencias Naturales</label>
           <article style="width: 838px;">
             <div class="header" style="height:0px ;padding: 0px; width:100%; margin: auto; position: absolute">
-              <p style="position: relative; top: -10px;">Exploración y Comprensión del Mundo Natural</p>
+              <p style="position: relative; top: -80px;">Exploración y Comprensión del Mundo Natural</p>
             </div>
             
-            <div style="position: relative; top: 26px; left: 20px; height: 26px; height: 0px;">
+            <div style="position: relative; top: -34px; left: 20px; height: 26px; height: 0px;">
               <div style="height: 30px; width: 230px; padding: 2px;">
                 <p>
                   <img src="/img/logo_less.png" style="height: 17px; width: 17px; margin-bottom: 3px"/> - 
@@ -165,7 +165,7 @@
               </div>
             </div>
             
-            <div style="position: relative; top: 25px; right: <% if (isAdmin) { %>-550px<% } else { %>-643px<% } %>; height: 0px;">
+            <div style="position: relative; top: -35px; right: <% if (isAdmin) { %>-550px<% } else { %>-643px<% } %>; height: 0px;">
               <div style="display: {{display()}}">
               <p style="color: black !important; font-size: 14px !important; display: inline;">Organizar por:</p>
               <select ng-model="sortTypeC.val" style="width: 80px; height: 28px; padding: 0px 6px; font-size: 12px; display: inline;" ng-change="_rearrange('.CieI', false)">
@@ -193,7 +193,7 @@
                 </div>
             </div>
 
-            <div class="blueBar" style="height: <%= blueHeight(cie) %>px; position: relative; top: -21px; left: -160px"></div>
+            <div class="blueBar" style="height: <%= blueHeight(cie) %>px; position: relative; top: -31px; left: -160px"></div>
 
             <% include partials/footer.ejs %>
 
@@ -205,10 +205,10 @@
           <label for="option4" style="pointer-events: {{ labelPointer }}">Ciencias Sociales</label>
           <article style="width: 838px;">
             <div class="header" style="height:0px ;padding: 0px; width:100%; margin: auto; position: absolute">
-              <p style="position: relative; top: -10px;">Exploración y Comprensión del Mundo Social</p>
+              <p style="position: relative; top: -80px;">Exploración y Comprensión del Mundo Social</p>
             </div>
             
-            <div style="position: relative; top: 26px; left: 20px; height: 26px; height: 0px;">
+            <div style="position: relative; top: -34px; left: 20px; height: 26px; height: 0px;">
               <div style="height: 30px; width: 230px; padding: 2px;">
                 <p>
                   <img src="/img/logo_less.png" style="height: 17px; width: 17px; margin-bottom: 3px"/> - 
@@ -217,7 +217,7 @@
               </div>
             </div>
             
-            <div style="position: relative; top: 25px; right: <% if (isAdmin) { %>-550px<% } else { %>-643px<% } %>; height: 0px;">
+            <div style="position: relative; top: -35px; right: <% if (isAdmin) { %>-550px<% } else { %>-643px<% } %>; height: 0px;">
               <div style="display: {{display()}}">
               <p style="color: black !important; font-size: 14px !important; display: inline;">Organizar por:</p>
               <select ng-model="sortTypeH.val" style="width: 80px; height: 28px; padding: 0px 6px; font-size: 12px; display: inline;" ng-change="_rearrange('.HisI', false)">
@@ -245,7 +245,7 @@
                 </div>
             </div>
 
-            <div class="blueBar" style="height: <%= blueHeight(his) %>px; position: relative; top: -21px; left: -160px"></div>
+            <div class="blueBar" style="height: <%= blueHeight(his) %>px; position: relative; top: -31px; left: -160px"></div>
 
             <% include partials/footer.ejs %>
 
@@ -257,10 +257,10 @@
           <label for="option5" style="pointer-events: {{ labelPointer }};">Textos</label>
           <article style="width: 838px;">
             <div class="header" style="height:0px ;padding: 0px; width:100%; margin: auto; position: absolute">
-              <p style="position: relative; top: -10px;">Textos</p>
+              <p style="position: relative; top: -80px;">Textos</p>
             </div>
             
-            <div style="position: relative; top: 25px; right: <% if (isAdmin) { %>-550px<% } else { %>-643px<% } %>; height: 0px;">
+            <div style="position: relative; top: -35px; right: <% if (isAdmin) { %>-550px<% } else { %>-643px<% } %>; height: 0px;">
               <div style="display: {{display()}}">
               <p style="color: black !important; font-size: 14px !important; display: inline;">Organizar por:</p>
               <select ng-model="sortTypeT.val" style="width: 80px; height: 28px; padding: 0px 6px; font-size: 12px; display: inline;" ng-change="_rearrange('.TexI', false)">
@@ -288,7 +288,7 @@
                 </div>
             </div>
 
-            <div class="blueBar" style="height: <%= blueHeight(tex) %>px; position: relative; top: -21px; left: -160px" ng-init="init()"></div>
+            <div class="blueBar" style="height: <%= blueHeight(tex) %>px; position: relative; top: -31px; left: -160px" ng-init="init()"></div>
 
             <% include partials/footer.ejs %>
 
