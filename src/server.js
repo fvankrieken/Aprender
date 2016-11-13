@@ -544,7 +544,7 @@ app.post('/edit/*', ensureAuthenticated, upload.single('audio'), function(req, r
   var comps = uploadInfo.comps.split(', ');
   var temas = uploadInfo.temas.split(', ');
   
-  var wasBadge = (uploadInfo.badge == "True");
+  var wasBadge = (uploadInfo.wasBadge == "True");
   var badge = (uploadInfo.badge == "True");
   var toInsert = {'pathName': pathName, 'title': title, 'descript': uploadInfo.descript, 'cont': uploadInfo.Cont, 'comps': comps, 'temas': temas, 'email': uploadInfo.email, 'fileName': req.body.fileName, 'badge': badge, 'desde': uploadInfo.desde, 'audio': audio};
   
@@ -576,6 +576,43 @@ app.post('/edit/*', ensureAuthenticated, upload.single('audio'), function(req, r
       });
     });
   }
+});
+
+// POST edit/pdf/tema/: change file
+app.post('/edit/pdf/*/', ensureAuthenticated, upload.single('pdf'), function(req, res){
+  var pdf = req.file
+  console.log(pdf)
+  var fileName = pdf.filename
+  var patharray = req.path.split('/');
+  var pathName = patharray[patharray.length-1];
+
+  var nameArray = fileName.split('.');
+  var extension = nameArray[nameArray.length - 1];
+  var downloadName = ''
+  
+  if (extension != 'pdf') {
+    var newPathName = '';
+    for (var i = 0; i <= nameArray.length - 2; i++) {
+      newPathName += nameArray[i]
+    }
+    newPathName += '.pdf';
+    fileName = newPathName;
+    downloadName = pdf.fileName
+    
+    unoconv.convert(pdf.path, 'pdf', {'bin': 'unoconv'}, function(err, result) {
+      if (err) {
+        console.log(err);
+        return;
+      }
+      
+      fs.writeFile(req.file.destination + '/' + newPathName, result);
+    });
+  }
+
+  collection.findOneAndUpdate({'pathName': pathName}, {$set: {'fileName': fileName, 'downloadName': downloadName}}, function(err, count) {
+    res.redirect('/edit/'+pathName);
+  });
+  
 });
 
 // GET delete/tema: remove tema from DB

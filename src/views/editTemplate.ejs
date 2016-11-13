@@ -41,9 +41,9 @@
 				<div style="position: relative; top: -27px;">
 		      		<a href="/CatalogoDeOfertas/<%= pathName %>" style="display: inline; float: left; color: #0187e0 !important; position: relative; bottom: 2px;">&#9001 &nbsp Volver al tema</a>
 		      		<p style="display: inline; float: right; padding-right: 25px; margin: 0;">
-		      			<a data-toggle="modal" data-target="#myModal" style="color: #0187e0 !important">Eliminar Tema</a>
+		      			<a data-toggle="modal" data-target="#deleteModal" style="color: #0187e0 !important">Eliminar Tema</a>
 		      		</p>
-		      		<div class="modal fade" id="myModal" role="dialog">
+		      		<div class="modal fade" id="deleteModal" role="dialog">
 				    	<div class="modal-dialog modal-sm" style="width: 250px;">
 					    	<div class="modal-content">
 					        	<div class="modal-header">
@@ -66,8 +66,12 @@
 
 				<div style="width: 1024px; display:flex; padding: 25px; padding-top: 0px; margin: auto">
 					<div>
-
-						<div style="width: 650px; height: 900px; box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.5); margin-top: 44px;">
+						<div style="margin-top: 2px;">
+						<p style="margin-bottom:5px; display: inline">
+							<a data-toggle="modal" data-target="#fileModal" style="position: relative; left: 2px;color: #0187e0 !important;">&nbspCambiar el archivo</a>
+						</p>
+					</div>
+						<div style="width: 650px; height: 900px; box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.5); margin-top: 18px;">
 
 							<object data="/pdfs/<%= fileName %>" type="application/pdf" width="650" height="900" style="position: relative;">
 								<p>Alternative text - include a link <a href="/app/pdfs/test.pdf">to the PDF!</a></p>
@@ -133,6 +137,28 @@
 				</div>
 
 			</form>
+
+			<div class="modal fade" id="fileModal" role="dialog">
+		    	<div class="modal-dialog modal-sm" >
+			    	<div class="modal-content" style="width: 300px; height: 250px;">
+			        	<div class="modal-header">
+			        		<button type="button" class="close" data-dismiss="modal">&times;</button>
+			        		<h4 class="modal-title">Cambiar El Archivo</h4>
+			        	</div>
+			        	<div class="modal-body" style="padding-bottom: 39px; position: absolute">
+			        		<form id="newFile" action="/edit/pdf/<%= pathName %>" method="POST" enctype="multipart/form-data">
+				        		<label style="display: inline; font-size: 18px;"><p style="padding-bottom:10px">Elija un archivo neuvo</p>
+			                        <input type="file" class="filestyle" data-buttonText="Elija archivo" name="pdf" id="pdf" data-buttonName="button" data-iconName="glyphicon glyphicon-inbox" data-placeholder="Ningún file" style="display:inline;"> 
+			                    </label>
+			                    <div style="display: inline-block; position: relative; top: -45px">
+			                    <p style="font-family: Avenir-Roman; font-size: 14px; margin-bottom: 5px !important"><img src="/img/error.png" style="margin-bottom: 3px"> Aviso: el archivo antiguo se eliminará</p>
+			                </div>
+		            			<p><input type="submit" class="mybutton" value="Cambiar" style='position: relative; top: -40px'></input></p>
+		            		</form>
+			        	</div>
+			    	</div>
+			    </div>
+			</div>
 
 		<% var footerStyle = '' %>
 		<% include partials/footer %>
