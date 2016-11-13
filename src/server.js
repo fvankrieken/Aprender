@@ -578,8 +578,8 @@ app.post('/edit/*', ensureAuthenticated, upload.single('audio'), function(req, r
   }
 });
 
-// POST edit/pdf/tema/: change file
-app.post('/edit/pdf/*/', ensureAuthenticated, upload.single('pdf'), function(req, res){
+// POST /pdf/tema/: change file
+app.post('/pdf/*/', ensureAuthenticated, upload.single('newFile'), function(req, res){
   var pdf = req.file
   console.log(pdf)
   var fileName = pdf.filename
