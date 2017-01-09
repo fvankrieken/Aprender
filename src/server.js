@@ -17,6 +17,7 @@ var express = require('express')
   , MongoURL = require('./password').mongoURL
   , password = require('./password').password
   , password2 = require('./password').password2
+  , password3 = require('./password').password3 
   , secretKey = require('./password').secretKey
   , request = require('request')
 
@@ -88,7 +89,8 @@ var noticiasUpload = multer({ storage: noticiasStorage });
 // Users for login (for administrator privileges)
 var users = [
     { id: 1, 'username': 'admin', 'password': password},
-    { id: 2, 'username': 'finn', 'password': password2}
+    { id: 2, 'username': 'finn', 'password': password2},
+    { id: 3, 'username': 'aron', 'password': password3}
 ];
 
 function findById(id, fn) {
@@ -244,17 +246,15 @@ app.locals.downloadName = '';
 app.locals.makeLink = utils.makeLink
 
 // for index when db is empty
-app.locals.slickBlank = {'title': '', 'pathName': '', 'comps': [], 'temas': [], 'descript': ''}
-
-app.get('/*', function(req, res) {
-  res.render('down', {isAdmin: false, currPage: ''})
-})
+app.locals.slickBlank = {'title': '', 'pathName': '', 'comps': [], 'temas': [], 'descript': ''} 
 
 /*
  * Index
  */
 
 app.get('/', function(req, res, next) { downForMaintenance('/', req, res, next) }, function(req, res){
+  res.redirect('/RelacionTutora')
+  /*
   var collection = db.collection('slick');
   var slickArray = []
   var toAdd
@@ -295,6 +295,7 @@ app.get('/', function(req, res, next) { downForMaintenance('/', req, res, next) 
       });
     });
   });
+  */
 });
 
 app.post('/', ensureAuthenticated, function(req, res){
@@ -347,7 +348,7 @@ app.post('/MapeoVirtual', function(req, res) {
  */
 
 // GET CdO
-app.get('/CatalogoDeOfertas', function(req, res, next) { downForMaintenance('/CatalogoDeOfertas', req, res, next) }, function(req, res){
+app.get('/CatalogoDeOfertas', function(req, res, next) { downForMaintenance('/CatalogoDeOfertas', req, res, next) }, superDown, function(req, res){
   var collection = db.collection('temas');
   var catJSON = {};
 
@@ -728,7 +729,7 @@ app.post('/email/*', function(req, res) {
  */
 
 // GET CT
-app.get('/CompartirTemas', function(req, res, next) { downForMaintenance('/CompartirTemas', req, res, next) }, function(req, res){
+app.get('/CompartirTemas', function(req, res, next) { downForMaintenance('/CompartirTemas', req, res, next) }, superDown, function(req, res){
   var fcaptcha = req.session.fcaptcha || false;
   req.session.fcaptcha = false;
   res.render('CT', { 'isAdmin': (req.isAuthenticated()), 'status': '', 'down': downJSON['/CompartirTemas'], 'fcaptcha': fcaptcha});
@@ -808,7 +809,7 @@ app.post('/CompartirTemas', tempUpload.fields([{'name': 'tema'}, {'name': 'tutor
  */
 
 // GET CE
-app.get('/CompartirExperiencias', function(req, res, next) { downForMaintenance('/CompartirExperiencias', req, res, next) }, function(req, res){
+app.get('/CompartirExperiencias', function(req, res, next) { downForMaintenance('/CompartirExperiencias', req, res, next) }, superDown, function(req, res){
   var collection = db.collection('forum');
   var checked = req.session.checked || '';
   req.session.checked = '';
@@ -917,7 +918,7 @@ function getDates(date) {
 }
 
 // GET noticias
-app.get('/Noticias', function(req, res, next) { downForMaintenance('/Noticias', req, res, next) }, function(req, res){
+app.get('/Noticias', function(req, res, next) { downForMaintenance('/Noticias', req, res, next) }, superDown, function(req, res){
   var collection = db.collection('noticiasP');
   var inUse = req.session.inUseN || false;
   var preview = req.session.preview || false;
@@ -1009,7 +1010,7 @@ app.post('/Noticias/*', ensureAuthenticated, noticiasUpload.single('image'),func
 })
 
 // GET noticias/topic: remove topic
-app.get('/Noticias/*', ensureAuthenticated, function(req, res) {
+app.get('/Noticias/*', ensureAuthenticated, superDown, function(req, res) {
   var patharray = req.path.split('/');
   var urlID = patharray[patharray.length-1];
   collection = db.collection('noticiasP');
@@ -1024,7 +1025,7 @@ app.get('/Noticias/*', ensureAuthenticated, function(req, res) {
  */
 
 // GET admin
-app.get('/admin', ensureAuthenticated, function(req, res){
+app.get('/admin', ensureAuthenticated, superDown, function(req, res){
   res.render('admin', { status: '' });
 });
 
@@ -1261,6 +1262,12 @@ var newSubmitEmail = function(page) {
           }
         });
     
+}
+
+function superDown(page, req, res, next) {
+  if (req.isAuthenticated() && (req.user.username == 'finn' || req.user.username = 'aron')) { return next(); } else { 
+    res.render('down', {isAdmin: false, currPage: page})
+  }
 }
 
 function isFinn(req, res, next) {
