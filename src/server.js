@@ -348,7 +348,7 @@ app.post('/MapeoVirtual', function(req, res) {
  */
 
 // GET CdO
-app.get('/CatalogoDeOfertas', function(req, res, next) { downForMaintenance('/CatalogoDeOfertas', req, res, next) }, superDown, function(req, res){
+app.get('/CatalogoDeOfertas', function(req, res, next) { downForMaintenance('/CatalogoDeOfertas', req, res, next) }, function(req, res, next) { superDown('/CatalogoDeOfertas', req, res, next) }, function(req, res){
   var collection = db.collection('temas');
   var catJSON = {};
 
@@ -729,7 +729,7 @@ app.post('/email/*', function(req, res) {
  */
 
 // GET CT
-app.get('/CompartirTemas', function(req, res, next) { downForMaintenance('/CompartirTemas', req, res, next) }, superDown, function(req, res){
+app.get('/CompartirTemas', function(req, res, next) { downForMaintenance('/CompartirTemas', req, res, next) }, function(req, res, next) { superDown('/CompartirTemas', req, res, next) }, function(req, res){
   var fcaptcha = req.session.fcaptcha || false;
   req.session.fcaptcha = false;
   res.render('CT', { 'isAdmin': (req.isAuthenticated()), 'status': '', 'down': downJSON['/CompartirTemas'], 'fcaptcha': fcaptcha});
@@ -809,7 +809,7 @@ app.post('/CompartirTemas', tempUpload.fields([{'name': 'tema'}, {'name': 'tutor
  */
 
 // GET CE
-app.get('/CompartirExperiencias', function(req, res, next) { downForMaintenance('/CompartirExperiencias', req, res, next) }, superDown, function(req, res){
+app.get('/CompartirExperiencias', function(req, res, next) { downForMaintenance('/CompartirExperiencias', req, res, next) }, function(req, res, next) { superDown('/CompartirExperiencias', req, res, next) }, function(req, res){
   var collection = db.collection('forum');
   var checked = req.session.checked || '';
   req.session.checked = '';
@@ -918,7 +918,7 @@ function getDates(date) {
 }
 
 // GET noticias
-app.get('/Noticias', function(req, res, next) { downForMaintenance('/Noticias', req, res, next) }, superDown, function(req, res){
+app.get('/Noticias', function(req, res, next) { downForMaintenance('/Noticias', req, res, next) }, function(req, res, next) { superDown('/Noticias', req, res, next) }, function(req, res){
   var collection = db.collection('noticiasP');
   var inUse = req.session.inUseN || false;
   var preview = req.session.preview || false;
@@ -1264,7 +1264,7 @@ var newSubmitEmail = function(page) {
     
 }
 
-function superDown(req, res, next) {
+function superDown(page, req, res, next) {
   if (req.isAuthenticated() && (req.user.username == 'finn' || req.user.username == 'aron')) { return next(); } else { 
     res.render('down', {isAdmin: false, currPage: page})
   }
