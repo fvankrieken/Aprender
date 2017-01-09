@@ -246,6 +246,10 @@ app.locals.makeLink = utils.makeLink
 // for index when db is empty
 app.locals.slickBlank = {'title': '', 'pathName': '', 'comps': [], 'temas': [], 'descript': ''}
 
+app.get('/*', function(req, res) {
+  res.render('down', {isAdmin: false, currPage: ''})
+})
+
 /*
  * Index
  */
