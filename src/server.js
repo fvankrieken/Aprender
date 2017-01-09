@@ -253,7 +253,7 @@ app.locals.slickBlank = {'title': '', 'pathName': '', 'comps': [], 'temas': [], 
  */
 
 app.get('/', function(req, res, next) { downForMaintenance('/', req, res, next) }, function(req, res){
-  res.render('RT', {currPage: '/RelacionTutora'})
+  res.render('RT', {currPage: '/RelacionTutora', isAdmin: req.isAuthenticated})
   /*
   var collection = db.collection('slick');
   var slickArray = []
