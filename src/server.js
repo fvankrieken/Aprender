@@ -1264,7 +1264,7 @@ var newSubmitEmail = function(page) {
     
 }
 
-function superDown(page, req, res, next) {
+function superDown(req, res, next) {
   if (req.isAuthenticated() && (req.user.username == 'finn' || req.user.username == 'aron')) { return next(); } else { 
     res.render('down', {isAdmin: false, currPage: page})
   }
