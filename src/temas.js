@@ -370,7 +370,8 @@ MongoClient.connect(MongoURL, function(err, database) {
   });
 });
 
-for tema in temas {
+for (var i = 0; i < temas.length; i++) {
+	tema = temas[i]
 	var collection = db.collection('temas');
 	tema.audio = ''
 	tema.temas = ''
