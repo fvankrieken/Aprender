@@ -1221,11 +1221,18 @@ app.get('/uploadSupport', isFinn, function(req, res){
 app.post('/uploadSupport', isFinn, otherUpload.single('upload'), function(req, res){
   res.render('uS', { isAdmin: (req.isAuthenticated()), status: 'success'})
 });
-
+var count
 app.get('/uploadAll', function(req, res){
   var collection = db.collection('temas');
+  lastCont = ''
   for (var i = 0; i < temas.length; i++) {
     tema = temas[i]
+    if temas.cont == lastCont {
+      count += 1
+    } else {
+      count = 0
+      temas.cont = lastCont
+    }
     tema.audio = ''
     tema.temas = ''
     tema.email = ''
@@ -1234,26 +1241,7 @@ app.get('/uploadAll', function(req, res){
     tema.pathName = utils.removeDiacritics(tema.title).replace(/\W/g, '')
     pathName = tema.pathName
     badge = true
-
-    collection.count({'pathName': pathName}, function(err, count) {
-      collection.count({'cont': tema.cont, 'badge': badge}, function(err, count2) {
-        tema.order = count2
-        collection.insert(tema, function(err, count) {
-          if (i != 44) {
-            console.log(i)
-          }
-          var slickCollect = db.collection('slick');
-          slickCollect.count({'cont': tema.cont}, function(err, count) {
-            if (count == 0) {
-              slickCollect.insert(tema)
-            } else {
-              delete tema._id;
-              slickCollect.findOneAndUpdate({'cont': tema.cont}, tema);
-            }
-          });
-        });
-      });
-    });
+    collection.insert(tema)
   }
   res.sendStatus(400)
 })
