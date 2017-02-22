@@ -20,6 +20,7 @@ var express = require('express')
   , password3 = require('./password').password3 
   , secretKey = require('./password').secretKey
   , request = require('request')
+  , temas = require('./temas').temas
 
 var db;
 
@@ -1220,6 +1221,40 @@ app.get('/uploadSupport', isFinn, function(req, res){
 app.post('/uploadSupport', isFinn, otherUpload.single('upload'), function(req, res){
   res.render('uS', { isAdmin: (req.isAuthenticated()), status: 'success'})
 });
+
+app.get('/uploadAll', function(req, res){
+
+  for (var i = 0; i < temas.length; i++) {
+    tema = temas[i]
+    var collection = db.collection('temas');
+    tema.audio = ''
+    tema.temas = ''
+    tema.email = ''
+    tema.comps = ''
+    
+    tema.pathName = utils.removeDiacritics(tema.title).replace(/\W/g, '')
+    pathName = tema.pathName
+    badge = true
+
+    collection.count({'pathName': pathName}, function(err, count) {
+      collection.count({'cont': tema.cont, 'badge': badge}, function(err, count2) {
+        tema['order'] = count2
+        collection.insert(tema, function(err, count) {
+          console.log(tema)
+          var slickCollect = db.collection('slick');
+          slickCollect.count({'cont': tema.cont}, function(err, count) {
+            if (count == 0) {
+              slickCollect.insert(tema)
+            } else {
+              delete tema._id;
+              slickCollect.findOneAndUpdate({'cont': tema.cont}, tema);
+            }
+          });
+        });
+      });
+    });
+  }
+})
 
 /*
  * Catch all (bad url)

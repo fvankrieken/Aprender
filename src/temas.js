@@ -355,44 +355,4 @@ temas = [
 	}
 ]
 
-MongoClient = require('mongodb').MongoClient
-MongoURL = require('./password').mongoURL
-utils = require('./utils')
-var db
-makeDB = function(err, database) {
-  	if(err) throw err;
-
-  	db = database;
-}
-MongoClient.connect(MongoURL, makeDB);
-
-for (var i = 0; i < temas.length; i++) {
-		tema = temas[i]
-		var collection = db.collection('temas');
-		tema.audio = ''
-		tema.temas = ''
-		tema.email = ''
-		tema.comps = ''
-		
-		tema.pathName = utils.removeDiacritics(tema.title).replace(/\W/g, '')
-		pathName = tema.pathName
-		badge = true
-
-		collection.count({'pathName': pathName}, function(err, count) {
-			collection.count({'cont': tema.cont, 'badge': badge}, function(err, count2) {
-				tema['order'] = count2
-				collection.insert(tema, function(err, count) {
-					console.log(tema)
-					var slickCollect = db.collection('slick');
-					slickCollect.count({'cont': tema.cont}, function(err, count) {
-						if (count == 0) {
-							slickCollect.insert(tema)
-						} else {
-							delete tema._id;
-							slickCollect.findOneAndUpdate({'cont': tema.cont}, tema);
-						}
-					});
-				});
-			});
-		});
-	}
+exports.temas = temas
