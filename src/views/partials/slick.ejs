@@ -15,7 +15,25 @@
 			<a href="/CatalogoDeOfertas/<%= category.pathName %>"><p>Ver este tema</p></a>
 		</div>
 	</div>
-	
+	<div style="height: 234px; flex: 1; margin-top: 25px; border-left: solid 1px #d1d1d1; padding-top: 0px; padding-left: 35px; padding-right: 25px; overflow: hidden;">
+		<% if ((comps != ['']) && (comps != [' '])) { %>
+			<p style="margin-bottom: 5px;">Competencias</p>
+			<ul class="cote2" style="margin-bottom: 0px; overflow: hidden; max-height: 92px;">
+				<% comps.forEach(function(comp, index) { %>
+				<li style="background-color: #3a9ad9"><%= comp %></li>
+				<% }); %>
+			</ul>
+		<% } %>
+		<% if ((temas != ['']) && (temas != [' '])) { %>
+			<p style="margin-bottom: 5px;">Temas relacionados</p>
+			<ul class="cote2" style="margin-bottom: 0px;">
+				<% temas.forEach(function(tema, index) { %>
+					<% var link = "/CatalogoDeOfertas/" + makeLink(tema) %>
+					<a href="<%= link %>"><li style="background-color: #f25d53"><%= tema %></li></a>
+				<% }); %>
+			</ul>
+		<% } %>
+	</div>
 
 </div>
 
