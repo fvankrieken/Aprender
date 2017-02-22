@@ -1253,6 +1253,7 @@ app.get('/uploadAll', function(req, res){
       });
     });
   }
+  res.sendStatus(400)
 })
 
 /*
