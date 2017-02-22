@@ -58,7 +58,7 @@
 					<% if (downloadName == '') { downloadName = fileName } %>
 					<div style="margin-top: 2px;">
 						<p style="margin-bottom:5px; display: inline">
-							<a href="/pdfs/<%= downloadName %>" style="position: relative; left: 2px;color: #0187e0 !important;" download><img src="/img/descargar.svg" style="height: 16px; width: 16px; margin-bottom: 4px">&nbspDescargar la unidad</a>
+							<a href="/temas/<%= downloadName %>" style="position: relative; left: 2px;color: #0187e0 !important;" download><img src="/img/descargar.svg" style="height: 16px; width: 16px; margin-bottom: 4px">&nbspDescargar la unidad</a>
 							<% if (audio && (audio != '')) { %>
 							<span style="position: relative; bottom: 2px; font-size: 14px;">&nbsp|&nbsp</span>
 						</p>
@@ -70,14 +70,14 @@
 						    </div><!-- / Container-->
 						<p id="after" style="margin-bottom: 5px; display: inline;">
 							<span style="position: relative; bottom: 2px; font-size: 14px !important;">&nbsp|&nbsp</span>
-							<a href="/pdfs/<%= audio %>" style="color: #0187e0 !important;"><img src="/img/descargar-audio.svg" style="height: 16px; width: 16px; margin-bottom: 4px">&nbspDescargar Audio</a>
+							<a href="/temas/<%= audio %>" style="color: #0187e0 !important;"><img src="/img/descargar-audio.svg" style="height: 16px; width: 16px; margin-bottom: 4px">&nbspDescargar Audio</a>
 							<% } %>
 						</p>
 					</div>
 					<div style="width: 650px; height: 900px; box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.5); margin-top: 17px">
 
-						<object type="application/pdf" data="/pdfs/<%= fileName %>" width="650" height="900">
-				            <embed type="application/pdf" data="/pdfs/<%= fileName %>" width="650" height="900">
+						<object type="application/pdf" data="/temas/<%= fileName %>" width="650" height="900">
+				            <embed type="application/pdf" data="/temas/<%= fileName %>" width="650" height="900">
 				        </object>
 
 					</div>
@@ -181,12 +181,12 @@
 			}
 
 			container = $('.container');
-			song = new Audio('pdfs/<%= audio %>');
+			song = new Audio('temas/<%= audio %>');
 			duration = song.duration;
 
 			if (song.canPlayType('audio/mpeg;')) {
 			  	song.type= 'audio/mpeg';
-			  	song.src= 'http://aprenderconinteres.org/pdfs/<%= audio%>';
+			  	song.src= 'http://aprenderconinteres.org/temas/<%= audio%>';
 			} else {
 			  	song.type= 'audio/ogg';
 			}

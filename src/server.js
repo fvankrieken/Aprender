@@ -42,7 +42,7 @@ MongoClient.connect(MongoURL, function(err, database) {
 // Storage for uploaded pdfs
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, __dirname + '/public/pdfs');
+    cb(null, __dirname + '/public/temas');
   },
   filename: function (req, file, cb) {
     cb(null, fileNaming(file.originalname));
