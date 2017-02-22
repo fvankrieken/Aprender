@@ -77,7 +77,7 @@ temas = [
 		'title': 'Águila o Sol',
 		'descript': 'En la vida cotidiana suceden eventos los cuales tomamos para jugar o resolver problemas que sin pensarlo van desarrollando nuestras habilidades para enfrentar nuevos desafíos en nuestra misma comunidad. Por ejemplo, en el juego de los volados, cuántas veces podrá una moneda caer del lado del águila, un ave cuántas veces se parará en el mismo lugar, o si un rayo podrá caer en el mismo lugar, o cuando las personas despiertan cuál ojo abren primero, y así sucesivamente con otros eventos que son divertidos y con ello a la vez podemos aprender a observar nuestro medio. Estas y otras situaciones nos facilitan la manera de resolver los problemas.',
 		'cont': 'Mat',
-		'fileName': 'AguilaOSol.pdf'
+		'fileName': 'AguilaOSol.pdf',
 		'badge': true,
 		'desde': 'CONAFE',
 	},
