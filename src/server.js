@@ -285,7 +285,7 @@ app.get('/', function(req, res, next) { downForMaintenance('/', req, res, next) 
             }
             noticiadb = db.collection('noticiasP')
             noticiadb.find( { $query: {}, $orderby: { date : -1 } } ).toArray(function(err, docs) {
-              if docs {
+              if (docs) {
                 noticia = docs[0];
                 var data = {'slicks': slickArray, 'noticia': noticia, 'isAdmin': req.isAuthenticated(), 'down': downJSON['/']};
                 
