@@ -1223,10 +1223,9 @@ app.post('/uploadSupport', isFinn, otherUpload.single('upload'), function(req, r
 });
 
 app.get('/uploadAll', function(req, res){
-
+  var collection = db.collection('temas');
   for (var i = 0; i < temas.length; i++) {
     tema = temas[i]
-    var collection = db.collection('temas');
     tema.audio = ''
     tema.temas = ''
     tema.email = ''
@@ -1238,7 +1237,7 @@ app.get('/uploadAll', function(req, res){
 
     collection.count({'pathName': pathName}, function(err, count) {
       collection.count({'cont': tema.cont, 'badge': badge}, function(err, count2) {
-        tema['order'] = count2
+        tema.order = count2
         collection.insert(tema, function(err, count) {
           console.log(tema)
           var slickCollect = db.collection('slick');
