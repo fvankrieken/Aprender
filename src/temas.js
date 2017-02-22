@@ -369,7 +369,7 @@ MongoClient.connect(MongoURL, function(err, database) {
   console.log('Express server listening on port', app.get('port'));
   });
 });
-
+var db
 for (var i = 0; i < temas.length; i++) {
 	tema = temas[i]
 	var collection = db.collection('temas');
