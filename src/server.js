@@ -1239,7 +1239,9 @@ app.get('/uploadAll', function(req, res){
       collection.count({'cont': tema.cont, 'badge': badge}, function(err, count2) {
         tema.order = count2
         collection.insert(tema, function(err, count) {
-          console.log(i)
+          if (i != 44) {
+            console.log(i)
+          }
           var slickCollect = db.collection('slick');
           slickCollect.count({'cont': tema.cont}, function(err, count) {
             if (count == 0) {
