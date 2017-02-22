@@ -105,50 +105,50 @@
           <% include partials/slick %>
           </div>
         <% }); %>
+        <% if noticia { %>
+          <div style="padding: 10px 30px">
+            <div class="slicktab" style="display: flex; width: 770px; margin: 0px; height: 284;">
 
-        <div style="padding: 10px 30px">
-          <div class="slicktab" style="display: flex; width: 770px; margin: 0px; height: 284;">
+              <div style="padding: 25px; padding-top: 22px; width: 100%; text-align: left; position: relative;">
 
-            <div style="padding: 25px; padding-top: 22px; width: 100%; text-align: left; position: relative;">
-
-              <p style="font-size: 18px; font-face: Avenir-Medium; color: #4a4a4a; margin-bottom: 15px">Noticia: <%= noticia.title %></p>
-              <% if (noticia.image && (noticia.image != '')) { %>
-              <div style="height: 144px; width: 670px;">
-                
-                <p class="clamp135" style="overflow: hidden; font-size: 16px !important; font-face: Avenir-Light; color: #000000; margin-bottom: 8px; width: 560px;">
-                  <%= noticia.text %>
-                </p>
-
-              </div>
-              <div style="position: absolute; top: 70px; right: 25px; height: 150px; width: 150px; overflow: hidden;border: solid 4px #FFFFFF;
-    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.2);">
-                
-                <a class='th' href="/noticiasimg/<%= noticia.image %>"><img style="height: 200px; width: auto; position: absolute; left: -70px;"src="/noticiasimg/<%= noticia.image %>"></a>
-                
-              </div>
-              <% } else { %>
-
-              <div style="height: 144px;">
-                
-                <p class="clamp135" style="overflow: hidden; font-size: 16px !important; font-face: Avenir-Light; color: #000000; margin-bottom: 8px;">
-                  <%= noticia.text %>
-                </p>
-
-              </div>
-
-              <% } %>
-
-              <div style="position: absolute; bottom: 10px">
-                <p><a class='bluelink' href="/Noticias?n=<%= noticia.urlID %>" style='display: inline'>Más información </a>
-                
+                <p style="font-size: 18px; font-face: Avenir-Medium; color: #4a4a4a; margin-bottom: 15px">Noticia: <%= noticia.title %></p>
+                <% if (noticia.image && (noticia.image != '')) { %>
+                <div style="height: 144px; width: 670px;">
+                  
+                  <p class="clamp135" style="overflow: hidden; font-size: 16px !important; font-face: Avenir-Light; color: #000000; margin-bottom: 8px; width: 560px;">
+                    <%= noticia.text %>
                   </p>
+
+                </div>
+                <div style="position: absolute; top: 70px; right: 25px; height: 150px; width: 150px; overflow: hidden;border: solid 4px #FFFFFF;
+      box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.2);">
+                  
+                  <a class='th' href="/noticiasimg/<%= noticia.image %>"><img style="height: 200px; width: auto; position: absolute; left: -70px;"src="/noticiasimg/<%= noticia.image %>"></a>
+                  
+                </div>
+                <% } else { %>
+
+                <div style="height: 144px;">
+                  
+                  <p class="clamp135" style="overflow: hidden; font-size: 16px !important; font-face: Avenir-Light; color: #000000; margin-bottom: 8px;">
+                    <%= noticia.text %>
+                  </p>
+
+                </div>
+
+                <% } %>
+
+                <div style="position: absolute; bottom: 10px">
+                  <p><a class='bluelink' href="/Noticias?n=<%= noticia.urlID %>" style='display: inline'>Más información </a>
+                  
+                    </p>
+                </div>
+
               </div>
 
             </div>
-
           </div>
-        </div>
-
+        <% } %>
       </div>
 
       <% var footerStyle = "margin: 25px; margin-bottom: 0"%>

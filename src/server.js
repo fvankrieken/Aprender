@@ -254,8 +254,6 @@ app.locals.slickBlank = {'title': '', 'pathName': '', 'comps': [], 'temas': [], 
  */
 
 app.get('/', function(req, res, next) { downForMaintenance('/', req, res, next) }, function(req, res){
-  res.render('RT', {currPage: '/RelacionTutora', isAdmin: req.isAuthenticated, down: downJSON['/RelacionTutora']})
-  /*
   var collection = db.collection('slick');
   var slickArray = []
   var toAdd
@@ -287,8 +285,13 @@ app.get('/', function(req, res, next) { downForMaintenance('/', req, res, next) 
             }
             noticiadb = db.collection('noticiasP')
             noticiadb.find( { $query: {}, $orderby: { date : -1 } } ).toArray(function(err, docs) {
-              noticia = docs[0];
-              var data = {'slicks': slickArray, 'noticia': noticia, 'isAdmin': req.isAuthenticated(), 'down': downJSON['/']};
+              if docs {
+                noticia = docs[0];
+                var data = {'slicks': slickArray, 'noticia': noticia, 'isAdmin': req.isAuthenticated(), 'down': downJSON['/']};
+                
+              } else {
+                var data = {'slicks': slickArray, 'noticia': false, 'isAdmin': req.isAuthenticated(), 'down': downJSON['/']};
+              }
               res.render('index', data);
             });
           });
@@ -296,7 +299,7 @@ app.get('/', function(req, res, next) { downForMaintenance('/', req, res, next) 
       });
     });
   });
-  */
+  
 });
 
 app.post('/', ensureAuthenticated, function(req, res){
@@ -1221,6 +1224,7 @@ app.get('/uploadSupport', isFinn, function(req, res){
 app.post('/uploadSupport', isFinn, otherUpload.single('upload'), function(req, res){
   res.render('uS', { isAdmin: (req.isAuthenticated()), status: 'success'})
 });
+/*
 var count
 app.get('/uploadAll', function(req, res){
   var collection = db.collection('temas');
@@ -1246,7 +1250,7 @@ app.get('/uploadAll', function(req, res){
   }
   res.sendStatus(400)
 })
-
+*/
 /*
  * Catch all (bad url)
  */
