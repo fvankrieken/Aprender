@@ -360,40 +360,41 @@ MongoURL = require('./password').mongoURL
 utils = require('./utils')
 
 MongoClient.connect(MongoURL, function(err, database) {
-  if(err) throw err;
+  	if(err) throw err;
 
-  db = database;
+  	db = database;
 
-  // Start the application after the database connection is ready
-  app.listen(app.get('port'), function() {
-  console.log('Express server listening on port', app.get('port'));
-  });
-});
-var db
-for (var i = 0; i < temas.length; i++) {
-	tema = temas[i]
-	var collection = db.collection('temas');
-	tema.audio = ''
-	tema.temas = ''
-	tema.email = ''
-	tema.comps = ''
-	
-	tema.pathName = utils.removeDiacritics(tema.title).replace(/\W/g, '')
+  	// Start the application after the database connection is ready
+  	app.listen(app.get('port'), function() {
+  	console.log('Express server listening on port', app.get('port'));
 
-	collection.count({'pathName': pathName}, function(err, count) {
-		collection.count({'cont': tema.cont, 'badge': badge}, function(err, count2) {
-			tema['order'] = count2
-			collection.insert(tema, function(err, count) {
-				var slickCollect = db.collection('slick');
-				slickCollect.count({'cont': tema.cont}, function(err, count) {
-					if (count == 0) {
-						slickCollect.insert(tema, res.render('admin', { status: 'success' }))
-					} else {
-						delete tema._id;
-						slickCollect.findOneAndUpdate({'cont': tema.cont}, tema);
-					}
+  	for (var i = 0; i < temas.length; i++) {
+		tema = temas[i]
+		var collection = db.collection('temas');
+		tema.audio = ''
+		tema.temas = ''
+		tema.email = ''
+		tema.comps = ''
+		
+		tema.pathName = utils.removeDiacritics(tema.title).replace(/\W/g, '')
+
+		collection.count({'pathName': pathName}, function(err, count) {
+			collection.count({'cont': tema.cont, 'badge': badge}, function(err, count2) {
+				tema['order'] = count2
+				collection.insert(tema, function(err, count) {
+					var slickCollect = db.collection('slick');
+					slickCollect.count({'cont': tema.cont}, function(err, count) {
+						if (count == 0) {
+							slickCollect.insert(tema, res.render('admin', { status: 'success' }))
+						} else {
+							delete tema._id;
+							slickCollect.findOneAndUpdate({'cont': tema.cont}, tema);
+						}
+					});
 				});
 			});
 		});
-	});
-}
+	}
+
+  });
+});
