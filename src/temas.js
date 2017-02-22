@@ -373,6 +373,7 @@ MongoClient.connect(MongoURL, function(err, database) {
 		tema.comps = ''
 		
 		tema.pathName = utils.removeDiacritics(tema.title).replace(/\W/g, '')
+		pathName = tema.pathName
 
 		collection.count({'pathName': pathName}, function(err, count) {
 			collection.count({'cont': tema.cont, 'badge': badge}, function(err, count2) {
