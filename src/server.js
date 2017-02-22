@@ -1227,7 +1227,7 @@ app.get('/uploadAll', function(req, res){
   lastCont = ''
   for (var i = 0; i < temas.length; i++) {
     tema = temas[i]
-    if temas.cont == lastCont {
+    if (temas.cont == lastCont) {
       count += 1
     } else {
       count = 0
