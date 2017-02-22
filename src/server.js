@@ -349,7 +349,7 @@ app.post('/MapeoVirtual', function(req, res) {
  */
 
 // GET CdO
-app.get('/CatalogoDeOfertas', function(req, res, next) { downForMaintenance('/CatalogoDeOfertas', req, res, next) }, function(req, res, next) { superDown('/CatalogoDeOfertas', req, res, next) }, function(req, res){
+app.get('/CatalogoDeOfertas', function(req, res, next) { downForMaintenance('/CatalogoDeOfertas', req, res, next) }, function(req, res){
   var collection = db.collection('temas');
   var catJSON = {};
 
@@ -1221,30 +1221,6 @@ app.get('/uploadSupport', isFinn, function(req, res){
 app.post('/uploadSupport', isFinn, otherUpload.single('upload'), function(req, res){
   res.render('uS', { isAdmin: (req.isAuthenticated()), status: 'success'})
 });
-var count
-app.get('/uploadAll', function(req, res){
-  var collection = db.collection('temas');
-  lastCont = ''
-  for (var i = 0; i < temas.length; i++) {
-    tema = temas[i]
-    if (temas.cont == lastCont) {
-      count += 1
-    } else {
-      count = 0
-      temas.cont = lastCont
-    }
-    tema.audio = ''
-    tema.temas = ''
-    tema.email = ''
-    tema.comps = ''
-    
-    tema.pathName = utils.removeDiacritics(tema.title).replace(/\W/g, '')
-    pathName = tema.pathName
-    badge = true
-    collection.insert(tema)
-  }
-  res.sendStatus(400)
-})
 
 /*
  * Catch all (bad url)
