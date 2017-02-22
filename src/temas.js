@@ -358,7 +358,7 @@ temas = [
 MongoClient = require('mongodb').MongoClient
 MongoURL = require('./password').mongoURL
 utils = require('./utils')
-
+var db
 makeDB = function(err, database) {
   	if(err) throw err;
 
