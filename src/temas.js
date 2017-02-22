@@ -392,5 +392,4 @@ MongoClient.connect(MongoURL, function(err, database) {
 		});
 	}
 
-  });
-});
+ });
