@@ -383,7 +383,7 @@ MongoClient.connect(MongoURL, function(err, database) {
 					var slickCollect = db.collection('slick');
 					slickCollect.count({'cont': tema.cont}, function(err, count) {
 						if (count == 0) {
-							slickCollect.insert(tema, res.render('admin', { status: 'success' }))
+							slickCollect.insert(tema)
 						} else {
 							delete tema._id;
 							slickCollect.findOneAndUpdate({'cont': tema.cont}, tema);
