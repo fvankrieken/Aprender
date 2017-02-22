@@ -729,11 +729,11 @@ app.post('/email/*', function(req, res) {
 });
 
 /*
- * Compartir Experiencias
+ * Compartir Temas
  */
 
 // GET CT
-app.get('/CompartirTemas', function(req, res, next) { downForMaintenance('/CompartirTemas', req, res, next) }, function(req, res, next) { superDown('/CompartirTemas', req, res, next) }, function(req, res){
+app.get('/CompartirTemas', function(req, res, next) { downForMaintenance('/CompartirTemas', req, res, next) }, function(req, res){
   var fcaptcha = req.session.fcaptcha || false;
   req.session.fcaptcha = false;
   res.render('CT', { 'isAdmin': (req.isAuthenticated()), 'status': '', 'down': downJSON['/CompartirTemas'], 'fcaptcha': fcaptcha});
