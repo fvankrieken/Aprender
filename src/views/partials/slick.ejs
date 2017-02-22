@@ -1,6 +1,6 @@
 <% var comps = category.comps %>
 <% var temas = category.temas %>
-<% if ((category.cont != 'Tex') && (((temas != ['']) && (temas != [' '])) || (comps != [''] && (comps != [' '])))) { %>
+<% if ((category.cont != 'Tex') && (((temas != ['']) && (temas != [' '])) || ((comps != ['']) && (comps != [' '])))) { %>
 
 <div class="slicktab" style="display: flex; width: 770px; margin: 0px; height: 284;">
 
@@ -16,7 +16,7 @@
 		</div>
 	</div>
 	<div style="height: 234px; flex: 1; margin-top: 25px; border-left: solid 1px #d1d1d1; padding-top: 0px; padding-left: 35px; padding-right: 25px; overflow: hidden;">
-		<% if (comps != [''] && (comps != [' '])) { %>
+		<% if ((comps != ['']) && (comps != [' '])) { %>
 			<p style="margin-bottom: 5px;">Competencias</p>
 			<ul class="cote2" style="margin-bottom: 0px; overflow: hidden; max-height: 92px;">
 				<% comps.forEach(function(comp, index) { %>
