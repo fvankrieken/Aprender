@@ -365,6 +365,7 @@ MongoClient.connect(MongoURL, function(err, database) {
   	db = database;
 
   	for (var i = 0; i < temas.length; i++) {
+  		print('here')
 		tema = temas[i]
 		var collection = db.collection('temas');
 		tema.audio = ''
