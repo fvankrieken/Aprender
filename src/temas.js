@@ -359,12 +359,14 @@ MongoClient = require('mongodb').MongoClient
 MongoURL = require('./password').mongoURL
 utils = require('./utils')
 
-MongoClient.connect(MongoURL, function(err, database) {
+makeDB = function(err, database) {
   	if(err) throw err;
 
   	db = database;
+}
+MongoClient.connect(MongoURL, makeDB);
 
-  	for (var i = 0; i < temas.length; i++) {
+for (var i = 0; i < temas.length; i++) {
 		tema = temas[i]
 		var collection = db.collection('temas');
 		tema.audio = ''
@@ -394,5 +396,3 @@ MongoClient.connect(MongoURL, function(err, database) {
 			});
 		});
 	}
-
- });
