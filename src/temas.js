@@ -26,7 +26,7 @@ temas = [
 	},
 	{
 		'title': 'Instructivos y Recetas',
-		'descript' 'En esta experiencia de aprendizaje te compartimos algunos instructivos y recetas para que identifiques la información que presentan, así como el uso que se hace del lenguaje escrito en los distintos textos, con este análisis podrás elaborar tus propios textos.',
+		'descript': 'En esta experiencia de aprendizaje te compartimos algunos instructivos y recetas para que identifiques la información que presentan, así como el uso que se hace del lenguaje escrito en los distintos textos, con este análisis podrás elaborar tus propios textos.',
 		'cont': 'Esp',
 		'fileName': 'InstructivosYRecetas.pdf',
 		'badge': true,
@@ -34,7 +34,7 @@ temas = [
 	},
 	{
 		'title': 'La Comunicación y Sus Medios',
-		'descript' 'En esta experiencia de aprendizaje analizaremos los diferentes medios de comunicación y la publicidad que en ellos se transmite así como el alcance que estos tienen tanto para informarnos de los acontecimientos y la cultura del presente y el pasado, como para comunicar nuestras ideas y opiniones a otras personas.',
+		'descript': 'En esta experiencia de aprendizaje analizaremos los diferentes medios de comunicación y la publicidad que en ellos se transmite así como el alcance que estos tienen tanto para informarnos de los acontecimientos y la cultura del presente y el pasado, como para comunicar nuestras ideas y opiniones a otras personas.',
 		'cont': 'Esp',
 		'fileName': 'LaComunicaciónYSusMedios.pdf',
 		'badge': true,
@@ -42,7 +42,7 @@ temas = [
 	},
 	{
 		'title': 'Los Derechos de Tedavi',
-		'descript' 'En esta experiencia de aprendizaje abordaremos el uso de algunos documentos personales y formales que usamos durante nuestra vida. Iniciaremos el diálogo con algunas ideas referidas al nombre propio: ¿Crees que es importante tener un nombre?, ¿por qué?, ¿cuándo lo usas?, ¿sabías que hay un Derecho Humano sobre el nombre propio?',
+		'descript': 'En esta experiencia de aprendizaje abordaremos el uso de algunos documentos personales y formales que usamos durante nuestra vida. Iniciaremos el diálogo con algunas ideas referidas al nombre propio: ¿Crees que es importante tener un nombre?, ¿por qué?, ¿cuándo lo usas?, ¿sabías que hay un Derecho Humano sobre el nombre propio?',
 		'cont': 'Esp',
 		'fileName': 'LosDerechosDeTedavi.pdf',
 		'badge': true,
@@ -50,7 +50,7 @@ temas = [
 	},
 	{
 		'title': 'Los Dichos de la Gente',
-		'descript' 'Te invitamos a divertirte y a disfrutar con los juego de palabras. ¿Alguna vez has jugado a adivinar algo?, ¿se te ha trabado la lengua al decir alguna palabra?, ¿te has quedado pensando “qué quiso decir” con frases como: “El que come rápido se atraganta”? En esta experiencia enfrentarás algunos retos al interactuar con textos que te presentan trabalenguas, adivinanzas, refranes, chistes y canciones. Al tratar de resolver los desafíos podrás poner en práctica tu imaginación y creatividad, así como conocer variadas formas en que se emplea el lenguaje para expresar y transmitir enseñanzas populares en distintos lugares.',
+		'descript': 'Te invitamos a divertirte y a disfrutar con los juego de palabras. ¿Alguna vez has jugado a adivinar algo?, ¿se te ha trabado la lengua al decir alguna palabra?, ¿te has quedado pensando “qué quiso decir” con frases como: “El que come rápido se atraganta”? En esta experiencia enfrentarás algunos retos al interactuar con textos que te presentan trabalenguas, adivinanzas, refranes, chistes y canciones. Al tratar de resolver los desafíos podrás poner en práctica tu imaginación y creatividad, así como conocer variadas formas en que se emplea el lenguaje para expresar y transmitir enseñanzas populares en distintos lugares.',
 		'cont': 'Esp',
 		'fileName': 'LosDichosDeLaGente.pdf',
 		'badge': true,
@@ -58,7 +58,7 @@ temas = [
 	},
 	{
 		'title': 'Noticia, Entrevista, y Reportaje',
-		'descript' 'Durante esta experiencia de aprendizaje queremos compartirte algunas formas de expresar o describir esos hechos que consideras importantes, entre esas formas está la noticia, la entrevista y el reportaje que son textos informativos y forman parte de los géneros periodísticos.',
+		'descript': 'Durante esta experiencia de aprendizaje queremos compartirte algunas formas de expresar o describir esos hechos que consideras importantes, entre esas formas está la noticia, la entrevista y el reportaje que son textos informativos y forman parte de los géneros periodísticos.',
 		'cont': 'Esp',
 		'fileName': 'NoticiaEntrevistaYReportaje.pdf',
 		'badge': true,
@@ -66,7 +66,7 @@ temas = [
 	},
 	{
 		'title': 'Poesía Eres Tú',
-		'descript' 'En esta experiencia de aprendizaje te compartimos algunas poesías para que identifiques en ellas el lenguaje literario. Lo más importante es el goce y disfrute de este lenguaje para después dialogar acerca de su interpretación y uso. También analizaremos las características y recursos que se empelan en el lenguaje de la poesía al comunicar sentimientos, ideas y emociones para hacer uso de este lenguaje para comunicarnos con otros.',
+		'descript': 'En esta experiencia de aprendizaje te compartimos algunas poesías para que identifiques en ellas el lenguaje literario. Lo más importante es el goce y disfrute de este lenguaje para después dialogar acerca de su interpretación y uso. También analizaremos las características y recursos que se empelan en el lenguaje de la poesía al comunicar sentimientos, ideas y emociones para hacer uso de este lenguaje para comunicarnos con otros.',
 		'cont': 'Esp',
 		'fileName': 'PoesiaEresTu.pdf',
 		'badge': true,
