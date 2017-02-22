@@ -364,10 +364,6 @@ MongoClient.connect(MongoURL, function(err, database) {
 
   	db = database;
 
-  	// Start the application after the database connection is ready
-  	app.listen(app.get('port'), function() {
-  	console.log('Express server listening on port', app.get('port'));
-
   	for (var i = 0; i < temas.length; i++) {
 		tema = temas[i]
 		var collection = db.collection('temas');
